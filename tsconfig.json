@@ -11,7 +11,7 @@
     "types": ["node", "react", "react-dom"],
     "allowJs": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "incremental": true,
     "noEmit": true,
