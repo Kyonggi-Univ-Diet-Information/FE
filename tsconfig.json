@@ -10,13 +10,11 @@
     "target": "ES2017",
     "types": ["node", "react", "react-dom"],
     "allowJs": true,
-    "allowImportingTsExtensions": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
     "incremental": true,
     "noEmit": true,
-    "resolveJsonModule": true,
     "plugins": [{ "name": "next" }]
   },
   "include": [
