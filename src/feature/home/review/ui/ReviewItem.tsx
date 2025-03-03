@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { MdOutlineThumbUp } from "react-icons/md";
 import { IoMdThumbsUp } from "react-icons/io";
 import { del, get, post, REQUEST } from "~/shared/api";
-import { cn, getCookie } from "~/shared/utils";
+import { cn, formatDatefromString, getCookie } from "~/shared/utils";
 import { Review } from "~/feature/home/review/types";
 
 export default function ReviewItem({ review }: { review: Review }) {
@@ -65,10 +65,10 @@ export default function ReviewItem({ review }: { review: Review }) {
   return (
     <div className="border-header-border m-0 box-border flex flex-col gap-y-1 rounded-lg border-[1px] bg-white/60 p-3 text-sm leading-normal">
       <div className="m-0 flex items-center justify-between pb-1 text-sm font-semibold">
-        <div className="flex w-full items-baseline justify-between">
-          익명
-          <span className="text-xs font-medium">
-            {review.createdAt.slice(0, 10)}
+        <div className="flex w-full items-center justify-between">
+          익명{Math.floor((Math.random() * 1000) % 900)}
+          <span className="text-xs font-normal">
+            {formatDatefromString(review.createdAt.slice(0, 10))}
           </span>
         </div>
       </div>
