@@ -2,7 +2,7 @@ import { Kakao } from "~/assets";
 
 export default function LoginPage() {
   return (
-    <div className="bg-primary/80 grid h-[calc(100vh-100px)] w-full place-items-center overflow-hidden md:h-[calc(100vh-70px)]">
+    <div className="bg-primary/80 grid h-full w-full place-items-center overflow-hidden">
       <div className="rounded-normal flex h-1/2 w-[60vw] flex-col items-center justify-center gap-y-2 border-2 border-white/20 bg-white/50">
         <p className="text-center text-lg leading-[1.5em]">
           카카오 로그인 후 <br />
