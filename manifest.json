@@ -1,0 +1,25 @@
+{
+  "theme_color": "#ffffff",
+  "background_color": "#f4f4f4",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "ko-KR",
+  "name": "기룡아 밥먹자",
+  "short_name": "기밥",
+  "start_url": "/"
+}
