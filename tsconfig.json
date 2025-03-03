@@ -6,6 +6,7 @@
     },
     "esModuleInterop": true,
     "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
     "target": "ES2017",
     "types": ["node", "react", "react-dom"],
     "allowJs": true,
