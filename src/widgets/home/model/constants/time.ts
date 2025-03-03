@@ -10,6 +10,6 @@ export const TIME_LABELS: Time[] = ["아침", "점심", "저녁"];
 
 export const RUN_TIME = {
   BREAKFAST: "",
-  LUNCH: "11:30 ~ 12:50",
+  LUNCH: "10:50 ~ 13:30",
   DINNER: "17:00 ~ 19:00",
 };

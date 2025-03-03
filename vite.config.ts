@@ -10,10 +10,4 @@ export default defineConfig({
       "~": "/src",
     },
   },
-
-  build: {
-    rollupOptions: {
-      external: ["react-icons/io"],
-    },
-  },
 });
