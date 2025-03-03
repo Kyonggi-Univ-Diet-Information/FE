@@ -1,12 +1,15 @@
 import { RouteObject } from "react-router-dom";
 
+import { PATH } from "~/shared/constants";
+
 import { HomePage } from "~/pages/home/ui";
 import { LoginPage } from "~/pages/login/ui";
-import { PATH } from "~/shared/constants";
+import { RestaurantPage } from "~/pages/restaurant/ui";
 
 export const HomeRoutes: RouteObject = {
   children: [
     { path: PATH.HOME, element: <HomePage /> },
     { path: PATH.LOGIN, element: <LoginPage /> },
+    { path: PATH.RESTAURANT, element: <RestaurantPage /> },
   ],
 };

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { RiceImg } from "~/assets";
 import { useDateStore } from "~/shared/store";

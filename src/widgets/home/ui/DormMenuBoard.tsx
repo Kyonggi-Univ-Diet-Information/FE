@@ -13,16 +13,8 @@ export default function DormMenuBoard() {
       <TimeSelector selected={time} setSelected={setTime} />
       <div className="rounded-normal flex flex-1 gap-x-5 bg-white p-5">
         <MenuView time={time} />
-        <ReviewV />
+        <ReviewView />
       </div>
-    </div>
-  );
-}
-
-function ReviewV() {
-  return (
-    <div className="md:bg-secondary md:rounded-small hidden md:flex md:flex-1">
-      <ReviewView />
     </div>
   );
 }

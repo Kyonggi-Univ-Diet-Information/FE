@@ -1,17 +1,21 @@
 import { ComponentProps } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 import { PATH } from "~/shared/constants";
-import { getCookie } from "~/shared/utils";
+import { cn, getCookie } from "~/shared/utils";
 
 export default function Header() {
-  const LogOut = () => {
-    document.cookie = "token=; max-age=0; path=/";
-    window.location.reload();
-  };
-
+  const location = useLocation();
+  const theme = location.pathname === "/restaurant" ? "black" : "white";
   return (
-    <div className="padding border-header-border flex h-10 w-full items-center justify-between border-b-[0.5px] bg-white/40">
+    <div
+      className={cn(
+        "padding border-header-border flex h-10 w-full items-center justify-between",
+        theme === "black"
+          ? "bg-black text-white"
+          : "border-b-[0.5px] bg-white/40",
+      )}
+    >
       <div className="flex items-baseline">
         <Link className="text-2xl font-bold" to={PATH.HOME}>
           기밥
@@ -19,7 +23,7 @@ export default function Header() {
         <span className="md:text-md ml-2 hidden md:flex">기룡아 밥먹자</span>
       </div>
       <div className="m-0 flex items-center justify-end gap-x-7">
-        <NavButton label="교내식당" to={PATH.HOME} />
+        <NavButton label="교내식당" to={PATH.RESTAURANT} />
         {getCookie("token") ? (
           <NavButton onClick={LogOut} label="로그아웃" />
         ) : (
@@ -29,6 +33,11 @@ export default function Header() {
     </div>
   );
 }
+
+const LogOut = () => {
+  document.cookie = "token=; max-age=0; path=/";
+  window.location.reload();
+};
 
 interface NavButtonProp {
   label: string;
