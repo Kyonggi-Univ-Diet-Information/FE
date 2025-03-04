@@ -28,7 +28,7 @@ const Symbol = ({ src, alt }) => (
 const KakaoLoginButton = ({ children, onClick }) => (
   <button
     onClick={onClick}
-    className="flex h-[50px] w-[300px] cursor-pointer items-center justify-center rounded-[12px] border-none bg-[#fee500] px-5 py-2.5 text-lg hover:bg-[#e8d102] md:w-[200px]"
+    className="rounded-normal flex h-[50px] cursor-pointer items-center justify-center border-none bg-[#fee500] px-5 py-2.5 text-lg hover:bg-[#e8d102] md:w-[200px]"
   >
     {children}
   </button>
