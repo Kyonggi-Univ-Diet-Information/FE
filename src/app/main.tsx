@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [HomeRoutes],
   },
-  { path: "auth", element: <AuthPage /> },
-  { path: "*", element: <ErrorPage /> },
+  { path: "/auth", element: <AuthPage /> },
+  { path: "/*", element: <ErrorPage /> },
 ]);
 
 const rootElement = document.getElementById("root") as HTMLElement;
