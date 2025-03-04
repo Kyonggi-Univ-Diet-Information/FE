@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { fetchKakao } from "~/shared/api";
+import { get, REQUEST } from "~/shared/api";
 import { Loading } from "~/assets";
 import { PATH } from "~/shared/constants";
 
@@ -10,14 +10,27 @@ export default function AuthPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
+  async function fetchLogin() {
+    const code = location.search.split("?code=")[1];
+    try {
+      const response = await get({
+        request: REQUEST.fetchKakaoLogin,
+        params: { code },
+        format: true,
+      });
+      document.cookie = `token=${response.token}; max-age=3600; path=/`;
+      setIsLoading(false);
+      navigate(PATH.HOME);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
     const code = location.search.split("?code=")[1];
     if (code) {
-      fetchKakao(code).then((response) => {
-        document.cookie = `token=${response.token}; max-age=3600; path=/`;
-        setIsLoading(false);
-        navigate(PATH.HOME);
-      });
+      fetchLogin();
     } else {
       setIsLoading(false);
     }

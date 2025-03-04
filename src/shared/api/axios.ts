@@ -4,9 +4,22 @@ const instance = axios.create({
   baseURL: "https://api.kiryong.site/",
 });
 
-export const get = async (request: string, headers?: unknown) => {
+export const get = async ({
+  request,
+  headers,
+  format = false,
+  params,
+}: {
+  request: string;
+  headers?: unknown;
+  format?: boolean;
+  params?: unknown;
+}) => {
   try {
-    const response = await instance.get(`${request}`, headers);
+    let response;
+    if (params) response = await instance.get(`${request}`, { params: params });
+    else response = await instance.get(`${request}`, headers);
+    if (format) return response;
     return response.data.result;
   } catch (error) {
     console.log(error);

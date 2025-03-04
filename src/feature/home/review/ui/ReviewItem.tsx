@@ -11,21 +11,24 @@ export default function ReviewItem({ review }: { review: Review }) {
   const [fav, setFav] = useState(false);
 
   async function fetchFavCnt() {
-    const cnt = await get(REQUEST.fetchReviewFav + review.id);
-    setFavCount(cnt.data);
+    const response = await get({
+      request: REQUEST.fetchReviewFav + review.id,
+      format: true,
+    });
+    setFavCount(response.data);
   }
 
   async function fetchIsFaved() {
     try {
-      const response = await get(REQUEST.fetchMemberFav, {
+      const response = await get({
+        request: REQUEST.fetchMemberFav,
         headers: { Authorization: `Bearer ${getCookie("token")}` },
+        format: true,
       });
-      console.log(response);
       const favList = response.data.map((item) => item.dietFoodReviewId);
-      console.log(favList);
-      console.log(review.id);
-      console.log(favList.includes(review.id));
       setFav(favList.includes(review.id));
+
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +69,7 @@ export default function ReviewItem({ review }: { review: Review }) {
     <div className="border-header-border m-0 box-border flex flex-col gap-y-1 rounded-lg border-[1px] bg-white/60 p-3 text-sm leading-normal">
       <div className="m-0 flex items-center justify-between pb-1 text-sm font-semibold">
         <div className="flex w-full items-center justify-between">
-          익명{Math.floor((Math.random() * 1000) % 900)}
+          익명
           <span className="text-xs font-normal">
             {formatDatefromString(review.createdAt.slice(0, 10))}
           </span>
