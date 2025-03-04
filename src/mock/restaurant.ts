@@ -1,0 +1,192 @@
+export const MENU = {
+  경슐랭: [
+    {
+      id: 1,
+      url: "https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg",
+      menu: "치즈 버거",
+      price: 5000,
+    },
+    {
+      id: 2,
+      url: "https://potatorolls.com/wp-content/uploads/2020/10/Basic-Hot-Dogs-960x640.jpg",
+      menu: "칠리 핫도그",
+      price: 4500,
+    },
+    {
+      id: 3,
+      url: "https://flexible.img.hani.co.kr/flexible/normal/481/587/imgdb/original/2023/0425/20230425501390.jpg",
+      menu: "갈릭 감자튀김",
+      price: 3000,
+    },
+    {
+      id: 4,
+      url: "https://static.wtable.co.kr/image-resize/production/service/recipe/202/16x9/bc2c16de-84b3-487d-994d-62fc671070da.jpg",
+      menu: "시저 샐러드",
+      price: 4000,
+    },
+    {
+      id: 5,
+      url: "https://cdn.dominos.co.kr/admin/upload/goods/20230619_F33836Pn.jpg",
+      menu: "마르게리타 피자",
+      price: 9000,
+    },
+    {
+      id: 6,
+      url: "https://kormedi.com/wp-content/uploads/2021/05/r658x033-580x387.jpg",
+      menu: "바나나 오트밀",
+      price: 3500,
+    },
+  ],
+  감성코어: [
+    {
+      id: 1,
+      url: "https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg",
+      menu: "짜장면",
+      price: 6000,
+    },
+    {
+      id: 2,
+      url: "https://potatorolls.com/wp-content/uploads/2020/10/Basic-Hot-Dogs-960x640.jpg",
+      menu: "짬뽕",
+      price: 7000,
+    },
+    {
+      id: 3,
+      url: "https://flexible.img.hani.co.kr/flexible/normal/481/587/imgdb/original/2023/0425/20230425501390.jpg",
+      menu: "탕수육",
+      price: 12000,
+    },
+    {
+      id: 4,
+      url: "https://ottogi.okitchen.co.kr/pds/upfile/2022-07-28_115060389[10].jpg",
+      menu: "마파두부",
+      price: 8000,
+    },
+    {
+      id: 5,
+      url: "https://cdn.dominos.co.kr/admin/upload/goods/20230619_F33836Pn.jpg",
+      menu: "고추잡채",
+      price: 9000,
+    },
+    {
+      id: 6,
+      url: "https://kormedi.com/wp-content/uploads/2021/05/r658x033-580x387.jpg",
+      menu: "군만두",
+      price: 5000,
+    },
+  ],
+  오아시스: [
+    {
+      id: 1,
+      url: "https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg",
+      menu: "비빔밥",
+      price: 7000,
+    },
+    {
+      id: 2,
+      url: "https://potatorolls.com/wp-content/uploads/2020/10/Basic-Hot-Dogs-960x640.jpg",
+      menu: "김치찌개",
+      price: 8000,
+    },
+    {
+      id: 3,
+      url: "https://flexible.img.hani.co.kr/flexible/normal/481/587/imgdb/original/2023/0425/20230425501390.jpg",
+      menu: "된장찌개",
+      price: 7000,
+    },
+    {
+      id: 4,
+      url: "https://ottogi.okitchen.co.kr/pds/upfile/2022-07-28_115060389[10].jpg",
+      menu: "불고기",
+      price: 12000,
+    },
+    {
+      id: 5,
+      url: "https://cdn.dominos.co.kr/admin/upload/goods/20230619_F33836Pn.jpg",
+      menu: "떡갈비",
+      price: 15000,
+    },
+    {
+      id: 6,
+      url: "https://kormedi.com/wp-content/uploads/2021/05/r658x033-580x387.jpg",
+      menu: "잡채",
+      price: 10000,
+    },
+  ],
+  샐리박스: [
+    {
+      id: 1,
+      url: "https://ldb-phinf.pstatic.net/20231103_9/1698990473113UhmEY_JPEG/1000001311.jpg",
+      menu: "아메리카노 샌드위치 세트",
+      price: 5000,
+    },
+    {
+      id: 2,
+      url: "https://ldb-phinf.pstatic.net/20231103_295/16989915255001cmcS_JPEG/1000001165.jpg",
+      menu: "샐리버거",
+      price: 9000,
+    },
+    {
+      id: 3,
+      url: "https://ldb-phinf.pstatic.net/20231103_188/1698990742855YzeW3_JPEG/1000001166.jpg",
+      menu: "토마토 에그 함박 파스타",
+      price: 8000,
+    },
+    {
+      id: 4,
+      url: "https://ldb-phinf.pstatic.net/20231103_74/1698990677693mTlc3_JPEG/1000001160.jpg",
+      menu: "게살새우볶음밥",
+      price: 7000,
+    },
+    {
+      id: 5,
+      url: "https://ldb-phinf.pstatic.net/20231103_73/1698990628677mKinD_JPEG/1000001167.jpg",
+      menu: "베이컨 김치볶음밥",
+      price: 6000,
+    },
+    {
+      id: 6,
+      url: "https://ldb-phinf.pstatic.net/20231103_30/1698990566600jG1nz_JPEG/1000001297.jpg",
+      menu: "샌드위치",
+      price: 4000,
+    },
+  ],
+  이스퀘어: [
+    {
+      id: 1,
+      url: "https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg",
+      menu: "치킨 티카",
+      price: 12000,
+    },
+    {
+      id: 2,
+      url: "https://potatorolls.com/wp-content/uploads/2020/10/Basic-Hot-Dogs-960x640.jpg",
+      menu: "난",
+      price: 2000,
+    },
+    {
+      id: 3,
+      url: "https://flexible.img.hani.co.kr/flexible/normal/481/587/imgdb/original/2023/0425/20230425501390.jpg",
+      menu: "마살라 커리",
+      price: 10000,
+    },
+    {
+      id: 4,
+      url: "https://ottogi.okitchen.co.kr/pds/upfile/2022-07-28_115060389[10].jpg",
+      menu: "탄두리 치킨",
+      price: 15000,
+    },
+    {
+      id: 5,
+      url: "https://cdn.dominos.co.kr/admin/upload/goods/20230619_F33836Pn.jpg",
+      menu: "팔락 파니르",
+      price: 12000,
+    },
+    {
+      id: 6,
+      url: "https://kormedi.com/wp-content/uploads/2021/05/r658x033-580x387.jpg",
+      menu: "사모사",
+      price: 5000,
+    },
+  ],
+};

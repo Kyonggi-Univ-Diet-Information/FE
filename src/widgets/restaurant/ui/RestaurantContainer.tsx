@@ -26,7 +26,7 @@ function RestaurantHeader({ restaurant }: { restaurant: string }) {
       <img src={RiceImg} className="size-20 md:size-30" />
       <div className="flex flex-col">
         <p className="text-xl font-bold md:text-3xl">{restaurant}</p>
-        <p className="text-sm font-semibold md:text-xl">
+        <p className="text-sm font-medium md:text-xl md:font-semibold">
           {RESTAURANT_INFO[restaurant].openingHours}
         </p>
       </div>

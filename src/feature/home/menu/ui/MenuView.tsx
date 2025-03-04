@@ -44,6 +44,7 @@ export default function MenuView({ time }: MenuViewProps) {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderContent = () => {

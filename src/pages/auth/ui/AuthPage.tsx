@@ -34,7 +34,7 @@ export default function AuthPage() {
     } else {
       setIsLoading(false);
     }
-  }, [location.search, navigate]);
+  }, []);
 
   return (
     <section className="grid h-[100vh] w-[100vw] place-items-center">
