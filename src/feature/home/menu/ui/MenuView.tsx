@@ -25,7 +25,7 @@ export default function MenuView({ time }: MenuViewProps) {
   const [status, setStatus] = useState<React.JSX.Element>(LoadingStatus);
 
   async function fetchMenu() {
-    const data = await get(REQUEST.fetchDormMenu);
+    const data = await get({ request: REQUEST.fetchDormMenu });
     setMenuData(data);
     setWeeklyMenu(data as WeeklyMenu);
     setTodayMenu(data[key]);
@@ -62,7 +62,7 @@ export default function MenuView({ time }: MenuViewProps) {
     if (todayMenu) {
       return (
         <>
-          <p className="text-md-important text-primary">
+          <p className="text-primary text-md-important">
             {RUN_TIME[TIME[time]]}
           </p>
           {todayMenu[TIME[time]].contents.map((menu: MenuItem) => (
@@ -71,6 +71,8 @@ export default function MenuView({ time }: MenuViewProps) {
               className={cn(
                 selectedMenu === menu.dietFoodDTO && "text-primary",
                 "hover:text-primary cursor-pointer",
+                menu.dietFoodDTO.name.length > 15 && "hidden",
+                menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
               )}
               onClick={() => {
                 setSelectedMenu(menu.dietFoodDTO);
@@ -86,7 +88,7 @@ export default function MenuView({ time }: MenuViewProps) {
   };
 
   return (
-    <div className="flex w-90 flex-col items-center justify-center gap-y-2 text-xl font-medium md:text-2xl">
+    <div className="flex w-full flex-col items-center justify-center gap-y-2 text-xl font-medium md:w-90 md:text-2xl">
       {renderContent()}
     </div>
   );

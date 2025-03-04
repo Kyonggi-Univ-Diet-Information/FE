@@ -21,10 +21,10 @@ function HomeHeader() {
   const { selectedDate, setSelectedDateAfter, setSelectedDateBefore } =
     useDateStore();
   return (
-    <div className="flex h-fit w-full items-center justify-start gap-x-2">
-      <img src={RiceImg} className="size-30" />
-      <div className="flex flex-col gap-y-2">
-        <p className="text-3xl font-bold">오늘의 드림타워 식단</p>
+    <div className="flex h-fit w-full items-center justify-center gap-x-2 md:justify-start">
+      <img src={RiceImg} className="size-20 md:size-30" />
+      <div className="flex flex-col items-center gap-y-2">
+        <p className="text-xl font-bold md:text-3xl">오늘의 드림타워 식단</p>
         <div className="flex gap-x-2">
           <button
             onClick={() => setSelectedDateBefore()}
@@ -33,7 +33,7 @@ function HomeHeader() {
           >
             <IoIosArrowBack size={16} />
           </button>
-          <span className="text-xl font-semibold">
+          <span className="text-sm font-semibold md:text-xl">
             {formatDate(selectedDate)}
           </span>
           <button
