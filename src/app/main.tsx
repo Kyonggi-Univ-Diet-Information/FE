@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { AppLayout } from "~/app/layouts";
 import { HomeRoutes } from "./routes/HomeRoutes";
-import { AuthPage } from "~/pages/auth/ui";
 import { ErrorPage } from "~/pages/error/ui";
 
 const router = createBrowserRouter([
@@ -13,7 +12,6 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [HomeRoutes],
   },
-  { path: "/auth", element: <AuthPage /> },
   { path: "/*", element: <ErrorPage /> },
 ]);
 

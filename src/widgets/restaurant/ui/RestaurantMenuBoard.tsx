@@ -13,7 +13,7 @@ export default function RestaurantMenuBoard({
   setRestaurant,
 }: MenuBoardProps) {
   return (
-    <div className="flex h-[75%] w-full gap-x-4 2xl:h-130">
+    <div className="flex h-[75%] w-full flex-col gap-x-4 md:flex-row 2xl:h-130">
       <div className="rounded-normal flex flex-1 gap-x-5 bg-[#444] p-5"></div>
       <RestaurantSelector selected={restaurant} setSelected={setRestaurant} />
     </div>
@@ -23,6 +23,7 @@ export default function RestaurantMenuBoard({
 interface RestaurantSelectorProps {
   selected: string;
   setSelected: Dispatch<SetStateAction<string>>;
+  className?: string;
 }
 
 function RestaurantSelector({
@@ -32,7 +33,7 @@ function RestaurantSelector({
   const RestaurantButton = ({ name }: { name: string }) => (
     <button
       className={cn(
-        "hover:bg-primary w-full transform cursor-pointer bg-[#444] py-8 text-gray-300 duration-200",
+        "hover:bg-primary w-full transform cursor-pointer bg-[#444] py-8 text-gray-400 duration-200 hover:text-white",
         selected === name && "bg-primary text-white",
       )}
       onClick={() => setSelected(name)}
@@ -42,7 +43,7 @@ function RestaurantSelector({
   );
 
   return (
-    <div className="rounded-normal flex h-full w-20 flex-col items-center justify-center overflow-hidden bg-[#444] text-lg font-medium">
+    <div className="rounded-normal homeResponsive text-md order-[-1] mb-4 flex h-fit w-full items-center justify-center overflow-hidden bg-[#444] font-medium md:order-2 md:mb-0 md:flex md:h-full md:w-20 md:flex-col md:text-lg">
       {RESTAURANT.map((restaurant) => (
         <RestaurantButton name={restaurant} key={restaurant} />
       ))}
