@@ -44,7 +44,15 @@ export default function AuthPage() {
           <Description>로그인 중...</Description>
         </div>
       ) : (
-        <Description>로그인에 실패했습니다.</Description>
+        <div className="flex h-fit w-fit flex-col gap-y-2">
+          <Description>로그인에 실패했습니다.</Description>
+          <button
+            className="hover:bg-primary rounded-normal border-header-border h-[50px] w-full cursor-pointer border-[1px] bg-white text-black transition-all duration-300 hover:text-white"
+            onClick={() => navigate(PATH.LOGIN)}
+          >
+            홈으로 돌아가기
+          </button>
+        </div>
       )}
     </section>
   );
