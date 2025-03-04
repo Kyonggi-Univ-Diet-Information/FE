@@ -10,7 +10,7 @@ export default function DormMenuBoard() {
   return (
     <div className="flex h-[75%] w-full flex-col gap-x-4 md:flex-row 2xl:h-130">
       <TimeSelector selected={time} setSelected={setTime} />
-      <div className="rounded-normal flex h-full flex-1 gap-x-5 bg-white p-5">
+      <div className="rounded-normal flex h-full w-full flex-1 gap-x-5 bg-white p-5">
         <MenuView time={time} />
         <ReviewView />
       </div>

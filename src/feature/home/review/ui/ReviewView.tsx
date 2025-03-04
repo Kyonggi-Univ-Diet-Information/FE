@@ -63,7 +63,7 @@ export default function ReviewView() {
     );
   };
   return (
-    <div className="md:bg-secondary md:rounded-small hidden min-w-100 md:flex md:flex-1">
+    <div className="md:bg-secondary md:rounded-small hidden lg:flex lg:flex-1">
       <div className="flex size-full flex-col p-4">{renderReviewContent()}</div>
     </div>
   );

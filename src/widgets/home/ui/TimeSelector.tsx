@@ -26,7 +26,7 @@ export default function TimeSelector({
   );
 
   return (
-    <div className="rounded-normal text-md mb-4 flex h-fit w-full items-center justify-center overflow-hidden bg-white font-medium md:mb-0 md:flex md:h-full md:w-20 md:flex-col md:text-lg">
+    <div className="rounded-normal text-md mb-4 flex h-fit w-full items-center justify-center overflow-hidden bg-white font-medium md:mb-0 md:flex md:h-full md:w-20 md:min-w-20 md:flex-col md:text-lg">
       {TIME_LABELS.map((time) => (
         <TimeButton time={time} key={time} />
       ))}

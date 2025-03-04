@@ -89,7 +89,7 @@ export default function MenuView({ time }: MenuViewProps) {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-y-2 text-xl font-medium md:w-90 md:text-2xl">
+    <div className="flex w-full flex-col items-center justify-center gap-y-2 text-xl font-medium lg:w-90 lg:text-2xl">
       {renderContent()}
     </div>
   );
