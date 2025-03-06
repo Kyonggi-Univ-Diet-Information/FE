@@ -22,7 +22,7 @@ export const get = async ({
     if (format) return response;
     return response.data.result;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
@@ -35,7 +35,7 @@ export const post = async <T, S = unknown>(
     const response = await instance.post(`${request}`, data, config);
     return response;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
@@ -44,6 +44,6 @@ export const del = async <S = unknown>(request: string, config?: S) => {
     const response = await instance.delete(`${request}`, config);
     return response;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
