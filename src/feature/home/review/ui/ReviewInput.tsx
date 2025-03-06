@@ -40,14 +40,14 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
         <div className="h-20">
           <div className="mb-4 grid h-20 w-full grid-cols-6">
             <textarea
-              className="col-span-5 box-border h-full w-full resize-none rounded-l-lg border border-gray-200 p-4 text-sm transition-colors duration-200 outline-none focus:border-[#00abaa]"
+              className="border-header-border col-span-5 box-border h-full w-full resize-none rounded-l-lg border bg-white p-4 text-sm transition-colors duration-200 outline-none focus:border-[#00abaa]"
               value={value}
               onChange={(e) => {
                 setValue(e.target.value);
               }}
             />
             <button
-              className="col-span-1 w-full rounded-r-lg border-none bg-gray-800 text-white transition-colors duration-300 hover:bg-[#00abaa]"
+              className="col-span-1 w-full cursor-pointer rounded-r-lg border-none bg-gray-800 text-white transition-colors duration-300 hover:bg-[#00abaa]"
               onClick={() => {
                 if (value.length > 0) {
                   postComment(value);

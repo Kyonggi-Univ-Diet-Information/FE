@@ -76,21 +76,19 @@ export default function ReviewItem({ review }: { review: Review }) {
         </div>
       </div>
       {review.content}
-      <div
+      <button
         className={cn(
-          "rounded-small border-header-border mt-1 flex w-fit items-start gap-x-2 border-[1px] p-1 px-2",
+          "rounded-small hover:bg-primary border-header-border mt-1 flex w-fit cursor-pointer items-start gap-x-2 border-[1px] p-1 px-2 transition-colors duration-200 hover:text-white disabled:cursor-default disabled:text-gray-400 disabled:hover:bg-white",
           fav && "bg-primary text-white",
         )}
+        onClick={() => toggleFavorite()}
+        disabled={!getCookie("token")}
       >
         <div className="text-xs font-medium">{favCount}</div>
-        <button
-          className="cursor-pointer border-none bg-transparent disabled:cursor-not-allowed disabled:text-gray-400"
-          onClick={() => toggleFavorite()}
-          disabled={!getCookie("token")}
-        >
+        <div className="border-none bg-transparent">
           {fav ? <IoMdThumbsUp size={16} /> : <MdOutlineThumbUp size={16} />}
-        </button>
-      </div>
+        </div>
+      </button>
     </div>
   );
 }
