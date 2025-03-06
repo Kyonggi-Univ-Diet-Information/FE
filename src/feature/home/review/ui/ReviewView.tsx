@@ -11,8 +11,14 @@ import { setMenuData } from "~/widgets/home/model";
 import { WeeklyMenu } from "~/widgets/home/types";
 
 export default function ReviewView() {
-  const { selectedMenu, selectedMenuId, setTodayMenu, setWeeklyMenu } =
-    useMenuStore();
+  const {
+    selectedMenu,
+    setSelectedMenu,
+    selectedMenuId,
+    setSelectedMenuId,
+    setTodayMenu,
+    setWeeklyMenu,
+  } = useMenuStore();
   const { selectedDate } = useDateStore();
   const { newReview } = useReviewStore();
   const [selectedReview, setSelectedReview] = useState<Review[]>(null);
@@ -28,6 +34,8 @@ export default function ReviewView() {
     setMenuData(data);
     setWeeklyMenu(data as WeeklyMenu);
     setTodayMenu(data[key]);
+    setSelectedMenu(selectedMenu);
+    setSelectedMenuId(selectedMenuId);
   }
 
   useEffect(() => {
