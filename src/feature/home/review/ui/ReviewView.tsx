@@ -3,51 +3,54 @@ import { useEffect, useState } from "react";
 import { MdOutlineMenuBook } from "react-icons/md";
 
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
-import { useDateStore, useMenuStore, useReviewStore } from "~/shared/store";
+import { useMenuStore, useReviewStore } from "~/shared/store";
 import { Review } from "../types/review";
 import { get, REQUEST } from "~/shared/api";
-import { getDay, getDayKey } from "~/shared/utils";
-import { setMenuData } from "~/widgets/home/model";
-import { WeeklyMenu } from "~/widgets/home/types";
+import { Loading } from "~/assets";
 
 export default function ReviewView() {
-  const {
-    selectedMenu,
-    setSelectedMenu,
-    selectedMenuId,
-    setSelectedMenuId,
-    setTodayMenu,
-    setWeeklyMenu,
-  } = useMenuStore();
-  const { selectedDate } = useDateStore();
+  const { selectedMenu, selectedMenuId } = useMenuStore();
   const { newReview } = useReviewStore();
-  const [selectedReview, setSelectedReview] = useState<Review[]>(null);
-  const key = getDayKey(getDay(selectedDate));
+  const [selectedReview, setSelectedReview] = useState<Review[]>([]);
+  const [status, setStatus] = useState<React.JSX.Element>(LoadingStatus);
 
-  function fetchReview() {
-    const reviews: Review[] = selectedMenu.dietFoodReviews;
-    setSelectedReview(reviews);
+  async function fetchReview() {
+    try {
+      const response = await get({
+        request: REQUEST.fetchMenuReview + selectedMenuId,
+        format: true,
+      });
+      setSelectedReview(response.data);
+    } catch (error) {
+      console.error(error);
+      setSelectedReview(undefined);
+    }
   }
 
-  async function fetchMenu() {
-    const data = await get({ request: REQUEST.fetchDormMenu });
-    setMenuData(data);
-    setWeeklyMenu(data as WeeklyMenu);
-    setTodayMenu(data[key]);
-    setSelectedMenu(selectedMenu);
-    setSelectedMenuId(selectedMenuId);
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!selectedReview) setStatus(FetchFailed);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [selectedMenu]);
 
   useEffect(() => {
     if (selectedMenu) {
       fetchReview();
     }
+    return () => {
+      setSelectedReview(undefined);
+      setStatus(LoadingStatus);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMenu]);
 
   useEffect(() => {
     if (newReview) {
-      fetchMenu();
+      fetchReview();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newReview]);
@@ -68,11 +71,13 @@ export default function ReviewView() {
         </p>
         <ReviewInput menuId={selectedMenuId} />
         {!selectedReview ? (
+          status
+        ) : selectedReview.length === 0 ? (
           <NoReview />
         ) : (
-          <div className="mt-2 flex h-full flex-col gap-y-2 overflow-auto">
+          <div className="flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
             {[...selectedReview].reverse().map((review, index) => (
-              <ReviewItem key={index} review={review} />
+              <ReviewItem key={index} {...review} />
             ))}
           </div>
         )}
@@ -92,8 +97,14 @@ const NoReview = () => (
   </div>
 );
 
-// const LoadingStatus = () => (
-//   <div className="grid h-full place-items-center overflow-auto">
-//     <img src={Loading} alt="로딩 중" />
-//   </div>
-// ); 리뷰를 메뉴 통해서 받아오기 때문에, 리뷰를 따로 로딩할 경우는 없다고 가정
+const LoadingStatus = () => (
+  <div className="grid h-full place-items-center overflow-auto">
+    <img src={Loading} alt="로딩 중" />
+  </div>
+);
+
+const FetchFailed = () => (
+  <div className="grid h-full place-items-center overflow-auto">
+    리뷰를 가져오지 못했습니다.
+  </div>
+);
