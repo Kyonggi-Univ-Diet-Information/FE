@@ -3,6 +3,6 @@ export const formatDate = (date: Date) => {
 };
 
 export const formatDatefromString = (date: string) => {
-  const [year, month, day] = date.split("-");
+  const [year, month, day] = date.split(".");
   return `${year}년 ${month}월 ${day}일`;
 };
