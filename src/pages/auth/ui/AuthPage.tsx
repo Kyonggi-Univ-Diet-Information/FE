@@ -19,11 +19,12 @@ export default function AuthPage() {
         format: true,
       });
       console.log(response);
-      if (response.token === undefined) setIsLoading(false);
-      else {
+      if (typeof response.token === "string") {
         setIsLoading(false);
         document.cookie = `token=${response.token}; max-age=3600; path=/`;
         navigate(PATH.HOME);
+      } else {
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
