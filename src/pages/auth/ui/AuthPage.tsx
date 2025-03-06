@@ -18,9 +18,13 @@ export default function AuthPage() {
         params: { code },
         format: true,
       });
-      document.cookie = `token=${response.token}; max-age=3600; path=/`;
-      setIsLoading(false);
-      navigate(PATH.HOME);
+      console.log(response);
+      if (response.token === undefined) setIsLoading(false);
+      else {
+        setIsLoading(false);
+        document.cookie = `token=${response.token}; max-age=3600; path=/`;
+        navigate(PATH.HOME);
+      }
     } catch (error) {
       console.log(error);
       setIsLoading(false);
