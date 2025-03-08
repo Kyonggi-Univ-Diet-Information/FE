@@ -63,7 +63,7 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
       ) : (
         <div className="h-20">
           <div className="relative mb-4 grid h-20 w-full grid-cols-6">
-            <div className="border-header-border absolute inset-0 z-10 grid place-items-center rounded-lg border bg-transparent backdrop-blur-sm">
+            <div className="absolute inset-0 z-10 grid place-items-center rounded-lg bg-transparent backdrop-blur-sm">
               <div className="grid place-items-center">
                 <p className="m-0 mb-1.5 text-sm">
                   로그인 후 후기를 작성하세요!
