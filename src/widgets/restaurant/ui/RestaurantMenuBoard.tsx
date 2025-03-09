@@ -14,8 +14,8 @@ export default function RestaurantMenuBoard({
   setRestaurant,
 }: MenuBoardProps) {
   return (
-    <div className="flex h-[75%] w-full flex-col gap-x-4 md:flex-row 2xl:h-130">
-      <div className="rounded-normal h-full overflow-scroll bg-[#444] p-5 md:flex-1">
+    <div className="flex h-[75%] w-full flex-col gap-x-4 md:flex-row">
+      <div className="scrollbar-hide rounded-normal h-full overflow-scroll bg-[#444] p-5 md:flex-1">
         <MenuView selected={restaurant} />
       </div>
       <RestaurantSelector selected={restaurant} setSelected={setRestaurant} />

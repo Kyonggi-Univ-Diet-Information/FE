@@ -3,7 +3,7 @@ import { RestaurantMenu } from "../types";
 
 export default function MenuItem({ menu }: { menu: RestaurantMenu }) {
   return (
-    <div className="rounded-small flex h-fit w-full cursor-pointer flex-col gap-y-2 overflow-scroll">
+    <div className="scrollbar-hide rounded-small flex h-fit w-full cursor-pointer flex-col gap-y-2 overflow-scroll">
       <div
         className="rounded-small h-30 bg-cover bg-center"
         style={{ backgroundImage: `url(${menu.url})` }}
