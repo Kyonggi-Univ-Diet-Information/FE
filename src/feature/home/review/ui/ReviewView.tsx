@@ -75,7 +75,7 @@ export default function ReviewView() {
         ) : selectedReview.length === 0 ? (
           <NoReview />
         ) : (
-          <div className="flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
+          <div className="scrollbar-hide flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
             {[...selectedReview].reverse().map((review, index) => (
               <ReviewItem key={index} {...review} />
             ))}
