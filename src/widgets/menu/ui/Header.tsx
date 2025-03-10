@@ -24,6 +24,12 @@ export default function Header() {
       </div>
       <div className="m-0 flex items-center justify-end gap-x-7">
         <NavButton label="교내식당" to={PATH.RESTAURANT} />
+        <NavButton
+          label="문의하기"
+          onClick={() =>
+            window.location.assign("https://open.kakao.com/o/sgcUtX3g")
+          }
+        />
         {getCookie("token") ? (
           <NavButton onClick={LogOut} label="로그아웃" />
         ) : (
@@ -52,7 +58,7 @@ function NavButton({
   if (onClick) {
     return (
       <button
-        className="active:text-primary hover:text-primary md:text-md text-sm"
+        className="active:text-primary hover:text-primary md:text-md cursor-pointer text-sm"
         onClick={onClick}
       >
         {label}
