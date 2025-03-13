@@ -43,9 +43,10 @@
 
 html,
 body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   background-color: #f4f4f4;
   font-family:
     "Pretendard Variable",
@@ -68,6 +69,11 @@ body {
   width: 100%;
   height: 100vh;
   color: var(--color-black);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {
