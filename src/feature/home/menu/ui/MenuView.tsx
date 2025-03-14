@@ -6,6 +6,7 @@ import { cn, getDay, getDayKey } from "~/shared/utils";
 import { MenuItem, Time, WeeklyMenu } from "~/widgets/home/types";
 import { RUN_TIME, setMenuData, TIME } from "~/widgets/home/model";
 import { Loading } from "~/assets";
+import { useLoaderData } from "react-router-dom";
 
 interface MenuViewProps {
   time: Time;
@@ -14,27 +15,24 @@ interface MenuViewProps {
 export default function MenuView({ time }: MenuViewProps) {
   const {
     todayMenu,
-    setTodayMenu,
-    setWeeklyMenu,
     selectedMenu,
     setSelectedMenu,
     setSelectedMenuId,
+    setWeeklyMenu,
+    setTodayMenu,
   } = useMenuStore();
   const { selectedDate } = useDateStore();
   const key = getDayKey(getDay(selectedDate));
   const [status, setStatus] = useState<React.JSX.Element>(LoadingStatus);
-
-  async function fetchMenu() {
-    const data = await get({ request: REQUEST.fetchDormMenu });
-    setMenuData(data);
-    setWeeklyMenu(data as WeeklyMenu);
-    setTodayMenu(data[key]);
-  }
+  const data = useLoaderData();
 
   useEffect(() => {
-    fetchMenu();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDate]);
+    if (data) {
+      setMenuData(data);
+      setWeeklyMenu(data as WeeklyMenu);
+      setTodayMenu(data[key] || null);
+    }
+  }, [data, key, setWeeklyMenu, setTodayMenu]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -107,3 +105,8 @@ const FetchFailed = () => (
     </button>
   </div>
 );
+
+export const fetchDormMenu = async () => {
+  const data = await get({ request: REQUEST.fetchDormMenu });
+  return data;
+};
