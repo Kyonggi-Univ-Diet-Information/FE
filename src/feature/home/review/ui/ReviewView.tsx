@@ -1,59 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { MdOutlineMenuBook } from "react-icons/md";
 
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
 import { useMenuStore, useReviewStore } from "~/shared/store";
-import { Review } from "../types/review";
 import { get, REQUEST } from "~/shared/api";
 import { Loading } from "~/assets";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ReviewView() {
   const { selectedMenu, selectedMenuId } = useMenuStore();
   const { newReview } = useReviewStore();
-  const [selectedReview, setSelectedReview] = useState<Review[]>([]);
-  const [status, setStatus] = useState<React.JSX.Element>(LoadingStatus);
 
-  async function fetchReview() {
-    try {
+  const {
+    data: reviews,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["reviews", selectedMenuId],
+    queryFn: async () => {
       const response = await get({
         request: REQUEST.fetchMenuReview + selectedMenuId,
         format: true,
       });
-      setSelectedReview(response.data);
-    } catch (error) {
-      console.error(error);
-      setSelectedReview(undefined);
-    }
-  }
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!selectedReview) setStatus(FetchFailed);
-    }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [selectedMenu]);
-
-  useEffect(() => {
-    if (selectedMenu) {
-      fetchReview();
-    }
-    return () => {
-      setSelectedReview(undefined);
-      setStatus(LoadingStatus);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedMenu]);
+      return response.data;
+    },
+    staleTime: 1000 * 60 * 5,
+    enabled: !!selectedMenuId,
+  });
 
   useEffect(() => {
     if (newReview) {
-      fetchReview();
+      refetch();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newReview]);
+  }, [newReview, refetch]);
 
   const renderReviewContent = () => {
     if (!selectedMenu)
@@ -70,13 +51,15 @@ export default function ReviewView() {
           <b>{selectedMenu.name}</b>, 어떨까?
         </p>
         <ReviewInput menuId={selectedMenuId} />
-        {!selectedReview ? (
-          status
-        ) : selectedReview.length === 0 ? (
+        {isLoading ? (
+          <LoadingStatus />
+        ) : isError ? (
+          <FetchFailed />
+        ) : !reviews || reviews.length === 0 ? (
           <NoReview />
         ) : (
           <div className="scrollbar-hide flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
-            {[...selectedReview].reverse().map((review, index) => (
+            {[...reviews].reverse().map((review, index) => (
               <ReviewItem key={index} {...review} />
             ))}
           </div>
