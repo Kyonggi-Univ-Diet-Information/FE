@@ -1,8 +1,9 @@
 import { ComponentProps } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { PATH } from "~/shared/constants";
 import { cn, getCookie } from "~/shared/utils";
+import { LABEL } from "../model/constants/label";
 
 export default function Header() {
   const location = useLocation();
@@ -17,9 +18,12 @@ export default function Header() {
       )}
     >
       <div className="flex items-baseline">
-        <Link className="text-2xl font-bold" to={PATH.HOME}>
+        <span
+          className="text-2xl font-bold"
+          onClick={() => window.location.assign("https://www.kiryong.site")}
+        >
           기밥
-        </Link>
+        </span>
         <span className="md:text-md ml-2 hidden md:flex">기룡아 밥먹자</span>
       </div>
       <div className="m-0 flex items-center justify-end gap-x-7">
@@ -55,10 +59,12 @@ function NavButton({
   to,
   onClick,
 }: NavButtonProp & ComponentProps<"button">) {
+  const location = useLocation();
+  const current = location.pathname;
   if (onClick) {
     return (
       <button
-        className="active:text-primary hover:text-primary md:text-md cursor-pointer text-sm"
+        className="hover:text-primary md:text-md cursor-pointer text-sm"
         onClick={onClick}
       >
         {label}
@@ -67,7 +73,10 @@ function NavButton({
   }
   return (
     <NavLink
-      className="active:text-primary hover:text-primary md:text-md text-sm"
+      className={cn(
+        "hover:text-primary md:text-md text-sm",
+        current === LABEL[label] && "text-primary",
+      )}
       to={to}
     >
       {label}
