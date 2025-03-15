@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { get, REQUEST } from "~/shared/api";
 import { useDateStore, useMenuStore } from "~/shared/store";
 import { cn, getDay, getDayKey } from "~/shared/utils";
 
@@ -36,7 +35,7 @@ export default function MenuView({ time }: MenuViewProps) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!todayMenu) setStatus(FetchFailed);
+      if (!data) setStatus(FetchFailed);
     }, 5000);
 
     return () => {
@@ -50,15 +49,9 @@ export default function MenuView({ time }: MenuViewProps) {
       return <>주말에는 운영하지 않습니다.</>;
     }
 
-    if (!todayMenu) {
-      return status;
-    }
-
-    if (todayMenu && !todayMenu[TIME[time]]) {
-      return <>미운영</>;
-    }
-
-    if (todayMenu) {
+    if (!todayMenu) return status;
+    if (data && !todayMenu[TIME[time]]) return <>미운영</>;
+    if (data && todayMenu) {
       return (
         <>
           <p className="text-primary text-md-important">
@@ -105,8 +98,3 @@ const FetchFailed = () => (
     </button>
   </div>
 );
-
-export const fetchDormMenu = async () => {
-  const data = await get({ request: REQUEST.fetchDormMenu });
-  return data;
-};

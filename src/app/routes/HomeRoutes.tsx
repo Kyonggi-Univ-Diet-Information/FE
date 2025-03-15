@@ -6,7 +6,7 @@ import { HomePage } from "~/pages/home/ui";
 import { LoginPage } from "~/pages/login/ui";
 import { RestaurantPage } from "~/pages/restaurant/ui";
 import { AuthPage } from "~/pages/auth/ui";
-import { fetchDormMenu } from "~/feature/home/menu/ui/MenuView";
+import { fetchDormMenu } from "~/feature/home/menu/utils";
 
 export const HomeRoutes: RouteObject = {
   children: [
