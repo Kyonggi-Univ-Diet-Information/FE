@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDateStore, useMenuStore } from "~/shared/store";
 import { cn, getDay, getDayKey } from "~/shared/utils";
 
 import { MenuItem, Time, WeeklyMenu } from "~/widgets/home/types";
 import { RUN_TIME, setMenuData, TIME } from "~/widgets/home/model";
-import { Loading } from "~/assets";
 import { useLoaderData } from "react-router-dom";
 
 interface MenuViewProps {
@@ -22,7 +21,6 @@ export default function MenuView({ time }: MenuViewProps) {
   } = useMenuStore();
   const { selectedDate } = useDateStore();
   const key = getDayKey(getDay(selectedDate));
-  const [status, setStatus] = useState<React.JSX.Element>(LoadingStatus);
   const data = useLoaderData();
 
   useEffect(() => {
@@ -33,23 +31,10 @@ export default function MenuView({ time }: MenuViewProps) {
     }
   }, [data, key, setWeeklyMenu, setTodayMenu]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!data) setStatus(FetchFailed);
-    }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const renderContent = () => {
-    if (key === "SUNDAY" || key === "SATURDAY") {
+    if (key === "SUNDAY" || key === "SATURDAY")
       return <>주말에는 운영하지 않습니다.</>;
-    }
-
-    if (!todayMenu) return status;
+    if (!todayMenu) return <FetchFailed />;
     if (data && !todayMenu[TIME[time]]) return <>미운영</>;
     if (data && todayMenu) {
       return (
@@ -86,12 +71,11 @@ export default function MenuView({ time }: MenuViewProps) {
   );
 }
 
-const LoadingStatus = () => <img src={Loading} />;
 const FetchFailed = () => (
   <div className="flex flex-col gap-y-2">
     <p>정보를 받아오지 못했어요.</p>
     <button
-      className="text-md-important hover:primary hover:text-primary cursor-pointer text-center text-gray-400"
+      className="text-md-important hover:primary hover:text-primary cursor-pointer text-center text-gray-400 focus:outline-none"
       onClick={() => window.location.reload()}
     >
       다시 시도하기
