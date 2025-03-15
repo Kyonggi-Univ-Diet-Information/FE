@@ -6,7 +6,7 @@ import { TIME_LABELS } from "~/widgets/home/model";
 
 interface TimeSelectorProps {
   selected: Time;
-  setSelected: Dispatch<SetStateAction<Time>>;
+  setSelected?: Dispatch<SetStateAction<Time>>;
 }
 
 export default function TimeSelector({
