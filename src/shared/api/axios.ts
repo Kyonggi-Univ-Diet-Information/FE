@@ -25,8 +25,6 @@ export const get = async ({
     if (format) return response;
     return response.data.result;
   } catch (error) {
-    console.log(error);
-
     throw new Error(error.message);
   }
 };

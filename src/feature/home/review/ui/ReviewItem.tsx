@@ -1,65 +1,88 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { FaStar } from "react-icons/fa";
 
 import { MdOutlineThumbUp } from "react-icons/md";
 import { IoMdThumbsUp } from "react-icons/io";
 import { del, get, post, REQUEST } from "~/shared/api";
 import { cn, formatDatefromString, getCookie } from "~/shared/utils";
 import { Review } from "~/feature/home/review/types";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ReviewItem({
   id,
   createdAt,
   content,
   memberName,
+  rating,
 }: Review) {
   const [favCount, setFavCount] = useState(0);
   const [fav, setFav] = useState(false);
-
-  async function fetchFavCnt() {
-    const response = await get({
-      request: REQUEST.fetchReviewFav + id,
-      format: true,
-    });
-    setFavCount(response.data);
-  }
-
-  async function fetchIsFaved() {
-    try {
+  const { data: favCnt, refetch: reviewFavCnt } = useQuery({
+    queryKey: ["reviewFavCnt", id],
+    queryFn: async () => {
       const response = await get({
-        request: REQUEST.fetchMemberFav,
-        headers: { Authorization: `Bearer ${getCookie("token")}` },
+        request: REQUEST.fetchReviewFav + id,
         format: true,
       });
-      const favList = response.data.map((item) => item.dietFoodReviewId);
-      setFav(favList.includes(id));
+      return response.data;
+    },
+    staleTime: 1000 * 60 * 5,
+    enabled: !!getCookie("token"),
+  });
 
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function toggleFavorite() {
-    if (!fav) {
-      await post(REQUEST.toggleReviewFav + id + "/create-favorite", null, {
-        headers: { Authorization: `Bearer ${getCookie("token")}` },
-      });
-      await Promise.all([fetchIsFaved(), fetchFavCnt()]);
-    } else {
-      await del(REQUEST.toggleReviewFav + "delete/" + id, {
-        headers: { Authorization: `Bearer ${getCookie("token")}` },
-      });
-      await Promise.all([fetchIsFaved(), fetchFavCnt()]);
-    }
-  }
+  const { data: favList, refetch: reviewFavList } = useQuery({
+    queryKey: ["reviewFavList", id],
+    queryFn: async () => {
+      try {
+        const response = await get({
+          request: REQUEST.fetchMemberFav,
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+          format: true,
+        });
+        return response.data.map((item) => item.dietFoodReviewId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    staleTime: 1000 * 60 * 5,
+    enabled: !!getCookie("token"),
+  });
 
   useEffect(() => {
-    if (getCookie("token")) {
-      fetchIsFaved();
+    if (favCnt !== undefined) {
+      setFavCount(favCnt);
     }
-    fetchFavCnt();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [favCnt]);
+
+  useEffect(() => {
+    if (favList && Array.isArray(favList)) {
+      setFav(favList.includes(id));
+    }
+  }, [favList, id]);
+
+  async function toggleFavorite() {
+    try {
+      if (!fav) {
+        await post(REQUEST.toggleReviewFav + id + "/create-favorite", null, {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        });
+        setFav(true);
+        setFavCount((prev) => prev + 1);
+      } else {
+        await del(REQUEST.toggleReviewFav + "delete/" + id, {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        });
+        setFav(false);
+        setFavCount((prev) => Math.max(0, prev - 1));
+      }
+      Promise.all([reviewFavCnt(), reviewFavList()]);
+    } catch (error) {
+      console.log(error);
+      reviewFavCnt();
+      reviewFavList();
+    }
+  }
 
   function maskName(name: string) {
     if (name.length <= 1) {
@@ -72,7 +95,14 @@ export default function ReviewItem({
     <div className="border-header-border m-0 box-border flex flex-col gap-y-1 rounded-lg border-[1px] bg-white/60 p-3 text-sm leading-normal">
       <div className="m-0 flex items-center justify-between pb-1 text-sm font-semibold">
         <div className="flex w-full items-center justify-between">
-          {maskName(memberName)}
+          <div className="flex items-center gap-x-2">
+            {maskName(memberName)}
+            <div className="flex gap-y-1">
+              {Array.from({ length: rating }).map(() => (
+                <FaStar className="text-primary size-3" />
+              ))}
+            </div>
+          </div>
           <span className="text-xs font-normal">
             {formatDatefromString(createdAt.slice(0, 10))}
           </span>

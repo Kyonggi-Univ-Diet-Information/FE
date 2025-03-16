@@ -1,23 +1,35 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import type { Config, Review } from "~/feature/home/review/types";
 import { useReviewStore } from "~/shared/store";
 import { post, REQUEST } from "~/shared/api";
-import { getCookie } from "~/shared/utils";
-import { Config, Review } from "../types/review";
+import { cn, getCookie } from "~/shared/utils";
 import { PATH } from "~/shared/constants";
+import { FaStar } from "react-icons/fa";
 
 export default function ReviewInput({ menuId }: { menuId: number }) {
   const { setNewReview } = useReviewStore();
+  const [selectedStars, setSelectedStars] = useState(3);
   const [value, setValue] = useState("");
   const token = getCookie("token");
+
+  const Star = ({ selected, index }: { selected: boolean; index: number }) => (
+    <FaStar
+      className={cn(
+        "size-3.5 cursor-pointer",
+        selected ? "text-primary" : "text-gray",
+      )}
+      onClick={() => setSelectedStars(index + 1)}
+    />
+  );
 
   async function postComment(comment: string) {
     try {
       await post<Review, Config>(
         REQUEST.postMenuReview + menuId,
         {
-          rating: 5,
+          rating: selectedStars,
           title: "",
           content: comment,
         },
@@ -37,7 +49,15 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
   return (
     <>
       {token ? (
-        <div className="h-20">
+        <div className="flex h-26 flex-col">
+          <div className="mb-2 flex items-center gap-x-2">
+            <span className="text-sm">음식에 대한 평점을 표시해 주세요!</span>
+            <div className="flex">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} index={i} selected={selectedStars > i} />
+              ))}
+            </div>
+          </div>
           <div className="mb-4 grid h-20 w-full grid-cols-6">
             <textarea
               className="border-header-border col-span-5 box-border h-full w-full resize-none rounded-l-lg border bg-white p-4 text-sm transition-colors duration-200 outline-none focus:border-[#00abaa]"
