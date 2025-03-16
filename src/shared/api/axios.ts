@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 
 const instance = axios.create({
   baseURL: "https://api.kiryong.site/",
@@ -18,7 +18,10 @@ export const get = async ({
   try {
     let response;
     if (params) response = await instance.get(`${request}`, { params: params });
-    else response = await instance.get(`${request}`, headers);
+    else
+      response = await instance.get(`${request}`, {
+        headers: headers as AxiosHeaders,
+      });
     if (format) return response;
     return response.data.result;
   } catch (error) {
