@@ -28,7 +28,6 @@ export default function ReviewItem({
       return response.data;
     },
     staleTime: 1000 * 60 * 5,
-    enabled: !!getCookie("token"),
   });
 
   const { data: favList, refetch: reviewFavList } = useQuery({
