@@ -27,7 +27,6 @@ export default function Header() {
         <span className="md:text-md ml-2 hidden md:flex">기룡아 밥먹자</span>
       </div>
       <div className="m-0 flex items-center justify-end gap-x-7">
-        <NavButton label="교내식당" to={PATH.RESTAURANT} />
         <NavButton
           label="문의하기"
           onClick={() =>
