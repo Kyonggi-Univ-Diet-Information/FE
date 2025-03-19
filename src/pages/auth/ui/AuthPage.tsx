@@ -21,7 +21,6 @@ export default function AuthPage() {
       const token = response.data.token;
       if (token === undefined) setIsLoading(false);
       else {
-        setIsLoading(false);
         document.cookie = `token=${token}; max-age=3600; path=/`;
         navigate(PATH.HOME);
       }
