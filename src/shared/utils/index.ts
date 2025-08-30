@@ -1,4 +1,4 @@
-export * from "./getCookie";
+export * from "./cookie";
 export * from "./getTodayInfo";
 export * from "./string";
 export * from "./formatDate";
