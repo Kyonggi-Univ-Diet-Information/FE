@@ -4,9 +4,8 @@ import { MdOutlineMenuBook } from "react-icons/md";
 
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
 import { useMenuStore, useReviewStore } from "~/shared/store";
-import { get, REQUEST } from "~/shared/api";
 import { Loading } from "~/assets";
-import { useQuery } from "@tanstack/react-query";
+import { useFetchReview } from "../api";
 
 export default function ReviewView() {
   const { selectedMenu, selectedMenuId } = useMenuStore();
@@ -17,18 +16,7 @@ export default function ReviewView() {
     isLoading,
     isError,
     refetch,
-  } = useQuery({
-    queryKey: ["reviews", selectedMenuId],
-    queryFn: async () => {
-      const response = await get({
-        request: REQUEST.fetchMenuReview + selectedMenuId,
-        format: true,
-      });
-      return response.data;
-    },
-    staleTime: 1000 * 60 * 5,
-    enabled: !!selectedMenuId,
-  });
+  } = useFetchReview(selectedMenuId);
 
   useEffect(() => {
     if (newReview) {

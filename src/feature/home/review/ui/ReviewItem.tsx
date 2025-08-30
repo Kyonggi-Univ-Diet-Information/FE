@@ -4,10 +4,14 @@ import { FaStar } from "react-icons/fa";
 
 import { MdOutlineThumbUp } from "react-icons/md";
 import { IoMdThumbsUp } from "react-icons/io";
-import { del, get, post, REQUEST } from "~/shared/api";
 import { cn, formatDatefromString, getCookie } from "~/shared/utils";
 import { Review } from "~/feature/home/review/types";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useDeleteReviewFav,
+  useFetchFavCnt,
+  useFetchMemberFav,
+  useSubmitReviewFav,
+} from "../api";
 
 export default function ReviewItem({
   id,
@@ -18,41 +22,14 @@ export default function ReviewItem({
 }: Review) {
   const [favCount, setFavCount] = useState(0);
   const [fav, setFav] = useState(false);
-  const { data: favCnt, refetch: reviewFavCnt } = useQuery({
-    queryKey: ["reviewFavCnt", id],
-    queryFn: async () => {
-      const response = await get({
-        request: REQUEST.fetchReviewFav + id,
-        format: true,
-      });
-      return response.data;
-    },
-    staleTime: 1000 * 60 * 5,
-  });
-
-  const { data: favList, refetch: reviewFavList } = useQuery({
-    queryKey: ["reviewFavList", id],
-    queryFn: async () => {
-      try {
-        const response = await get({
-          request: REQUEST.fetchMemberFav,
-          headers: { Authorization: `Bearer ${getCookie("token")}` },
-          format: true,
-        });
-        return response.data.map((item) => item.dietFoodReviewId);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    staleTime: 1000 * 60 * 5,
-    enabled: !!getCookie("token"),
-  });
+  const { data: favCnt, refetch: reviewFavCnt } = useFetchFavCnt(id);
+  const { data: favList, refetch: reviewFavList } = useFetchMemberFav();
+  const { mutate: submitReviewFav } = useSubmitReviewFav();
+  const { mutate: deleteReviewFav } = useDeleteReviewFav();
 
   useEffect(() => {
-    if (favCnt !== undefined) {
-      setFavCount(favCnt);
-    }
-  }, [favCnt]);
+    setFavCount(favCnt);
+  }, []);
 
   useEffect(() => {
     if (favList && Array.isArray(favList)) {
@@ -60,28 +37,23 @@ export default function ReviewItem({
     }
   }, [favList, id]);
 
-  async function toggleFavorite() {
-    try {
-      if (!fav) {
-        await post(REQUEST.toggleReviewFav + id + "/create-favorite", null, {
-          headers: { Authorization: `Bearer ${getCookie("token")}` },
-        });
-        setFav(true);
-        setFavCount((prev) => prev + 1);
-      } else {
-        await del(REQUEST.toggleReviewFav + "delete/" + id, {
-          headers: { Authorization: `Bearer ${getCookie("token")}` },
-        });
-        setFav(false);
-        setFavCount((prev) => Math.max(0, prev - 1));
-      }
-      Promise.all([reviewFavCnt(), reviewFavList()]);
-    } catch (error) {
-      console.log(error);
-      reviewFavCnt();
-      reviewFavList();
+  const toggleFavorite = () => {
+    if (!fav)
+      submitReviewFav(id, {
+        onSuccess: () => {
+          reviewFavCnt();
+          reviewFavList();
+        },
+      });
+    else {
+      deleteReviewFav(id, {
+        onSuccess: () => {
+          setFav(false);
+          setFavCount((prev) => Math.max(0, prev - 1));
+        },
+      });
     }
-  }
+  };
 
   function maskName(name: string) {
     if (name.length <= 1) {
