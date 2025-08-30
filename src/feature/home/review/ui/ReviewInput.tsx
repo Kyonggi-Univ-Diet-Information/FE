@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import type { Config, Review } from "~/feature/home/review/types";
 import { useReviewStore } from "~/shared/store";
-import { post, REQUEST } from "~/shared/api";
 import { cn, getCookie } from "~/shared/utils";
 import { PATH } from "~/shared/constants";
 import { FaStar } from "react-icons/fa";
+import { useSubmitReview } from "../api";
 
 export default function ReviewInput({ menuId }: { menuId: number }) {
   const { setNewReview } = useReviewStore();
+  const { mutate } = useSubmitReview();
   const [selectedStars, setSelectedStars] = useState(3);
   const [value, setValue] = useState("");
   const token = getCookie("token");
@@ -24,23 +24,16 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
     />
   );
 
-  async function postComment(comment: string) {
+  const postComment = (comment: string) => {
+    const data = { title: comment, content: comment, rating: selectedStars };
     try {
-      await post<Review, Config>(
-        REQUEST.postMenuReview + menuId,
-        {
-          rating: selectedStars,
-          title: "",
-          content: comment,
-        },
-        { headers: { Authorization: `Bearer ${getCookie("token")}` } },
-      );
+      mutate({ data: { ...data }, menuId: menuId });
       setValue("");
       setNewReview(comment);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     setValue("");
