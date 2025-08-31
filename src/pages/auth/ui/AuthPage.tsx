@@ -26,45 +26,36 @@ export default function AuthPage() {
     return response.data;
   };
 
-  const { isLoading, refetch: login } = useQuery({
+  const {
+    isLoading,
+    isError,
+    refetch: login,
+  } = useQuery({
     queryKey: ["token"],
     queryFn: fetchLogin,
     enabled: false,
-    select: ({ token }) => setCookie("token", token),
+    select: ({ token }) => {
+      if (token !== null) {
+        setCookie("token", token);
+        navigate(PATH.HOME);
+      }
+    },
   });
 
-  // async function fetchLogin() {
-  //   try {
-  //     const response = await get({
-  //       request: REQUEST.fetchKakaoLogin,
-  //       params: { code },
-  //     });
-  //     const token = response.data.token;
-  //     if (token === undefined) setIsLoading(false);
-  //     else {
-  //       document.cookie = `token=${token}; max-age=3600; path=/`;
-  //       navigate(PATH.HOME);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     setIsLoading(false);
-  //   }
-  // }
-
   useEffect(() => {
-    if (code) {
-      login();
-    }
+    if (code) login();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <section className="grid h-[100vh] w-[100vw] place-items-center">
-      {isLoading ? (
+      {isLoading && (
         <div>
           <img src={Loading} />
           <Description>로그인 중...</Description>
         </div>
-      ) : (
+      )}
+      {!isLoading && isError && (
         <div className="flex h-fit w-fit flex-col gap-y-2">
           <Description>로그인에 실패했습니다.</Description>
           <button

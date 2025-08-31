@@ -9,6 +9,5 @@ export const fetchDormMenu = async () => {
   const response = await get<FetchDormMenuRes>({
     request: REQUEST.fetchDormMenu,
   });
-  console.log(response.data);
   return response.data;
 };
