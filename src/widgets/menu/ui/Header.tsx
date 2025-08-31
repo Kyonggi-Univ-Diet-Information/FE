@@ -20,7 +20,9 @@ export default function Header() {
       <div className="flex items-baseline">
         <span
           className="text-2xl font-bold"
-          onClick={() => window.location.assign("https://www.kiryong.site")}
+          onClick={() =>
+            window.location.assign(import.meta.env.VITE_PRODUCTION_URL)
+          }
         >
           기밥
         </span>
