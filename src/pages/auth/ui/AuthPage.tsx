@@ -1,41 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { get, REQUEST } from "~/shared/api";
 import { Loading } from "~/assets";
 import { PATH } from "~/shared/constants";
+import { useQuery } from "@tanstack/react-query";
+import { setCookie } from "~/shared/utils";
 
 export default function AuthPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const code = location.search.split("?code=")[1];
 
-  async function fetchLogin() {
-    const code = location.search.split("?code=")[1];
-    try {
-      const response = await get({
-        request: REQUEST.fetchKakaoLogin,
-        params: { code },
-        format: true,
-      });
-      const token = response.data.token;
-      if (token === undefined) setIsLoading(false);
-      else {
-        document.cookie = `token=${token}; max-age=3600; path=/`;
-        navigate(PATH.HOME);
-      }
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
+  interface LoginRes {
+    token: string;
+    email: string;
   }
 
+  const fetchLogin = async () => {
+    const response = await get<LoginRes>({
+      request: REQUEST.fetchKakaoLogin,
+      params: { code },
+    });
+    console.log(response.data);
+    return response.data;
+  };
+
+  const { isLoading, refetch: login } = useQuery({
+    queryKey: ["token"],
+    queryFn: fetchLogin,
+    enabled: false,
+    select: ({ token }) => setCookie("token", token),
+  });
+
+  // async function fetchLogin() {
+  //   try {
+  //     const response = await get({
+  //       request: REQUEST.fetchKakaoLogin,
+  //       params: { code },
+  //     });
+  //     const token = response.data.token;
+  //     if (token === undefined) setIsLoading(false);
+  //     else {
+  //       document.cookie = `token=${token}; max-age=3600; path=/`;
+  //       navigate(PATH.HOME);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     setIsLoading(false);
+  //   }
+  // }
+
   useEffect(() => {
-    const code = location.search.split("?code=")[1];
     if (code) {
-      fetchLogin();
-    } else {
-      setIsLoading(false);
+      login();
     }
   }, []);
 

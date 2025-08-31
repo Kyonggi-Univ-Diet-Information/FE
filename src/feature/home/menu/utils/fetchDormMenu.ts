@@ -1,11 +1,14 @@
 import { get, REQUEST } from "~/shared/api";
+import { WeeklyMenu } from "~/widgets/home/types";
+
+interface FetchDormMenuRes {
+  result: WeeklyMenu;
+}
 
 export const fetchDormMenu = async () => {
-  try {
-    const data = await get({ request: REQUEST.fetchDormMenu });
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  const response = await get<FetchDormMenuRes>({
+    request: REQUEST.fetchDormMenu,
+  });
+  console.log(response.data);
+  return response.data;
 };

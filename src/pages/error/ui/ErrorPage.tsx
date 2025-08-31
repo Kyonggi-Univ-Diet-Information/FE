@@ -7,7 +7,9 @@ export default function ErrorPage() {
         <span className="text-lg font-semibold">404 Not Found</span>
         <button
           className="hover:bg-primary rounded-normal border-header-border h-[50px] w-full cursor-pointer border-[1px] bg-white px-4 text-black transition-all duration-300 hover:text-white"
-          onClick={() => (window.location.href = "https://www.kiryong.site/")}
+          onClick={() =>
+            (window.location.href = import.meta.env.VITE_PRODUCTION_URL)
+          }
         >
           홈으로 돌아가기
         </button>

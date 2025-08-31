@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppLayout } from "~/app/layouts";
 import { HomeRoutes } from "./routes/HomeRoutes";
 import { ErrorPage } from "~/pages/error/ui";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -16,10 +17,14 @@ const router = createBrowserRouter([
 ]);
 
 const rootElement = document.getElementById("root") as HTMLElement;
+const queryClient = new QueryClient();
+
 const root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>,
 );
