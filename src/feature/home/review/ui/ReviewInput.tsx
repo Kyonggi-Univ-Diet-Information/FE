@@ -7,12 +7,11 @@ import { FaStar } from "react-icons/fa";
 import { useFetchReview, useSubmitReview } from "../api";
 
 export default function ReviewInput({ menuId }: { menuId: number }) {
+  const { refetch: refetchReview } = useFetchReview(menuId);
   const { mutate } = useSubmitReview();
   const [selectedStars, setSelectedStars] = useState(3);
   const [value, setValue] = useState("");
   const token = getCookie("token");
-
-  const { refetch: refetchReview } = useFetchReview(menuId);
 
   const Star = ({ selected, index }: { selected: boolean; index: number }) => (
     <FaStar
@@ -26,13 +25,18 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
 
   const postComment = (comment: string) => {
     const data = { title: comment, content: comment, rating: selectedStars };
-    try {
-      mutate({ data: { ...data }, menuId: menuId });
-      setValue("");
-      refetchReview();
-    } catch (error) {
-      console.log(error);
-    }
+    mutate(
+      { data: { ...data }, menuId: menuId },
+      {
+        onSuccess: () => {
+          setValue("");
+          refetchReview();
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      },
+    );
   };
 
   useEffect(() => {
