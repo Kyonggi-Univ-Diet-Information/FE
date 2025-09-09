@@ -32,7 +32,12 @@ export default function ReviewItem({
 
   useEffect(() => {
     if (favList && Array.isArray(favList) && favList.length > 0) {
-      setFav(favList.includes(id));
+      const favoriteReviewIds = favList.map(
+        (comment) => comment.dietFoodReviewId,
+      );
+      const isFavorited = favoriteReviewIds.includes(id);
+
+      setFav(isFavorited);
     } else {
       setFav(false);
     }

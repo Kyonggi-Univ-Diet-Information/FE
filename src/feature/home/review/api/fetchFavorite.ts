@@ -17,8 +17,14 @@ export const useFetchFavCnt = (reviewId: number) => {
   });
 };
 
+interface Comment {
+  createdAt: string;
+  dietFoodReviewId: number;
+  id: number;
+}
+
 const fetchMemberFav = async () => {
-  const response = await userGet({
+  const response = await userGet<Comment[]>({
     request: REQUEST.fetchMemberFav,
   });
   return response.data;

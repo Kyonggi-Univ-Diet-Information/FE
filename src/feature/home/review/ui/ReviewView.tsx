@@ -55,8 +55,8 @@ export default function ReviewView() {
           <NoReview />
         ) : (
           <div className="scrollbar-hide flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
-            {[...reviewsWithFavCounts].reverse().map((review, index) => (
-              <ReviewItem key={index} {...review} />
+            {[...reviewsWithFavCounts].reverse().map((review) => (
+              <ReviewItem key={review.id} {...review} />
             ))}
           </div>
         )}
