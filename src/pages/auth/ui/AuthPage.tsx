@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { get, REQUEST } from "~/shared/api";
@@ -11,6 +11,8 @@ export default function AuthPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const code = location.search.split("?code=")[1];
+
+  const [error, setError] = useState(false);
 
   interface LoginRes {
     token: string;
@@ -27,25 +29,37 @@ export default function AuthPage() {
   };
 
   const {
+    data,
     isLoading,
     isError,
     refetch: login,
   } = useQuery({
-    queryKey: ["token"],
+    queryKey: ["token", code],
     queryFn: fetchLogin,
     enabled: false,
-    select: ({ token }) => {
-      if (token !== null) {
-        setCookie("token", token);
-        navigate(PATH.HOME);
-      }
-    },
   });
 
   useEffect(() => {
-    if (code) login();
+    if (code) {
+      login();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (data?.token) {
+      setCookie("token", data.token);
+      navigate(PATH.HOME);
+    } else if (data && !data.token) {
+      setError(true);
+    }
+  }, [data, navigate]);
+
+  useEffect(() => {
+    if (isError) {
+      setError(true);
+    }
+  }, [isError]);
 
   return (
     <section className="grid h-[100vh] w-[100vw] place-items-center">
@@ -55,7 +69,7 @@ export default function AuthPage() {
           <Description>로그인 중...</Description>
         </div>
       )}
-      {!isLoading && isError && (
+      {error && (
         <div className="flex h-fit w-fit flex-col gap-y-2">
           <Description>로그인에 실패했습니다.</Description>
           <button
