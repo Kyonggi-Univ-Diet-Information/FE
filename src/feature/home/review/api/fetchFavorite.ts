@@ -26,8 +26,29 @@ const fetchMemberFav = async () => {
 
 export const useFetchMemberFav = () => {
   return useQuery({
-    queryKey: ["fetchMemberCnt"],
+    queryKey: ["fetchMemberFav"],
     queryFn: fetchMemberFav,
     enabled: !!getCookie("token"),
+  });
+};
+
+const fetchBatchFavCounts = async (reviewIds: number[]) => {
+  const promises = reviewIds.map((id) => fetchFavCnt(id));
+  const results = await Promise.all(promises);
+  return reviewIds.reduce(
+    (acc, id, index) => {
+      acc[id] = results[index];
+      return acc;
+    },
+    {} as Record<number, number>,
+  );
+};
+
+export const useFetchBatchFavCounts = (reviewIds: number[]) => {
+  return useQuery({
+    queryKey: ["batchFavCounts", reviewIds],
+    queryFn: () => fetchBatchFavCounts(reviewIds),
+    enabled: reviewIds.length > 0,
+    staleTime: 1000 * 60 * 5,
   });
 };

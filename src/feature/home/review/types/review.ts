@@ -6,6 +6,7 @@ export type Review = {
   createdAt?: string;
   updatedAt?: string;
   memberName?: string;
+  favCount?: number;
 };
 
 export type Config = {

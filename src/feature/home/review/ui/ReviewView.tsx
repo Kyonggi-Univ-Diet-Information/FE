@@ -3,12 +3,34 @@ import { MdOutlineMenuBook } from "react-icons/md";
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
 import { useMenuStore } from "~/shared/store";
 import { Loading } from "~/assets";
-import { useFetchReview } from "../api";
+import { useFetchReview, useFetchBatchFavCounts } from "../api";
+import { useMemo } from "react";
 
 export default function ReviewView() {
   const { selectedMenu, selectedMenuId } = useMenuStore();
 
   const { data: reviews, isLoading, isError } = useFetchReview(selectedMenuId);
+
+  // 리뷰 ID들을 추출
+  const reviewIds = useMemo(() => {
+    return (
+      reviews
+        ?.map((review) => review.id)
+        .filter((id): id is number => id !== undefined) || []
+    );
+  }, [reviews]);
+
+  // 배치로 좋아요 수 가져오기
+  const { data: favCounts } = useFetchBatchFavCounts(reviewIds);
+
+  // 리뷰에 좋아요 수 추가
+  const reviewsWithFavCounts = useMemo(() => {
+    if (!reviews || !favCounts) return reviews;
+    return reviews.map((review) => ({
+      ...review,
+      favCount: review.id ? favCounts[review.id] || 0 : 0,
+    }));
+  }, [reviews, favCounts]);
 
   const renderReviewContent = () => {
     if (!selectedMenu)
@@ -29,11 +51,11 @@ export default function ReviewView() {
           <LoadingStatus />
         ) : isError ? (
           <FetchFailed />
-        ) : !reviews || reviews.length === 0 ? (
+        ) : !reviewsWithFavCounts || reviewsWithFavCounts.length === 0 ? (
           <NoReview />
         ) : (
           <div className="scrollbar-hide flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
-            {[...reviews].reverse().map((review, index) => (
+            {[...reviewsWithFavCounts].reverse().map((review, index) => (
               <ReviewItem key={index} {...review} />
             ))}
           </div>

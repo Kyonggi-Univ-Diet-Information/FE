@@ -24,7 +24,6 @@ export default function AuthPage() {
       request: REQUEST.fetchKakaoLogin,
       params: { code },
     });
-    console.log(response.data);
     return response.data;
   };
 

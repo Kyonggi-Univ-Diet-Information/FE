@@ -8,7 +8,6 @@ import { cn, formatDatefromString, getCookie } from "~/shared/utils";
 import { Review } from "~/feature/home/review/types";
 import {
   useDeleteReviewFav,
-  useFetchFavCnt,
   useFetchMemberFav,
   useSubmitReviewFav,
 } from "../api";
@@ -19,21 +18,23 @@ export default function ReviewItem({
   content,
   memberName,
   rating,
+  favCount: initialFavCount = 0,
 }: Review) {
-  const [favCount, setFavCount] = useState(0);
+  const [favCount, setFavCount] = useState(initialFavCount);
   const [fav, setFav] = useState(false);
-  const { data: favCnt, refetch: reviewFavCnt } = useFetchFavCnt(id);
   const { data: favList, refetch: reviewFavList } = useFetchMemberFav();
   const { mutate: submitReviewFav } = useSubmitReviewFav();
   const { mutate: deleteReviewFav } = useDeleteReviewFav();
 
   useEffect(() => {
-    setFavCount(favCnt);
-  }, []);
+    setFavCount(initialFavCount);
+  }, [initialFavCount]);
 
   useEffect(() => {
     if (favList && Array.isArray(favList)) {
       setFav(favList.includes(id));
+    } else {
+      setFav(false);
     }
   }, [favList, id]);
 
@@ -41,8 +42,12 @@ export default function ReviewItem({
     if (!fav)
       submitReviewFav(id, {
         onSuccess: () => {
-          reviewFavCnt();
+          setFav(true);
+          setFavCount((prev) => prev + 1);
           reviewFavList();
+        },
+        onError: (error) => {
+          console.error("좋아요 추가 실패:", error);
         },
       });
     else {
@@ -50,6 +55,10 @@ export default function ReviewItem({
         onSuccess: () => {
           setFav(false);
           setFavCount((prev) => Math.max(0, prev - 1));
+          reviewFavList();
+        },
+        onError: (error) => {
+          console.error("좋아요 삭제 실패:", error);
         },
       });
     }
