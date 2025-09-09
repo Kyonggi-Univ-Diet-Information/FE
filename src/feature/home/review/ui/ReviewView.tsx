@@ -1,28 +1,14 @@
-import { useEffect } from "react";
-
 import { MdOutlineMenuBook } from "react-icons/md";
 
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
-import { useMenuStore, useReviewStore } from "~/shared/store";
+import { useMenuStore } from "~/shared/store";
 import { Loading } from "~/assets";
 import { useFetchReview } from "../api";
 
 export default function ReviewView() {
   const { selectedMenu, selectedMenuId } = useMenuStore();
-  const { newReview } = useReviewStore();
 
-  const {
-    data: reviews,
-    isLoading,
-    isError,
-    refetch,
-  } = useFetchReview(selectedMenuId);
-
-  useEffect(() => {
-    if (newReview) {
-      refetch();
-    }
-  }, [newReview, refetch]);
+  const { data: reviews, isLoading, isError } = useFetchReview(selectedMenuId);
 
   const renderReviewContent = () => {
     if (!selectedMenu)

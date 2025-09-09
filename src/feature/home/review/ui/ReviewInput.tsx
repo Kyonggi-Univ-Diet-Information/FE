@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { useReviewStore } from "~/shared/store";
 import { cn, getCookie } from "~/shared/utils";
 import { PATH } from "~/shared/constants";
 import { FaStar } from "react-icons/fa";
-import { useSubmitReview } from "../api";
+import { useFetchReview, useSubmitReview } from "../api";
 
 export default function ReviewInput({ menuId }: { menuId: number }) {
-  const { setNewReview } = useReviewStore();
   const { mutate } = useSubmitReview();
   const [selectedStars, setSelectedStars] = useState(3);
   const [value, setValue] = useState("");
   const token = getCookie("token");
+
+  const { refetch: refetchReview } = useFetchReview(menuId);
 
   const Star = ({ selected, index }: { selected: boolean; index: number }) => (
     <FaStar
@@ -29,7 +29,7 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
     try {
       mutate({ data: { ...data }, menuId: menuId });
       setValue("");
-      setNewReview(comment);
+      refetchReview();
     } catch (error) {
       console.log(error);
     }
