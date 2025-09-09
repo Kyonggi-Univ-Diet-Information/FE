@@ -31,7 +31,7 @@ export default function ReviewItem({
   }, [initialFavCount]);
 
   useEffect(() => {
-    if (favList && Array.isArray(favList)) {
+    if (favList && Array.isArray(favList) && favList.length > 0) {
       setFav(favList.includes(id));
     } else {
       setFav(false);
@@ -39,7 +39,7 @@ export default function ReviewItem({
   }, [favList, id]);
 
   const toggleFavorite = () => {
-    if (!fav)
+    if (!fav) {
       submitReviewFav(id, {
         onSuccess: () => {
           setFav(true);
@@ -50,7 +50,7 @@ export default function ReviewItem({
           console.error("좋아요 추가 실패:", error);
         },
       });
-    else {
+    } else {
       deleteReviewFav(id, {
         onSuccess: () => {
           setFav(false);
