@@ -17,14 +17,12 @@ export default function ReviewPage() {
 
   console.log("ReviewPage render:", { menuId, loaderData, weeklyMenu });
 
-  // Loader 데이터로 메뉴 스토어 초기화
   useEffect(() => {
     if (loaderData?.result && !weeklyMenu) {
       setWeeklyMenu(loaderData.result);
     }
   }, [loaderData, weeklyMenu, setWeeklyMenu]);
 
-  // 메뉴 이름 찾기
   const menuName = useMemo(() => {
     const menuData = weeklyMenu || loaderData?.result;
     if (!menuData || !menuId) return null;
@@ -114,19 +112,19 @@ export default function ReviewPage() {
 }
 
 const NoReview = () => (
-  <div className="grid h-full place-items-center overflow-auto">
+  <div className="mt-8 grid h-full place-items-center overflow-auto">
     리뷰가 없습니다. 첫 리뷰를 남겨주세요!
   </div>
 );
 
 const LoadingStatus = () => (
-  <div className="grid h-full place-items-center overflow-auto">
+  <div className="mt-8 grid h-full place-items-center overflow-auto">
     <img src={Loading} alt="로딩 중" />
   </div>
 );
 
 const FetchFailed = () => (
-  <div className="grid h-full place-items-center overflow-auto">
+  <div className="mt-8 grid h-full place-items-center overflow-auto">
     리뷰를 가져오지 못했습니다.
   </div>
 );
