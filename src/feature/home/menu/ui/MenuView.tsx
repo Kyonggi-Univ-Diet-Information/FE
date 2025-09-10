@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDateStore, useMenuStore } from "~/shared/store";
 import { cn, getDay, getDayKey } from "~/shared/utils";
 
 import type { MenuItem, Time, WeeklyMenu } from "~/widgets/home/types";
 import { RUN_TIME, setMenuData, TIME } from "~/widgets/home/model";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 interface MenuViewProps {
   time: Time;
@@ -22,6 +22,13 @@ export default function MenuView({ time }: MenuViewProps) {
   const { selectedDate } = useDateStore();
   const key = getDayKey(getDay(selectedDate));
   const { result: data } = useLoaderData<{ result: WeeklyMenu }>();
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 1024;
+    }
+    return false;
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -35,6 +42,27 @@ export default function MenuView({ time }: MenuViewProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const newIsMobile = window.innerWidth < 1024;
+      setIsMobile(newIsMobile);
+    };
+
+    let timeoutId: NodeJS.Timeout;
+    const debouncedCheckScreenSize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkScreenSize, 100);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", debouncedCheckScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", debouncedCheckScreenSize);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   const renderContent = () => {
     if (key === "SUNDAY" || key === "SATURDAY")
       return <>주말에는 운영하지 않습니다.</>;
@@ -46,23 +74,29 @@ export default function MenuView({ time }: MenuViewProps) {
           <p className="text-primary text-md-important">
             {RUN_TIME[TIME[time]]}
           </p>
-          {todayMenu[TIME[time]].contents.map((menu: MenuItem) => (
-            <p
-              key={menu.dietFoodDTO.id}
-              className={cn(
-                selectedMenu === menu.dietFoodDTO && "text-primary",
-                "hover:text-primary cursor-pointer",
-                menu.dietFoodDTO.name.length > 15 && "hidden",
-                menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
-              )}
-              onClick={() => {
-                setSelectedMenu(menu.dietFoodDTO);
-                setSelectedMenuId(menu.dietFoodDTO.id);
-              }}
-            >
-              {menu.dietFoodDTO.name}
-            </p>
-          ))}
+          {todayMenu[TIME[time]].contents.map((menu: MenuItem) => {
+            return (
+              <p
+                key={menu.dietFoodDTO.id}
+                className={cn(
+                  selectedMenu === menu.dietFoodDTO && "text-primary",
+                  "hover:text-primary cursor-pointer",
+                  menu.dietFoodDTO.name.length > 15 && "hidden",
+                  menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
+                )}
+                onClick={() => {
+                  if (isMobile) {
+                    navigate(`/mobile/review/${menu.dietFoodDTO.id}`);
+                  } else {
+                    setSelectedMenu(menu.dietFoodDTO);
+                    setSelectedMenuId(menu.dietFoodDTO.id);
+                  }
+                }}
+              >
+                {menu.dietFoodDTO.name}
+              </p>
+            );
+          })}
         </>
       );
     }
