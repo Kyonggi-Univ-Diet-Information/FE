@@ -1,6 +1,6 @@
-import axios, { AxiosHeaders, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 
-import { getCookie } from "../utils";
+import { getCookie, deleteCookie } from "../utils";
 
 interface PostRequestParams<TData> {
   request: string;
@@ -13,10 +13,6 @@ interface GetRequestParams<TParams> {
   headers?: AxiosHeaders;
   params?: TParams;
 }
-
-// type RefreshTokenResponse = {
-//   accessToken: string;
-// };
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
@@ -32,38 +28,19 @@ instance.interceptors.request.use(async (config) => {
   return config;
 });
 
-// instance.interceptors.response.use(
-//   (response) => response,
-//   async (error: AxiosError) => {
-//     if (error.response?.status === 401) {
-//       try {
-//         const response = await post<
-//           { refreshToken: string },
-//           RefreshTokenResponse
-//         >({
-//           request: REQUEST.REFRESH,
-//           data: { refreshToken: getCookie("refreshToken")! },
-//         });
-//         const { accessToken: newAccessToken } = response.data;
-//         if (typeof window !== "undefined") {
-//           setCookie("userToken", newAccessToken);
-//         }
-//         const originalRequest = error.config as AxiosRequestConfig;
-//         if (originalRequest) {
-//           originalRequest.headers = {
-//             ...originalRequest.headers,
-//             Authorization: `Bearer ${newAccessToken}`,
-//           };
-//           return instance(originalRequest);
-//         }
-//       } catch {
-//         alert("토큰 갱신에 실패했어요.");
-//         window.location.replace(PATH.HOME);
-//       }
-//     }
-//     return Promise.reject(error);
-//   },
-// );
+instance.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      deleteCookie("token");
+      window.location.reload();
+      alert(
+        "오랫동안 사용하지 않아 로그아웃 되었어요. 다시 로그인 후 이용해주세요!",
+      );
+    }
+    return Promise.reject(error);
+  },
+);
 
 export async function userGet<TResponse, TParams = unknown>(
   config: GetRequestParams<TParams>,
