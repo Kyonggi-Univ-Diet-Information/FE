@@ -8,7 +8,6 @@ import { RestaurantPage } from "~/pages/restaurant/ui";
 import { AuthPage } from "~/pages/auth/ui";
 import { fetchDormMenu } from "~/feature/home/menu/utils";
 import { NoticeImg } from "~/assets";
-import { ErrorPage } from "~/pages/error/ui";
 
 export const HomeRoutes: RouteObject = {
   children: [
