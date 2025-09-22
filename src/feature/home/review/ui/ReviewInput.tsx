@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 
 import { cn, getCookie } from "~/shared/utils";
 import { PATH } from "~/shared/constants";
+import { useLanguageStore } from "~/shared/store";
 import { FaStar } from "react-icons/fa";
 import { useFetchReview, useSubmitReview } from "../api";
 
 export default function ReviewInput({ menuId }: { menuId: number }) {
   const { refetch: refetchReview } = useFetchReview(menuId);
   const { mutate } = useSubmitReview();
+  const { language } = useLanguageStore();
   const [selectedStars, setSelectedStars] = useState(3);
   const [value, setValue] = useState("");
   const token = getCookie("token");
@@ -48,7 +50,11 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
       {token ? (
         <div className="flex h-26 flex-col">
           <div className="mb-2 flex items-center gap-x-2">
-            <span className="text-sm">음식에 대한 평점을 표시해 주세요!</span>
+            <span className="text-sm">
+              {language === "en"
+                ? "Please rate the food!"
+                : "음식에 대한 평점을 표시해 주세요!"}
+            </span>
             <div className="flex">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} index={i} selected={selectedStars > i} />
@@ -69,11 +75,15 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
                 if (value.length > 0) {
                   postComment(value);
                 } else {
-                  alert("내용을 입력하세요!");
+                  alert(
+                    language === "en"
+                      ? "Please enter content!"
+                      : "내용을 입력하세요!",
+                  );
                 }
               }}
             >
-              완료
+              {language === "en" ? "Submit" : "완료"}
             </button>
           </div>
         </div>
@@ -83,19 +93,21 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
             <div className="border-header-border absolute inset-0 z-10 grid place-items-center rounded-lg border-[1px] bg-transparent backdrop-blur-sm">
               <div className="grid place-items-center">
                 <p className="m-0 mb-1.5 text-sm">
-                  로그인 후 후기를 작성하세요!
+                  {language === "en"
+                    ? "Please login to write a review!"
+                    : "로그인 후 후기를 작성하세요!"}
                 </p>
                 <Link
                   to={PATH.LOGIN}
                   className="border-header-border mx-auto cursor-pointer rounded border bg-white px-3 py-1 text-sm leading-normal text-black no-underline transition-colors duration-200 hover:bg-[#00abaa] hover:text-white"
                 >
-                  로그인
+                  {language === "en" ? "Login" : "로그인"}
                 </Link>
               </div>
             </div>
             <textarea className="col-span-5 box-border h-full w-full resize-none rounded-l-lg border border-gray-200 bg-white p-4 text-sm outline-none" />
             <button className="col-span-1 w-full rounded-r-lg border-none bg-gray-800 text-white">
-              완료
+              {language === "en" ? "Submit" : "완료"}
             </button>
           </div>
         </div>

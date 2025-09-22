@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa";
 import { MdOutlineThumbUp } from "react-icons/md";
 import { IoMdThumbsUp } from "react-icons/io";
 import { cn, formatDatefromString, getCookie } from "~/shared/utils";
+import { useLanguageStore } from "~/shared/store";
 import { Review } from "~/feature/home/review/types";
 import {
   useDeleteReviewFav,
@@ -20,6 +21,7 @@ export default function ReviewItem({
   rating,
   favCount: initialFavCount = 0,
 }: Review) {
+  const { language } = useLanguageStore();
   const [favCount, setFavCount] = useState(initialFavCount);
   const [fav, setFav] = useState(false);
   const { data: favList, refetch: reviewFavList } = useFetchMemberFav();
@@ -89,7 +91,7 @@ export default function ReviewItem({
             </div>
           </div>
           <span className="text-xs font-normal">
-            {formatDatefromString(createdAt.slice(0, 10))}
+            {formatDatefromString(createdAt.slice(0, 10), language)}
           </span>
         </div>
       </div>

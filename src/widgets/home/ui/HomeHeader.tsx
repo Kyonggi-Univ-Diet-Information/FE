@@ -1,17 +1,23 @@
 import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { RiceImg } from "~/assets";
-import { useDateStore } from "~/shared/store";
+import { useDateStore, useLanguageStore } from "~/shared/store";
 import { formatDate, getDay, getDayKey } from "~/shared/utils";
 
 export default function HomeHeader() {
   const { selectedDate, setSelectedDateAfter, setSelectedDateBefore } =
     useDateStore();
+  const { language } = useLanguageStore();
+
   return (
     <div className="flex h-fit w-full items-center justify-center gap-x-2 md:justify-start">
       <img src={RiceImg} className="size-20 md:size-30" />
       <div className="flex flex-col items-center gap-y-2">
-        <p className="text-xl font-bold md:text-3xl">오늘의 드림타워 식단</p>
+        <p className="text-xl font-bold md:text-3xl">
+          {language === "en"
+            ? "Today's Dream Tower Menu"
+            : "오늘의 드림타워 식단"}
+        </p>
         <div className="flex gap-x-2">
           <button
             onClick={() => setSelectedDateBefore()}
@@ -21,7 +27,7 @@ export default function HomeHeader() {
             <IoIosArrowBack size={16} />
           </button>
           <span className="text-sm font-semibold md:text-xl">
-            {formatDate(selectedDate)}
+            {formatDate(selectedDate, language)}
           </span>
           <button
             onClick={() => setSelectedDateAfter()}

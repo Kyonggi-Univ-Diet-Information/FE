@@ -37,7 +37,9 @@ export default function Header() {
         >
           기밥
         </span>
-        <span className="md:text-md ml-2 hidden md:flex">기룡아 밥먹자</span>
+        <span className="md:text-md ml-2 hidden md:flex">
+          {language === "en" ? "Let's eat, Kiryong!" : "기룡아 밥먹자"}
+        </span>
       </div>
       <div className="m-0 flex items-center justify-end gap-x-7">
         <button
@@ -49,15 +51,21 @@ export default function Header() {
           <span className="hidden md:inline">{LANGUAGE_LABELS[language]}</span>
         </button>
         <NavButton
-          label="문의하기"
+          label={language === "en" ? "Contact" : "문의하기"}
           onClick={() =>
             window.location.assign("https://open.kakao.com/o/sgcUtX3g")
           }
         />
         {getCookie("token") ? (
-          <NavButton onClick={LogOut} label="로그아웃" />
+          <NavButton
+            onClick={LogOut}
+            label={language === "en" ? "Logout" : "로그아웃"}
+          />
         ) : (
-          <NavButton label="로그인" to={PATH.LOGIN} />
+          <NavButton
+            label={language === "en" ? "Login" : "로그인"}
+            to={PATH.LOGIN}
+          />
         )}
       </div>
     </div>

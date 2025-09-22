@@ -2,7 +2,8 @@ import { type Dispatch, type SetStateAction } from "react";
 
 import type { Time } from "~/widgets/home/types";
 import { cn } from "~/shared/utils";
-import { TIME_LABELS } from "~/widgets/home/model";
+import { useLanguageStore } from "~/shared/store";
+import { TIME_LABELS, TIME_LABELS_EN } from "~/widgets/home/model";
 
 interface TimeSelectorProps {
   selected: Time;
@@ -13,6 +14,8 @@ export default function TimeSelector({
   selected,
   setSelected,
 }: TimeSelectorProps) {
+  const { language } = useLanguageStore();
+
   const TimeButton = ({ time }: { time: Time }) => (
     <button
       className={cn(
@@ -21,7 +24,7 @@ export default function TimeSelector({
       )}
       onClick={() => setSelected(time)}
     >
-      {time}
+      {language === "en" ? TIME_LABELS_EN[time] : time}
     </button>
   );
 

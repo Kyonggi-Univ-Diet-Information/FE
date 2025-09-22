@@ -66,9 +66,16 @@ export default function MenuView({ time }: MenuViewProps) {
 
   const renderContent = () => {
     if (key === "SUNDAY" || key === "SATURDAY")
-      return <>주말에는 운영하지 않습니다.</>;
-    if (!todayMenu) return <FetchFailed />;
-    if (data && !todayMenu[TIME[time]]) return <>미운영</>;
+      return (
+        <>
+          {language === "en"
+            ? "Closed on weekends."
+            : "주말에는 운영하지 않습니다."}
+        </>
+      );
+    if (!todayMenu) return <FetchFailed language={language} />;
+    if (data && !todayMenu[TIME[time]])
+      return <>{language === "en" ? "Closed" : "미운영"}</>;
     if (todayMenu) {
       return (
         <>
@@ -82,10 +89,9 @@ export default function MenuView({ time }: MenuViewProps) {
                 className={cn(
                   selectedMenu === menu.dietFoodDTO && "text-primary",
                   "hover:text-primary cursor-pointer",
-                  (language === "en"
+                  language === "en"
                     ? menu.dietFoodDTO.nameEn
-                    : menu.dietFoodDTO.name
-                  ).length > 15 && "hidden",
+                    : menu.dietFoodDTO.name,
                   menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
                 )}
                 onClick={() => {
@@ -115,14 +121,18 @@ export default function MenuView({ time }: MenuViewProps) {
   );
 }
 
-const FetchFailed = () => (
+const FetchFailed = ({ language }: { language: string }) => (
   <div className="flex flex-col gap-y-2">
-    <p>정보를 받아오지 못했어요.</p>
+    <p>
+      {language === "en"
+        ? "Failed to fetch information."
+        : "정보를 받아오지 못했어요."}
+    </p>
     <button
       className="text-md-important hover:primary hover:text-primary cursor-pointer text-center text-gray-400 focus:outline-none"
       onClick={() => window.location.reload()}
     >
-      다시 시도하기
+      {language === "en" ? "Try Again" : "다시 시도하기"}
     </button>
   </div>
 );

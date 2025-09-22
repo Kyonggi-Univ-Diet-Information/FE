@@ -8,6 +8,12 @@ export const TIME = {
 
 export const TIME_LABELS: Time[] = ["아침", "점심", "저녁"];
 
+export const TIME_LABELS_EN = {
+  아침: "Brek",
+  점심: "Lunch",
+  저녁: "Dinner",
+} as const;
+
 export const RUN_TIME = {
   BREAKFAST: "",
   LUNCH: "10:50 ~ 13:30",
