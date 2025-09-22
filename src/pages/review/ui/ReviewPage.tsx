@@ -46,7 +46,7 @@ export default function ReviewPage() {
   // 리뷰 ID들을 추출
   const reviewIds = useMemo(() => {
     return (
-      reviews
+      reviews?.content
         ?.map((review) => review.id)
         .filter((id): id is number => id !== undefined) || []
     );
@@ -57,8 +57,8 @@ export default function ReviewPage() {
 
   // 리뷰에 좋아요 수 추가
   const reviewsWithFavCounts = useMemo(() => {
-    if (!reviews || !favCounts) return reviews;
-    return reviews.map((review) => ({
+    if (!reviews || !favCounts) return reviews.content;
+    return reviews.content.map((review) => ({
       ...review,
       favCount: review.id ? favCounts[review.id] || 0 : 0,
     }));
