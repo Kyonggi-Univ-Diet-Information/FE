@@ -3,6 +3,7 @@ import { Day, TimeKey } from "~/widgets/home/types";
 
 export type Menu = {
   name: string;
+  nameEn: string;
   id: number;
   dietFoodReviews: Review[];
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDateStore, useMenuStore } from "~/shared/store";
+import { useDateStore, useLanguageStore, useMenuStore } from "~/shared/store";
 import { cn, getDay, getDayKey } from "~/shared/utils";
 
 import type { MenuItem, Time, WeeklyMenu } from "~/widgets/home/types";
@@ -20,6 +20,7 @@ export default function MenuView({ time }: MenuViewProps) {
     todayMenu,
   } = useMenuStore();
   const { selectedDate } = useDateStore();
+  const { language } = useLanguageStore();
   const key = getDayKey(getDay(selectedDate));
   const { result: data } = useLoaderData<{ result: WeeklyMenu }>();
   const [isMobile, setIsMobile] = useState(() => {
@@ -81,7 +82,10 @@ export default function MenuView({ time }: MenuViewProps) {
                 className={cn(
                   selectedMenu === menu.dietFoodDTO && "text-primary",
                   "hover:text-primary cursor-pointer",
-                  menu.dietFoodDTO.name.length > 15 && "hidden",
+                  (language === "en"
+                    ? menu.dietFoodDTO.nameEn
+                    : menu.dietFoodDTO.name
+                  ).length > 15 && "hidden",
                   menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
                 )}
                 onClick={() => {
@@ -93,7 +97,9 @@ export default function MenuView({ time }: MenuViewProps) {
                   }
                 }}
               >
-                {menu.dietFoodDTO.name}
+                {language === "en"
+                  ? menu.dietFoodDTO.nameEn
+                  : menu.dietFoodDTO.name}
               </p>
             );
           })}

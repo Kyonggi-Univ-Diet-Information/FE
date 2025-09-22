@@ -1,13 +1,14 @@
 import { MdOutlineMenuBook } from "react-icons/md";
 
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
-import { useMenuStore } from "~/shared/store";
+import { useLanguageStore, useMenuStore } from "~/shared/store";
 import { Loading } from "~/assets";
 import { useReviewPagination, useFetchBatchFavCounts } from "../api";
 import { useMemo, useEffect } from "react";
 
 export default function ReviewView() {
   const { selectedMenu, selectedMenuId } = useMenuStore();
+  const { language } = useLanguageStore();
 
   const {
     reviews,
@@ -47,22 +48,25 @@ export default function ReviewView() {
       return (
         <div className="flex h-full w-full flex-col items-center justify-center leading-loose">
           <MdOutlineMenuBook size={35} />
-          메뉴를 선택하고 리뷰를 확인하세요!
+          {language === "en"
+            ? "Select a menu and check reviews!"
+            : "메뉴를 선택하고 리뷰를 확인하세요!"}
         </div>
       );
 
     return (
       <>
         <p className="mb-4 text-xl">
-          <b>{selectedMenu.name}</b>, 어떨까?
+          <b>{language === "en" ? selectedMenu.nameEn : selectedMenu.name}</b>,{" "}
+          {language === "en" ? "how is it?" : "어떨까?"}
         </p>
         <ReviewInput menuId={selectedMenuId} />
         {isLoading ? (
           <LoadingStatus />
         ) : isError ? (
-          <FetchFailed />
+          <FetchFailed language={language} />
         ) : !reviewsWithFavCounts || reviewsWithFavCounts.length === 0 ? (
-          <NoReview />
+          <NoReview language={language} />
         ) : (
           <>
             <div className="scrollbar-hide flex-shrink: 0 mt-2 flex h-full flex-col gap-y-2 overflow-scroll">
@@ -76,6 +80,7 @@ export default function ReviewView() {
                 goToPage={goToPage}
                 goToNextPage={goToNextPage}
                 goToPrevPage={goToPrevPage}
+                language={language}
               />
             )}
           </>
@@ -90,9 +95,11 @@ export default function ReviewView() {
   );
 }
 
-const NoReview = () => (
+const NoReview = ({ language }: { language: string }) => (
   <div className="grid h-full place-items-center overflow-auto">
-    리뷰가 없습니다. 첫 리뷰를 남겨주세요!
+    {language === "en"
+      ? "No reviews yet. Be the first to leave a review!"
+      : "리뷰가 없습니다. 첫 리뷰를 남겨주세요!"}
   </div>
 );
 
@@ -102,9 +109,11 @@ const LoadingStatus = () => (
   </div>
 );
 
-const FetchFailed = () => (
+const FetchFailed = ({ language }: { language: string }) => (
   <div className="grid h-full place-items-center overflow-auto">
-    리뷰를 가져오지 못했습니다.
+    {language === "en"
+      ? "Failed to fetch reviews."
+      : "리뷰를 가져오지 못했습니다."}
   </div>
 );
 
@@ -120,6 +129,7 @@ interface PaginationControlsProps {
   goToPage: (page: number) => void;
   goToNextPage: () => void;
   goToPrevPage: () => void;
+  language: string;
 }
 
 const PaginationControls = ({
@@ -127,6 +137,7 @@ const PaginationControls = ({
   goToPage,
   goToNextPage,
   goToPrevPage,
+  language,
 }: PaginationControlsProps) => {
   const { currentPage, totalPages, totalElements, isFirst, isLast } =
     pagination;
@@ -145,7 +156,9 @@ const PaginationControls = ({
   return (
     <div className="mt-4 flex flex-col items-center gap-2 border-t border-gray-200 pt-4">
       <div className="text-sm text-gray-600">
-        총 {totalElements}개의 리뷰 중 {currentPage + 1}페이지
+        {language === "en"
+          ? `Page ${currentPage + 1} of ${totalElements} reviews`
+          : `총 ${totalElements}개의 리뷰 중 ${currentPage + 1}페이지`}
       </div>
       <div className="flex items-center gap-1">
         <button
@@ -157,7 +170,7 @@ const PaginationControls = ({
               : "cursor-pointer border border-gray-200 bg-white hover:bg-gray-50"
           }`}
         >
-          이전
+          {language === "en" ? "Prev" : "이전"}
         </button>
 
         {getPageNumbers().map((pageNum) => (
@@ -183,7 +196,7 @@ const PaginationControls = ({
               : "cursor-pointer border border-gray-200 bg-white hover:bg-gray-50"
           }`}
         >
-          다음
+          {language === "en" ? "Next" : "다음"}
         </button>
       </div>
     </div>

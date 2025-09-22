@@ -11,6 +11,7 @@ export const setMenuData = (response: WeeklyMenu) => {
       const menus = meal.contents.map((food) => ({
         id: food.dietFoodDTO.id,
         menu: food.dietFoodDTO.name,
+        nameEn: food.dietFoodDTO.nameEn,
       }));
 
       dormMenus[day][time] = {
