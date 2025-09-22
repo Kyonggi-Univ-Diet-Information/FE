@@ -15,8 +15,6 @@ export default function ReviewPage() {
   const loaderData = useLoaderData() as { result: WeeklyMenu };
   const { weeklyMenu, setWeeklyMenu } = useMenuStore();
 
-  console.log("ReviewPage render:", { menuId, loaderData, weeklyMenu });
-
   useEffect(() => {
     if (loaderData?.result && !weeklyMenu) {
       setWeeklyMenu(loaderData.result);
@@ -121,7 +119,7 @@ export default function ReviewPage() {
     );
   };
   return (
-    <div className="flex h-screen w-full flex-col">
+    <div className="flex h-screen w-full flex-col overflow-hidden">
       <div className="flex h-full w-full flex-col p-4">
         {renderReviewContent()}
       </div>

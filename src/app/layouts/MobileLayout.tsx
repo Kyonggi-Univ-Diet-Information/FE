@@ -8,7 +8,7 @@ export default function MobileLayout() {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-50">
+    <div className="flex h-screen w-full items-center justify-center overflow-hidden bg-gray-50">
       <div className="relative h-full w-full max-w-[540px]">
         <div className="inset-0 flex h-14 max-w-[540px] items-center justify-between bg-white px-4">
           <button
