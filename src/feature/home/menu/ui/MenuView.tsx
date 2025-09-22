@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDateStore, useLanguageStore, useMenuStore } from "~/shared/store";
 import { cn, getDay, getDayKey } from "~/shared/utils";
+import { trackEvent } from "~/shared/utils/ga4";
 
 import type { MenuItem, Time, WeeklyMenu } from "~/widgets/home/types";
 import { RUN_TIME, setMenuData, TIME } from "~/widgets/home/model";
@@ -95,6 +96,18 @@ export default function MenuView({ time }: MenuViewProps) {
                   menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
                 )}
                 onClick={() => {
+                  // GA4 이벤트 추적
+                  trackEvent("menu_click", {
+                    event_category: "menu_interaction",
+                    event_label: menu.dietFoodDTO.name,
+                    menu_id: menu.dietFoodDTO.id,
+                    menu_name: menu.dietFoodDTO.name,
+                    menu_name_en: menu.dietFoodDTO.nameEn,
+                    time_slot: TIME[time],
+                    is_mobile: isMobile,
+                    selected_date: selectedDate,
+                  });
+
                   if (isMobile) {
                     navigate(`/mobile/review/${menu.dietFoodDTO.id}`);
                   } else {

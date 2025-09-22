@@ -5,6 +5,7 @@ import { cn, getCookie } from "~/shared/utils";
 import { PATH } from "~/shared/constants";
 import { useLanguageStore } from "~/shared/store";
 import { FaStar } from "react-icons/fa";
+import { trackEvent, trackConversion } from "~/shared/utils/ga4";
 import { useFetchReview, useSubmitReview } from "../api";
 
 export default function ReviewInput({ menuId }: { menuId: number }) {
@@ -21,7 +22,17 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
         "size-3.5 cursor-pointer",
         selected ? "text-primary" : "text-gray",
       )}
-      onClick={() => setSelectedStars(index + 1)}
+      onClick={() => {
+        setSelectedStars(index + 1);
+        // GA4 평점 선택 이벤트 추적
+        trackEvent("rating_select", {
+          event_category: "review_interaction",
+          event_label: `rating_${index + 1}`,
+          menu_id: menuId,
+          rating: index + 1,
+          language: language,
+        });
+      }}
     />
   );
 
@@ -31,10 +42,28 @@ export default function ReviewInput({ menuId }: { menuId: number }) {
       { data: { ...data }, menuId: menuId },
       {
         onSuccess: () => {
+          // GA4 리뷰 작성 성공 이벤트 추적
+          trackConversion("review_submit_success", {
+            event_category: "review_interaction",
+            event_label: "review_submitted",
+            menu_id: menuId,
+            rating: selectedStars,
+            content_length: comment.length,
+            language: language,
+          });
+
           setValue("");
           refetchReview();
         },
         onError: (error) => {
+          // GA4 리뷰 작성 실패 이벤트 추적
+          trackEvent("review_submit_error", {
+            event_category: "error",
+            event_label: "review_submission_failed",
+            menu_id: menuId,
+            error_message: error.message || "Unknown error",
+            language: language,
+          });
           console.log(error);
         },
       },

@@ -6,6 +6,7 @@ import { MdOutlineThumbUp } from "react-icons/md";
 import { IoMdThumbsUp } from "react-icons/io";
 import { cn, formatDatefromString, getCookie } from "~/shared/utils";
 import { useLanguageStore } from "~/shared/store";
+import { trackEvent } from "~/shared/utils/ga4";
 import { Review } from "~/feature/home/review/types";
 import {
   useDeleteReviewFav,
@@ -49,22 +50,55 @@ export default function ReviewItem({
     if (!fav) {
       submitReviewFav(id, {
         onSuccess: () => {
+          // GA4 좋아요 추가 이벤트 추적
+          trackEvent("review_like", {
+            event_category: "review_interaction",
+            event_label: "like_added",
+            review_id: id,
+            review_rating: rating,
+            review_content_length: content.length,
+            language: language,
+          });
+
           setFav(true);
           setFavCount((prev) => prev + 1);
           reviewFavList();
         },
         onError: (error) => {
+          // GA4 좋아요 추가 실패 이벤트 추적
+          trackEvent("review_like_error", {
+            event_category: "error",
+            event_label: "like_add_failed",
+            review_id: id,
+            error_message: error.message || "Unknown error",
+          });
           console.error("좋아요 추가 실패:", error);
         },
       });
     } else {
       deleteReviewFav(id, {
         onSuccess: () => {
+          // GA4 좋아요 삭제 이벤트 추적
+          trackEvent("review_unlike", {
+            event_category: "review_interaction",
+            event_label: "like_removed",
+            review_id: id,
+            review_rating: rating,
+            language: language,
+          });
+
           setFav(false);
           setFavCount((prev) => Math.max(0, prev - 1));
           reviewFavList();
         },
         onError: (error) => {
+          // GA4 좋아요 삭제 실패 이벤트 추적
+          trackEvent("review_unlike_error", {
+            event_category: "error",
+            event_label: "like_remove_failed",
+            review_id: id,
+            error_message: error.message || "Unknown error",
+          });
           console.error("좋아요 삭제 실패:", error);
         },
       });
