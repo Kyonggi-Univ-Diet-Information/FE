@@ -4,7 +4,7 @@ import { useParams, useLoaderData } from "react-router-dom";
 import { Loading } from "~/assets";
 import {
   useFetchBatchFavCounts,
-  useFetchReview,
+  useReviewPagination,
 } from "~/feature/home/review/api";
 import { ReviewInput, ReviewItem } from "~/feature/home/review/ui";
 import { useMenuStore } from "~/shared/store";
@@ -41,12 +41,20 @@ export default function ReviewPage() {
     return null;
   }, [weeklyMenu, loaderData, menuId]);
 
-  const { data: reviews, isLoading, isError } = useFetchReview(Number(menuId));
+  const {
+    reviews,
+    pagination,
+    isLoading,
+    isError,
+    goToPage,
+    goToNextPage,
+    goToPrevPage,
+  } = useReviewPagination(Number(menuId));
 
   // 리뷰 ID들을 추출
   const reviewIds = useMemo(() => {
     return (
-      reviews?.content
+      reviews
         ?.map((review) => review.id)
         .filter((id): id is number => id !== undefined) || []
     );
@@ -57,8 +65,8 @@ export default function ReviewPage() {
 
   // 리뷰에 좋아요 수 추가
   const reviewsWithFavCounts = useMemo(() => {
-    if (!reviews || !favCounts) return reviews.content;
-    return reviews.content.map((review) => ({
+    if (!reviews || !favCounts) return reviews;
+    return reviews.map((review) => ({
       ...review,
       favCount: review.id ? favCounts[review.id] || 0 : 0,
     }));
@@ -93,17 +101,27 @@ export default function ReviewPage() {
         ) : !reviewsWithFavCounts || reviewsWithFavCounts.length === 0 ? (
           <NoReview />
         ) : (
-          <div className="mt-2 flex flex-1 flex-col gap-y-2 overflow-y-auto">
-            {[...reviewsWithFavCounts].reverse().map((review) => (
-              <ReviewItem key={review.id} {...review} />
-            ))}
-          </div>
+          <>
+            <div className="mt-2 flex max-h-[calc(100vh-380px)] flex-1 flex-col gap-y-2 overflow-y-auto">
+              {[...reviewsWithFavCounts].reverse().map((review) => (
+                <ReviewItem key={review.id} {...review} />
+              ))}
+            </div>
+            {pagination.totalPages > 1 && (
+              <PaginationControls
+                pagination={pagination}
+                goToPage={goToPage}
+                goToNextPage={goToNextPage}
+                goToPrevPage={goToPrevPage}
+              />
+            )}
+          </>
         )}
       </>
     );
   };
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex h-screen w-full flex-col">
       <div className="flex h-full w-full flex-col p-4">
         {renderReviewContent()}
       </div>
@@ -128,3 +146,85 @@ const FetchFailed = () => (
     리뷰를 가져오지 못했습니다.
   </div>
 );
+
+interface PaginationControlsProps {
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalElements: number;
+    isFirst: boolean;
+    isLast: boolean;
+    size: number;
+  };
+  goToPage: (page: number) => void;
+  goToNextPage: () => void;
+  goToPrevPage: () => void;
+}
+
+const PaginationControls = ({
+  pagination,
+  goToPage,
+  goToNextPage,
+  goToPrevPage,
+}: PaginationControlsProps) => {
+  const { currentPage, totalPages, totalElements, isFirst, isLast } =
+    pagination;
+
+  const getPageNumbers = () => {
+    const pages = [];
+    const startPage = Math.max(0, currentPage - 2);
+    const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
+  return (
+    <div className="mt-4 flex flex-col items-center gap-2 border-t border-gray-200 pt-4">
+      <div className="text-sm text-gray-600">
+        총 {totalElements}개의 리뷰 중 {currentPage + 1}페이지
+      </div>
+      <div className="flex items-center gap-1">
+        <button
+          onClick={goToPrevPage}
+          disabled={isFirst}
+          className={`rounded px-3 py-1 text-sm ${
+            isFirst
+              ? "cursor-not-allowed bg-gray-100 text-gray-400"
+              : "cursor-pointer border border-gray-200 bg-white hover:bg-gray-50"
+          }`}
+        >
+          이전
+        </button>
+
+        {getPageNumbers().map((pageNum) => (
+          <button
+            key={pageNum}
+            onClick={() => goToPage(pageNum)}
+            className={`rounded px-3 py-1 text-sm ${
+              pageNum === currentPage
+                ? "bg-primary text-white"
+                : "cursor-pointer border border-gray-200 bg-white hover:bg-gray-50"
+            }`}
+          >
+            {pageNum + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={goToNextPage}
+          disabled={isLast}
+          className={`rounded px-3 py-1 text-sm ${
+            isLast
+              ? "cursor-not-allowed bg-gray-100 text-gray-400"
+              : "cursor-pointer border border-gray-200 bg-white hover:bg-gray-50"
+          }`}
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  );
+};
