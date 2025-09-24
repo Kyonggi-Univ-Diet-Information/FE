@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDateStore, useLanguageStore, useMenuStore } from "~/shared/store";
-import { cn, getDay, getDayKey } from "~/shared/utils";
-import { trackEvent } from "~/shared/utils/ga4";
+import { useEffect, useState } from 'react';
+import { useDateStore, useLanguageStore, useMenuStore } from '~/shared/store';
+import { cn, getDay, getDayKey } from '~/shared/utils';
+import { trackEvent } from '~/shared/utils/ga4';
 
-import type { MenuItem, Time, WeeklyMenu } from "~/widgets/home/types";
-import { RUN_TIME, setMenuData, TIME } from "~/widgets/home/model";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import type { MenuItem, Time, WeeklyMenu } from '~/widgets/home/types';
+import { RUN_TIME, setMenuData, TIME } from '~/widgets/home/model';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 interface MenuViewProps {
   time: Time;
@@ -25,7 +25,7 @@ export default function MenuView({ time }: MenuViewProps) {
   const key = getDayKey(getDay(selectedDate));
   const { result: data } = useLoaderData<{ result: WeeklyMenu }>();
   const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       return window.innerWidth < 1024;
     }
     return false;
@@ -40,7 +40,9 @@ export default function MenuView({ time }: MenuViewProps) {
   }, [data, setWeeklyMenu, setTodayMenu]);
 
   useEffect(() => {
-    setTodayMenu(data[key] || null);
+    if (key) {
+      setTodayMenu(data[key as keyof typeof data] || null);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
@@ -57,30 +59,30 @@ export default function MenuView({ time }: MenuViewProps) {
     };
 
     checkScreenSize();
-    window.addEventListener("resize", debouncedCheckScreenSize);
+    window.addEventListener('resize', debouncedCheckScreenSize);
 
     return () => {
-      window.removeEventListener("resize", debouncedCheckScreenSize);
+      window.removeEventListener('resize', debouncedCheckScreenSize);
       clearTimeout(timeoutId);
     };
   }, []);
 
   const renderContent = () => {
-    if (key === "SUNDAY" || key === "SATURDAY")
+    if (key === 'SUNDAY' || key === 'SATURDAY')
       return (
         <>
-          {language === "en"
-            ? "Closed on weekends."
-            : "주말에는 운영하지 않습니다."}
+          {language === 'en'
+            ? 'Closed on weekends.'
+            : '주말에는 운영하지 않습니다.'}
         </>
       );
     if (!todayMenu) return <FetchFailed language={language} />;
     if (data && !todayMenu[TIME[time]])
-      return <>{language === "en" ? "Closed" : "미운영"}</>;
+      return <>{language === 'en' ? 'Closed' : '미운영'}</>;
     if (todayMenu) {
       return (
         <>
-          <p className="text-primary text-md-important">
+          <p className='text-primary text-md-important'>
             {RUN_TIME[TIME[time]]}
           </p>
           {todayMenu[TIME[time]].contents.map((menu: MenuItem) => {
@@ -88,17 +90,17 @@ export default function MenuView({ time }: MenuViewProps) {
               <p
                 key={menu.dietFoodDTO.id}
                 className={cn(
-                  selectedMenu === menu.dietFoodDTO && "text-primary",
-                  "hover:text-primary cursor-pointer",
-                  language === "en"
+                  selectedMenu === menu.dietFoodDTO && 'text-primary',
+                  'hover:text-primary cursor-pointer',
+                  language === 'en'
                     ? menu.dietFoodDTO.nameEn
                     : menu.dietFoodDTO.name,
-                  menu.dietFoodDTO.name === "*운영시간 안내" && "hidden",
+                  menu.dietFoodDTO.name === '*운영시간 안내' && 'hidden',
                 )}
                 onClick={() => {
                   // GA4 이벤트 추적
-                  trackEvent("menu_click", {
-                    event_category: "menu_interaction",
+                  trackEvent('menu_click', {
+                    event_category: 'menu_interaction',
                     event_label: menu.dietFoodDTO.name,
                     menu_id: menu.dietFoodDTO.id,
                     menu_name: menu.dietFoodDTO.name,
@@ -116,7 +118,7 @@ export default function MenuView({ time }: MenuViewProps) {
                   }
                 }}
               >
-                {language === "en"
+                {language === 'en'
                   ? menu.dietFoodDTO.nameEn
                   : menu.dietFoodDTO.name}
               </p>
@@ -128,24 +130,24 @@ export default function MenuView({ time }: MenuViewProps) {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-y-2 text-xl font-medium lg:w-90 lg:text-2xl">
+    <div className='lg:w-90 flex w-full flex-col items-center justify-center gap-y-2 text-xl font-medium lg:text-2xl'>
       {renderContent()}
     </div>
   );
 }
 
 const FetchFailed = ({ language }: { language: string }) => (
-  <div className="flex flex-col gap-y-2">
+  <div className='flex flex-col gap-y-2'>
     <p>
-      {language === "en"
-        ? "Failed to fetch information."
-        : "정보를 받아오지 못했어요."}
+      {language === 'en'
+        ? 'Failed to fetch information.'
+        : '정보를 받아오지 못했어요.'}
     </p>
     <button
-      className="text-md-important hover:primary hover:text-primary cursor-pointer text-center text-gray-400 focus:outline-none"
+      className='text-md-important hover:primary hover:text-primary cursor-pointer text-center text-gray-400 focus:outline-none'
       onClick={() => window.location.reload()}
     >
-      {language === "en" ? "Try Again" : "다시 시도하기"}
+      {language === 'en' ? 'Try Again' : '다시 시도하기'}
     </button>
   </div>
 );

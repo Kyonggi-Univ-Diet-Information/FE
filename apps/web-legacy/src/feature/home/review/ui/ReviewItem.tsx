@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { FaStar } from "react-icons/fa";
+import { FaStar } from 'react-icons/fa';
 
-import { MdOutlineThumbUp } from "react-icons/md";
-import { IoMdThumbsUp } from "react-icons/io";
-import { cn, formatDatefromString, getCookie } from "~/shared/utils";
-import { useLanguageStore } from "~/shared/store";
-import { trackEvent } from "~/shared/utils/ga4";
-import { Review } from "~/feature/home/review/types";
+import { MdOutlineThumbUp } from 'react-icons/md';
+import { IoMdThumbsUp } from 'react-icons/io';
+import { cn, formatDatefromString, getCookie } from '~/shared/utils';
+import { useLanguageStore } from '~/shared/store';
+import { trackEvent } from '~/shared/utils/ga4';
+import { Review } from '~/feature/home/review/types';
 import {
   useDeleteReviewFav,
   useFetchMemberFav,
   useSubmitReviewFav,
-} from "../api";
+} from '../api';
 
 export default function ReviewItem({
   id,
@@ -34,9 +34,9 @@ export default function ReviewItem({
   }, [initialFavCount]);
 
   useEffect(() => {
-    if (favList && Array.isArray(favList) && favList.length > 0) {
+    if (favList && Array.isArray(favList) && favList.length > 0 && id) {
       const favoriteReviewIds = favList.map(
-        (comment) => comment.dietFoodReviewId,
+        comment => comment.dietFoodReviewId,
       );
       const isFavorited = favoriteReviewIds.includes(id);
 
@@ -47,13 +47,13 @@ export default function ReviewItem({
   }, [favList, id]);
 
   const toggleFavorite = () => {
-    if (!fav) {
+    if (!fav && id) {
       submitReviewFav(id, {
         onSuccess: () => {
           // GA4 좋아요 추가 이벤트 추적
-          trackEvent("review_like", {
-            event_category: "review_interaction",
-            event_label: "like_added",
+          trackEvent('review_like', {
+            event_category: 'review_interaction',
+            event_label: 'like_added',
             review_id: id,
             review_rating: rating,
             review_content_length: content.length,
@@ -61,45 +61,45 @@ export default function ReviewItem({
           });
 
           setFav(true);
-          setFavCount((prev) => prev + 1);
+          setFavCount(prev => prev + 1);
           reviewFavList();
         },
-        onError: (error) => {
+        onError: error => {
           // GA4 좋아요 추가 실패 이벤트 추적
-          trackEvent("review_like_error", {
-            event_category: "error",
-            event_label: "like_add_failed",
+          trackEvent('review_like_error', {
+            event_category: 'error',
+            event_label: 'like_add_failed',
             review_id: id,
-            error_message: error.message || "Unknown error",
+            error_message: error.message || 'Unknown error',
           });
-          console.error("좋아요 추가 실패:", error);
+          console.error('좋아요 추가 실패:', error);
         },
       });
-    } else {
+    } else if (id) {
       deleteReviewFav(id, {
         onSuccess: () => {
           // GA4 좋아요 삭제 이벤트 추적
-          trackEvent("review_unlike", {
-            event_category: "review_interaction",
-            event_label: "like_removed",
+          trackEvent('review_unlike', {
+            event_category: 'review_interaction',
+            event_label: 'like_removed',
             review_id: id,
             review_rating: rating,
             language: language,
           });
 
           setFav(false);
-          setFavCount((prev) => Math.max(0, prev - 1));
+          setFavCount(prev => Math.max(0, prev - 1));
           reviewFavList();
         },
-        onError: (error) => {
+        onError: error => {
           // GA4 좋아요 삭제 실패 이벤트 추적
-          trackEvent("review_unlike_error", {
-            event_category: "error",
-            event_label: "like_remove_failed",
+          trackEvent('review_unlike_error', {
+            event_category: 'error',
+            event_label: 'like_remove_failed',
             review_id: id,
-            error_message: error.message || "Unknown error",
+            error_message: error.message || 'Unknown error',
           });
-          console.error("좋아요 삭제 실패:", error);
+          console.error('좋아요 삭제 실패:', error);
         },
       });
     }
@@ -109,37 +109,38 @@ export default function ReviewItem({
     if (name.length <= 1) {
       return name;
     }
-    return name[0] + "*".repeat(name.length - 1);
+    return name[0] + '*'.repeat(name.length - 1);
   }
 
   return (
-    <div className="border-header-border m-0 box-border flex flex-col gap-y-1 rounded-lg border-[1px] bg-white/60 p-3 text-sm leading-normal">
-      <div className="m-0 flex items-center justify-between pb-1 text-sm font-semibold">
-        <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-x-2">
-            {maskName(memberName)}
-            <div className="flex gap-y-1">
+    <div className='border-header-border m-0 box-border flex flex-col gap-y-1 rounded-lg border-[1px] bg-white/60 p-3 text-sm leading-normal'>
+      <div className='m-0 flex items-center justify-between pb-1 text-sm font-semibold'>
+        <div className='flex w-full items-center justify-between'>
+          <div className='flex items-center gap-x-2'>
+            {maskName(memberName || '')}
+            <div className='flex gap-y-1'>
               {Array.from({ length: rating }).map(() => (
-                <FaStar className="text-primary size-3" />
+                <FaStar className='text-primary size-3' />
               ))}
             </div>
           </div>
-          <span className="text-xs font-normal">
-            {formatDatefromString(createdAt.slice(0, 10), language)}
+          <span className='text-xs font-normal'>
+            {createdAt &&
+              formatDatefromString(createdAt.slice(0, 10), language)}
           </span>
         </div>
       </div>
       {content}
       <button
         className={cn(
-          "rounded-small hover:bg-primary border-header-border mt-1 flex w-fit cursor-pointer items-start gap-x-2 border-[1px] p-1 px-2 transition-colors duration-200 hover:text-white disabled:cursor-default disabled:text-gray-400 disabled:hover:bg-white",
-          fav && "bg-primary text-white",
+          'rounded-small hover:bg-primary border-header-border mt-1 flex w-fit cursor-pointer items-start gap-x-2 border-[1px] p-1 px-2 transition-colors duration-200 hover:text-white disabled:cursor-default disabled:text-gray-400 disabled:hover:bg-white',
+          fav && 'bg-primary text-white',
         )}
         onClick={() => toggleFavorite()}
-        disabled={!getCookie("token")}
+        disabled={!getCookie('token')}
       >
-        <div className="text-xs font-medium">{favCount}</div>
-        <div className="border-none bg-transparent">
+        <div className='text-xs font-medium'>{favCount}</div>
+        <div className='border-none bg-transparent'>
           {fav ? <IoMdThumbsUp size={16} /> : <MdOutlineThumbUp size={16} />}
         </div>
       </button>
