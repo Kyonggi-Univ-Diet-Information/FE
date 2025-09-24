@@ -25,3 +25,29 @@ dist-ssr
 
 .env
 tsconfig.tsbuildinfo
+
+# Node.js
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+
+# IDE-specific files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Other common ignored files
+dist/
+build/
+coverage/

@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { useGA4 } from "~/shared/hooks/useGA4";
+import { ReactNode } from 'react';
+import { useGA4 } from '~/shared/hooks/useGA4';
 
 interface GA4ProviderProps {
   children: ReactNode;
