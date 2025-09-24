@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, type AxiosRequestConfig } from 'axios';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
@@ -31,7 +31,7 @@ export async function get<TResponse, TParams = unknown>(
     console.log(error);
     if (axios.isAxiosError(error))
       throw new Error(error.response?.data.message);
-    else throw new Error("에러가 발생했습니다");
+    else throw new Error('에러가 발생했습니다');
   }
 }
 
@@ -53,15 +53,18 @@ export async function post<TData, TResponse = unknown>(
     console.log(error);
     if (axios.isAxiosError(error))
       throw new Error(error.response?.data.message);
-    else throw new Error("에러가 발생했습니다");
+    else throw new Error('에러가 발생했습니다');
   }
 }
 
-export const del = async <S = unknown>(request: string, config?: S) => {
+export const del = async <S extends AxiosRequestConfig = AxiosRequestConfig>(
+  request: string,
+  config?: S,
+) => {
   try {
     const response = await instance.delete(`${request}`, config);
     return response;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error((error as Error).message);
   }
 };
