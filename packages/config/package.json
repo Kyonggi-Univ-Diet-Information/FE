@@ -8,13 +8,15 @@
     "tsconfig.node.json",
     "tsconfig.next.json",
     "tsconfig.base.json",
-    "eslint.config.js"
+    "eslint.config.js",
+    "globals.css"
   ],
   "exports": {
     "./tsconfig.app.json": "./tsconfig.app.json",
     "./tsconfig.node.json": "./tsconfig.node.json",
     "./tsconfig.next.json": "./tsconfig.next.json",
-    "./eslint.config.js": "./eslint.config.js"
+    "./eslint.config.js": "./eslint.config.js",
+    "./globals.css": "./globals.css"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
