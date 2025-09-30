@@ -8,7 +8,7 @@ export default function Header() {
   const isLoggedIn = false;
 
   return (
-    <header className='bg-border fixed top-0 z-50 flex h-14 w-full items-center justify-between p-8'>
+    <header className='fixed top-0 z-50 flex h-14 w-full items-center justify-between border-b p-8'>
       <p className='flex items-baseline gap-2'>
         <span className='font-brBold text-2xl font-bold'>기밥</span>
         <span className='font-brRegular hidden md:block'>기룡아 밥먹자</span>
