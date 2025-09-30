@@ -4,3 +4,27 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+.font-brBold {
+  font-family: 'brBold';
+}
+
+.font-brRegular {
+  font-family: 'brRegular';
+}
+
+@font-face {
+  font-family: 'brBold';
+  src: url('/fonts/brBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'brRegular';
+  src: url('/fonts/brRegular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
