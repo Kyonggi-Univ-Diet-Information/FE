@@ -27,14 +27,17 @@ export default function Home() {
         </MenuSection.Content>
       </MenuSection>
 
-      <div className='flex cursor-pointer flex-col rounded-2xl bg-gray-100/50 px-8 py-6 transition-all duration-300 active:bg-gray-100'>
+      <a
+        href='/review'
+        className='flex cursor-pointer flex-col rounded-2xl bg-gray-100/50 px-8 py-6 transition-all duration-300 active:bg-gray-100'
+      >
         <p className='text-lg font-bold'>
           식사는 어땠나요?<span className='font-tossFace'> 😋</span>
         </p>
         <p>
           식당 메뉴에 대한 리뷰를 작성하고, 다른 학우의 리뷰를 확인해보세요!
         </p>
-      </div>
+      </a>
 
       <MenuSection>
         <MenuSection.Header>
@@ -42,7 +45,10 @@ export default function Home() {
             <span className='text-point'>경기드림타워</span> <u>오늘</u>의 메뉴
             <span className='font-tossFace'> 🍚</span>
           </p>
-          <Link href='/' className='text-sm underline hover:text-gray-600'>
+          <Link
+            href='/review'
+            className='text-sm underline hover:text-gray-600'
+          >
             리뷰 보러가기
           </Link>
         </MenuSection.Header>
