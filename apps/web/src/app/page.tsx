@@ -1,75 +1,82 @@
+import { MenuCard, MenuSection } from '@/components/feature';
 import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className='scrollbar-hide absolute inset-0 flex flex-col gap-6 overflow-y-scroll p-4 pb-20 pt-6'>
-      <div className='flex flex-col gap-4'>
-        <div className='flex items-baseline justify-between'>
-          <p className='text-lg font-bold'>
-            경기드림타워 <u>오늘</u>의 메뉴
+    <div className='scrollbar-hide absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pb-20 pt-6'>
+      <MenuSection>
+        <MenuSection.Header>
+          <p className='text-xl font-bold'>
+            경기대 <span className='text-point'>교내식당</span> 메뉴
             <span className='font-tossFace'> 🍚</span>
           </p>
-          <div className='flex'>
-            <Link href='/' className='text-sm underline hover:text-gray-600'>
-              리뷰 보러가기
-            </Link>
-          </div>
-        </div>
+          <Link href='/' className='text-sm underline hover:text-gray-600'>
+            전체보기
+          </Link>
+        </MenuSection.Header>
+        <MenuSection.Content>
+          <MenuCard>
+            <MenuCard.Header>경슐랭</MenuCard.Header>
+          </MenuCard>
+          <MenuCard>
+            <MenuCard.Header>이스퀘어</MenuCard.Header>
+          </MenuCard>
+          <MenuCard>
+            <MenuCard.Header>감성코어</MenuCard.Header>
+          </MenuCard>
+        </MenuSection.Content>
+      </MenuSection>
 
-        <div className='scrollbar-hide flex max-w-full gap-4 overflow-x-scroll'>
-          <div className='h-70 flex min-w-60 flex-col gap-2 rounded-2xl bg-gray-100/50 p-4'>
-            <p className='font-semibold'>아침</p>
-            <div className='flex flex-col'>
-              <p className='text-gray-600'>미운영</p>
-            </div>
-          </div>
-          <div className='h-70 flex min-w-60 flex-col gap-2 rounded-2xl bg-gray-100/50 p-4'>
-            <p className='font-semibold'>점심</p>
-            <div className='flex flex-col'>
-              <p className='text-gray-600'>메뉴1</p>
-              <p className='text-gray-600'>메뉴2</p>
-              <p className='text-gray-600'>메뉴3</p>
-              <p className='text-gray-600'>메뉴4</p>
-              <p className='text-gray-600'>메뉴5</p>
-            </div>
-          </div>
-          <div className='h-70 flex min-w-60 flex-col gap-2 rounded-2xl bg-gray-100/50 p-4'>
-            <p className='font-semibold'>저녁</p>
-            <div className='flex flex-col'>
-              <p className='text-gray-600'>메뉴1</p>
-              <p className='text-gray-600'>메뉴2</p>
-              <p className='text-gray-600'>메뉴3</p>
-              <p className='text-gray-600'>메뉴4</p>
-              <p className='text-gray-600'>메뉴5</p>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className='flex cursor-pointer flex-col rounded-2xl bg-gray-100/50 px-8 py-6 transition-all duration-300 active:bg-gray-100'>
         <p className='text-lg font-bold'>
-          오늘 메뉴 어때요?<span className='font-tossFace'> 🤔</span>
+          식사는 어땠나요?<span className='font-tossFace'> 😋</span>
         </p>
         <p>
           식당 메뉴에 대한 리뷰를 작성하고, 다른 학우의 리뷰를 확인해보세요!
         </p>
       </div>
-      <div className='flex flex-col gap-4'>
-        <p className='text-lg font-bold'>
-          다른 교내식당 메뉴
-          <span className='font-tossFace'> 🍚</span>
-        </p>
-        <div className='scrollbar-hide flex max-w-full gap-4 overflow-x-scroll'>
-          <div className='h-72 min-w-60 rounded-2xl bg-gray-100/50 p-4'>
-            <p className='font-semibold'>경슐랭</p>
-          </div>
-          <div className='h-72 min-w-60 rounded-2xl bg-gray-100/50 p-4'>
-            <p className='font-semibold'>이스퀘어</p>
-          </div>
-          <div className='h-72 min-w-60 rounded-2xl bg-gray-100/50 p-4'>
-            <p className='font-semibold'>감성코어</p>
-          </div>
-        </div>
-      </div>
+
+      <MenuSection>
+        <MenuSection.Header>
+          <p className='text-xl font-bold'>
+            <span className='text-point'>경기드림타워</span> <u>오늘</u>의 메뉴
+            <span className='font-tossFace'> 🍚</span>
+          </p>
+          <Link href='/' className='text-sm underline hover:text-gray-600'>
+            리뷰 보러가기
+          </Link>
+        </MenuSection.Header>
+        <MenuSection.Content>
+          <MenuCard>
+            <MenuCard.Header>
+              아침 <span className='font-tossFace'>☀️</span>
+            </MenuCard.Header>
+            <MenuCard.Content>
+              <p className='text-gray-600'>미운영</p>
+            </MenuCard.Content>
+          </MenuCard>
+          <MenuCard>
+            <MenuCard.Header>
+              점심 <span className='font-tossFace'>🍽️</span>{' '}
+            </MenuCard.Header>
+            <MenuCard.Content>
+              <p className='text-gray-600'>메뉴1</p>
+              <p className='text-gray-600'>메뉴2</p>
+              <p className='text-gray-600'>메뉴3</p>
+              <p className='text-gray-600'>메뉴4</p>
+              <p className='text-gray-600'>메뉴5</p>
+            </MenuCard.Content>
+          </MenuCard>
+          <MenuCard>
+            <MenuCard.Header>
+              저녁 <span className='font-tossFace'>🌙</span>
+            </MenuCard.Header>
+            <MenuCard.Content>
+              <p className='text-gray-600'>미운영</p>
+            </MenuCard.Content>
+          </MenuCard>
+        </MenuSection.Content>
+      </MenuSection>
     </div>
   );
 }

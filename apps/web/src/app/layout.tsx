@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Header } from '@/components/menu';
+import { Header } from '@/components/layout';
 
 export const metadata: Metadata = {
   title: '기룡아 밥먹자',
