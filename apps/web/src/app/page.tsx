@@ -1,4 +1,4 @@
-import { MenuCard, MenuSection } from '@/components/feature';
+import { MenuCard, MenuSection } from '@/features/menu/components';
 import Link from 'next/link';
 
 export default function Home() {
