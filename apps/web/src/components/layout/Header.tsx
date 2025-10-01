@@ -1,8 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Button } from '@/components/ui/Button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
+import { Button } from '@/components/common/Button';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/Avatar';
 
 export default function Header() {
   const isLoggedIn = false;
