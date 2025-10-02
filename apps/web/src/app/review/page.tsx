@@ -1,7 +1,7 @@
 import { Button } from '@/components/common/Button';
 import React from 'react';
 
-export default function ReviewPAge() {
+export default function ReviewPage() {
   return (
     <div className='scrollbar-hide absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pb-20 pt-6'>
       <div className='flex flex-col gap-4'>
