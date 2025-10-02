@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
+
 import { Header } from '@/components/layout';
+import { ErrorBoundary } from '@/components/common';
 
 export const metadata: Metadata = {
   title: '기룡아 밥먹자',
@@ -15,12 +17,14 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className='antialiased'>
-        <Header />
-        <div className='size-full pt-[65px]'>
-          <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
-            {children}
-          </main>
-        </div>
+        <ErrorBoundary>
+          <Header />
+          <div className='size-full pt-[65px]'>
+            <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
+              {children}
+            </main>
+          </div>
+        </ErrorBoundary>
       </body>
     </html>
   );
