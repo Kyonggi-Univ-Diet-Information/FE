@@ -1,7 +1,11 @@
 import { MenuCard, MenuSection } from '@/features/menu/components';
+import { fetchCampusMenu } from '@/features/menu/services/fetchCampusMenu';
+import { CAMPUS_RESTAURANT, CAMPUS_RESTAURANT_NAME } from '@/lib/constants';
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const campusMenu = await fetchCampusMenu();
+
   return (
     <div className='scrollbar-hide absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pb-20 pt-6'>
       <MenuSection>
@@ -10,20 +14,37 @@ export default function Home() {
             경기대 <span className='text-point'>교내식당</span> 메뉴
             <span className='font-tossFace'> 🍚</span>
           </p>
-          <Link href='/' className='text-sm underline hover:text-gray-600'>
+          <Link
+            href='/campus'
+            className='text-sm underline hover:text-gray-600'
+          >
             전체보기
           </Link>
         </MenuSection.Header>
         <MenuSection.Content>
-          <MenuCard>
-            <MenuCard.Header>경슐랭</MenuCard.Header>
-          </MenuCard>
-          <MenuCard>
-            <MenuCard.Header>이스퀘어</MenuCard.Header>
-          </MenuCard>
-          <MenuCard>
-            <MenuCard.Header>감성코어</MenuCard.Header>
-          </MenuCard>
+          {CAMPUS_RESTAURANT_NAME.map(restaurant => (
+            <MenuCard key={restaurant}>
+              <p className='flex items-center justify-between font-semibold'>
+                <span>{CAMPUS_RESTAURANT[restaurant]}</span>
+                <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm'>
+                  경슐랭
+                </span>
+              </p>
+              <MenuCard.Content>
+                {campusMenu[restaurant].map(menu => (
+                  <p
+                    className='flex items-center justify-between text-gray-600'
+                    key={menu.id}
+                  >
+                    <span>{menu.name}</span>
+                    <span className='text-sm text-gray-900/40'>
+                      {menu.price}원
+                    </span>
+                  </p>
+                ))}
+              </MenuCard.Content>
+            </MenuCard>
+          ))}
         </MenuSection.Content>
       </MenuSection>
 
