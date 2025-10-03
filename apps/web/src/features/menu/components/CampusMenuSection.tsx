@@ -29,7 +29,7 @@ export default async function CampusMenuSection() {
       />
       <MenuSection.Content>
         {CAMPUS_RESTAURANT_NAME.map(restaurant => (
-          <MenuCard key={restaurant}>
+          <MenuCard key={restaurant} className='h-70'>
             <p className='flex items-center justify-between font-semibold'>
               <span>{CAMPUS_RESTAURANT[restaurant]}</span>
               <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium'>

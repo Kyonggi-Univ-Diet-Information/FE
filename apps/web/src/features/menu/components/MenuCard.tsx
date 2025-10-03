@@ -1,8 +1,20 @@
+import { cn } from '@/lib/utils';
 import React, { ReactNode } from 'react';
 
-export default function MenuCard({ children }: { children: ReactNode }) {
+export default function MenuCard({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className='h-70 flex min-w-60 cursor-pointer flex-col gap-2 overflow-hidden rounded-2xl bg-gray-100/50 p-4 transition-all duration-300 active:bg-gray-100'>
+    <div
+      className={cn(
+        className,
+        'flex min-w-60 flex-shrink-0 cursor-pointer flex-col gap-2 overflow-hidden rounded-2xl bg-gray-100/50 p-4 transition-all duration-300 active:bg-gray-100',
+      )}
+    >
       {children}
     </div>
   );

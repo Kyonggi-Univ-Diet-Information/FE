@@ -58,7 +58,7 @@ export default async function Home() {
           }
         />
         <MenuSection.Content>
-          <MenuCard>
+          <MenuCard className='h-70'>
             <MenuCard.Header>
               아침 <span className='font-tossFace'>☀️</span>
             </MenuCard.Header>
