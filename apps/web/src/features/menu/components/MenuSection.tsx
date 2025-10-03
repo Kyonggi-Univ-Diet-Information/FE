@@ -4,8 +4,27 @@ export default function MenuSection({ children }: { children: ReactNode }) {
   return <div className='flex flex-col gap-4'>{children}</div>;
 }
 
-function MenuHeader({ children }: { children: ReactNode }) {
-  return <div className='flex items-baseline justify-between'>{children}</div>;
+function MenuHeader({
+  children,
+  title,
+  subtitle,
+  action,
+}: {
+  children?: ReactNode;
+  title?: ReactNode;
+  subtitle?: ReactNode;
+  action?: ReactNode;
+}) {
+  return (
+    <div className='flex items-baseline justify-between'>
+      <div className='flex flex-col gap-1'>
+        {title && <div className='text-xl font-bold'>{title}</div>}
+        {subtitle && <div className='text-sm text-gray-600'>{subtitle}</div>}
+        {children}
+      </div>
+      {action}
+    </div>
+  );
 }
 
 function MenuContent({ children }: { children: ReactNode }) {

@@ -9,30 +9,35 @@ export default async function Home() {
   return (
     <div className='scrollbar-hide absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pb-20 pt-6'>
       <MenuSection>
-        <MenuSection.Header>
-          <p className='text-xl font-bold'>
-            경기대 <span className='text-point'>교내식당</span> 메뉴
-            <span className='font-tossFace'> 🍚</span>
-          </p>
-          <Link
-            href='/campus'
-            className='text-sm underline hover:text-gray-600'
-          >
-            전체보기
-          </Link>
-        </MenuSection.Header>
+        <MenuSection.Header
+          title={
+            <>
+              경기대 <span className='text-point'>교내식당</span> 메뉴
+              <span className='font-tossFace'> 🍚</span>
+            </>
+          }
+          subtitle='카드를 클릭해서 전체 메뉴를 확인해보세요!'
+          action={
+            <Link
+              href='/campus'
+              className='text-sm underline hover:text-gray-600'
+            >
+              전체보기
+            </Link>
+          }
+        />
         <MenuSection.Content>
           {CAMPUS_RESTAURANT_NAME.map(restaurant => (
             <MenuCard key={restaurant}>
               <p className='flex items-center justify-between font-semibold'>
                 <span>{CAMPUS_RESTAURANT[restaurant]}</span>
-                <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm'>
+                <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium'>
                   경슐랭
                 </span>
               </p>
               <MenuCard.Content>
-                {campusMenu[restaurant].map(menu => (
-                  <p
+                {campusMenu[restaurant].slice(0, 6).map(menu => (
+                  <li
                     className='flex items-center justify-between text-gray-600'
                     key={menu.id}
                   >
@@ -40,7 +45,7 @@ export default async function Home() {
                     <span className='text-sm text-gray-900/40'>
                       {menu.price}원
                     </span>
-                  </p>
+                  </li>
                 ))}
               </MenuCard.Content>
             </MenuCard>
@@ -61,18 +66,23 @@ export default async function Home() {
       </a>
 
       <MenuSection>
-        <MenuSection.Header>
-          <p className='text-xl font-bold'>
-            <span className='text-point'>경기드림타워</span> <u>오늘</u>의 메뉴
-            <span className='font-tossFace'> 🍚</span>
-          </p>
-          <Link
-            href='/review'
-            className='text-sm underline hover:text-gray-600'
-          >
-            리뷰 보러가기
-          </Link>
-        </MenuSection.Header>
+        <MenuSection.Header
+          title={
+            <>
+              <span className='text-point'>경기드림타워</span> <u>오늘</u>의
+              메뉴
+              <span className='font-tossFace'> 🍚</span>
+            </>
+          }
+          action={
+            <Link
+              href='/reivew'
+              className='text-sm underline hover:text-gray-600'
+            >
+              전체보기
+            </Link>
+          }
+        />
         <MenuSection.Content>
           <MenuCard>
             <MenuCard.Header>
