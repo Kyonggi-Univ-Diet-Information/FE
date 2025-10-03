@@ -16,5 +16,15 @@ export const DORM_DAY = {
   SUNDAY: '일요일',
 };
 
+export const DORM_DAY_KEY: Record<number, DormDay> = {
+  0: 'SUNDAY',
+  1: 'MONDAY',
+  2: 'TUESDAY',
+  3: 'WEDNESDAY',
+  4: 'THURSDAY',
+  5: 'FRIDAY',
+  6: 'SATURDAY',
+};
+
 export const DORM_TIME_NAME = Object.keys(DORM_TIME) as DormTime[];
 export const DORM_DAY_NAME = Object.keys(DORM_DAY) as DormDay[];
