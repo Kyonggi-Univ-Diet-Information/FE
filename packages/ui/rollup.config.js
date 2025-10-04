@@ -1,8 +1,8 @@
-import path from 'path';
 import postcss from 'rollup-plugin-postcss';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import autoprefixer from 'autoprefixer';
 
 export default {
   input: 'src/index.ts', // 진입 파일
@@ -33,7 +33,7 @@ export default {
       modules: false, // 글로벌 CSS면 false
       minimize: true,
       sourceMap: true,
-      plugins: [require('autoprefixer')],
+      plugins: [autoprefixer],
     }),
   ],
   external: [
