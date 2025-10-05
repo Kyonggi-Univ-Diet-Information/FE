@@ -22,7 +22,12 @@ export default function TabNavigation({ tabs, className }: TabNavigationProps) {
   };
 
   return (
-    <div className={cn('flex gap-2 overflow-x-auto', className)}>
+    <div
+      className={cn(
+        'flex h-fit flex-shrink-0 gap-2 overflow-x-auto',
+        className,
+      )}
+    >
       {tabs.map(tab => (
         <button
           key={tab.key}
@@ -30,7 +35,7 @@ export default function TabNavigation({ tabs, className }: TabNavigationProps) {
           className={cn(
             'cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
             currentTab === tab.key
-              ? 'bg-gray-200 text-gray-600'
+              ? 'bg-point/80 text-white'
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
           )}
         >
