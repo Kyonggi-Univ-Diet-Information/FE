@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+
 import './globals.css';
 
 import { Header } from '@/components/layout';
@@ -9,6 +11,36 @@ export const metadata: Metadata = {
   description: '경기대학교 내부 식당 정보를 쉽게 찾아봐요!',
 };
 
+const wantedSans = localFont({
+  src: [
+    {
+      path: '../../public/fonts/WantedSans-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/WantedSans-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/WantedSans-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/WantedSans-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/WantedSans-Black.ttf',
+      weight: '800',
+      style: 'normal',
+    },
+  ],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className='antialiased'>
+      <body className={`${wantedSans.className} antialiased`}>
         <ErrorBoundary>
           <Header />
           <div className='size-full pt-[65px]'>

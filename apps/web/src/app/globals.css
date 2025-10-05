@@ -126,6 +126,10 @@
   }
 }
 
+html {
+  font-family: var(--font-wantedSans);
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
