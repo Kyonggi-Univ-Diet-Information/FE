@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "NEXT_PRIVATE_DEBUG=1 next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@kiryong/config": "workspace:*",
-    "@kiryong/ui": "workspace:*",
+    "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-slot": "^1.2.3",
     "axios": "^1.8.1",
     "class-variance-authority": "^0.7.1",

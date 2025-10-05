@@ -2,8 +2,9 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  experimental: {
-    serverComponentsExternalPackages: [],
+  serverExternalPackages: [],
+  turbopack: {
+    root: '/Users/cho4u4o/Documents/FE/apps/web',
   },
   ...(process.env.NODE_ENV === 'development' && {
     onDemandEntries: {

@@ -24,7 +24,7 @@ export default function TabNavigation({ tabs, className }: TabNavigationProps) {
   return (
     <div
       className={cn(
-        'flex h-fit flex-shrink-0 gap-2 overflow-x-auto',
+        'scrollbar-hide flex h-fit flex-shrink-0 gap-2 overflow-x-auto',
         className,
       )}
     >
