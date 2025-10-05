@@ -13,9 +13,11 @@ import { DormMenu, DormTime } from '@/types';
 export default async function Home() {
   const dormMenu = await fetchDormMenu();
   const today = new Date().getDay();
-  const todayDormMenu = dormMenu[DORM_DAY_KEY[today]];
+  const todayDormMenu = dormMenu && dormMenu[DORM_DAY_KEY[today]];
 
   const dormMenuByTime = (time: DormTime) => {
+    if (!dormMenu) return [];
+
     if (today > 0 && today < 6) {
       return todayDormMenu[time].contents || [];
     }
