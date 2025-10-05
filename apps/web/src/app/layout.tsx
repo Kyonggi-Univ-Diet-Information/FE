@@ -47,17 +47,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko'>
-      <body className={`${wantedSans.className} antialiased`}>
-        <ErrorBoundary>
-          <Header />
-          <div className='size-full pt-[65px]'>
-            <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
-              {children}
-            </main>
-          </div>
-        </ErrorBoundary>
-      </body>
-    </html>
+    <>
+      <head>
+        <link rel='icon' href='favicon/favicon.ico' sizes='any' />
+      </head>
+      <html lang='ko'>
+        <body className={`${wantedSans.className} antialiased`}>
+          <ErrorBoundary>
+            <Header />
+            <div className='size-full pt-[65px]'>
+              <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
+                {children}
+              </main>
+            </div>
+          </ErrorBoundary>
+        </body>
+      </html>
+    </>
   );
 }
