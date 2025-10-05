@@ -1,10 +1,8 @@
 import Link from 'next/link';
 
-import {
-  CampusMenuSection,
-  MenuCard,
-  MenuSection,
-} from '@/features/menu/components';
+import { MenuSection } from '@/components/common';
+
+import { CampusMenuSection, MenuCard } from '@/features/menu/components';
 import { fetchDormMenu } from '@/features/menu/services';
 
 import { DORM_DAY_KEY } from '@/lib/constants';

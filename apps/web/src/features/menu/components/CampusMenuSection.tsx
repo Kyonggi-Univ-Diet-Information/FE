@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
-import { MenuCard, MenuSection } from '.';
+import { MenuSection } from '@/components/common';
+
+import { MenuCard } from '.';
 import { fetchCampusMenu } from '../services';
 
 import { CAMPUS_RESTAURANT, CAMPUS_RESTAURANT_NAME } from '@/lib/constants';
