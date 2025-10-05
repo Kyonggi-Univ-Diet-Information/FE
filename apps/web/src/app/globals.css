@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@source "../../../packages/*/src/**/*.{js,ts,jsx,tsx}";
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -115,6 +113,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @layer base {
@@ -124,11 +124,6 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 .scrollbar-hide {
