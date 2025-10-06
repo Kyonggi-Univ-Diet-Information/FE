@@ -15,7 +15,7 @@ interface GetRequestParams<TParams> {
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const clientApi = axios.create({
-  baseURL: BACKEND_API_URL,
+  baseURL: BACKEND_API_URL || 'https://api.kiryong.kr/api',
 });
 
 async function get<TResponse, TParams = unknown>(
