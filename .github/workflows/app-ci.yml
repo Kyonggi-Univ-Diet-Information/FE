@@ -44,6 +44,7 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> apps/web/.env
           echo "NODE_ENV=production" >> apps/web/.env
+          echo "OUTPUT_FILE_TRACING_ROOT=${{ github.workspace }}" >> apps/web/.env
 
       - name: Run commands
         run: pnpm ${{ matrix.command }}

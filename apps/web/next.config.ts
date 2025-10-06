@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  outputFileTracingRoot: '../..',
+  outputFileTracingRoot: process.env.OUTPUT_FILE_TRACING_ROOT || '../..',
   serverExternalPackages: [],
   ...(process.env.NODE_ENV === 'development' && {
     onDemandEntries: {
