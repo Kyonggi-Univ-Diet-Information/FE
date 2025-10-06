@@ -40,9 +40,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Create .env file
+      - name: Create .env file for Next.js
         run: |
-          echo NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} >> .env
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> apps/web/.env
+          echo "NODE_ENV=production" >> apps/web/.env
 
       - name: Run commands
         run: pnpm ${{ matrix.command }}
