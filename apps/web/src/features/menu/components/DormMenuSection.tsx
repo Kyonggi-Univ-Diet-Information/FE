@@ -4,6 +4,7 @@ import React from 'react';
 import type { DormDay, DormTime } from '@/types';
 import { DORM_DAY, DORM_DAY_KEY } from '@/lib/constants';
 import { MenuSection } from '@/components/common';
+import { getCurrentDate } from '@/lib/utils/date';
 
 import { MenuCard, NavigationButton } from '@/features/menu/components';
 import { fetchDormMenu } from '@/features/menu/services';
@@ -22,7 +23,7 @@ interface DormMenuSectionProps {
 
 export default async function DormMenuSection({ date }: DormMenuSectionProps) {
   const dormMenu = await fetchDormMenu();
-  const today = new Date().getDay();
+  const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];
   const weekDateString = date ? DORM_DAY[date] : '오늘';

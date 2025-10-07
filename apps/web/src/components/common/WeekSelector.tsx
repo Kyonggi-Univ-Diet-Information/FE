@@ -1,9 +1,17 @@
 'use client';
 
 import React from 'react';
-import { cn } from '@/lib/utils/index';
+
 import { Button } from './Button';
 import { WEEKDAYS } from '@/lib/constants';
+import {
+  cn,
+  getCurrentDate,
+  getWeekStart,
+  getWeekDates,
+  formatKoreanDate,
+  isSameDay,
+} from '@/lib/utils';
 
 interface WeekSelectorProps {
   selectedDate?: Date;
@@ -16,36 +24,20 @@ export default function WeekSelector({
   onDateSelect,
   className,
 }: WeekSelectorProps) {
-  const getWeekStart = (date: Date) => {
-    const start = new Date(date);
-    start.setDate(date.getDate() - date.getDay());
-    start.setHours(0, 0, 0, 0);
-    return start;
-  };
-
-  const getWeekDates = (startDate: Date) => {
-    return Array.from({ length: 7 }, (_, i) => {
-      const date = new Date(startDate);
-      date.setDate(startDate.getDate() + i);
-      return date;
-    });
-  };
-
-  const weekStart = getWeekStart(selectedDate || new Date());
+  const weekStart = getWeekStart(selectedDate || getCurrentDate());
   const weekDates = getWeekDates(weekStart);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const today = getCurrentDate();
 
   return (
     <div className={cn('space-y-4', className)}>
       <div className='text-center'>
         <p className='text-sm text-gray-600'>
-          {weekStart.toLocaleDateString('ko-KR', {
+          {formatKoreanDate(weekStart, {
             month: 'long',
             day: 'numeric',
           })}{' '}
           -{' '}
-          {weekDates[6].toLocaleDateString('ko-KR', {
+          {formatKoreanDate(weekDates[6], {
             month: 'long',
             day: 'numeric',
           })}
@@ -54,9 +46,8 @@ export default function WeekSelector({
 
       <div className='grid grid-cols-7 gap-2'>
         {weekDates.map((date, index) => {
-          const isToday = date.getTime() === today.getTime();
-          const isSelected =
-            selectedDate && date.toDateString() === selectedDate.toDateString();
+          const isToday = isSameDay(date, today);
+          const isSelected = selectedDate && isSameDay(date, selectedDate);
           const isWeekend = index === 0 || index === 6;
 
           return (
@@ -83,7 +74,7 @@ export default function WeekSelector({
       {selectedDate && (
         <div className='rounded-lg bg-gray-50 p-3 text-center'>
           <p className='text-sm text-gray-600'>
-            {selectedDate.toLocaleDateString('ko-KR', {
+            {formatKoreanDate(selectedDate, {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
