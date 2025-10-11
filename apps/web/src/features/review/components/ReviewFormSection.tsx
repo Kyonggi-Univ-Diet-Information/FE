@@ -52,3 +52,5 @@ export default function ReviewFormSection() {
     </form>
   );
 }
+
+ReviewFormSection.displayName = 'ReviewFormSection';

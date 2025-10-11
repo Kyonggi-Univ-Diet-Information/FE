@@ -12,10 +12,6 @@ export default function ReviewRatingSection({
   reviewCount,
   averageRating,
 }: ReviewRatingSectionProps) {
-  if (reviewCount === 0) {
-    return null;
-  }
-
   const ratingPercentage = useMemo(() => {
     return {
       '5': (rating['5'] / reviewCount) * 100,
@@ -25,6 +21,10 @@ export default function ReviewRatingSection({
       '1': (rating['1'] / reviewCount) * 100,
     };
   }, [rating, reviewCount]);
+
+  if (reviewCount === 0) {
+    return null;
+  }
 
   return (
     <section className='flex items-center rounded-2xl border p-6'>
