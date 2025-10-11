@@ -53,4 +53,4 @@ export default function ReviewFormSection() {
   );
 }
 
-ReviewFormSection.displayName = 'ReviewFormSection';
+ReviewTextArea.displayName = 'ReviewTextArea';
