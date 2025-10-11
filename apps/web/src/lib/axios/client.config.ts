@@ -1,16 +1,10 @@
-import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from 'axios';
-
-interface PostRequestParams<TData> {
-  request: string;
-  headers?: { [key: string]: string };
-  data?: TData;
-}
-
-interface GetRequestParams<TParams> {
-  request: string;
-  headers?: { [key: string]: string };
-  params?: TParams;
-}
+import axios from 'axios';
+import {
+  DelRequestParams,
+  GetRequestParams,
+  Http,
+  PostRequestParams,
+} from './http';
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,56 +12,14 @@ const clientApi = axios.create({
   baseURL: BACKEND_API_URL || 'https://api.kiryong.kr/api',
 });
 
-async function get<TResponse, TParams = unknown>(
-  config: GetRequestParams<TParams>,
-): Promise<AxiosResponse<TResponse>> {
-  const { request, headers, params } = config;
-  try {
-    const response = await clientApi.get<TResponse>(request, {
-      withCredentials: true,
-      params: params,
-      headers: headers || undefined,
-    });
-    return response;
-  } catch (error: unknown) {
-    console.log(error);
-    if (isAxiosError(error)) throw new Error(error.response?.data.message);
-    else throw new Error('에러가 발생했습니다');
-  }
-}
+const get = <TResponse, TParams = unknown>(config: GetRequestParams<TParams>) =>
+  Http.get<TResponse, TParams>(config, clientApi);
 
-async function post<TData, TResponse = unknown>(
-  config: PostRequestParams<TData>,
-): Promise<AxiosResponse<TResponse>> {
-  const { request, data, headers } = config;
-  try {
-    const response = await clientApi.post<
-      TResponse,
-      AxiosResponse<TResponse>,
-      TData
-    >(request, data, {
-      withCredentials: true,
-      headers: headers || undefined,
-    });
-    return response;
-  } catch (error: unknown) {
-    console.log(error);
-    if (isAxiosError(error)) throw new Error(error.response?.data.message);
-    else throw new Error('에러가 발생했습니다');
-  }
-}
+const post = <TData, TResponse = unknown>(config: PostRequestParams<TData>) =>
+  Http.post<TData, TResponse>(config, clientApi);
 
-async function del<S extends AxiosRequestConfig = AxiosRequestConfig>(
-  request: string,
-  config?: S,
-) {
-  try {
-    const response = await clientApi.delete(`${request}`, config);
-    return response;
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
-}
+const del = <TResponse, TData = unknown>(config: DelRequestParams<TData>) =>
+  Http.del<TResponse, TData>(config, clientApi);
 
 export const apiClient = {
   get,
