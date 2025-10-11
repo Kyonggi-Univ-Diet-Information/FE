@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 
+import { cn } from '@/lib/utils';
+
 export default function MenuSection({ children }: { children: ReactNode }) {
   return <div className='flex flex-col gap-4'>{children}</div>;
 }
@@ -27,9 +29,20 @@ function MenuHeader({
   );
 }
 
-function MenuContent({ children }: { children: ReactNode }) {
+function MenuContent({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className='scrollbar-hide flex max-w-full gap-4 overflow-x-scroll'>
+    <div
+      className={cn(
+        'scrollbar-hide flex max-w-full gap-4 overflow-x-scroll',
+        className,
+      )}
+    >
       {children}
     </div>
   );
