@@ -39,6 +39,14 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
       return getFallbackMenu(true);
     }
 
+    if (dormMenu[currentDay] === undefined) {
+      return getFallbackMenu(false);
+    }
+
+    if (todayDormMenu[time] === undefined) {
+      return getFallbackMenu(false);
+    }
+
     return todayDormMenu[time].contents || [];
   };
 

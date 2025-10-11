@@ -8,8 +8,8 @@ export const MENU_MESSAGES = {
     id: 0,
     dietFoodDTO: {
       id: 0,
-      name: '이번 주 메뉴는 아직 업데이트 되지 않았어요!',
-      nameEn: "This week's menu is not yet updated!",
+      name: '미운영',
+      nameEn: 'Closed',
       type: null,
     },
   },
