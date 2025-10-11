@@ -44,7 +44,7 @@ export default async function CampusMenuSection() {
             </p>
             <MenuCard.Content>
               {campusMenu[restaurant].slice(0, 7).map(menu => (
-                <li
+                <p
                   className='flex items-center justify-between text-gray-600'
                   key={menu.id}
                 >
@@ -52,7 +52,7 @@ export default async function CampusMenuSection() {
                   <span className='text-sm text-gray-900/40'>
                     {menu.price}원
                   </span>
-                </li>
+                </p>
               ))}
             </MenuCard.Content>
           </MenuCard>
