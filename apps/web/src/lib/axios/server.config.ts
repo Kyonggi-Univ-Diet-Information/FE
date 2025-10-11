@@ -1,5 +1,11 @@
 import axios from 'axios';
 import { AuthService } from '../services';
+import {
+  DelRequestParams,
+  GetRequestParams,
+  Http,
+  PostRequestParams,
+} from './http';
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -50,4 +56,17 @@ serverApi.interceptors.response.use(
   },
 );
 
-export default serverApi;
+const get = <TParams = unknown>(config: GetRequestParams<TParams>) =>
+  Http.get(config, serverApi);
+
+const post = <TData = unknown>(config: PostRequestParams<TData>) =>
+  Http.post(config, serverApi);
+
+const del = <TData = unknown>(config: DelRequestParams<TData>) =>
+  Http.del(config, serverApi);
+
+export const apiServer = {
+  get,
+  post,
+  delete: del,
+};
