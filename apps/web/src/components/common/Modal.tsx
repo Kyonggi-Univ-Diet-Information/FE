@@ -1,18 +1,24 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-export default function Modal({ children }: { children: ReactNode }) {
+export default function Modal({
+  children,
+  href,
+}: {
+  children: ReactNode;
+  href?: string;
+}) {
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center'>
       <Link
         className='backdrop-blur-xs absolute inset-0 bg-black/30'
-        href='/'
+        href={href ?? '/'}
         replace
       />
 
       <div className='relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl'>
         <Link
-          href='/'
+          href={href ?? '/'}
           replace
           className='absolute right-4 top-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200'
         >

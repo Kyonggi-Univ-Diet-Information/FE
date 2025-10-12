@@ -11,6 +11,7 @@ import {
 } from '@/features/review/components';
 import { fetchMenuAverage, fetchMenuRatings } from '@/features/review/services';
 import { AuthService } from '@/lib/services';
+import { Modal } from '@/components/common';
 
 export default async function ReviewPage({
   params,
@@ -35,6 +36,20 @@ export default async function ReviewPage({
 
   const isReviewMode = reviewMode === 'true';
 
+  function LoginModal() {
+    return (
+      <Modal href={`/review/${foodId}`}>
+        <Modal.Header title='로그인이 필요해요!' />
+        <p>로그인 후 리뷰를 작성할 수 있어요.</p>
+        <Link href='/auth/login' className='self-end'>
+          <Button variant='secondary' size='lg' className='w-fit'>
+            로그인 하러가기
+          </Button>
+        </Link>
+      </Modal>
+    );
+  }
+
   return (
     <>
       <div className='flex flex-col gap-4'>
@@ -52,6 +67,7 @@ export default async function ReviewPage({
           </Link>
         </section>
         {isAuthenticated && isReviewMode && <ReviewFormSection />}
+        {!isAuthenticated && isReviewMode && <LoginModal />}
         <ReviewRatingSection
           rating={rating}
           reviewCount={1}
