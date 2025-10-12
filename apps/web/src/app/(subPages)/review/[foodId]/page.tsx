@@ -19,9 +19,9 @@ export default async function ReviewPage({
   searchParams,
 }: {
   params: Promise<{ foodId: string }>;
-  searchParams: Promise<{ reviewMode: string }>;
+  searchParams: Promise<{ reviewMode?: string; pageNo?: number }>;
 }) {
-  const [{ foodId: foodIdParam }, { reviewMode }, isAuthenticated] =
+  const [{ foodId: foodIdParam }, { reviewMode, pageNo }, isAuthenticated] =
     await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
 
   const foodId = Number(foodIdParam);
@@ -72,14 +72,16 @@ export default async function ReviewPage({
             </Button>
           </Link>
         </section>
-        {isAuthenticated && isReviewMode && <ReviewFormSection />}
+        {isAuthenticated && isReviewMode && (
+          <ReviewFormSection foodId={foodId} />
+        )}
         {!isAuthenticated && isReviewMode && <LoginModal />}
         <ReviewRatingSection
           rating={rating}
           reviewCount={1}
           averageRating={averageRating}
         />
-        <ReviewPagedView />
+        <ReviewPagedView foodId={foodId} pageNo={pageNo || 0} />
       </div>
     </>
   );

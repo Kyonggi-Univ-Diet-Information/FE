@@ -1,41 +1,30 @@
 import { ReviewItem } from '.';
+import { fetchMenuReviews } from '../services/fetchMenuReviews';
 
-export default function ReviewPagedView() {
+interface ReviewPagedViewProps {
+  foodId: number;
+  pageNo: number;
+}
+
+export default async function ReviewPagedView({
+  foodId,
+  pageNo,
+}: ReviewPagedViewProps) {
+  const reviews = await fetchMenuReviews(foodId, pageNo);
+
+  if (reviews.content.length === 0) {
+    return (
+      <div className='text-center text-gray-500'>
+        아직 작성된 리뷰가 없어요.
+      </div>
+    );
+  }
+
   return (
     <div className='flex flex-col gap-2'>
-      <ReviewItem
-        id={1}
-        title={'고등어자반'}
-        updatedAt={'2025-09-25'}
-        rating={5}
-        content={
-          '고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!'
-        }
-        memberName={'김건국'}
-        createdAt={'2025-09-25'}
-      />
-      <ReviewItem
-        id={1}
-        title={'고등어자반'}
-        updatedAt={'2025-09-25'}
-        rating={5}
-        content={
-          '고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!'
-        }
-        memberName={'김건국'}
-        createdAt={'2025-09-25'}
-      />
-      <ReviewItem
-        id={1}
-        title={'고등어자반'}
-        updatedAt={'2025-09-25'}
-        rating={5}
-        content={
-          '고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!고등어자반은 맛있어요. 근데 다른게 좀 아쉬워요!!!!!'
-        }
-        memberName={'김건국'}
-        createdAt={'2025-09-25'}
-      />
+      {reviews.content.map(review => (
+        <ReviewItem key={review.id} {...review} />
+      ))}
     </div>
   );
 }
