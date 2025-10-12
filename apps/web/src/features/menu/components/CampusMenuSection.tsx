@@ -17,7 +17,7 @@ export default function CampusMenuSection({
       <MenuSection.Header
         title={
           <>
-            경기대 <span className='text-point'>교내식당</span> 메뉴
+            교내식당 <span className='text-point'>경슐랭</span> 메뉴
             <span className='font-tossFace'> 🍚</span>
           </>
         }

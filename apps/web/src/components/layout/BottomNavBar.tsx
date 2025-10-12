@@ -56,7 +56,7 @@ export default function BottomNavBar() {
 
   return (
     <motion.div
-      className='shadow-t-md fixed bottom-0 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-4 pt-2 sm:px-14 md:hidden'
+      className='shadow-t-md fixed bottom-0 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-6 pt-2 sm:px-14 md:hidden'
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
