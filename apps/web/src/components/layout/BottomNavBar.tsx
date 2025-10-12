@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'motion/react';
-import path from 'path';
 
 export default function BottomNavBar() {
   const pathname = usePathname();
@@ -51,7 +50,7 @@ export default function BottomNavBar() {
     return null;
   }
 
-  if (pathname === '/auth/login') {
+  if (pathname.startsWith('/auth')) {
     return null;
   }
 

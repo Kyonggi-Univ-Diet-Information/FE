@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Button, Loader } from '@/components/common';
 
 import { handleKakaoLogin } from '@/features/auth/action';
 
-export default function AuthPage() {
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
@@ -51,7 +51,6 @@ export default function AuthPage() {
       {isLoading && (
         <div>
           <Loader />
-          <Description>로그인 중...</Description>
         </div>
       )}
       {error && (
@@ -65,6 +64,22 @@ export default function AuthPage() {
         </div>
       )}
     </section>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense
+      fallback={
+        <section className='grid size-full place-items-center'>
+          <div>
+            <Loader />
+          </div>
+        </section>
+      }
+    >
+      <AuthContent />
+    </Suspense>
   );
 }
 
