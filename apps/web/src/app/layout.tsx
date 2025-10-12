@@ -22,6 +22,10 @@ export default function RootLayout({
     <>
       <head>
         <link rel='icon' href='favicon/favicon.ico' sizes='any' />
+        <link rel='manifest' href='config/manifest.json' />
+        <meta property='og:image' content='thumbnail/thumbnail.png' />
+        <meta property='og:url' content='https://www.kiryong.kr/' />
+        <meta property='og:type' content='website' />
       </head>
       <html lang='ko'>
         <body
