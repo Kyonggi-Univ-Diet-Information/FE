@@ -3,11 +3,12 @@ import React from 'react';
 
 import type { DormDay, DormTime } from '@/types';
 import { DORM_DAY, DORM_DAY_KEY } from '@/lib/constants';
+import { getCurrentDate } from '@/lib/utils';
+
 import { MenuSection } from '@/components/common';
-import { getCurrentDate } from '@/lib/utils/date';
 
 import { MenuCard, NavigationButton } from '@/features/menu/components';
-import { fetchDormMenu } from '@/features/menu/services';
+import { FetchDormMenuRes } from '@/features/menu/services';
 import {
   getAdjacentDates,
   isSunday,
@@ -19,10 +20,13 @@ import {
 
 interface DormMenuSectionProps {
   date?: DormDay;
+  dormMenu: FetchDormMenuRes['result'];
 }
 
-export default async function DormMenuSection({ date }: DormMenuSectionProps) {
-  const dormMenu = await fetchDormMenu();
+export default function DormMenuSection({
+  date,
+  dormMenu,
+}: DormMenuSectionProps) {
   const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];

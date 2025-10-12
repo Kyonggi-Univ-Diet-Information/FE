@@ -3,13 +3,15 @@ import Link from 'next/link';
 import { MenuSection } from '@/components/common';
 
 import { MenuCard } from '.';
-import { fetchCampusMenu } from '../services';
 
 import { CAMPUS_RESTAURANT, CAMPUS_RESTAURANT_NAME } from '@/lib/constants';
+import type { CampusMenu, SubRestaurant } from '@/types';
 
-export default async function CampusMenuSection() {
-  const campusMenu = await fetchCampusMenu();
-
+export default function CampusMenuSection({
+  campusMenu,
+}: {
+  campusMenu: Record<SubRestaurant, CampusMenu[]>;
+}) {
   return (
     <MenuSection>
       <MenuSection.Header

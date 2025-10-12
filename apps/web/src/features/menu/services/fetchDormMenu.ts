@@ -1,7 +1,7 @@
 import { apiClient, ENDPOINT } from '@/lib/axios';
 import { DormDay, DormMenu, DormTime } from '@/types';
 
-interface FetchDormMenuRes {
+export interface FetchDormMenuRes {
   result: {
     [key in DormDay]: {
       [key in DormTime]: {

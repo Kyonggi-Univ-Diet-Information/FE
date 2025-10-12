@@ -6,6 +6,7 @@ import {
   DormMenuSection,
 } from '@/features/menu/components';
 import type { DormDay } from '@/types';
+import { fetchCampusMenu, fetchDormMenu } from '@/features/menu/services';
 
 interface HomeProps {
   searchParams: Promise<{ modal?: string; date?: string }>;
@@ -13,14 +14,19 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const { modal, date } = await searchParams;
+  const [dormMenu, campusMenu] = await Promise.all([
+    fetchDormMenu(),
+    fetchCampusMenu(),
+  ]);
+
   const isModal = modal === 'open' ? true : false;
 
   return (
     <>
       <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pt-6'>
-        <CampusMenuSection />
+        <CampusMenuSection campusMenu={campusMenu} />
         <ReviewLinkButton />
-        <DormMenuSection date={date as DormDay} />
+        <DormMenuSection date={date as DormDay} dormMenu={dormMenu} />
       </div>
       {isModal && <DormMenuDateModal />}
     </>
