@@ -39,13 +39,13 @@ export default function ReviewPage() {
         <MenuSection.Header
           title='경기드림타워 메뉴 리뷰'
           subtitle='방금 작성된 리뷰들이에요!'
-          action={
-            <Link href='/review/dorm'>
-              <Button variant='secondary' size='sm'>
-                더보기
-              </Button>
-            </Link>
-          }
+          // action={
+          //   <Link href='/review/dorm'>
+          //     <Button variant='secondary' size='sm'>
+          //       더보기
+          //     </Button>
+          //   </Link>
+          // }
         />
         <MenuSection.Content className='flex-col gap-4'>
           <ReviewItem
