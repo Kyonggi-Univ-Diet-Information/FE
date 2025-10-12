@@ -6,6 +6,7 @@ import { BottomNavBar, Header } from '@/components/layout';
 import { ErrorBoundary } from '@/components/common';
 import type { ReactNode } from 'react';
 import { brBold, brRegular, tossFace, wantedSans } from './font';
+import { SWRProvider } from '@/components/providers';
 
 export const metadata: Metadata = {
   title: '기룡아 밥먹자',
@@ -27,13 +28,15 @@ export default function RootLayout({
           className={`${wantedSans.variable} ${brBold.variable} ${brRegular.variable} ${tossFace.variable} antialiased`}
         >
           <ErrorBoundary>
-            <Header />
-            <div className='size-full pt-[65px]'>
-              <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
-                {children}
-              </main>
-            </div>
-            <BottomNavBar />
+            <SWRProvider>
+              <Header />
+              <div className='size-full pt-[65px]'>
+                <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
+                  {children}
+                </main>
+              </div>
+              <BottomNavBar />
+            </SWRProvider>
           </ErrorBoundary>
         </body>
       </html>

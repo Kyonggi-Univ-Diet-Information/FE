@@ -26,3 +26,6 @@ export const apiClient = {
   post,
   delete: del,
 };
+
+export const clientFetcher = <TResponse>(url: string) =>
+  clientApi.get<TResponse>(url).then(res => res.data);
