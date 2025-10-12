@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
-import { SWR_KEY } from '@/lib/constants';
+import { KEY } from '@/lib/constants';
 import { Button, Loader } from '@/components/common';
 
 import { handleKakaoLogin } from '@/features/auth/action';
@@ -33,7 +33,7 @@ function AuthContent() {
       const result = await handleKakaoLogin(code);
 
       if (result.success) {
-        await mutate(SWR_KEY.AUTH_STATUS);
+        await mutate(KEY.AUTH_STATUS);
         router.replace('/');
       } else {
         setError(true);
