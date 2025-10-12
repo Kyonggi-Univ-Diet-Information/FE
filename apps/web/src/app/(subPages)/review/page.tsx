@@ -1,6 +1,5 @@
-import { Button, MenuSection } from '@/components/common';
+import { MenuSection } from '@/components/common';
 import { ReviewItem } from '@/features/review/components';
-import Link from 'next/link';
 
 export default function ReviewPage() {
   return (
