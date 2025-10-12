@@ -1,4 +1,5 @@
 import type { DormMenu } from '@/types';
+import Link from 'next/link';
 
 /**
  * 메뉴 데이터가 없을 때 표시할 기본 메시지
@@ -42,6 +43,23 @@ export function renderMenuItems(menu: DormMenu[]) {
   return menu.map(menuItem => (
     <p className='text-gray-600' key={menuItem.id}>
       {menuItem.dietFoodDTO.name}
+    </p>
+  ));
+}
+
+/**
+ * 리뷰 버튼을 가진 메뉴 배열을 렌더링하는 함수
+ */
+export function renderMenuItemsWithReview(menu: DormMenu[]) {
+  return menu.map(menuItem => (
+    <p className='flex justify-between text-gray-600' key={menuItem.id}>
+      {menuItem.dietFoodDTO.name}
+      <Link
+        href={`/review/${menuItem.id}?menuType=dorm`}
+        className='text-gray-600'
+      >
+        리뷰
+      </Link>
     </p>
   ));
 }

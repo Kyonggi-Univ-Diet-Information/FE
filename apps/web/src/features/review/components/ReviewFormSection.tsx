@@ -8,6 +8,7 @@ import { Button } from '@/components/common/Button';
 
 import ReviewStarSelector from './ReviewStarSelector';
 import { submitMenuReview } from '../services/submitMenuReview';
+import type { MenuType } from '../services/reviewService';
 
 interface ReviewTextAreaProps {
   register: UseFormRegisterReturn<'content'>;
@@ -23,7 +24,15 @@ const ReviewTextArea = memo(({ register }: ReviewTextAreaProps) => {
   );
 });
 
-export default function ReviewFormSection({ foodId }: { foodId: number }) {
+interface ReviewFormSectionProps {
+  foodId: number;
+  menuType: MenuType;
+}
+
+export default function ReviewFormSection({
+  foodId,
+  menuType,
+}: ReviewFormSectionProps) {
   const { register, watch, reset } = useForm<ReviewPost>();
 
   const [selectedStars, setSelectedStars] = useState(3);
@@ -46,6 +55,8 @@ export default function ReviewFormSection({ foodId }: { foodId: number }) {
       action={formAction}
     >
       <input type='hidden' name='foodId' value={foodId} readOnly />
+      <input type='hidden' name='menuType' value={menuType} readOnly />
+      <input type='hidden' name='rating' value={selectedStars} readOnly />
       <ReviewStarSelector
         selectedStars={selectedStars}
         setSelectedStars={setSelectedStars}

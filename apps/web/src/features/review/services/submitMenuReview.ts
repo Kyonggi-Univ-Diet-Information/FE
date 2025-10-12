@@ -3,6 +3,7 @@
 import { ENDPOINT } from '@/lib/axios';
 import { KEY } from '@/lib/constants';
 import { AuthService } from '@/lib/services';
+import type { MenuType } from './reviewService';
 
 import { revalidateTag } from 'next/cache';
 
@@ -12,16 +13,22 @@ export const submitMenuReview = async (
 ) => {
   const foodId = formData.get('foodId');
   const rating = formData.get('rating');
-  const title = formData.get('title');
+  const title = formData.get('title') || '';
   const content = formData.get('content');
+  const menuType = (formData.get('menuType') as MenuType) || 'campus';
+
+  const submitEndpoint =
+    menuType === 'dorm' ? ENDPOINT.REVIEW_SUBMIT : ENDPOINT.KS_REVIEW_SUBMIT;
 
   try {
-    const response = await fetch(ENDPOINT.KS_REVIEW_SUBMIT + foodId, {
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
+    const response = await fetch(`${apiUrl}${submitEndpoint}${foodId}`, {
       method: 'POST',
-      body: JSON.stringify({ rating, title, content }),
+      body: JSON.stringify({ rating: Number(rating), title, content }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${AuthService.getAccessToken()}`,
+        Authorization: `Bearer ${await AuthService.getAccessToken()}`,
       },
     });
 
@@ -29,7 +36,11 @@ export const submitMenuReview = async (
       throw new Error('리뷰 등록에 실패했습니다');
     }
 
-    revalidateTag(KEY.KS_REVIEW(Number(foodId)));
+    if (menuType === 'dorm') {
+      revalidateTag(KEY.REVIEW(Number(foodId)));
+    } else {
+      revalidateTag(KEY.KS_REVIEW(Number(foodId)));
+    }
 
     return { success: true };
   } catch (error) {

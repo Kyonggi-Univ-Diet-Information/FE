@@ -9,37 +9,52 @@ import {
   ReviewPagedView,
   ReviewRatingSection,
 } from '@/features/review/components';
-import { fetchMenuAverage, fetchMenuRatings } from '@/features/review/services';
+import { getReviewService, MenuType } from '@/features/review/services';
 import { AuthService } from '@/lib/services';
 import { Modal } from '@/components/common';
-import { fetchCampusMenu } from '@/features/menu/services';
+import { fetchCampusMenu, fetchDormMenu } from '@/features/menu/services';
 
 export default async function ReviewPage({
   params,
   searchParams,
 }: {
   params: Promise<{ foodId: string }>;
-  searchParams: Promise<{ reviewMode?: string; pageNo?: number }>;
+  searchParams: Promise<{
+    reviewMode?: string;
+    pageNo?: number;
+    menuType?: string;
+  }>;
 }) {
-  const [{ foodId: foodIdParam }, { reviewMode, pageNo }, isAuthenticated] =
-    await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
+  const [
+    { foodId: foodIdParam },
+    { reviewMode, pageNo, menuType = 'campus' },
+    isAuthenticated,
+  ] = await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
 
   const foodId = Number(foodIdParam);
   if (isNaN(foodId) || !Number.isInteger(foodId) || foodId <= 0) {
     notFound();
   }
 
+  const reviewService = getReviewService(menuType as MenuType);
+
   const [rating, averageRating, allMenu] = await Promise.all([
-    fetchMenuRatings(foodId),
-    fetchMenuAverage(foodId),
-    fetchCampusMenu(),
+    reviewService.fetchRatings(foodId),
+    reviewService.fetchAverage(foodId),
+    menuType === 'dorm' ? fetchDormMenu() : fetchCampusMenu(),
   ]);
 
   const isReviewMode = reviewMode === 'true';
 
-  const menuName = Object.values(allMenu)
-    .flat()
-    .find(menu => menu.id === foodId)?.name;
+  const menuName =
+    menuType === 'dorm'
+      ? Object.values(allMenu)
+          .flatMap(day => Object.values(day))
+          .flatMap((time: any) => time.contents)
+          .find((menu: any) => menu.dietFoodDTO.id === foodId)?.dietFoodDTO.name
+      : Object.values(allMenu)
+          .flat()
+          .find(menu => menu.id === foodId)?.name;
 
   const reviewCount = rating[1] + rating[2] + rating[3] + rating[4] + rating[5];
 
@@ -67,14 +82,14 @@ export default async function ReviewPage({
             </Title>
             <p className='text-sm text-gray-600'>리뷰를 작성해주세요!</p>
           </div>
-          <Link href={`/review/${foodId}?reviewMode=true`}>
+          <Link href={`/review/${foodId}?reviewMode=true&menuType=${menuType}`}>
             <Button variant='secondary' size='sm'>
               리뷰 작성하기
             </Button>
           </Link>
         </section>
         {isAuthenticated && isReviewMode && (
-          <ReviewFormSection foodId={foodId} />
+          <ReviewFormSection foodId={foodId} menuType={menuType as MenuType} />
         )}
         {!isAuthenticated && isReviewMode && <LoginModal />}
         <ReviewRatingSection
@@ -82,7 +97,11 @@ export default async function ReviewPage({
           reviewCount={reviewCount}
           averageRating={averageRating}
         />
-        <ReviewPagedView foodId={foodId} pageNo={pageNo || 0} />
+        <ReviewPagedView
+          foodId={foodId}
+          pageNo={pageNo || 0}
+          menuType={menuType as MenuType}
+        />
       </div>
     </>
   );

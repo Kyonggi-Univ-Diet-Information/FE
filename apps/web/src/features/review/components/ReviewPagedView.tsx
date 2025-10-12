@@ -1,16 +1,19 @@
 import { ReviewItem } from '.';
-import { fetchMenuReviews } from '../services/fetchMenuReviews';
+import { getReviewService, MenuType } from '../services/reviewService';
 
 interface ReviewPagedViewProps {
   foodId: number;
   pageNo: number;
+  menuType: MenuType;
 }
 
 export default async function ReviewPagedView({
   foodId,
   pageNo,
+  menuType,
 }: ReviewPagedViewProps) {
-  const reviews = await fetchMenuReviews(foodId, pageNo);
+  const reviewService = getReviewService(menuType);
+  const reviews = await reviewService.fetchReviews(foodId, pageNo);
 
   if (reviews.content.length === 0) {
     return (
