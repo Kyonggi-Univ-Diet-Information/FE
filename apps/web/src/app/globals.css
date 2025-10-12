@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --point: #00abaa;
+  --point: #ff690b;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -140,37 +140,13 @@ html {
 }
 
 .font-brBold {
-  font-family: 'brBold';
+  font-family: var(--font-brBold);
 }
 
 .font-brRegular {
-  font-family: 'brRegular';
+  font-family: var(--font-brRegular);
 }
 
 .font-tossFace {
-  font-family: 'tossFace';
-}
-
-@font-face {
-  font-family: 'brBold';
-  src: url('/fonts/brBold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'brRegular';
-  src: url('/fonts/brRegular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'tossFace';
-  src: url('/fonts/tossFace.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  font-family: var(--font-tossFace);
 }
