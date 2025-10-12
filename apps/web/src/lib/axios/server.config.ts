@@ -14,7 +14,7 @@ const serverApi = axios.create({
 });
 
 serverApi.interceptors.request.use(async config => {
-  const accessToken = AuthService.getAccessToken();
+  const accessToken = await AuthService.getAccessToken();
 
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -32,7 +32,7 @@ serverApi.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = AuthService.getRefreshToken();
+        const refreshToken = await AuthService.getRefreshToken();
         if (!refreshToken) throw new Error('No refresh token');
 
         const res = await axios.post(`${BACKEND_API_URL}/auth/refresh`, {
@@ -42,12 +42,12 @@ serverApi.interceptors.response.use(
         const newAccessToken = res.data.accessToken;
         const newRefreshToken = res.data.refreshToken;
 
-        AuthService.setTokens(newAccessToken, newRefreshToken);
+        await AuthService.setTokens(newAccessToken, newRefreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return serverApi(originalRequest);
       } catch (refreshError) {
-        AuthService.clearTokens();
+        await AuthService.clearTokens();
         return Promise.reject(refreshError);
       }
     }
@@ -56,14 +56,14 @@ serverApi.interceptors.response.use(
   },
 );
 
-const get = <TParams = unknown>(config: GetRequestParams<TParams>) =>
-  Http.get(config, serverApi);
+const get = <TResponse, TParams = unknown>(config: GetRequestParams<TParams>) =>
+  Http.get<TResponse, TParams>(config, serverApi);
 
-const post = <TData = unknown>(config: PostRequestParams<TData>) =>
-  Http.post(config, serverApi);
+const post = <TData, TResponse = unknown>(config: PostRequestParams<TData>) =>
+  Http.post<TData, TResponse>(config, serverApi);
 
-const del = <TData = unknown>(config: DelRequestParams<TData>) =>
-  Http.del(config, serverApi);
+const del = <TResponse, TData = unknown>(config: DelRequestParams<TData>) =>
+  Http.del<TResponse, TData>(config, serverApi);
 
 export const apiServer = {
   get,

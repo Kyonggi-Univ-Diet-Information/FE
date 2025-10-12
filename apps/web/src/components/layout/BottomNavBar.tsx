@@ -51,6 +51,10 @@ export default function BottomNavBar() {
     return null;
   }
 
+  if (pathname === '/auth/login') {
+    return null;
+  }
+
   return (
     <motion.div
       className='shadow-t-md fixed bottom-0 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-4 pt-2 sm:px-14 md:hidden'

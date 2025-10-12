@@ -28,13 +28,11 @@ export default function Header() {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           ) : (
-            <Button
-              variant='outline'
-              size='sm'
-              onClick={() => alert('clicked')}
-            >
-              로그인
-            </Button>
+            <Link href='/auth/login'>
+              <Button variant='outline' size='sm'>
+                로그인
+              </Button>
+            </Link>
           )}
         </div>
       </div>
