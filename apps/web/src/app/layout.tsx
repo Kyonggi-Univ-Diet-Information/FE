@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 
-import { Header } from '@/components/layout';
+import { BottomNavBar, Header } from '@/components/layout';
 import { ErrorBoundary } from '@/components/common';
 import type { ReactNode } from 'react';
 import { brBold, brRegular, tossFace, wantedSans } from './font';
@@ -33,6 +33,7 @@ export default function RootLayout({
                 {children}
               </main>
             </div>
+            <BottomNavBar />
           </ErrorBoundary>
         </body>
       </html>

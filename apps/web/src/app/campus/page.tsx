@@ -32,7 +32,7 @@ export default async function CampusPage({ searchParams }: CampusPageProps) {
       : CAMPUS_RESTAURANT_NAME[0];
 
   return (
-    <div className='scrollbar-hide absolute inset-0 flex flex-col gap-4 overflow-y-scroll p-4 pb-20 pt-6'>
+    <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col gap-4 overflow-y-scroll p-4 pt-6'>
       <MenuSection.Header
         title={
           <>
