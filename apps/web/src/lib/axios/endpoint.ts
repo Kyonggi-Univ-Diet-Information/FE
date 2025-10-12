@@ -6,4 +6,8 @@ export const ENDPOINT = {
   KS_REVIEW_PAGINATION: '/review/kyongsul-food/paged/',
   KS_REVIEW_SUBMIT: '/review/kyongsul-food/new/',
   KAKAO_LOGIN: '/kakao-login',
+  REVIEW_RATING_COUNT: '/review/diet-food/rating-count/',
+  REVIEW_AVERAGE_RATING: '/review/diet-food/average/',
+  REVIEW_PAGINATION: '/review/diet-food/all/paged/',
+  REVIEW_SUBMIT: '/review/diet-food/new/',
 };
