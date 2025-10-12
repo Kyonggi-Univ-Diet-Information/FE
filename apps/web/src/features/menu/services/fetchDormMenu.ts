@@ -1,4 +1,4 @@
-import { apiClient, ENDPOINT } from '@/lib/axios';
+import { ENDPOINT } from '@/lib/axios';
 import { DormDay, DormMenu, DormTime } from '@/types';
 
 export interface FetchDormMenuRes {
@@ -14,10 +14,33 @@ export interface FetchDormMenuRes {
   };
 }
 
+const secondsUntilNextMonday = () => {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = (8 - day) % 7;
+  const nextMonday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + diff,
+  );
+  return Math.ceil((nextMonday.getTime() - now.getTime()) / 1000);
+};
+
 export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
-  const response = await apiClient.get<FetchDormMenuRes>({
-    request: ENDPOINT.DORM_MENU,
+  const apiUrl =
+    process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
+  const response = await fetch(`${apiUrl}${ENDPOINT.DORM_MENU}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    cache: 'force-cache',
+    next: {
+      revalidate: secondsUntilNextMonday(),
+    },
   });
 
-  return response.data.result;
+  const data = await response.json();
+
+  return data.result;
 };
