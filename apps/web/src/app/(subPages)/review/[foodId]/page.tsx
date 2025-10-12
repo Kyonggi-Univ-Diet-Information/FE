@@ -33,7 +33,6 @@ export default async function ReviewPage({
     fetchMenuRatings(foodId),
     fetchMenuAverage(foodId),
     fetchCampusMenu(),
-    // fetchMenuReviews(Number(foodId)),
   ]);
 
   const isReviewMode = reviewMode === 'true';
@@ -41,6 +40,8 @@ export default async function ReviewPage({
   const menuName = Object.values(allMenu)
     .flat()
     .find(menu => menu.id === foodId)?.name;
+
+  const reviewCount = rating[1] + rating[2] + rating[3] + rating[4] + rating[5];
 
   function LoginModal() {
     return (
@@ -78,7 +79,7 @@ export default async function ReviewPage({
         {!isAuthenticated && isReviewMode && <LoginModal />}
         <ReviewRatingSection
           rating={rating}
-          reviewCount={1}
+          reviewCount={reviewCount}
           averageRating={averageRating}
         />
         <ReviewPagedView foodId={foodId} pageNo={pageNo || 0} />
