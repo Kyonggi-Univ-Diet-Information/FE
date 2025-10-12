@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { Suspense, useEffect, useState } from 'react';
+import { mutate } from 'swr';
+
+import { SWR_KEY } from '@/lib/constants';
 import { Button, Loader } from '@/components/common';
 
 import { handleKakaoLogin } from '@/features/auth/action';
@@ -11,29 +14,26 @@ import { handleKakaoLogin } from '@/features/auth/action';
 function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const code = searchParams.get('code');
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (code) {
-      login();
-    }
+    if (code) login();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
 
   const login = async () => {
-    if (!code) {
-      setError(true);
-      return;
-    }
+    if (!code) return setError(true);
 
     setIsLoading(true);
     try {
       const result = await handleKakaoLogin(code);
 
       if (result.success) {
+        await mutate(SWR_KEY.AUTH_STATUS);
         router.replace('/');
       } else {
         setError(true);
