@@ -1,7 +1,7 @@
 import { CAMPUS_RESTAURANT } from '@/lib/constants';
 
 export type CampusMenu = {
-  id: string;
+  id: number;
   name: string;
   nameEn: string;
   price: number;

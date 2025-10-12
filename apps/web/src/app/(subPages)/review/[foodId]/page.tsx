@@ -12,6 +12,7 @@ import {
 import { fetchMenuAverage, fetchMenuRatings } from '@/features/review/services';
 import { AuthService } from '@/lib/services';
 import { Modal } from '@/components/common';
+import { fetchCampusMenu } from '@/features/menu/services';
 
 export default async function ReviewPage({
   params,
@@ -28,13 +29,18 @@ export default async function ReviewPage({
     notFound();
   }
 
-  const [rating, averageRating] = await Promise.all([
+  const [rating, averageRating, allMenu] = await Promise.all([
     fetchMenuRatings(foodId),
     fetchMenuAverage(foodId),
+    fetchCampusMenu(),
     // fetchMenuReviews(Number(foodId)),
   ]);
 
   const isReviewMode = reviewMode === 'true';
+
+  const menuName = Object.values(allMenu)
+    .flat()
+    .find(menu => menu.id === foodId)?.name;
 
   function LoginModal() {
     return (
@@ -56,7 +62,7 @@ export default async function ReviewPage({
         <section className='flex items-start justify-between'>
           <div className='flex flex-col gap-1'>
             <Title>
-              <span className='text-point'>{foodId}번 음식</span>, 어땠나요?
+              <span className='text-point'>{menuName}</span>, 어땠나요?
             </Title>
             <p className='text-sm text-gray-600'>리뷰를 작성해주세요!</p>
           </div>
