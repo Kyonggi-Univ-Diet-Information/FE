@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import { BottomNavBar, Header } from '@/components/layout';
-import { ErrorBoundary } from '@/components/common';
+import { ErrorBoundary, GoogleAnalytics } from '@/components/common';
 import type { ReactNode } from 'react';
 import { brBold, brRegular, tossFace, wantedSans } from './font';
 import { SWRProvider } from '@/components/providers';
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <>
+    <html lang='ko'>
       <head>
         <link rel='icon' href='favicon/favicon.ico' sizes='any' />
         <link rel='manifest' href='config/manifest.json' />
@@ -27,23 +27,22 @@ export default function RootLayout({
         <meta property='og:url' content='https://www.kiryong.kr/' />
         <meta property='og:type' content='website' />
       </head>
-      <html lang='ko'>
-        <body
-          className={`${wantedSans.variable} ${brBold.variable} ${brRegular.variable} ${tossFace.variable} antialiased`}
-        >
-          <ErrorBoundary>
-            <SWRProvider>
-              <Header />
-              <div className='size-full pt-[65px]'>
-                <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
-                  {children}
-                </main>
-              </div>
-              <BottomNavBar />
-            </SWRProvider>
-          </ErrorBoundary>
-        </body>
-      </html>
-    </>
+      <body
+        className={`${wantedSans.variable} ${brBold.variable} ${brRegular.variable} ${tossFace.variable} antialiased`}
+      >
+        <GoogleAnalytics />
+        <ErrorBoundary>
+          <SWRProvider>
+            <Header />
+            <div className='size-full pt-[65px]'>
+              <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
+                {children}
+              </main>
+            </div>
+            <BottomNavBar />
+          </SWRProvider>
+        </ErrorBoundary>
+      </body>
+    </html>
   );
 }
