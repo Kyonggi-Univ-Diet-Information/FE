@@ -59,10 +59,24 @@
     "list": "리뷰 목록",
     "empty": "작성된 리뷰가 없습니다"
   },
+  "notFound": {
+    "title": "페이지를 찾을 수 없어요",
+    "description": "유효하지 않은 메뉴 ID입니다. 경로를 확인해주세요.",
+    "backToList": "리뷰 목록으로 돌아가기"
+  },
   "user": {
     "title": "마이페이지",
     "profile": "프로필",
     "settings": "설정"
+  },
+  "reviewPage": {
+    "loginRequiredTitle": "로그인이 필요해요!",
+    "loginRequiredDescription": "로그인 후 리뷰를 작성할 수 있어요.",
+    "loginButton": "로그인 하러가기",
+    "reviewPromptTitle": ", 어땠나요?",
+    "writeReview": "리뷰 작성하기",
+    "reviewPrompt": "리뷰를 작성해주세요!",
+    "noReviews": "아직 작성된 리뷰가 없어요."
   },
   "metadata": {
     "title": "기룡아 밥먹자",

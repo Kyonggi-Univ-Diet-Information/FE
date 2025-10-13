@@ -59,10 +59,24 @@
     "list": "Review List",
     "empty": "No reviews yet"
   },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Invalid menu ID. Please check the path.",
+    "backToList": "Back to review list"
+  },
   "user": {
     "title": "My Page",
     "profile": "Profile",
     "settings": "Settings"
+  },
+  "reviewPage": {
+    "loginRequiredTitle": "Login Required!",
+    "loginRequiredDescription": "Log in to write a review.",
+    "loginButton": "Go to Login",
+    "reviewPromptTitle": ", How was it?",
+    "writeReview": "Write a review",
+    "reviewPrompt": "Please write your review!",
+    "noReviews": "No reviews yet"
   },
   "metadata": {
     "title": "Kiryong Let's Eat",

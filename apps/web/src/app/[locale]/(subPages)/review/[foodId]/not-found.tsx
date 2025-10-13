@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import { Button } from '@/components/common/Button';
 import { Title } from '@/components/layout';
+import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
+  const t = useTranslations('notFound');
+
   return (
     <div className='flex min-h-[60vh] flex-col items-center justify-center gap-4'>
-      <Title>페이지를 찾을 수 없어요</Title>
-      <p className='text-gray-600'>
-        유효하지 않은 메뉴 ID입니다. 경로를 확인해주세요.
-      </p>
+      <Title>{t('title')}</Title>
+      <p className='text-gray-600'>{t('description')}</p>
       <Link href='/review'>
         <Button variant='default' size='lg'>
-          리뷰 목록으로 돌아가기
+          {t('backToList')}
         </Button>
       </Link>
     </div>

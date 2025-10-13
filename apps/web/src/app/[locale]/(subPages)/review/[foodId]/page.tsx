@@ -2,6 +2,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
+import { getTranslations, getLocale } from 'next-intl/server';
+
 import { Button } from '@/components/common/Button';
 import { Title } from '@/components/layout';
 
@@ -37,6 +39,9 @@ export default async function ReviewPage({
     notFound();
   }
 
+  const t = await getTranslations('reviewPage');
+  const locale = await getLocale();
+
   const reviewService = getReviewService(menuType as MenuType);
 
   const [rating, averageRating, allMenu] = await Promise.all([
@@ -52,21 +57,25 @@ export default async function ReviewPage({
       ? Object.values(allMenu)
           .flatMap(day => Object.values(day))
           .flatMap((time: any) => time.contents)
-          .find((menu: any) => menu.dietFoodDTO.id === foodId)?.dietFoodDTO.name
+          .find((menu: any) => menu.dietFoodDTO.id === foodId)?.dietFoodDTO[
+          locale === 'en' ? 'nameEn' : 'name'
+        ]
       : Object.values(allMenu)
           .flat()
-          .find(menu => menu.id === foodId)?.name;
+          .find(menu => menu.id === foodId)?.[
+          locale === 'en' ? 'nameEn' : 'name'
+        ];
 
   const reviewCount = rating[1] + rating[2] + rating[3] + rating[4] + rating[5];
 
   function LoginModal() {
     return (
       <Modal href={`/review/${foodId}`}>
-        <Modal.Header title='로그인이 필요해요!' />
-        <p>로그인 후 리뷰를 작성할 수 있어요.</p>
+        <Modal.Header title={t('loginRequiredTitle')} />
+        <p>{t('loginRequiredDescription')}</p>
         <Link href='/auth/login' className='self-end'>
           <Button variant='secondary' size='lg' className='w-fit'>
-            로그인 하러가기
+            {t('loginButton')}
           </Button>
         </Link>
       </Modal>
@@ -79,13 +88,14 @@ export default async function ReviewPage({
         <section className='flex items-start justify-between'>
           <div className='flex flex-col gap-1'>
             <Title>
-              <span className='text-point'>{menuName}</span>, 어땠나요?
+              <span className='text-point'>{menuName}</span>
+              {t('reviewPromptTitle')}
             </Title>
-            <p className='text-sm text-gray-600'>리뷰를 작성해주세요!</p>
+            <p className='text-sm text-gray-600'>{t('reviewPrompt')}</p>
           </div>
           <Link href={`/review/${foodId}?reviewMode=true&menuType=${menuType}`}>
             <Button variant='secondary' size='sm'>
-              리뷰 작성하기
+              {t('writeReview')}
             </Button>
           </Link>
         </section>
