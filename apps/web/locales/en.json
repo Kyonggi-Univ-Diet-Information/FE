@@ -13,13 +13,14 @@
     "myPage": "My"
   },
   "home": {
-    "campusTitle": "Cafeteria",
+    "won": "₩",
+    "campusTitle": "",
     "campusHighlight": "KyongSulang",
     "campusTitleLast": "Menu",
     "campusSubtitle": "Click the card to check out the full menu!",
     "campusAllView": "View All",
-    "dormHighlight": "Dormitory Cafeteria",
-    "dormSubtitle": "Check out the menu for this week's Dormitory Cafeteria!",
+    "dormHighlight": "Dorm Cafeteria",
+    "dormSubtitle": "Check out the menu for this week!",
     "dormTitleLast": "'s Menu",
     "reviewPrompt": "How was your meal?",
     "reviewDescription": "Write reviews for cafeteria menus and check out what other students think!"
@@ -35,6 +36,9 @@
     "description": "Check out campus cafeteria menus"
   },
   "dorm": {
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
     "title": "Dormitory Restaurant",
     "description": "Check out dormitory cafeteria menus"
   },

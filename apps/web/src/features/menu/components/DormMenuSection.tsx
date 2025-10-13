@@ -17,7 +17,7 @@ import {
   getFallbackMenu,
   renderMenuItems,
 } from '@/features/menu/utils';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface DormMenuSectionProps {
   date?: DormDay;
@@ -28,7 +28,9 @@ export default function DormMenuSection({
   date,
   dormMenu,
 }: DormMenuSectionProps) {
+  const tDorm = useTranslations('dorm');
   const t = useTranslations('home');
+  const locale = useLocale();
   const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];
@@ -62,6 +64,7 @@ export default function DormMenuSection({
         title={
           <>
             <span className='text-point'>{t('dormHighlight')}</span>{' '}
+            <br className={locale === 'en' ? '' : 'hidden'} />
             <Link
               replace
               href='?modal=open'
@@ -120,24 +123,24 @@ export default function DormMenuSection({
       <MenuSection.Content>
         <MenuCard className='h-70'>
           <MenuCard.Header>
-            아침 <span className='font-tossFace'>☀️</span>
+            {tDorm('breakfast')} <span className='font-tossFace'>☀️</span>
           </MenuCard.Header>
-          <MenuCard.Content>{renderMenuItems([])}</MenuCard.Content>
+          <MenuCard.Content>{renderMenuItems([], locale)}</MenuCard.Content>
         </MenuCard>
         <MenuCard>
           <MenuCard.Header>
-            점심 <span className='font-tossFace'>🍽️</span>{' '}
+            {tDorm('lunch')} <span className='font-tossFace'>🍽️</span>{' '}
           </MenuCard.Header>
           <MenuCard.Content>
-            {renderMenuItems(dormMenuByTime('LUNCH'))}
+            {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
           </MenuCard.Content>
         </MenuCard>
         <MenuCard>
           <MenuCard.Header>
-            저녁 <span className='font-tossFace'>🌙</span>
+            {tDorm('dinner')} <span className='font-tossFace'>🌙</span>
           </MenuCard.Header>
           <MenuCard.Content>
-            {renderMenuItems(dormMenuByTime('DINNER'))}
+            {renderMenuItems(dormMenuByTime('DINNER'), locale)}
           </MenuCard.Content>
         </MenuCard>
       </MenuSection.Content>

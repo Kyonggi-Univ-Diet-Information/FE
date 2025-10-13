@@ -13,6 +13,7 @@
     "myPage": "마이"
   },
   "home": {
+    "won": "원",
     "campusTitle": "교내식당",
     "campusHighlight": "경슐랭",
     "campusTitleLast": "메뉴",
@@ -35,6 +36,9 @@
     "description": "캠퍼스 내 식당 메뉴를 확인하세요"
   },
   "dorm": {
+    "breakfast": "아침",
+    "lunch": "점심",
+    "dinner": "저녁",
     "title": "기숙사 식당",
     "description": "기숙사 식당 메뉴를 확인하세요"
   },
