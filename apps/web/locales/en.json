@@ -1,0 +1,47 @@
+{
+  "common": {
+    "appName": "Let's Eat Kiryong!",
+    "appShortName": "Kiryong",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "navigation": {
+    "home": "Home",
+    "campus": "Campus",
+    "dorm": "Dorm",
+    "review": "Review",
+    "myPage": "My"
+  },
+  "home": {
+    "reviewPrompt": "How was your meal?",
+    "reviewDescription": "Write reviews for cafeteria menus and check out what other students think!"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up"
+  },
+  "campus": {
+    "title": "Campus Restaurant",
+    "description": "Check out campus cafeteria menus"
+  },
+  "dorm": {
+    "title": "Dormitory Restaurant",
+    "description": "Check out dormitory cafeteria menus"
+  },
+  "review": {
+    "title": "Reviews",
+    "write": "Write Review",
+    "list": "Review List",
+    "empty": "No reviews yet"
+  },
+  "user": {
+    "title": "My Page",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "metadata": {
+    "title": "Kiryong Let's Eat",
+    "description": "Easily find dining information at Kyonggi University!"
+  }
+}

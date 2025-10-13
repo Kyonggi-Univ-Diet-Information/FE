@@ -1,0 +1,47 @@
+{
+  "common": {
+    "appName": "기룡아 밥먹자",
+    "appShortName": "기밥",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다"
+  },
+  "navigation": {
+    "home": "홈",
+    "campus": "경슐랭",
+    "dorm": "기숙사",
+    "review": "리뷰",
+    "myPage": "마이"
+  },
+  "home": {
+    "reviewPrompt": "식사는 어땠나요?",
+    "reviewDescription": "식당 메뉴에 대한 리뷰를 작성하고, 다른 학우의 리뷰를 확인해보세요!"
+  },
+  "auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "signup": "회원가입"
+  },
+  "campus": {
+    "title": "경슐랭 식당",
+    "description": "캠퍼스 내 식당 메뉴를 확인하세요"
+  },
+  "dorm": {
+    "title": "기숙사 식당",
+    "description": "기숙사 식당 메뉴를 확인하세요"
+  },
+  "review": {
+    "title": "리뷰",
+    "write": "리뷰 작성",
+    "list": "리뷰 목록",
+    "empty": "작성된 리뷰가 없습니다"
+  },
+  "user": {
+    "title": "마이페이지",
+    "profile": "프로필",
+    "settings": "설정"
+  },
+  "metadata": {
+    "title": "기룡아 밥먹자",
+    "description": "경기대학교 내부 식당 정보를 쉽게 찾아봐요!"
+  }
+}
