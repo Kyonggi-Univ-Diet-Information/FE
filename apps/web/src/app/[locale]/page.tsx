@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/routing';
 
 import {
   CampusMenuSection,
@@ -33,16 +34,19 @@ export default async function Home({ searchParams }: HomeProps) {
   );
 }
 
-function ReviewLinkButton() {
+async function ReviewLinkButton() {
+  const t = await getTranslations('home');
+
   return (
     <Link
       href='/review'
       className='flex cursor-pointer flex-col rounded-2xl bg-gray-100/50 px-6 py-6 transition-all duration-300 active:bg-gray-100 md:px-8'
     >
       <p className='text-lg font-bold'>
-        식사는 어땠나요?<span className='font-tossFace'> 😋</span>
+        {t('reviewPrompt')}
+        <span className='font-tossFace'> 😋</span>
       </p>
-      <p>식당 메뉴에 대한 리뷰를 작성하고, 다른 학우의 리뷰를 확인해보세요!</p>
+      <p>{t('reviewDescription')}</p>
     </Link>
   );
 }
