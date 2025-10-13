@@ -14,19 +14,6 @@ export interface FetchDormMenuRes {
   };
 }
 
-const secondsUntilNextMonday = () => {
-  const now = new Date();
-  const day = now.getDay();
-  const diff = (8 - day) % 7 || 7;
-  const nextMonday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + diff,
-  );
-  const seconds = Math.ceil((nextMonday.getTime() - now.getTime()) / 1000);
-  return Math.max(seconds, 0);
-};
-
 export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
   const apiUrl =
     process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
@@ -36,9 +23,6 @@ export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
       'Content-Type': 'application/json',
     },
     cache: 'force-cache',
-    next: {
-      revalidate: secondsUntilNextMonday(),
-    },
   });
 
   const data = await response.json();
