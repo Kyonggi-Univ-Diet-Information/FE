@@ -1,56 +1,61 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'motion/react';
+import { Link } from '@/i18n/routing';
 
 export default function BottomNavBar() {
   const pathname = usePathname();
+  const t = useTranslations('navigation');
+  const locale = useLocale();
 
   const navItems = [
     {
       href: '/campus',
-      label: '경슐랭',
+      label: t('campus'),
       iconDefault: '/icons/icon-restaurant2-default.svg',
       iconActive: '/icons/icon-restaurant2.svg',
       alt: 'restaurant2',
     },
     {
       href: '/dorm',
-      label: '기숙사',
+      label: t('dorm'),
       iconDefault: '/icons/icon-restaurant1-default.svg',
       iconActive: '/icons/icon-restaurant1.svg',
       alt: 'restaurant1',
     },
     {
       href: '/',
-      label: '홈',
+      label: t('home'),
       iconDefault: '/icons/icon-home-default.svg',
       iconActive: '/icons/icon-home.svg',
       alt: 'home',
     },
     {
       href: '/review',
-      label: '리뷰',
+      label: t('review'),
       iconDefault: '/icons/icon-review-default.svg',
       iconActive: '/icons/icon-review.svg',
       alt: 'review',
     },
     {
       href: '/user',
-      label: '마이',
+      label: t('myPage'),
       iconDefault: '/icons/icon-user-default.svg',
       iconActive: '/icons/icon-user.svg',
       alt: 'user',
     },
   ];
 
-  if (pathname.split('/').length > 2) {
+  // locale을 제외한 경로의 길이로 체크
+  const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
+  if (pathWithoutLocale.split('/').length > 2) {
     return null;
   }
 
-  if (pathname.startsWith('/auth')) {
+  if (pathWithoutLocale.startsWith('/auth')) {
     return null;
   }
 
@@ -63,7 +68,9 @@ export default function BottomNavBar() {
     >
       {navItems.map(item => {
         const isActive =
-          item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+          item.href === '/'
+            ? pathWithoutLocale === '/'
+            : pathWithoutLocale.startsWith(item.href);
 
         return (
           <Link
