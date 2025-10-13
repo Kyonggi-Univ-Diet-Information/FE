@@ -13,7 +13,7 @@
 <br/>
 <br/>
 
-![](https://img.shields.io/badge/9oormthon__univ-kgu-blue) ![](https://img.shields.io/github/contributors/Kyonggi-Univ-Diet-Information/FE) ![](https://img.shields.io/github/last-commit/Kyonggi-Univ-Diet-Information/FE)
+![](https://img.shields.io/github/contributors/Kyonggi-Univ-Diet-Information/FE) ![](https://img.shields.io/github/last-commit/Kyonggi-Univ-Diet-Information/FE)
 
 </div>
 
@@ -42,9 +42,6 @@ pnpm run dev
 
 ## Stacks
 
-<img width="196" height="50" alt="image" src="https://github.com/user-attachments/assets/bc3d5e18-f204-4744-af5f-9517785ee707" />
-<br/>
-
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=Typescript&logoColor=white)
 ![Nextjs](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
@@ -58,6 +55,6 @@ pnpm run dev
 
 ## Contributors
 
-<a href = "https://github.com/KGU-Vote-System/Client/graphs/contributors">
+<a href = "https://github.com/Kyonggi-Univ-Diet-Information/FE/graphs/contributors">
   <img src = "https://contrib.rocks/image?repo=Kyonggi-Univ-Diet-Information/FE"/>
 </a>
