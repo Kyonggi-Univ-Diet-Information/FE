@@ -29,7 +29,10 @@
     "loading": "Loading...",
     "login": "Login",
     "logout": "Logout",
-    "signup": "Sign Up"
+    "signup": "Sign Up",
+    "authRequest": "has requested\nauthentication",
+    "authDescription": "Log in with Kakao to access review features!",
+    "kakaoLogin": "Login with Kakao"
   },
   "campus": {
     "title": "Campus Restaurant",

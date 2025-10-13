@@ -29,7 +29,10 @@
     "loading": "로딩 중...",
     "login": "로그인",
     "logout": "로그아웃",
-    "signup": "회원가입"
+    "signup": "회원가입",
+    "authRequest": "에서\n인증을 요청했어요",
+    "authDescription": "카카오 로그인 후 리뷰 기능을 이용해보세요!",
+    "kakaoLogin": "카카오 로그인"
   },
   "campus": {
     "title": "경슐랭 식당",
