@@ -33,7 +33,12 @@
   },
   "campus": {
     "title": "Campus Restaurant",
-    "description": "Check out campus cafeteria menus"
+    "description": "Check out campus cafeteria menus",
+    "pageTitle": "KyongSulang",
+    "menu": "Menu",
+    "subtitle": "Click the review button to write a review!",
+    "others": "Others",
+    "review": "Review"
   },
   "dorm": {
     "breakfast": "Breakfast",

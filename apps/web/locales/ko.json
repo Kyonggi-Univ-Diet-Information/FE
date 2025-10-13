@@ -33,7 +33,12 @@
   },
   "campus": {
     "title": "경슐랭 식당",
-    "description": "캠퍼스 내 식당 메뉴를 확인하세요"
+    "description": "캠퍼스 내 식당 메뉴를 확인하세요",
+    "pageTitle": "경슐랭",
+    "menu": "메뉴",
+    "subtitle": "리뷰 버튼을 클릭해서 리뷰를 작성해보세요!",
+    "others": "기타",
+    "review": "리뷰"
   },
   "dorm": {
     "breakfast": "아침",
