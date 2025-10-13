@@ -17,6 +17,7 @@ import {
   getFallbackMenu,
   renderMenuItems,
 } from '@/features/menu/utils';
+import { useTranslations } from 'next-intl';
 
 interface DormMenuSectionProps {
   date?: DormDay;
@@ -27,6 +28,7 @@ export default function DormMenuSection({
   date,
   dormMenu,
 }: DormMenuSectionProps) {
+  const t = useTranslations('home');
   const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];
@@ -59,7 +61,7 @@ export default function DormMenuSection({
       <MenuSection.Header
         title={
           <>
-            <span className='text-point'>경기드림타워</span>{' '}
+            <span className='text-point'>{t('dormHighlight')}</span>{' '}
             <Link
               replace
               href='?modal=open'
@@ -67,11 +69,11 @@ export default function DormMenuSection({
             >
               {weekDateString}
             </Link>
-            의 메뉴
+            {t('dormTitleLast')}
             <span className='font-tossFace'> 🍚</span>
           </>
         }
-        subtitle='이번 주 경기드림타워 식단을 확인해보세요.'
+        subtitle={t('dormSubtitle')}
         action={
           <div className='flex gap-x-2'>
             <NavigationButton

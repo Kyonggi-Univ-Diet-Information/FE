@@ -13,10 +13,19 @@
     "myPage": "마이"
   },
   "home": {
+    "campusTitle": "교내식당",
+    "campusHighlight": "경슐랭",
+    "campusTitleLast": "메뉴",
+    "campusSubtitle": "카드를 클릭해서 전체 메뉴를 확인해보세요!",
+    "campusAllView": "전체보기",
+    "dormHighlight": "경기드림타워",
+    "dormSubtitle": "이번 주 경기드림타워 식단을 확인해보세요.",
+    "dormTitleLast": "의 메뉴",
     "reviewPrompt": "식사는 어땠나요?",
     "reviewDescription": "식당 메뉴에 대한 리뷰를 작성하고, 다른 학우의 리뷰를 확인해보세요!"
   },
   "auth": {
+    "loading": "로딩 중...",
     "login": "로그인",
     "logout": "로그아웃",
     "signup": "회원가입"

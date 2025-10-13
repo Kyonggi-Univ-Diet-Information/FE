@@ -6,28 +6,33 @@ import { MenuCard } from '.';
 
 import { CAMPUS_RESTAURANT, CAMPUS_RESTAURANT_NAME } from '@/lib/constants';
 import type { CampusMenu, SubRestaurant } from '@/types';
+import { useTranslations } from 'next-intl';
 
 export default function CampusMenuSection({
   campusMenu,
 }: {
   campusMenu: Record<SubRestaurant, CampusMenu[]>;
 }) {
+  const t = useTranslations('home');
+
   return (
     <MenuSection>
       <MenuSection.Header
         title={
           <>
-            교내식당 <span className='text-point'>경슐랭</span> 메뉴
+            {t('campusTitle')}{' '}
+            <span className='text-point'>{t('campusHighlight')}</span>{' '}
+            {t('campusTitleLast')}
             <span className='font-tossFace'> 🍚</span>
           </>
         }
-        subtitle='카드를 클릭해서 전체 메뉴를 확인해보세요!'
+        subtitle={t('campusSubtitle')}
         action={
           <Link
             href='/campus'
             className='text-sm underline hover:text-gray-600'
           >
-            전체보기
+            {t('campusAllView')}
           </Link>
         }
       />
