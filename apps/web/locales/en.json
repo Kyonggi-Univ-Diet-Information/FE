@@ -44,8 +44,11 @@
     "breakfast": "Breakfast",
     "lunch": "Lunch",
     "dinner": "Dinner",
-    "title": "Dormitory Restaurant",
-    "description": "Check out dormitory cafeteria menus"
+    "description": "Check out dormitory cafeteria menus",
+    "pageTitle": "Dorm Cafeteria",
+    "thisWeek": "This Week",
+    "weeklyMenu": "Menu",
+    "menuOf": "'s Menu"
   },
   "review": {
     "title": "Reviews",

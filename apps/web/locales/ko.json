@@ -44,8 +44,11 @@
     "breakfast": "아침",
     "lunch": "점심",
     "dinner": "저녁",
-    "title": "기숙사 식당",
-    "description": "기숙사 식당 메뉴를 확인하세요"
+    "description": "기숙사 식당 메뉴를 확인하세요",
+    "pageTitle": "경기드림타워",
+    "thisWeek": "이번 주",
+    "weeklyMenu": "식단",
+    "menuOf": "의 식단"
   },
   "review": {
     "title": "리뷰",
