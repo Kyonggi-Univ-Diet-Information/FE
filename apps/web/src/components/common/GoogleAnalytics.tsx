@@ -1,20 +1,18 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { GA4_CONFIG, shouldTrackGA4 } from '@/lib/constants';
 
 /**
- * Google Analytics 4 컴포넌트
- * - Next.js의 Script 컴포넌트를 사용하여 GA4 스크립트 로드
- * - 페이지 변경 시 자동으로 페이지뷰 추적
+ * 페이지뷰 추적 컴포넌트
+ * - useSearchParams를 사용하므로 Suspense로 감싸야 함
  */
-export function GoogleAnalytics() {
+function PageViewTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 페이지 변경 추적
   useEffect(() => {
     if (!shouldTrackGA4()) return;
 
@@ -22,7 +20,7 @@ export function GoogleAnalytics() {
       pathname +
       (searchParams?.toString() ? `?${searchParams.toString()}` : '');
 
-    if (typeof window.gtag !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
       window.gtag('config', GA4_CONFIG.MEASUREMENT_ID, {
         page_path: url,
       });
@@ -33,6 +31,15 @@ export function GoogleAnalytics() {
     }
   }, [pathname, searchParams]);
 
+  return null;
+}
+
+/**
+ * Google Analytics 4 컴포넌트
+ * - Next.js의 Script 컴포넌트를 사용하여 GA4 스크립트 로드
+ * - 페이지 변경 시 자동으로 페이지뷰 추적
+ */
+export function GoogleAnalytics() {
   // GA4가 비활성화된 경우 아무것도 렌더링하지 않음
   if (!shouldTrackGA4()) {
     return null;
@@ -62,6 +69,11 @@ export function GoogleAnalytics() {
           `,
         }}
       />
+
+      {/* 페이지뷰 추적 (Suspense로 감싸서 정적 렌더링 지원) */}
+      <Suspense fallback={null}>
+        <PageViewTracker />
+      </Suspense>
     </>
   );
 }
