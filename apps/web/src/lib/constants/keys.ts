@@ -6,4 +6,10 @@ export const KEY = {
   REVIEW: (foodId: number): string => `review-${foodId}`,
   REVIEW_PAGINATION: (foodId: number, page: number): string =>
     `review-pagination-${foodId}-${page}`,
+  REVIEW_LIKED: 'member-review-liked',
+  KS_REVIEW_LIKED: 'member-ks-review-liked',
+  KS_REVIEW_LIKED_COUNT: (reviewId: number): string =>
+    `ks-review-liked-count-${reviewId}`,
+  REVIEW_LIKED_COUNT: (reviewId: number): string =>
+    `review-liked-count-${reviewId}`,
 };
