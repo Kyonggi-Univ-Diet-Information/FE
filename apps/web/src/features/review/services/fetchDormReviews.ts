@@ -18,6 +18,7 @@ export const fetchDormReviews = async (
       cache: 'force-cache',
       next: {
         tags: [KEY.REVIEW(foodId), KEY.REVIEW_PAGINATION(foodId, page)],
+        revalidate: 60 * 10,
       },
     },
   );
