@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { ReviewItem } from '.';
-import { getReviewService, MenuType } from '../services/reviewService';
+import { getReviewService, MenuType, fetchReviewLiked } from '../services';
 import { Pagination } from '@/components/common';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
@@ -19,7 +19,10 @@ export default async function ReviewPagedView({
 }: ReviewPagedViewProps) {
   const t = await getTranslations('reviewPage');
   const reviewService = getReviewService(menuType);
-  const reviews = await reviewService.fetchReviews(foodId, pageNo);
+  const [reviews, likedReviewIds] = await Promise.all([
+    reviewService.fetchReviews(foodId, pageNo),
+    fetchReviewLiked(menuType),
+  ]);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i);
 
   if (reviews.content.length === 0) {
@@ -31,7 +34,12 @@ export default async function ReviewPagedView({
   return (
     <div className='flex flex-col gap-2'>
       {reviews.content.map(review => (
-        <ReviewItem key={review.id} {...review} />
+        <ReviewItem
+          key={review.id}
+          {...review}
+          menuType={menuType}
+          isLiked={likedReviewIds.includes(review.id)}
+        />
       ))}
       <Pagination className='mt-2 gap-2'>
         <Pagination.Link
@@ -40,7 +48,6 @@ export default async function ReviewPagedView({
         >
           <ChevronLeftIcon />
         </Pagination.Link>
-
         {pageNumbers.map(pageNumber => (
           <Pagination.Link
             isActive={pageNumber === pageNo}
