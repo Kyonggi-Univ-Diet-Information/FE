@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link, useRouter } from '@/i18n/routing';
 
@@ -60,14 +61,6 @@ export default function Header() {
           })}
         </div>
         <div className='flex items-center gap-4'>
-          <Link
-            href='https://open.kakao.com/o/sgcUtX3g'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='font-tossFace cursor-pointer text-2xl'
-          >
-            ✉️
-          </Link>
           <button
             onClick={handleLanguageToggle}
             className='font-tossFace cursor-pointer text-2xl transition-transform hover:scale-110'
@@ -75,6 +68,19 @@ export default function Header() {
           >
             {locale === 'ko' ? '🇰🇷' : '🇺🇸'}
           </button>
+          <Link
+            href='https://open.kakao.com/o/sgcUtX3g'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='cursor-pointer transition-transform hover:scale-110'
+          >
+            <Image
+              src='/icons/icon-help.svg'
+              alt='inquire'
+              width={22}
+              height={20}
+            />
+          </Link>
           <AuthButton />
         </div>
       </div>
