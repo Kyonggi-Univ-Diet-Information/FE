@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import type { DormDay, DormTime } from '@/types';
-import { DORM_DAY, DORM_DAY_KEY } from '@/lib/constants';
+import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
 import { getCurrentDate } from '@/lib/utils';
 
 import { MenuSection } from '@/components/common';
@@ -34,7 +34,11 @@ export default function DormMenuSection({
   const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];
-  const weekDateString = date ? DORM_DAY[date] : '오늘';
+
+  const getWeekDateString = (date?: DormDay) => {
+    if (!date) return locale === 'en' ? 'Today' : '오늘';
+    return locale === 'en' ? DORM_DAY_EN[date] : DORM_DAY[date];
+  };
 
   const { yesterday, tomorrow } = getAdjacentDates(currentDay);
   const isCurrentDaySunday = isSunday(currentDay);
@@ -70,7 +74,7 @@ export default function DormMenuSection({
               href='?modal=open'
               className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
             >
-              {weekDateString}
+              {getWeekDateString(date)}
             </Link>
             {t('dormTitleLast')}
             <span className='font-tossFace'> 🍚</span>
