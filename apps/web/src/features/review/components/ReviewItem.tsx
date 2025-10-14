@@ -1,6 +1,7 @@
 import type { Review } from '@/types';
 import { fetchReviewLikeCount, MenuType } from '../services';
 import ReviewReactButton from './ReviewReactButton';
+import { AuthService } from '@/lib/services';
 
 interface ReviewItemProps extends Review {
   menuType: MenuType;
@@ -16,7 +17,10 @@ export default async function ReviewItem({
   menuType,
   isLiked,
 }: ReviewItemProps) {
-  const likedCount = await fetchReviewLikeCount(id, menuType);
+  const [likedCount, isAuthenticated] = await Promise.all([
+    fetchReviewLikeCount(id, menuType),
+    AuthService.isAuthenticated(),
+  ]);
 
   return (
     <div className='flex h-32 w-full rounded-2xl bg-gray-100/50 p-4'>
@@ -30,6 +34,7 @@ export default async function ReviewItem({
           menuType={menuType}
           initialIsLiked={isLiked}
           likedCount={likedCount}
+          isDisabled={!isAuthenticated}
         />
       </div>
       <div className='flex flex-col gap-1'>

@@ -11,6 +11,7 @@ interface ReviewReactButtonProps {
   menuType: MenuType;
   initialIsLiked: boolean;
   likedCount: number;
+  isDisabled: boolean;
 }
 
 export default function ReviewReactButton({
@@ -18,6 +19,7 @@ export default function ReviewReactButton({
   menuType,
   initialIsLiked,
   likedCount,
+  isDisabled,
 }: ReviewReactButtonProps) {
   const [isPending, startTransition] = useTransition();
   const [optimisticLiked, setOptimisticLiked] = useOptimistic(initialIsLiked);
@@ -40,7 +42,7 @@ export default function ReviewReactButton({
         variant={optimisticLiked ? 'default' : 'outline'}
         size='sm'
         onClick={handleLikeToggle}
-        disabled={isPending}
+        disabled={isPending || isDisabled}
       >
         <span className='font-tossFace'>👍</span>
         <span>{likedCount}</span>
