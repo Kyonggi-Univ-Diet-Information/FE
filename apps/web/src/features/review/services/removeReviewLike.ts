@@ -37,6 +37,12 @@ export const removeReviewLike = async (
       menuType === 'campus' ? KEY.KS_REVIEW_LIKED : KEY.REVIEW_LIKED,
     );
 
+    revalidateTag(
+      menuType === 'campus'
+        ? KEY.KS_REVIEW_LIKED_COUNT(reviewId)
+        : KEY.REVIEW_LIKED_COUNT(reviewId),
+    );
+
     return { success: true };
   } catch (error) {
     console.error(error);
