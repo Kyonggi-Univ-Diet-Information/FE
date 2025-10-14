@@ -41,7 +41,7 @@ const getWeekDates = cache(() => {
 });
 
 export default async function DormPage({ searchParams }: DormPageProps) {
-  const { date = DORM_DAY_KEY[1] } = await searchParams;
+  const { date = DORM_DAY_KEY[new Date().getDay()] } = await searchParams;
   const weekDates = getWeekDates();
   const dormMenu = await fetchDormMenu();
   const t = await getTranslations('dorm');
@@ -99,7 +99,7 @@ export default async function DormPage({ searchParams }: DormPageProps) {
           subtitle={tHome('dormSubtitle')}
         />
         <MenuSection.Content className='flex flex-col gap-4'>
-          <TabNavigation tabs={tabs} paramName='date' />
+          <TabNavigation tabs={tabs} paramName='date' initialTab={date} />
           <p className='text-center font-semibold'>
             {formattedDate}{' '}
             <span className='text-point font-wantedSans'>{dayNames[date]}</span>
