@@ -6,3 +6,4 @@ export { default as WeekSelector } from './WeekSelector';
 export { default as Loader } from './Loader';
 export { GoogleAnalytics } from './GoogleAnalytics';
 export * from './Button';
+export { default as Pagination } from './pagination';

@@ -44,9 +44,10 @@ export default async function ReviewPage({
 
   const reviewService = getReviewService(menuType as MenuType);
 
-  const [rating, averageRating, allMenu] = await Promise.all([
+  const [rating, averageRating, reviews, allMenu] = await Promise.all([
     reviewService.fetchRatings(foodId),
     reviewService.fetchAverage(foodId),
+    reviewService.fetchReviews(foodId, pageNo),
     menuType === 'dorm' ? fetchDormMenu() : fetchCampusMenu(),
   ]);
 
@@ -109,6 +110,7 @@ export default async function ReviewPage({
           averageRating={averageRating}
         />
         <ReviewPagedView
+          totalPages={reviews.totalPages}
           foodId={foodId}
           pageNo={pageNo || 0}
           menuType={menuType as MenuType}
