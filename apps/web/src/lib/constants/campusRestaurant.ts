@@ -8,6 +8,14 @@ export const CAMPUS_RESTAURANT = {
   SINMEOI: '신머이쌀국수',
 };
 
+export const CAMPUS_RESTAURANT_NAME_EN = {
+  MANKWON: 'Mankwon WhaBap',
+  SYONG: 'Songsongs Pork Cutlet',
+  BURGER_TACO: 'Burger & Taco',
+  WIDELGA: 'Widelga',
+  SINMEOI: 'Sinmeoi Rice Noodles',
+};
+
 export const CAMPUS_RESTAURANT_NAME = Object.keys(
   CAMPUS_RESTAURANT,
 ) as SubRestaurant[];

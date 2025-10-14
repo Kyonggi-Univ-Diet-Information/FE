@@ -1,0 +1,86 @@
+{
+  "common": {
+    "appName": "Let's Eat Kiryong!",
+    "appShortName": "Kiryong",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "navigation": {
+    "home": "Home",
+    "campus": "Campus",
+    "dorm": "Dorm",
+    "review": "Review",
+    "myPage": "My"
+  },
+  "home": {
+    "won": "₩",
+    "campusTitle": "",
+    "campusHighlight": "KyongSulang",
+    "campusTitleLast": "Menu",
+    "campusSubtitle": "Click the card to check out the full menu!",
+    "campusAllView": "View All",
+    "dormHighlight": "Dorm Cafeteria",
+    "dormSubtitle": "Check out the menu for this week!",
+    "dormTitleLast": "'s Menu",
+    "reviewPrompt": "How was your meal?",
+    "reviewDescription": "Write reviews for cafeteria menus and check out what other students think!"
+  },
+  "auth": {
+    "loading": "Loading...",
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up",
+    "authRequest": "has requested\nauthentication",
+    "authDescription": "Log in with Kakao to access review features!",
+    "kakaoLogin": "Login with Kakao"
+  },
+  "campus": {
+    "title": "Campus Restaurant",
+    "description": "Check out campus cafeteria menus",
+    "pageTitle": "KyongSulang",
+    "menu": "Menu",
+    "subtitle": "Click the review button to write a review!",
+    "others": "Others",
+    "review": "Review"
+  },
+  "dorm": {
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
+    "description": "Check out dormitory cafeteria menus",
+    "pageTitle": "Dorm Cafeteria",
+    "thisWeek": "This Week",
+    "weeklyMenu": "Menu",
+    "menuOf": "'s Menu"
+  },
+  "review": {
+    "title": "Reviews",
+    "write": "Write Review",
+    "list": "Review List",
+    "empty": "No reviews yet"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Invalid menu ID. Please check the path.",
+    "backToList": "Back to review list"
+  },
+  "user": {
+    "title": "My Page",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "reviewPage": {
+    "loginRequiredTitle": "Login Required!",
+    "loginRequiredDescription": "Log in to write a review.",
+    "loginButton": "Go to Login",
+    "reviewPromptTitle": ", How was it?",
+    "writeReview": "Write a review",
+    "reviewPrompt": "Please write your review!",
+    "noReviews": "No reviews yet",
+    "reviewPageComingSoon": "Review Home page is coming soon!"
+  },
+  "metadata": {
+    "title": "Kiryong Let's Eat",
+    "description": "Easily find dining information at Kyonggi University!"
+  }
+}

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import type { DormDay, DormTime } from '@/types';
-import { DORM_DAY, DORM_DAY_KEY } from '@/lib/constants';
+import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
 import { getCurrentDate } from '@/lib/utils';
 
 import { MenuSection } from '@/components/common';
@@ -17,6 +17,7 @@ import {
   getFallbackMenu,
   renderMenuItems,
 } from '@/features/menu/utils';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface DormMenuSectionProps {
   date?: DormDay;
@@ -27,10 +28,17 @@ export default function DormMenuSection({
   date,
   dormMenu,
 }: DormMenuSectionProps) {
+  const tDorm = useTranslations('dorm');
+  const t = useTranslations('home');
+  const locale = useLocale();
   const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];
-  const weekDateString = date ? DORM_DAY[date] : '오늘';
+
+  const getWeekDateString = (date?: DormDay) => {
+    if (!date) return locale === 'en' ? 'Today' : '오늘';
+    return locale === 'en' ? DORM_DAY_EN[date] : DORM_DAY[date];
+  };
 
   const { yesterday, tomorrow } = getAdjacentDates(currentDay);
   const isCurrentDaySunday = isSunday(currentDay);
@@ -59,19 +67,20 @@ export default function DormMenuSection({
       <MenuSection.Header
         title={
           <>
-            <span className='text-point'>경기드림타워</span>{' '}
+            <span className='text-point'>{t('dormHighlight')}</span>{' '}
+            <br className={locale === 'en' ? '' : 'hidden'} />
             <Link
               replace
               href='?modal=open'
               className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
             >
-              {weekDateString}
+              {getWeekDateString(date)}
             </Link>
-            의 메뉴
+            {t('dormTitleLast')}
             <span className='font-tossFace'> 🍚</span>
           </>
         }
-        subtitle='이번 주 경기드림타워 식단을 확인해보세요.'
+        subtitle={t('dormSubtitle')}
         action={
           <div className='flex gap-x-2'>
             <NavigationButton
@@ -118,24 +127,24 @@ export default function DormMenuSection({
       <MenuSection.Content>
         <MenuCard className='h-70'>
           <MenuCard.Header>
-            아침 <span className='font-tossFace'>☀️</span>
+            {tDorm('breakfast')} <span className='font-tossFace'>☀️</span>
           </MenuCard.Header>
-          <MenuCard.Content>{renderMenuItems([])}</MenuCard.Content>
+          <MenuCard.Content>{renderMenuItems([], locale)}</MenuCard.Content>
         </MenuCard>
         <MenuCard>
           <MenuCard.Header>
-            점심 <span className='font-tossFace'>🍽️</span>{' '}
+            {tDorm('lunch')} <span className='font-tossFace'>🍽️</span>{' '}
           </MenuCard.Header>
           <MenuCard.Content>
-            {renderMenuItems(dormMenuByTime('LUNCH'))}
+            {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
           </MenuCard.Content>
         </MenuCard>
         <MenuCard>
           <MenuCard.Header>
-            저녁 <span className='font-tossFace'>🌙</span>
+            {tDorm('dinner')} <span className='font-tossFace'>🌙</span>
           </MenuCard.Header>
           <MenuCard.Content>
-            {renderMenuItems(dormMenuByTime('DINNER'))}
+            {renderMenuItems(dormMenuByTime('DINNER'), locale)}
           </MenuCard.Content>
         </MenuCard>
       </MenuSection.Content>

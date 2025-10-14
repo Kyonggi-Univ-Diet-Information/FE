@@ -12,16 +12,18 @@ interface TabNavigationProps {
   }>;
   className?: string;
   paramName?: string;
+  initialTab?: string;
 }
 
 export default function TabNavigation({
   tabs,
   className,
   paramName,
+  initialTab,
 }: TabNavigationProps) {
   const searchParams = useSearchParams();
   const currentTab =
-    searchParams.get(paramName || 'restaurant') || tabs[0]?.key;
+    searchParams.get(paramName || 'restaurant') || initialTab || tabs[0]?.key;
 
   return (
     <div

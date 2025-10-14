@@ -4,30 +4,40 @@ import { MenuSection } from '@/components/common';
 
 import { MenuCard } from '.';
 
-import { CAMPUS_RESTAURANT, CAMPUS_RESTAURANT_NAME } from '@/lib/constants';
+import {
+  CAMPUS_RESTAURANT,
+  CAMPUS_RESTAURANT_NAME,
+  CAMPUS_RESTAURANT_NAME_EN,
+} from '@/lib/constants';
 import type { CampusMenu, SubRestaurant } from '@/types';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function CampusMenuSection({
   campusMenu,
 }: {
   campusMenu: Record<SubRestaurant, CampusMenu[]>;
 }) {
+  const t = useTranslations('home');
+  const locale = useLocale();
+
   return (
     <MenuSection>
       <MenuSection.Header
         title={
           <>
-            교내식당 <span className='text-point'>경슐랭</span> 메뉴
+            {t('campusTitle')}{' '}
+            <span className='text-point'>{t('campusHighlight')}</span>{' '}
+            {t('campusTitleLast')}
             <span className='font-tossFace'> 🍚</span>
           </>
         }
-        subtitle='카드를 클릭해서 전체 메뉴를 확인해보세요!'
+        subtitle={t('campusSubtitle')}
         action={
           <Link
             href='/campus'
             className='text-sm underline hover:text-gray-600'
           >
-            전체보기
+            {t('campusAllView')}
           </Link>
         }
       />
@@ -39,20 +49,27 @@ export default function CampusMenuSection({
             href={`/campus?restaurant=${restaurant}`}
           >
             <p className='flex items-center justify-between font-semibold'>
-              <span>{CAMPUS_RESTAURANT[restaurant]}</span>
-              <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium'>
-                경슐랭
+              <span>
+                {locale === 'en'
+                  ? CAMPUS_RESTAURANT_NAME_EN[restaurant]
+                  : CAMPUS_RESTAURANT[restaurant]}
               </span>
+              {/* <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium'>
+                {t('campusHighlight')}
+              </span> */}
             </p>
             <MenuCard.Content>
-              {campusMenu[restaurant].slice(0, 7).map(menu => (
+              {campusMenu[restaurant].slice(0, 8).map(menu => (
                 <p
                   className='flex items-center justify-between text-gray-600'
                   key={menu.id}
                 >
-                  <span>{menu.name}</span>
+                  <span className='max-w-[70%] truncate'>
+                    {locale === 'en' ? menu.nameEn : menu.name}
+                  </span>
                   <span className='text-sm text-gray-900/40'>
-                    {menu.price}원
+                    {menu.price}
+                    {t('won')}
                   </span>
                 </p>
               ))}

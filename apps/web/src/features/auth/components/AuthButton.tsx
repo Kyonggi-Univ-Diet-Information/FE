@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/common';
 import { useAuth } from '../hooks';
 import { logout } from '../action';
+import { useTranslations } from 'next-intl';
 
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();
   const router = useRouter();
+  const t = useTranslations('auth');
 
   const handleLogout = async () => {
     const result = await logout();
@@ -21,7 +23,7 @@ export function AuthButton() {
   if (isLoading) {
     return (
       <Button variant='outline' size='sm' disabled>
-        로딩 중...
+        {t('loading')}
       </Button>
     );
   }
@@ -29,7 +31,7 @@ export function AuthButton() {
   if (isAuthenticated) {
     return (
       <Button variant='outline' size='sm' onClick={handleLogout}>
-        로그아웃
+        {t('logout')}
       </Button>
     );
   }
@@ -37,7 +39,7 @@ export function AuthButton() {
   return (
     <Link href='/auth/login'>
       <Button variant='outline' size='sm'>
-        로그인
+        {t('login')}
       </Button>
     </Link>
   );

@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { ReviewItem } from '.';
 import { getReviewService, MenuType } from '../services/reviewService';
 
@@ -12,14 +13,13 @@ export default async function ReviewPagedView({
   pageNo,
   menuType,
 }: ReviewPagedViewProps) {
+  const t = await getTranslations('reviewPage');
   const reviewService = getReviewService(menuType);
   const reviews = await reviewService.fetchReviews(foodId, pageNo);
 
   if (reviews.content.length === 0) {
     return (
-      <div className='text-center text-gray-500'>
-        아직 작성된 리뷰가 없어요.
-      </div>
+      <div className='mt-10 text-center text-gray-500'>{t('noReviews')}</div>
     );
   }
 

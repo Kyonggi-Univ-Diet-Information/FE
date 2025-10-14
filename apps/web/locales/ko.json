@@ -1,0 +1,86 @@
+{
+  "common": {
+    "appName": "기룡아 밥먹자",
+    "appShortName": "기밥",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다"
+  },
+  "navigation": {
+    "home": "홈",
+    "campus": "경슐랭",
+    "dorm": "기숙사",
+    "review": "리뷰",
+    "myPage": "마이"
+  },
+  "home": {
+    "won": "원",
+    "campusTitle": "교내식당",
+    "campusHighlight": "경슐랭",
+    "campusTitleLast": "메뉴",
+    "campusSubtitle": "카드를 클릭해서 전체 메뉴를 확인해보세요!",
+    "campusAllView": "전체보기",
+    "dormHighlight": "경기드림타워",
+    "dormSubtitle": "이번 주 경기드림타워 식단을 확인해보세요.",
+    "dormTitleLast": "의 메뉴",
+    "reviewPrompt": "식사는 어땠나요?",
+    "reviewDescription": "식당 메뉴에 대한 리뷰를 작성하고, 다른 학우의 리뷰를 확인해보세요!"
+  },
+  "auth": {
+    "loading": "로딩 중...",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "signup": "회원가입",
+    "authRequest": "에서\n인증을 요청했어요",
+    "authDescription": "카카오 로그인 후 리뷰 기능을 이용해보세요!",
+    "kakaoLogin": "카카오 로그인"
+  },
+  "campus": {
+    "title": "경슐랭 식당",
+    "description": "캠퍼스 내 식당 메뉴를 확인하세요",
+    "pageTitle": "경슐랭",
+    "menu": "메뉴",
+    "subtitle": "리뷰 버튼을 클릭해서 리뷰를 작성해보세요!",
+    "others": "기타",
+    "review": "리뷰"
+  },
+  "dorm": {
+    "breakfast": "아침",
+    "lunch": "점심",
+    "dinner": "저녁",
+    "description": "기숙사 식당 메뉴를 확인하세요",
+    "pageTitle": "경기드림타워",
+    "thisWeek": "이번 주",
+    "weeklyMenu": "식단",
+    "menuOf": "의 식단"
+  },
+  "review": {
+    "title": "리뷰",
+    "write": "리뷰 작성",
+    "list": "리뷰 목록",
+    "empty": "작성된 리뷰가 없습니다"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없어요",
+    "description": "유효하지 않은 메뉴 ID입니다. 경로를 확인해주세요.",
+    "backToList": "리뷰 목록으로 돌아가기"
+  },
+  "user": {
+    "title": "마이페이지",
+    "profile": "프로필",
+    "settings": "설정"
+  },
+  "reviewPage": {
+    "loginRequiredTitle": "로그인이 필요해요!",
+    "loginRequiredDescription": "로그인 후 리뷰를 작성할 수 있어요.",
+    "loginButton": "로그인 하러가기",
+    "reviewPromptTitle": ", 어땠나요?",
+    "writeReview": "리뷰 작성하기",
+    "reviewPrompt": "리뷰를 작성해주세요!",
+    "noReviews": "아직 작성된 리뷰가 없어요.",
+    "reviewPageComingSoon": "리뷰 홈 페이지는 준비중이에요!"
+  },
+  "metadata": {
+    "title": "기룡아 밥먹자",
+    "description": "경기대학교 내부 식당 정보를 쉽게 찾아봐요!"
+  }
+}

@@ -1,6 +1,12 @@
 import { cache } from 'react';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { MenuSection, TabNavigation } from '@/components/common';
-import { DORM_DAY, DORM_DAY_KEY, DORM_DAY_NAME } from '@/lib/constants';
+import {
+  DORM_DAY,
+  DORM_DAY_EN,
+  DORM_DAY_KEY,
+  DORM_DAY_NAME,
+} from '@/lib/constants';
 import { DormDay, DormTime } from '@/types';
 import { fetchDormMenu } from '@/features/menu/services';
 import { MenuCard } from '@/features/menu/components';
@@ -35,20 +41,28 @@ const getWeekDates = cache(() => {
 });
 
 export default async function DormPage({ searchParams }: DormPageProps) {
-  const { date = DORM_DAY_KEY[1] } = await searchParams;
+  const { date = DORM_DAY_KEY[new Date().getDay()] } = await searchParams;
   const weekDates = getWeekDates();
   const dormMenu = await fetchDormMenu();
+  const t = await getTranslations('dorm');
+  const tHome = await getTranslations('home');
+  const locale = await getLocale();
+
+  const dayNames = locale === 'en' ? DORM_DAY_EN : DORM_DAY;
 
   const tabs = DORM_DAY_NAME.map(day => ({
     key: day,
-    label: DORM_DAY[day],
+    label: dayNames[day],
     href: `/dorm?date=${day}`,
   }));
 
-  const formattedDate = weekDates[date].toLocaleDateString('ko-KR', {
-    month: 'long',
-    day: 'numeric',
-  });
+  const formattedDate = weekDates[date].toLocaleDateString(
+    locale === 'en' ? 'en-US' : 'ko-KR',
+    {
+      month: 'long',
+      day: 'numeric',
+    },
+  );
 
   const todayDormMenu = dormMenu && dormMenu[date];
 
@@ -76,43 +90,46 @@ export default async function DormPage({ searchParams }: DormPageProps) {
         <MenuSection.Header
           title={
             <>
-              경기드림타워 <span className='text-point'>이번 주</span>{' '}
-              <span className='font-tossFace'>📅</span> <span>식단</span>
+              {t('pageTitle')}{' '}
+              <span className='text-point'>{t('thisWeek')}</span>{' '}
+              <span className='font-tossFace'>📅</span>{' '}
+              <span>{t('weeklyMenu')}</span>
             </>
           }
-          subtitle='이번 주 경기드림타워 식단을 확인해보세요.'
+          subtitle={tHome('dormSubtitle')}
         />
         <MenuSection.Content className='flex flex-col gap-4'>
-          <TabNavigation tabs={tabs} paramName='date' />
+          <TabNavigation tabs={tabs} paramName='date' initialTab={date} />
           <p className='text-center font-semibold'>
             {formattedDate}{' '}
-            <span className='text-point font-wantedSans'>{DORM_DAY[date]}</span>
-            의 식단<span className='font-tossFace'> 🍚</span>
+            <span className='text-point font-wantedSans'>{dayNames[date]}</span>
+            {t('menuOf')}
+            <span className='font-tossFace'> 🍚</span>
           </p>
 
           <div className='flex flex-col gap-3'>
             <MenuCard>
               <MenuCard.Header>
-                아침 <span className='font-tossFace'>☀️</span>
+                {t('breakfast')} <span className='font-tossFace'>☀️</span>
               </MenuCard.Header>
               <MenuCard.Content>
-                {renderMenuItems(dormMenuByTime('BREAKFAST'))}
+                {renderMenuItems(dormMenuByTime('BREAKFAST'), locale)}
               </MenuCard.Content>
             </MenuCard>
             <MenuCard>
               <MenuCard.Header>
-                점심 <span className='font-tossFace'>🍽️</span>
+                {t('lunch')} <span className='font-tossFace'>🍽️</span>
               </MenuCard.Header>
               <MenuCard.Content>
-                {renderMenuItems(dormMenuByTime('LUNCH'))}
+                {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
               </MenuCard.Content>
             </MenuCard>
             <MenuCard>
               <MenuCard.Header>
-                저녁 <span className='font-tossFace'>🌙</span>
+                {t('dinner')} <span className='font-tossFace'>🌙</span>
               </MenuCard.Header>
               <MenuCard.Content>
-                {renderMenuItems(dormMenuByTime('DINNER'))}
+                {renderMenuItems(dormMenuByTime('DINNER'), locale)}
               </MenuCard.Content>
             </MenuCard>
           </div>

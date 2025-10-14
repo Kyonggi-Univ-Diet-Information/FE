@@ -16,6 +16,16 @@ export const DORM_DAY = {
   SUNDAY: '일요일',
 };
 
+export const DORM_DAY_EN = {
+  MONDAY: 'Monday',
+  TUESDAY: 'Tuesday',
+  WEDNESDAY: 'Wednesday',
+  THURSDAY: 'Thursday',
+  FRIDAY: 'Friday',
+  SATURDAY: 'Saturday',
+  SUNDAY: 'Sunday',
+};
+
 export const DORM_DAY_KEY: Record<number, DormDay> = {
   0: 'SUNDAY',
   1: 'MONDAY',

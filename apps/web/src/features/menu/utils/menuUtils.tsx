@@ -37,12 +37,17 @@ export function getFallbackMenu(isWeekend: boolean): DormMenu[] {
 /**
  * 메뉴 배열을 렌더링하는 함수
  */
-export function renderMenuItems(menu: DormMenu[]) {
-  if (menu.length === 0) return <p className='text-gray-600'>미운영</p>;
+export function renderMenuItems(menu: DormMenu[], locale?: string) {
+  if (menu.length === 0)
+    return (
+      <p className='text-gray-600'>{locale === 'en' ? 'Closed' : '미운영'}</p>
+    );
 
   return menu.map(menuItem => (
     <p className='text-gray-600' key={menuItem.id}>
-      {menuItem.dietFoodDTO.name}
+      {locale === 'en'
+        ? menuItem.dietFoodDTO.nameEn
+        : menuItem.dietFoodDTO.name}
     </p>
   ));
 }
@@ -50,10 +55,12 @@ export function renderMenuItems(menu: DormMenu[]) {
 /**
  * 리뷰 버튼을 가진 메뉴 배열을 렌더링하는 함수
  */
-export function renderMenuItemsWithReview(menu: DormMenu[]) {
+export function renderMenuItemsWithReview(menu: DormMenu[], locale?: string) {
   return menu.map(menuItem => (
     <p className='flex justify-between text-gray-600' key={menuItem.id}>
-      {menuItem.dietFoodDTO.name}
+      {locale === 'en'
+        ? menuItem.dietFoodDTO.nameEn
+        : menuItem.dietFoodDTO.name}
       <Link
         href={`/review/${menuItem.id}?menuType=dorm`}
         className='text-gray-600'
