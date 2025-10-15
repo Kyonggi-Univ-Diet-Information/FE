@@ -12,9 +12,9 @@ import { Suspense } from 'react';
 function MenuSectionsSkeleton() {
   return (
     <>
-      <div className='h-80 animate-pulse rounded-2xl bg-gray-100' />
-      <div className='h-32 animate-pulse rounded-2xl bg-gray-100' />
-      <div className='h-80 animate-pulse rounded-2xl bg-gray-100' />
+      <div className='h-80 animate-pulse rounded-2xl bg-gray-100/50' />
+      <div className='h-32 animate-pulse rounded-2xl bg-gray-100/50' />
+      <div className='h-80 animate-pulse rounded-2xl bg-gray-100/50' />
     </>
   );
 }
