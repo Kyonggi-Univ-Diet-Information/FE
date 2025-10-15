@@ -1,19 +1,14 @@
-'use client';
-
 import Link from 'next/link';
 
 import { MessageSquareText } from 'lucide-react';
 import type { CampusMenu } from '@/types';
-import useSWR from 'swr';
-import { ENDPOINT } from '@/lib/axios/endpoint';
-import { clientFetcher } from '@/lib/axios/client.config';
-import { KEY } from '@/lib/constants';
+import { fetchReviewCount } from '@/features/review/services';
 
 interface CampusMenuCardProps extends CampusMenu {
   locale?: string;
 }
 
-export default function CampusMenuCard({
+export default async function CampusMenuCard({
   id,
   name,
   nameEn,
@@ -23,16 +18,7 @@ export default function CampusMenuCard({
   const wonText = locale === 'en' ? '₩' : '원';
   const reviewText = locale === 'en' ? 'Review' : '리뷰';
   const menuName = locale === 'en' ? nameEn : name;
-
-  const { data: reviewCount = 0 } = useSWR(
-    KEY.REVIEW_COUNT(id),
-    () => clientFetcher<number>(ENDPOINT.KS_REVIEW_COUNT + id),
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-      errorRetryCount: 1,
-    },
-  );
+  const reviewCount = await fetchReviewCount(id);
 
   const cardContent = (
     <>

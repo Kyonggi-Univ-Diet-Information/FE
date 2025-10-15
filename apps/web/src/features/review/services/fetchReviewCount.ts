@@ -5,17 +5,20 @@ export const fetchReviewCount = async (foodId: number): Promise<number> => {
   const apiUrl =
     process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
 
-  const response = await fetch(`${apiUrl}${ENDPOINT.REVIEW_COUNT + foodId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${apiUrl}${ENDPOINT.KS_REVIEW_COUNT + foodId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'force-cache',
+      next: {
+        tags: [KEY.KS_REVIEW_COUNT(foodId)],
+        revalidate: 60 * 10,
+      },
     },
-    cache: 'force-cache',
-    next: {
-      tags: [KEY.REVIEW_COUNT(foodId)],
-      revalidate: 60 * 10,
-    },
-  });
+  );
 
   if (!response.ok) {
     return 0;

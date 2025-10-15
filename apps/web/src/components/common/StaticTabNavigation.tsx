@@ -25,6 +25,7 @@ export default function StaticTabNavigation({
     >
       {tabs.map(tab => (
         <Link
+          prefetch
           key={tab.key}
           href={tab.href}
           replace
