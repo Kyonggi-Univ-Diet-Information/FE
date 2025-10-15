@@ -21,11 +21,20 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
+
+    if (config.mode === 'production') {
+      config.optimization = {
+        ...config.optimization,
+        minimize: true,
+      };
+    }
+
     return config;
   },
 
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', 'next-intl'],
+    optimizeCss: true,
   },
 
   ...(process.env.NODE_ENV === 'development' && {

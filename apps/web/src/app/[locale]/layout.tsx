@@ -9,6 +9,7 @@ import { brBold, brRegular, tossFace, wantedSans } from '../font';
 import { BottomNavBar, Header } from '@/components/layout';
 import { ErrorBoundary, GoogleAnalytics } from '@/components/common';
 import { SWRProvider } from '@/components/providers';
+import { Analytics } from '@vercel/analytics/next';
 
 type Props = {
   children: ReactNode;
@@ -47,6 +48,16 @@ export default async function LocaleLayout({ children, params }: Props) {
       <head>
         <link rel='icon' href='/favicon/favicon.ico' sizes='any' />
         <link rel='manifest' href='/config/manifest.json' />
+        <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+        <link rel='preconnect' href='https://www.googletagmanager.com' />
+        <link
+          rel='preload'
+          href='/fonts/WantedSans-Regular.ttf'
+          as='font'
+          type='font/ttf'
+          crossOrigin='anonymous'
+        />
+
         <meta property='og:image' content='/thumbnail/thumbnail.png' />
         <meta property='og:url' content='https://www.kiryong.kr/' />
         <meta property='og:type' content='website' />
@@ -55,6 +66,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <GoogleAnalytics />
           <ErrorBoundary>
+            <Analytics />
             <SWRProvider>
               <Header />
               <div className='size-full pt-[65px]'>

@@ -21,6 +21,8 @@ export const wantedSans = localFont({
   variable: '--font-wantedSans',
   display: 'swap',
   preload: true,
+  fallback: ['system-ui', 'arial'],
+  adjustFontFallback: 'Arial',
 });
 
 export const brBold = localFont({
@@ -29,7 +31,8 @@ export const brBold = localFont({
   style: 'normal',
   variable: '--font-brBold',
   display: 'swap',
-  preload: true,
+  preload: false,
+  fallback: ['system-ui', 'arial'],
 });
 
 export const brRegular = localFont({
@@ -38,7 +41,8 @@ export const brRegular = localFont({
   style: 'normal',
   variable: '--font-brRegular',
   display: 'swap',
-  preload: true,
+  preload: false,
+  fallback: ['system-ui', 'arial'],
 });
 
 export const tossFace = localFont({
