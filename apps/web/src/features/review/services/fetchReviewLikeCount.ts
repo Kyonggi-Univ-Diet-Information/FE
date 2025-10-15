@@ -1,6 +1,5 @@
 import { ENDPOINT } from '@/lib/axios';
 import { KEY } from '@/lib/constants';
-import { AuthService } from '@/lib/services';
 import { MenuType } from './reviewService';
 
 export const fetchReviewLikeCount = async (
@@ -19,7 +18,6 @@ export const fetchReviewLikeCount = async (
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${await AuthService.getAccessToken()}`,
       },
       cache: 'force-cache',
       next: {
