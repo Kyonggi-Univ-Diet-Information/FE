@@ -8,7 +8,7 @@ import { getCurrentDate } from '@/lib/utils';
 import { MenuSection } from '@/components/common';
 
 import { MenuCard, NavigationButton } from '@/features/menu/components';
-import { FetchDormMenuRes } from '@/features/menu/services';
+import { fetchDormMenu } from '@/features/menu/services';
 import {
   getAdjacentDates,
   isSunday,
@@ -17,20 +17,17 @@ import {
   getFallbackMenu,
   renderMenuItems,
 } from '@/features/menu/utils';
-import { useTranslations, useLocale } from 'next-intl';
+import { getTranslations, getLocale } from 'next-intl/server';
 
 interface DormMenuSectionProps {
   date?: DormDay;
-  dormMenu: FetchDormMenuRes['result'];
 }
 
-export default function DormMenuSection({
-  date,
-  dormMenu,
-}: DormMenuSectionProps) {
-  const tDorm = useTranslations('dorm');
-  const t = useTranslations('home');
-  const locale = useLocale();
+export default async function DormMenuSection({ date }: DormMenuSectionProps) {
+  const dormMenu = await fetchDormMenu();
+  const tDorm = await getTranslations('dorm');
+  const t = await getTranslations('home');
+  const locale = await getLocale();
   const today = getCurrentDate().getDay();
   const currentDay = date || DORM_DAY_KEY[today];
   const todayDormMenu = dormMenu && dormMenu[currentDay];

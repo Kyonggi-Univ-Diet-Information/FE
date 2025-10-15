@@ -10,16 +10,13 @@ import {
   CAMPUS_RESTAURANT_NAME_EN,
   RESTAURANT_ID_BY_NAME,
 } from '@/lib/constants';
-import type { CampusMenu, SubRestaurant } from '@/types';
-import { useLocale, useTranslations } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { fetchCampusMenu } from '../services';
 
-export default function CampusMenuSection({
-  campusMenu,
-}: {
-  campusMenu: Record<SubRestaurant, CampusMenu[]>;
-}) {
-  const t = useTranslations('home');
-  const locale = useLocale();
+export default async function CampusMenuSection() {
+  const campusMenu = await fetchCampusMenu();
+  const t = await getTranslations('home');
+  const locale = await getLocale();
 
   return (
     <MenuSection>
@@ -55,9 +52,6 @@ export default function CampusMenuSection({
                   ? CAMPUS_RESTAURANT_NAME_EN[restaurant]
                   : CAMPUS_RESTAURANT[restaurant]}
               </span>
-              {/* <span className='rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium'>
-                {t('campusHighlight')}
-              </span> */}
             </p>
             <MenuCard.Content>
               {campusMenu[restaurant].slice(0, 8).map(menu => (

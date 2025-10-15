@@ -15,6 +15,7 @@ export default function MenuCard({
     return (
       <Link
         href={href}
+        prefetch
         className={cn(
           className,
           'flex min-w-60 flex-shrink-0 flex-col gap-2 overflow-hidden rounded-2xl bg-gray-100/50 p-4 transition-all duration-300 hover:bg-gray-100 active:bg-gray-100',
