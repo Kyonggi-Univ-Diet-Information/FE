@@ -14,6 +14,10 @@ export const fetchCampusMenu = async (): Promise<
     cache: 'force-cache',
   });
 
+  if (!response.ok) {
+    throw new Error('Failed to fetch campus menu');
+  }
+
   const menuData: CampusMenu[] = await response.json();
 
   const data = menuData.reduce(

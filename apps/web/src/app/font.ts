@@ -8,11 +8,6 @@ export const wantedSans = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/WantedSans-Medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
       path: '../../public/fonts/WantedSans-SemiBold.ttf',
       weight: '600',
       style: 'normal',
@@ -22,13 +17,10 @@ export const wantedSans = localFont({
       weight: '700',
       style: 'normal',
     },
-    {
-      path: '../../public/fonts/WantedSans-Black.ttf',
-      weight: '800',
-      style: 'normal',
-    },
   ],
   variable: '--font-wantedSans',
+  display: 'swap',
+  preload: true,
 });
 
 export const brBold = localFont({
@@ -36,6 +28,8 @@ export const brBold = localFont({
   weight: '700',
   style: 'normal',
   variable: '--font-brBold',
+  display: 'swap',
+  preload: true,
 });
 
 export const brRegular = localFont({
@@ -43,6 +37,8 @@ export const brRegular = localFont({
   weight: '400',
   style: 'normal',
   variable: '--font-brRegular',
+  display: 'swap',
+  preload: true,
 });
 
 export const tossFace = localFont({
@@ -50,4 +46,6 @@ export const tossFace = localFont({
   weight: '400',
   style: 'normal',
   variable: '--font-tossFace',
+  display: 'swap',
+  preload: false,
 });

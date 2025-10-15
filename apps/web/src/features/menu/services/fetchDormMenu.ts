@@ -25,6 +25,10 @@ export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
     cache: 'force-cache',
   });
 
+  if (!response.ok) {
+    throw new Error('Failed to fetch dorm menu');
+  }
+
   const data = await response.json();
 
   return data.result;

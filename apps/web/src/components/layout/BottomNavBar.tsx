@@ -1,10 +1,15 @@
 'use client';
 
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'motion/react';
 import { Link } from '@/i18n/routing';
+import Restaurant2 from '../../../public/icons/icon-restaurant2.svg';
+import Restaurant1 from '../../../public/icons/icon-restaurant1.svg';
+import Home from '../../../public/icons/icon-home.svg';
+import Review from '../../../public/icons/icon-review.svg';
+import User from '../../../public/icons/icon-user.svg';
+import { cn } from '@/lib/utils';
 
 export default function BottomNavBar() {
   const pathname = usePathname();
@@ -15,36 +20,31 @@ export default function BottomNavBar() {
     {
       href: '/campus/1',
       label: t('campus'),
-      iconDefault: '/icons/icon-restaurant2-default.svg',
-      iconActive: '/icons/icon-restaurant2.svg',
+      icon: <Restaurant2 width={32} height={32} />,
       alt: 'restaurant2',
     },
     {
       href: '/dorm',
       label: t('dorm'),
-      iconDefault: '/icons/icon-restaurant1-default.svg',
-      iconActive: '/icons/icon-restaurant1.svg',
+      icon: <Restaurant1 width={32} height={32} />,
       alt: 'restaurant1',
     },
     {
       href: '/',
       label: t('home'),
-      iconDefault: '/icons/icon-home-default.svg',
-      iconActive: '/icons/icon-home.svg',
+      icon: <Home width={32} height={32} />,
       alt: 'home',
     },
     {
       href: '/review',
       label: t('review'),
-      iconDefault: '/icons/icon-review-default.svg',
-      iconActive: '/icons/icon-review.svg',
+      icon: <Review width={32} height={32} />,
       alt: 'review',
     },
     {
       href: '/user',
       label: t('myPage'),
-      iconDefault: '/icons/icon-user-default.svg',
-      iconActive: '/icons/icon-user.svg',
+      icon: <User width={32} height={32} />,
       alt: 'user',
     },
   ];
@@ -81,12 +81,8 @@ export default function BottomNavBar() {
             prefetch
             className='flex flex-col items-center'
           >
-            <div className='relative size-8'>
-              <Image
-                src={isActive ? item.iconActive : item.iconDefault}
-                fill
-                alt={item.alt}
-              />
+            <div className={cn(isActive ? 'text-point' : 'text-gray-400')}>
+              {item.icon}
             </div>
             <span
               className={`text-xs ${isActive ? 'text-point' : 'text-gray-400'}`}

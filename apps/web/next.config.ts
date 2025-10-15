@@ -12,6 +12,22 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingRoot: process.env.OUTPUT_FILE_TRACING_ROOT || '../..',
   serverExternalPackages: [],
+
+  compress: true,
+  poweredByHeader: false,
+
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
+
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
+
   ...(process.env.NODE_ENV === 'development' && {
     onDemandEntries: {
       maxInactiveAge: 25 * 1000,

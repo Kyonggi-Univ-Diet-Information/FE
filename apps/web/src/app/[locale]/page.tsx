@@ -9,6 +9,16 @@ import {
 import type { DormDay } from '@/types';
 import { Suspense } from 'react';
 
+function MenuSectionsSkeleton() {
+  return (
+    <>
+      <div className='h-80 animate-pulse rounded-2xl bg-gray-100' />
+      <div className='h-32 animate-pulse rounded-2xl bg-gray-100' />
+      <div className='h-80 animate-pulse rounded-2xl bg-gray-100' />
+    </>
+  );
+}
+
 interface HomeProps {
   searchParams: Promise<{ modal?: string; date?: string }>;
 }
@@ -21,11 +31,9 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <>
       <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pt-6 focus:outline-none'>
-        <Suspense>
+        <Suspense fallback={<MenuSectionsSkeleton />}>
           <CampusMenuSection />
-        </Suspense>
-        <ReviewLinkButton />
-        <Suspense>
+          <ReviewLinkButton />
           <DormMenuSection date={date as DormDay} />
         </Suspense>
       </div>
