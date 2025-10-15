@@ -12,4 +12,6 @@ export const KEY = {
     `ks-review-liked-count-${reviewId}`,
   REVIEW_LIKED_COUNT: (reviewId: number): string =>
     `review-liked-count-${reviewId}`,
+  KS_REVIEW_COUNT: (reviewId: number): string => `ks-review-count-${reviewId}`,
+  REVIEW_COUNT: (reviewId: number): string => `review-count-${reviewId}`,
 };

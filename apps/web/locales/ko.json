@@ -62,7 +62,9 @@
   "notFound": {
     "title": "페이지를 찾을 수 없어요",
     "description": "유효하지 않은 메뉴 ID입니다. 경로를 확인해주세요.",
-    "backToList": "리뷰 목록으로 돌아가기"
+    "backToList": "리뷰 목록으로 돌아가기",
+    "returnHome": "홈으로 돌아가기",
+    "wrongPath": "잘못된 접근입니다. 경로를 확인해주세요."
   },
   "user": {
     "title": "마이페이지",

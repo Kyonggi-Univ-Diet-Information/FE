@@ -17,7 +17,7 @@ export default function Header() {
 
   const navItems = [
     { href: '/', label: t('home') },
-    { href: '/campus', label: t('campus') },
+    { href: '/campus/1', label: t('campus') },
     { href: '/dorm', label: t('dorm') },
     { href: '/review', label: t('review') },
     { href: '/user', label: t('myPage') },

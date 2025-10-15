@@ -38,8 +38,10 @@ export const submitMenuReview = async (
 
     if (menuType === 'dorm') {
       revalidateTag(KEY.REVIEW(Number(foodId)));
+      revalidateTag(KEY.REVIEW_COUNT(Number(foodId)));
     } else {
       revalidateTag(KEY.KS_REVIEW(Number(foodId)));
+      revalidateTag(KEY.KS_REVIEW_COUNT(Number(foodId)));
     }
 
     return { success: true };

@@ -1,15 +1,11 @@
-import { Fragment } from 'react';
-import { getTranslations, getLocale } from 'next-intl/server';
-
-import { fetchCampusMenu } from '@/features/menu/services';
-
 import {
   CAMPUS_RESTAURANT,
+  CAMPUS_RESTAURANT_ID,
   CAMPUS_RESTAURANT_NAME,
   CAMPUS_RESTAURANT_NAME_EN,
+  RESTAURANT_ID_BY_NAME,
 } from '@/lib/constants';
-import { TabNavigation, MenuSection } from '@/components/common';
-import type { SubRestaurant } from '@/types';
+import { getTranslations } from 'next-intl/server';
 
 import {
   CAMPUS_MENU_KEY,
@@ -17,52 +13,51 @@ import {
   CAMPUS_MENU_TEXT,
   CAMPUS_MENU_TEXT_EN,
 } from '@/features/campus/constants';
-import { CampusMenuCard } from '@/features/campus/components';
+import { Fragment } from 'react';
+import { CampusHeader, CampusMenuCard } from '@/features/campus/components';
+import { StaticTabNavigation } from '@/components/common';
+import { fetchCampusMenuByRestaurant } from '@/features/campus/services';
 
-interface CampusPageProps {
-  searchParams: Promise<{ restaurant?: string }>;
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const locales = ['ko', 'en'];
+  const restaurantIds = Object.keys(CAMPUS_RESTAURANT_ID);
+
+  return locales.flatMap(locale =>
+    restaurantIds.map(restaurantId => ({
+      locale,
+      restaurantId,
+    })),
+  );
 }
 
-export default async function CampusPage({ searchParams }: CampusPageProps) {
-  const campusMenu = await fetchCampusMenu();
-  const selectedRestaurant = (await searchParams).restaurant as SubRestaurant;
+export default async function CampusRestaurantPage({
+  params,
+}: {
+  params: Promise<{ locale: string; restaurantId: string }>;
+}) {
+  const { locale, restaurantId } = await params;
+  const campusMenu = await fetchCampusMenuByRestaurant(
+    CAMPUS_RESTAURANT_ID[restaurantId],
+  );
+  const currentRestaurant = CAMPUS_RESTAURANT_ID[restaurantId];
   const t = await getTranslations('campus');
-  const locale = await getLocale();
+  const menuTexts = locale === 'en' ? CAMPUS_MENU_TEXT_EN : CAMPUS_MENU_TEXT;
 
   const restaurantNames =
     locale === 'en' ? CAMPUS_RESTAURANT_NAME_EN : CAMPUS_RESTAURANT;
-  const menuTexts = locale === 'en' ? CAMPUS_MENU_TEXT_EN : CAMPUS_MENU_TEXT;
 
   const tabs = CAMPUS_RESTAURANT_NAME.map(restaurant => ({
-    key: restaurant,
+    key: RESTAURANT_ID_BY_NAME[restaurant],
     label: restaurantNames[restaurant],
-    href: `/campus?restaurant=${restaurant}`,
+    href: `/campus/${RESTAURANT_ID_BY_NAME[restaurant]}`,
   }));
 
-  const currentRestaurant =
-    selectedRestaurant && CAMPUS_RESTAURANT_NAME.includes(selectedRestaurant)
-      ? selectedRestaurant
-      : CAMPUS_RESTAURANT_NAME[0];
-
   return (
-    <div className='space-y-4'>
-      <MenuSection.Header
-        title={
-          <>
-            {' '}
-            {t('pageTitle')}{' '}
-            <span className='text-point'>
-              {restaurantNames[currentRestaurant]}
-            </span>{' '}
-            {t('menu')}
-            <span className='font-tossFace'> 🍚</span>
-          </>
-        }
-        subtitle={t('subtitle')}
-      />
-
-      <TabNavigation tabs={tabs} />
-
+    <>
+      <CampusHeader restaurantId={restaurantId} />
+      <StaticTabNavigation tabs={tabs} currentTabKey={restaurantId} />
       {CAMPUS_MENU_KEY[currentRestaurant].length > 0 &&
         CAMPUS_MENU_KEY[currentRestaurant].map(menuKey => (
           <Fragment key={menuKey}>
@@ -73,7 +68,7 @@ export default async function CampusPage({ searchParams }: CampusPageProps) {
               {menuTexts[menuKey]}
             </p>
             <div className='grid grid-cols-2 gap-4'>
-              {campusMenu[currentRestaurant]
+              {campusMenu
                 .filter(menu => menu.name.includes(menuKey))
                 .map(menu => (
                   <CampusMenuCard key={menu.id} {...menu} locale={locale} />
@@ -83,7 +78,7 @@ export default async function CampusPage({ searchParams }: CampusPageProps) {
         ))}
 
       {(() => {
-        const categorizedMenus = campusMenu[currentRestaurant].filter(
+        const categorizedMenus = campusMenu.filter(
           menu =>
             !CAMPUS_MENU_KEY[currentRestaurant].some(key =>
               menu.name.includes(key),
@@ -106,6 +101,6 @@ export default async function CampusPage({ searchParams }: CampusPageProps) {
           )
         );
       })()}
-    </div>
+    </>
   );
 }

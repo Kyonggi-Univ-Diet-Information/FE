@@ -62,7 +62,9 @@
   "notFound": {
     "title": "Page not found",
     "description": "Invalid menu ID. Please check the path.",
-    "backToList": "Back to review list"
+    "backToList": "Back to review list",
+    "returnHome": "Return Home",
+    "wrongPath": "Wrong Access! Please check the path."
   },
   "user": {
     "title": "My Page",

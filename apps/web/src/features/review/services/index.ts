@@ -9,3 +9,4 @@ export * from './fetchReviewLiked';
 export * from './submitReviewLike';
 export * from './removeReviewLike';
 export * from './fetchReviewLikeCount';
+export * from './fetchReviewCount';

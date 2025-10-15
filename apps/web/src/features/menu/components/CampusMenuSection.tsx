@@ -8,6 +8,7 @@ import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_NAME,
   CAMPUS_RESTAURANT_NAME_EN,
+  RESTAURANT_ID_BY_NAME,
 } from '@/lib/constants';
 import type { CampusMenu, SubRestaurant } from '@/types';
 import { useLocale, useTranslations } from 'next-intl';
@@ -34,7 +35,7 @@ export default function CampusMenuSection({
         subtitle={t('campusSubtitle')}
         action={
           <Link
-            href='/campus'
+            href='/campus/1'
             className='text-sm underline hover:text-gray-600'
           >
             {t('campusAllView')}
@@ -46,7 +47,7 @@ export default function CampusMenuSection({
           <MenuCard
             key={restaurant}
             className='h-70'
-            href={`/campus?restaurant=${restaurant}`}
+            href={`/campus/${RESTAURANT_ID_BY_NAME[restaurant]}`}
           >
             <p className='flex items-center justify-between font-semibold'>
               <span>
