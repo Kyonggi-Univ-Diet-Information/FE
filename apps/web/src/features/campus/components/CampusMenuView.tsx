@@ -18,7 +18,8 @@ export default function CampusMenuView({
   campusMenu: Record<SubRestaurant, CampusMenu[]>;
 }) {
   const searchParams = useSearchParams();
-  const currentRestaurant = searchParams.get('restaurant') as SubRestaurant;
+  const currentRestaurant =
+    (searchParams.get('restaurant') as SubRestaurant) || 'MANKWON';
   const t = useTranslations('campus');
   const locale = useLocale();
   const menuTexts = locale === 'en' ? CAMPUS_MENU_TEXT_EN : CAMPUS_MENU_TEXT;
