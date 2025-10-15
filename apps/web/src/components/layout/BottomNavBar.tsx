@@ -78,6 +78,7 @@ export default function BottomNavBar() {
           <Link
             key={item.href}
             href={item.href}
+            prefetch
             className='flex flex-col items-center'
           >
             <div className='relative size-8'>

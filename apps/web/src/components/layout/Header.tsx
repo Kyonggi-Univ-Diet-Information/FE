@@ -49,6 +49,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch
                 className={`text-sm transition-colors ${
                   isActive
                     ? 'text-point font-semibold'
