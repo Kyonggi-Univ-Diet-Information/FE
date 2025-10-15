@@ -1,5 +1,6 @@
 import { ENDPOINT } from '@/lib/axios';
 import type { CampusMenu, SubRestaurant } from '@/types';
+import { notFound } from 'next/navigation';
 
 export const fetchCampusMenuByRestaurant = async (
   restaurantId: SubRestaurant,
@@ -16,6 +17,10 @@ export const fetchCampusMenuByRestaurant = async (
       cache: 'force-cache',
     },
   );
+
+  if (response.status === 401) {
+    notFound();
+  }
 
   const menuData: CampusMenu[] = await response.json();
 

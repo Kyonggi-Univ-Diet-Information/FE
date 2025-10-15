@@ -13,7 +13,7 @@ export default function BottomNavBar() {
 
   const navItems = [
     {
-      href: '/campus',
+      href: '/campus/1',
       label: t('campus'),
       iconDefault: '/icons/icon-restaurant2-default.svg',
       iconActive: '/icons/icon-restaurant2.svg',
@@ -49,9 +49,11 @@ export default function BottomNavBar() {
     },
   ];
 
-  // locale을 제외한 경로의 길이로 체크
   const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
-  if (pathWithoutLocale.split('/').length > 2) {
+  if (
+    pathWithoutLocale.split('/').length > 2 &&
+    !pathWithoutLocale.startsWith('/campus')
+  ) {
     return null;
   }
 
