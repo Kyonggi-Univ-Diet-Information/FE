@@ -8,6 +8,7 @@ export const ENDPOINT = {
   KS_REVIEW_LIKE: '/review/favorite/kyongsul-food/{reviewId}/create-favorite',
   KS_REVIEW_UNLIKE: '/review/favorite/kyongsul-food/delete/{reviewId}',
   KS_REVIEW_LIKED_COUNT: '/review/favorite/kyongsul-food/count/',
+  KS_REVIEW_COUNT: '/review/kyongsul-food/count/',
   KAKAO_LOGIN: '/kakao-login',
   REVIEW_RATING_COUNT: '/review/diet-food/rating-count/',
   REVIEW_AVERAGE_RATING: '/review/diet-food/average/',
@@ -16,6 +17,7 @@ export const ENDPOINT = {
   REVIEW_LIKE: '/review/favorite/diet-food/{reviewId}/create-favorite',
   REVIEW_UNLIKE: '/review/favorite/diet-food/delete/{reviewId}',
   REVIEW_LIKED_COUNT: '/review/favorite/diet-food/count/',
+  REVIEW_COUNT: '/review/diet-food/count/',
   MEMBER_KS_REVIEW_LIKED: '/review/favorite/kyongsul-food/each-member/all',
   MEMBER_REVIEW_LIKED: '/review/favorite/diet-food/each-member/all',
 };
