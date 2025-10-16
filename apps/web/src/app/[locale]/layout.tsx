@@ -61,6 +61,10 @@ export default async function LocaleLayout({ children, params }: Props) {
         <meta property='og:image' content='/thumbnail/thumbnail.png' />
         <meta property='og:url' content='https://www.kiryong.kr/' />
         <meta property='og:type' content='website' />
+        <meta
+          name='naver-site-verification'
+          content='93445f88fb84c2015b74933d1b6deabbba65014e'
+        />
       </head>
       <body className='antialiased' suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
