@@ -1,62 +1,55 @@
-import { cache } from 'react';
-import { getTranslations, getLocale } from 'next-intl/server';
-import { MenuSection, TabNavigation } from '@/components/common';
-import {
-  DORM_DAY,
-  DORM_DAY_EN,
-  DORM_DAY_KEY,
-  DORM_DAY_NAME,
-} from '@/lib/constants';
-import { DormDay, DormTime } from '@/types';
-import { fetchDormMenu } from '@/features/menu/services';
+import { MenuSection, StaticTabNavigation } from '@/components/common';
+import { fetchDormMenuByDay } from '@/features/dorm/services';
 import { MenuCard } from '@/features/menu/components';
 import {
-  isWeekend,
   getFallbackMenu,
+  isWeekend,
   renderMenuItems,
 } from '@/features/menu/utils';
+import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
+import { getWeekDates, getWeekStart } from '@/lib/utils';
+import type { DormTime } from '@/types';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-interface DormPageProps {
-  searchParams: Promise<{ date?: DormDay }>;
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const locales = ['ko', 'en'];
+  const days = Object.keys(DORM_DAY_KEY);
+
+  return locales.flatMap(locale =>
+    days.map(day => ({
+      locale,
+      day,
+    })),
+  );
 }
 
-const getWeekDates = cache(() => {
-  const now = new Date();
-  const day = now.getDay();
-  const diff = day === 0 ? -6 : 1 - day;
-  const monday = new Date(now);
-  monday.setDate(now.getDate() + diff);
-
-  const weekDates: Record<DormDay, Date> = {
-    MONDAY: new Date(monday.getTime()),
-    TUESDAY: new Date(monday.getTime() + 1 * 24 * 60 * 60 * 1000),
-    WEDNESDAY: new Date(monday.getTime() + 2 * 24 * 60 * 60 * 1000),
-    THURSDAY: new Date(monday.getTime() + 3 * 24 * 60 * 60 * 1000),
-    FRIDAY: new Date(monday.getTime() + 4 * 24 * 60 * 60 * 1000),
-    SATURDAY: new Date(monday.getTime() + 5 * 24 * 60 * 60 * 1000),
-    SUNDAY: new Date(monday.getTime() + 6 * 24 * 60 * 60 * 1000),
-  };
-
-  return weekDates;
-});
-
-export default async function DormPage({ searchParams }: DormPageProps) {
-  const { date = DORM_DAY_KEY[new Date().getDay()] } = await searchParams;
-  const weekDates = getWeekDates();
-  const dormMenu = await fetchDormMenu();
+export default async function DormPage({
+  params,
+}: {
+  params: Promise<{ day: number }>;
+}) {
+  const today = new Date();
+  const { day = today.getDay() } = await params;
+  const weekStart = getWeekStart(today);
+  const monday = new Date(weekStart);
+  monday.setDate(weekStart.getDate());
+  const weekDates = getWeekDates(monday);
+  const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]);
   const t = await getTranslations('dorm');
   const tHome = await getTranslations('home');
   const locale = await getLocale();
 
   const dayNames = locale === 'en' ? DORM_DAY_EN : DORM_DAY;
 
-  const tabs = DORM_DAY_NAME.map(day => ({
+  const tabs = Object.keys(DORM_DAY_KEY).map(day => ({
     key: day,
-    label: dayNames[day],
-    href: `/dorm?date=${day}`,
+    label: dayNames[DORM_DAY_KEY[Number(day)]],
+    href: `/dorm/${day}`,
   }));
 
-  const formattedDate = weekDates[date].toLocaleDateString(
+  const formattedDate = weekDates[day].toLocaleDateString(
     locale === 'en' ? 'en-US' : 'ko-KR',
     {
       month: 'long',
@@ -64,16 +57,16 @@ export default async function DormPage({ searchParams }: DormPageProps) {
     },
   );
 
-  const todayDormMenu = dormMenu && dormMenu[date];
+  const todayDormMenu = dormMenu && dormMenu.diet;
 
   const dormMenuByTime = (time: DormTime) => {
     if (!dormMenu) return getFallbackMenu(false);
 
-    if (isWeekend(date)) {
+    if (isWeekend(DORM_DAY_KEY[day])) {
       return getFallbackMenu(true);
     }
 
-    if (dormMenu[date] === undefined) {
+    if (dormMenu.diet === undefined) {
       return getFallbackMenu(false);
     }
 
@@ -99,10 +92,12 @@ export default async function DormPage({ searchParams }: DormPageProps) {
           subtitle={tHome('dormSubtitle')}
         />
         <MenuSection.Content className='flex flex-col gap-4'>
-          <TabNavigation tabs={tabs} paramName='date' initialTab={date} />
+          <StaticTabNavigation tabs={tabs} currentTabKey={String(day)} />
           <p className='text-center font-semibold'>
             {formattedDate}{' '}
-            <span className='text-point font-wantedSans'>{dayNames[date]}</span>
+            <span className='text-point font-wantedSans'>
+              {dayNames[DORM_DAY_KEY[day]]}
+            </span>
             {t('menuOf')}
             <span className='font-tossFace'> 🍚</span>
           </p>
