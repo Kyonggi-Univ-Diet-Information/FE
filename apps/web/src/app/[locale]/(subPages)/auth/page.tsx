@@ -16,6 +16,7 @@ function AuthContent() {
   const searchParams = useSearchParams();
 
   const code = searchParams.get('code');
+  const state = searchParams.get('state');
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -34,7 +35,21 @@ function AuthContent() {
 
       if (result.success) {
         await mutate(KEY.AUTH_STATUS);
-        router.replace('/');
+
+        let returnUrl = '/';
+        let locale = 'ko';
+
+        if (state) {
+          try {
+            const decodedState = JSON.parse(decodeURIComponent(state));
+            returnUrl = decodedState.returnUrl || '/';
+            locale = decodedState.locale || 'ko';
+          } catch (e) {
+            console.error('Failed to parse state:', e);
+          }
+        }
+
+        router.replace(`/${locale}${returnUrl}`);
       } else {
         setError(true);
       }

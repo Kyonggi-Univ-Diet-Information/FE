@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/common';
 import { Title } from '@/components/layout';
@@ -9,9 +12,14 @@ export default function LoginPage() {
   const t = useTranslations('auth');
   const tCommon = useTranslations('common');
   const locale = useLocale();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('returnUrl') || '/';
+
   const kakaoRestApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
   const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URL;
-  const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${kakaoRestApiKey}&redirect_uri=${redirectUri}`;
+
+  const state = encodeURIComponent(JSON.stringify({ returnUrl, locale }));
+  const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${kakaoRestApiKey}&redirect_uri=${redirectUri}&state=${state}`;
 
   return (
     <div className='flex size-full items-center justify-center'>

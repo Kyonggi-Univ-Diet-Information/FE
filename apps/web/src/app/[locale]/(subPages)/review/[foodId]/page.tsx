@@ -71,11 +71,18 @@ export default async function ReviewPage({
   const reviewCount = rating[1] + rating[2] + rating[3] + rating[4] + rating[5];
 
   function LoginModal() {
+    const currentPath = `/review/${foodId}?menuType=${menuType}`;
     return (
       <Modal href={`/review/${foodId}`}>
         <Modal.Header title={t('loginRequiredTitle')} />
         <p>{t('loginRequiredDescription')}</p>
-        <Link href='/auth/login' className='self-end'>
+        <Link
+          href={{
+            pathname: '/auth/login',
+            query: { returnUrl: currentPath },
+          }}
+          className='self-end'
+        >
           <Button variant='secondary' size='lg' className='w-fit'>
             {t('loginButton')}
           </Button>
