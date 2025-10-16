@@ -17,6 +17,7 @@ export default function StarSelector({
         selected ? '' : 'grayscale',
       )}
       onClick={() => setSelectedStars(index + 1)}
+      type='button'
     >
       ⭐️
     </button>
