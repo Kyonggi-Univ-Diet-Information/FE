@@ -14,8 +14,9 @@ import {
 } from '@/features/review/components';
 import { getReviewService, MenuType } from '@/features/review/services';
 import { AuthService } from '@/lib/services';
-import { Modal } from '@/components/common';
+import { Loader, Modal } from '@/components/common';
 import { fetchCampusMenu, fetchDormMenu } from '@/features/menu/services';
+import { Suspense } from 'react';
 
 export default async function ReviewPage({
   params,
@@ -109,12 +110,14 @@ export default async function ReviewPage({
           reviewCount={reviewCount}
           averageRating={averageRating}
         />
-        <ReviewPagedView
-          totalPages={reviews.totalPages}
-          foodId={foodId}
-          pageNo={pageNo || 0}
-          menuType={menuType as MenuType}
-        />
+        <Suspense fallback={<Loader />}>
+          <ReviewPagedView
+            totalPages={reviews.totalPages}
+            foodId={foodId}
+            pageNo={pageNo || 0}
+            menuType={menuType as MenuType}
+          />
+        </Suspense>
       </div>
     </>
   );
