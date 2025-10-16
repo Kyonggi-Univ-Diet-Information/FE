@@ -28,7 +28,6 @@ export default function StaticTabNavigation({
           prefetch
           key={tab.key}
           href={tab.href}
-          prefetch
           replace
           className={cn(
             'cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
