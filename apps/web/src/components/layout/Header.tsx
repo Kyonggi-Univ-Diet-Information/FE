@@ -15,10 +15,12 @@ export default function Header() {
   const locale = useLocale();
   const router = useRouter();
 
+  const today = new Date().getDay();
+
   const navItems = [
     { href: '/', label: t('home') },
     { href: '/campus/1', label: t('campus') },
-    { href: '/dorm', label: t('dorm') },
+    { href: `/dorm/${today}`, label: t('dorm') },
     { href: '/review', label: t('review') },
     { href: '/user', label: t('myPage') },
   ];

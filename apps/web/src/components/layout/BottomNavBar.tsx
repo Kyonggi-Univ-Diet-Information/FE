@@ -10,6 +10,7 @@ export default function BottomNavBar() {
   const pathname = usePathname();
   const t = useTranslations('navigation');
   const locale = useLocale();
+  const today = new Date().getDay();
 
   const navItems = [
     {
@@ -20,7 +21,7 @@ export default function BottomNavBar() {
       alt: 'restaurant2',
     },
     {
-      href: '/dorm',
+      href: `/dorm/${today}`,
       label: t('dorm'),
       iconDefault: '/icons/icon-restaurant1-default.svg',
       iconActive: '/icons/icon-restaurant1.svg',
