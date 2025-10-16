@@ -74,7 +74,7 @@ export default function BottomNavBar() {
         const isActive =
           item.href === '/'
             ? pathWithoutLocale === '/'
-            : pathWithoutLocale.startsWith(item.href);
+            : pathWithoutLocale.startsWith(`/${item.href.split('/')[1]}`);
 
         return (
           <Link

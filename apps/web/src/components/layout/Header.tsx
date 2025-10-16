@@ -45,7 +45,7 @@ export default function Header() {
             const isActive =
               item.href === '/'
                 ? pathname === `/${locale}` || pathname === '/'
-                : pathname.includes(item.href);
+                : pathname.includes(`${item.href.split('/')[1]}`);
 
             return (
               <Link
