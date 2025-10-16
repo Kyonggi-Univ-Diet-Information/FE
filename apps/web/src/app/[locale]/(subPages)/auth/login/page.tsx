@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
 
 import { Button } from '@/components/common';

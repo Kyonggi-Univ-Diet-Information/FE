@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Suspense, useEffect, useState } from 'react';

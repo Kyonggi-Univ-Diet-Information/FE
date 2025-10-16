@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 import { MenuSection } from '@/components/common';
 
@@ -32,6 +32,7 @@ export default async function CampusMenuSection() {
         subtitle={t('campusSubtitle')}
         action={
           <Link
+            prefetch
             href='/campus/1'
             className='text-sm underline hover:text-gray-600'
           >
