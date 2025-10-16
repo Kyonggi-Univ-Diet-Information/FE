@@ -30,7 +30,9 @@ export default function ReviewRatingSection({
     <section className='flex items-center rounded-2xl border p-6'>
       <div className='flex h-full w-2/5 max-w-40 flex-col items-start justify-between'>
         <div className='flex flex-col gap-1'>
-          <span className='text-3xl font-black'>{averageRating || '0.0'}</span>
+          <span className='text-3xl font-black'>
+            {averageRating.toFixed(2) || '0.0'}
+          </span>
           <span className='font-tossFace'>
             {'⭐️'.repeat(Math.floor(averageRating))}
           </span>
