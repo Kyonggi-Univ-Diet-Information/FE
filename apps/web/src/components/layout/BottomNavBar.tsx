@@ -53,7 +53,8 @@ export default function BottomNavBar() {
   const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
   if (
     pathWithoutLocale.split('/').length > 2 &&
-    !pathWithoutLocale.startsWith('/campus')
+    !pathWithoutLocale.startsWith('/campus') &&
+    !pathWithoutLocale.startsWith('/dorm')
   ) {
     return null;
   }
