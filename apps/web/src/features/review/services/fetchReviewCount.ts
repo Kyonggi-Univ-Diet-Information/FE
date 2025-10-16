@@ -15,7 +15,7 @@ export const fetchReviewCount = async (foodId: number): Promise<number> => {
       cache: 'force-cache',
       next: {
         tags: [KEY.KS_REVIEW_COUNT(foodId)],
-        revalidate: 60 * 10,
+        revalidate: 60 * 5,
       },
     },
   );

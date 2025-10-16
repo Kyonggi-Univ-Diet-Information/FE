@@ -18,7 +18,7 @@ export const fetchMenuReviews = async (
       cache: 'force-cache',
       next: {
         tags: [KEY.KS_REVIEW(foodId), KEY.KS_REVIEW_PAGINATION(foodId, page)],
-        revalidate: 60 * 10,
+        revalidate: 60 * 5,
       },
     },
   );

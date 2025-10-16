@@ -26,7 +26,7 @@ export const fetchReviewLikeCount = async (
             ? KEY.KS_REVIEW_LIKED_COUNT(reviewId)
             : KEY.REVIEW_LIKED_COUNT(reviewId),
         ],
-        revalidate: 60 * 10,
+        revalidate: 60 * 5,
       },
     });
 
