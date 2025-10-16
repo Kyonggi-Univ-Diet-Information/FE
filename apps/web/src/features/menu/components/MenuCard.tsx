@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react';
+
+import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import React, { ReactNode } from 'react';
 
 export default function MenuCard({
   href,
