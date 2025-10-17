@@ -5,7 +5,7 @@ import type { DormDay, DormTime } from '@/types';
 import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
 import { getCurrentDate } from '@/shared/lib/date';
 
-import { MenuSection } from '@/shared/ui';
+import { Section } from '@/shared/ui';
 
 import { MenuCard, NavigationButton } from '@/features/menu/components';
 import { fetchDormMenu } from '@/features/menu/services';
@@ -60,8 +60,8 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
   };
 
   return (
-    <MenuSection>
-      <MenuSection.Header
+    <Section>
+      <Section.Header
         title={
           <>
             <span className='text-point'>{t('dormHighlight')}</span>{' '}
@@ -121,7 +121,7 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
           </div>
         }
       />
-      <MenuSection.Content>
+      <Section.Content>
         <MenuCard className='h-70'>
           <MenuCard.Header>
             {tDorm('breakfast')} <span className='font-tossFace'>☀️</span>
@@ -144,7 +144,7 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
             {renderMenuItems(dormMenuByTime('DINNER'), locale)}
           </MenuCard.Content>
         </MenuCard>
-      </MenuSection.Content>
-    </MenuSection>
+      </Section.Content>
+    </Section>
   );
 }

@@ -1,4 +1,4 @@
-import { MenuSection, StaticTabNavigation } from '@/shared/ui';
+import { Section, StaticTabNavigation } from '@/shared/ui';
 import { fetchDormMenuByDay } from '@/features/dorm/services';
 import { MenuCard } from '@/features/menu/components';
 import {
@@ -79,8 +79,8 @@ export default async function DormPage({
 
   return (
     <>
-      <MenuSection>
-        <MenuSection.Header
+      <Section>
+        <Section.Header
           title={
             <>
               {t('pageTitle')}{' '}
@@ -91,7 +91,7 @@ export default async function DormPage({
           }
           subtitle={tHome('dormSubtitle')}
         />
-        <MenuSection.Content className='flex flex-col gap-4'>
+        <Section.Content className='flex flex-col gap-4'>
           <StaticTabNavigation tabs={tabs} currentTabKey={String(day)} />
           <p className='text-center font-semibold'>
             {formattedDate}{' '}
@@ -128,8 +128,8 @@ export default async function DormPage({
               </MenuCard.Content>
             </MenuCard>
           </div>
-        </MenuSection.Content>
-      </MenuSection>
+        </Section.Content>
+      </Section>
     </>
   );
 }

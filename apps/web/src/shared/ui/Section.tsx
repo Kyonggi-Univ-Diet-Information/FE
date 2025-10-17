@@ -2,11 +2,11 @@ import React, { ReactNode } from 'react';
 
 import { cn } from '@/shared/utils';
 
-export default function MenuSection({ children }: { children: ReactNode }) {
+export default function Section({ children }: { children: ReactNode }) {
   return <div className='flex flex-col gap-4'>{children}</div>;
 }
 
-function MenuHeader({
+function SectionHeader({
   children,
   title,
   subtitle,
@@ -29,7 +29,7 @@ function MenuHeader({
   );
 }
 
-function MenuContent({
+function SectionContent({
   children,
   className,
 }: {
@@ -48,5 +48,5 @@ function MenuContent({
   );
 }
 
-MenuSection.Header = MenuHeader;
-MenuSection.Content = MenuContent;
+Section.Header = SectionHeader;
+Section.Content = SectionContent;
