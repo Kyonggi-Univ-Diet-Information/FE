@@ -4,7 +4,7 @@ import { memo, useActionState, useEffect, useState } from 'react';
 import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 
 import type { ReviewPost } from '@/types';
-import { Button } from '@/components/common/Button';
+import { Button } from '@/shared/ui/Button';
 
 import ReviewStarSelector from './ReviewStarSelector';
 import { submitMenuReview } from '../services/submitMenuReview';

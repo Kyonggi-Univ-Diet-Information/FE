@@ -5,7 +5,7 @@ import { Link } from '@/shared/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 
-import { Button } from '@/components/common';
+import { Button } from '@/shared/ui';
 import { Title } from '@/components/layout';
 
 export default function LoginPage() {

@@ -1,5 +1,5 @@
 import { Link } from '@/shared/i18n/routing';
-import { Button } from '@/components/common/Button';
+import { Button } from '@/shared/ui/Button';
 import { Title } from '@/components/layout';
 import { useTranslations } from 'next-intl';
 

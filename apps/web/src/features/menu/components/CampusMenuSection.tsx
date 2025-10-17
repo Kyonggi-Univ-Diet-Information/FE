@@ -1,6 +1,6 @@
 import { Link } from '@/shared/i18n/routing';
 
-import { MenuSection } from '@/components/common';
+import { MenuSection } from '@/shared/ui';
 
 import { MenuCard } from '.';
 

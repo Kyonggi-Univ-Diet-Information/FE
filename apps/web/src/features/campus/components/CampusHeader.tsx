@@ -1,4 +1,4 @@
-import { MenuSection } from '@/components/common';
+import { MenuSection } from '@/shared/ui';
 import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_ID,

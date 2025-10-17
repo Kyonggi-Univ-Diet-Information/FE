@@ -5,7 +5,7 @@ import type { DormDay, DormTime } from '@/types';
 import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
 import { getCurrentDate } from '@/shared/lib/date';
 
-import { MenuSection } from '@/components/common';
+import { MenuSection } from '@/shared/ui';
 
 import { MenuCard, NavigationButton } from '@/features/menu/components';
 import { fetchDormMenu } from '@/features/menu/services';

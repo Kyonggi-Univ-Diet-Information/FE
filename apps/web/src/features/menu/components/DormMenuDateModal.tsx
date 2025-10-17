@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { WeekSelector, Modal, Button } from '@/components/common';
+import { WeekSelector, Modal, Button } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { DORM_DAY_KEY } from '@/lib/constants';
 

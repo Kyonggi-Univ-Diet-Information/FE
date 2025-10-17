@@ -2,7 +2,7 @@
 
 import { Link } from '@/shared/i18n/routing';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/common';
+import { Button } from '@/shared/ui';
 import { useAuth } from '../hooks';
 import { logout } from '../action';
 import { useTranslations } from 'next-intl';

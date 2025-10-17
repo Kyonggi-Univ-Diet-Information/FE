@@ -15,7 +15,7 @@ import {
 } from '@/features/campus/constants';
 import { Fragment } from 'react';
 import { CampusHeader, CampusMenuCard } from '@/features/campus/components';
-import { StaticTabNavigation } from '@/components/common';
+import { StaticTabNavigation } from '@/shared/ui';
 import { fetchCampusMenuByRestaurant } from '@/features/campus/services';
 
 export const dynamicParams = false;

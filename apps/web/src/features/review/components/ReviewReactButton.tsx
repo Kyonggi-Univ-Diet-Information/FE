@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/common';
+import { Button } from '@/shared/ui';
 import { useOptimistic, useTransition } from 'react';
 import { submitReviewLike } from '../services/submitReviewLike';
 import { removeReviewLike } from '../services/removeReviewLike';

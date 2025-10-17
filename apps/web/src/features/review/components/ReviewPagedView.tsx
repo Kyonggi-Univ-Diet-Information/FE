@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { ReviewItem } from '.';
 import { getReviewService, MenuType, fetchReviewLiked } from '../services';
-import { Pagination } from '@/components/common';
+import { Pagination } from '@/shared/ui';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 interface ReviewPagedViewProps {

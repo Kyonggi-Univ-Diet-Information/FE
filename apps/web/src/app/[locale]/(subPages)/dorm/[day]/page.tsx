@@ -1,4 +1,4 @@
-import { MenuSection, StaticTabNavigation } from '@/components/common';
+import { MenuSection, StaticTabNavigation } from '@/shared/ui';
 import { fetchDormMenuByDay } from '@/features/dorm/services';
 import { MenuCard } from '@/features/menu/components';
 import {

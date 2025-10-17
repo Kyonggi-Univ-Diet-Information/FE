@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useEffect, type ReactNode } from 'react';
 
-import { Loader } from '../common';
+import { Loader } from '@/shared/ui';
 
 import { useAuth } from '@/features/auth/hooks';
 

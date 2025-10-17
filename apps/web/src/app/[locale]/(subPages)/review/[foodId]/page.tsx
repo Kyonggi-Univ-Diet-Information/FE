@@ -4,7 +4,7 @@ import { Link } from '@/shared/i18n/routing';
 
 import { getTranslations, getLocale } from 'next-intl/server';
 
-import { Button } from '@/components/common/Button';
+import { Button } from '@/shared/ui/Button';
 import { Title } from '@/components/layout';
 
 import {
@@ -14,7 +14,7 @@ import {
 } from '@/features/review/components';
 import { getReviewService, MenuType } from '@/features/review/services';
 import { AuthService } from '@/lib/services';
-import { Loader, Modal } from '@/components/common';
+import { Loader, Modal } from '@/shared/ui';
 import { fetchCampusMenu, fetchDormMenu } from '@/features/menu/services';
 import { Suspense } from 'react';
 
