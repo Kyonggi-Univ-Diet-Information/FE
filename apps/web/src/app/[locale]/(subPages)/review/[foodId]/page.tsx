@@ -4,8 +4,7 @@ import { Link } from '@/shared/i18n/routing';
 
 import { getTranslations, getLocale } from 'next-intl/server';
 
-import { Button } from '@/shared/ui/Button';
-import { Title } from '@/components/layout';
+import { Button, Title } from '@/shared/ui';
 
 import {
   ReviewFormSection,

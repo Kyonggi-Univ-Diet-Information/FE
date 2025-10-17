@@ -3,13 +3,14 @@ import type { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { routing } from '@/shared/i18n/routing';
-import { brBold, brRegular, tossFace, wantedSans } from '../font';
 
-import { BottomNavBar, Header } from '@/components/layout';
-import { ErrorBoundary, GoogleAnalytics } from '@/components/common';
-import { SWRProvider } from '@/components/providers';
-import { Analytics } from '@vercel/analytics/next';
+import { routing } from '@/shared/i18n/routing';
+
+import { brBold, brRegular, tossFace, wantedSans } from '@/app/_styles/font';
+import { ErrorProvider, SWRProvider } from '@/app/_providers';
+import { GoogleAnalytics } from '@/app/_analytics';
+import { BottomNavBar, Header } from '@/app/_layout';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 
 type Props = {
   children: ReactNode;
@@ -73,8 +74,8 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className='antialiased' suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <GoogleAnalytics />
-          <ErrorBoundary>
-            <Analytics />
+          <ErrorProvider>
+            <VercelAnalytics />
             <SWRProvider>
               <Header />
               <div className='size-full pt-[65px]'>
@@ -84,7 +85,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               </div>
               <BottomNavBar />
             </SWRProvider>
-          </ErrorBoundary>
+          </ErrorProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -3,17 +3,17 @@ import localFont from 'next/font/local';
 export const wantedSans = localFont({
   src: [
     {
-      path: '../../public/fonts/WantedSans-Regular.ttf',
+      path: '../../../public/fonts/WantedSans-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/WantedSans-SemiBold.ttf',
+      path: '../../../public/fonts/WantedSans-SemiBold.ttf',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/WantedSans-Bold.ttf',
+      path: '../../../public/fonts/WantedSans-Bold.ttf',
       weight: '700',
       style: 'normal',
     },
@@ -26,7 +26,7 @@ export const wantedSans = localFont({
 });
 
 export const brBold = localFont({
-  src: '../../public/fonts/brBold.otf',
+  src: '../../../public/fonts/brBold.otf',
   weight: '700',
   style: 'normal',
   variable: '--font-brBold',
@@ -36,7 +36,7 @@ export const brBold = localFont({
 });
 
 export const brRegular = localFont({
-  src: '../../public/fonts/brRegular.otf',
+  src: '../../../public/fonts/brRegular.otf',
   weight: '400',
   style: 'normal',
   variable: '--font-brRegular',
@@ -46,7 +46,7 @@ export const brRegular = localFont({
 });
 
 export const tossFace = localFont({
-  src: '../../public/fonts/tossFace.ttf',
+  src: '../../../public/fonts/tossFace.ttf',
   weight: '400',
   style: 'normal',
   variable: '--font-tossFace',

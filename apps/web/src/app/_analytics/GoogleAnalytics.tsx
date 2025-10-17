@@ -39,7 +39,7 @@ function PageViewTracker() {
  * - Next.js의 Script 컴포넌트를 사용하여 GA4 스크립트 로드
  * - 페이지 변경 시 자동으로 페이지뷰 추적
  */
-export function GoogleAnalytics() {
+export default function GoogleAnalytics() {
   // GA4가 비활성화된 경우 아무것도 렌더링하지 않음
   if (!shouldTrackGA4()) {
     return null;

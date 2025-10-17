@@ -5,8 +5,7 @@ import { Link } from '@/shared/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 
-import { Button } from '@/shared/ui';
-import { Title } from '@/components/layout';
+import { Button, Title } from '@/shared/ui';
 
 export default function LoginPage() {
   const t = useTranslations('auth');

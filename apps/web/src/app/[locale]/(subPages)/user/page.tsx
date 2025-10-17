@@ -1,4 +1,4 @@
-import { ProtectedRoute } from '@/components/providers';
+import { ProtectedRoute } from '@/app/_providers';
 
 export default function UserPage() {
   return (
