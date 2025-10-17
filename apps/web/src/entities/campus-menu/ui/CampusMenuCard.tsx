@@ -1,7 +1,7 @@
 import { Link } from '@/shared/i18n/routing';
 
 import { MessageSquareText } from 'lucide-react';
-import { fetchReviewCount } from '@/features/review/services';
+import { fetchCampusReviewCount } from '@/entities/campus-review/api/fetchCampusReviewCount';
 import type { CampusMenu } from '../model/campusMenu';
 
 interface CampusMenuCardProps extends CampusMenu {
@@ -18,7 +18,7 @@ export default async function CampusMenuCard({
   const wonText = locale === 'en' ? '₩' : '원';
   const reviewText = locale === 'en' ? 'Review' : '리뷰';
   const menuName = locale === 'en' ? nameEn : name;
-  const reviewCount = await fetchReviewCount(id);
+  const reviewCount = await fetchCampusReviewCount(id);
 
   const cardContent = (
     <>

@@ -1,6 +1,7 @@
 import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config/endpoint';
-import type { SubRestaurant, CampusMenu } from '@/types';
+import type { SubRestaurant } from '../model/campusRestaurant';
+import type { CampusMenu } from '../model/campusMenu';
 
 export const fetchCampusMenuByRestaurant = async (
   restaurantId: SubRestaurant,

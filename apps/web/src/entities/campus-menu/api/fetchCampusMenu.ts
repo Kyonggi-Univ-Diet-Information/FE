@@ -1,6 +1,7 @@
 import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config/endpoint';
-import { CampusMenu, SubRestaurant } from '@/types';
+import type { CampusMenu } from '../model/campusMenu';
+import type { SubRestaurant } from '../model/campusRestaurant';
 import { cache } from 'react';
 
 export const fetchCampusMenu = cache(
