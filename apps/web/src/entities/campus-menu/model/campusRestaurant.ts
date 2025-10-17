@@ -1,3 +1,5 @@
+export type SubRestaurant = keyof typeof CAMPUS_RESTAURANT;
+
 export const CAMPUS_RESTAURANT = {
   MANKWON: '만권화밥',
   SYONG: '숑숑돈까스',
@@ -5,8 +7,6 @@ export const CAMPUS_RESTAURANT = {
   WIDELGA: '위델가',
   SINMEOI: '신머이쌀국수',
 };
-
-export type SubRestaurant = keyof typeof CAMPUS_RESTAURANT;
 
 export const CAMPUS_RESTAURANT_ID: Record<string, SubRestaurant> = {
   '1': 'MANKWON',

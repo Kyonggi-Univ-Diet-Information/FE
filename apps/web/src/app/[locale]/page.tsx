@@ -1,4 +1,4 @@
-import { HomePage, HomeProps } from '@/pages/home';
+import { HomePage, HomeProps } from '@/page/home';
 
 const Page = async (props: HomeProps) => {
   return <HomePage {...props} />;

@@ -1,8 +1,8 @@
 import { Link } from '@/shared/i18n/routing';
 
 import { MessageSquareText } from 'lucide-react';
-import type { CampusMenu } from '@/types';
 import { fetchReviewCount } from '@/features/review/services';
+import type { CampusMenu } from '../model/campusMenu';
 
 interface CampusMenuCardProps extends CampusMenu {
   locale?: string;
