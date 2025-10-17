@@ -3,7 +3,7 @@
 import Script from 'next/script';
 import { Suspense, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { GA4_CONFIG, shouldTrackGA4 } from '@/lib/constants';
+import { GA4_CONFIG, shouldTrackGA4 } from '@/shared/ga4';
 
 /**
  * 페이지뷰 추적 컴포넌트

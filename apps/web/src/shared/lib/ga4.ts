@@ -1,11 +1,11 @@
-import { GA4_CONFIG, shouldTrackGA4 } from '@/lib/constants/ga4';
+import { GA4_CONFIG, shouldTrackGA4 } from '@/shared/ga4';
 import type {
   MenuClickEvent,
   RatingSelectEvent,
   ReviewSubmitEvent,
   ReviewLikeEvent,
   ErrorEvent,
-} from '@/types/ga4';
+} from '@/shared/ga4';
 
 /**
  * 일반 이벤트 추적
