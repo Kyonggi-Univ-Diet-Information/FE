@@ -3,12 +3,11 @@
 import { memo, useActionState, useEffect, useState } from 'react';
 import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 
-import type { ReviewPost } from '@/types';
+import type { ReviewPost } from '@/entities/campus-review/model/review';
 import { Button } from '@/shared/ui/Button';
 
 import ReviewStarSelector from './ReviewStarSelector';
 import { submitMenuReview } from '../services/submitMenuReview';
-import type { MenuType } from '../services/reviewService';
 
 interface ReviewTextAreaProps {
   register: UseFormRegisterReturn<'content'>;
@@ -26,13 +25,9 @@ const ReviewTextArea = memo(({ register }: ReviewTextAreaProps) => {
 
 interface ReviewFormSectionProps {
   foodId: number;
-  menuType: MenuType;
 }
 
-export default function ReviewFormSection({
-  foodId,
-  menuType,
-}: ReviewFormSectionProps) {
+export default function ReviewFormSection({ foodId }: ReviewFormSectionProps) {
   const { register, watch, reset } = useForm<ReviewPost>();
 
   const [selectedStars, setSelectedStars] = useState(3);
@@ -55,7 +50,7 @@ export default function ReviewFormSection({
       action={formAction}
     >
       <input type='hidden' name='foodId' value={foodId} readOnly />
-      <input type='hidden' name='menuType' value={menuType} readOnly />
+      <input type='hidden' name='menuType' value='campus' readOnly />
       <input type='hidden' name='rating' value={selectedStars} readOnly />
       <ReviewStarSelector
         selectedStars={selectedStars}

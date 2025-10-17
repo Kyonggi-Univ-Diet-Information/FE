@@ -1,10 +1,11 @@
 'use server';
 
-import { ENDPOINT } from '@/lib/axios';
-import { KEY } from '@/lib/constants';
+import { ENDPOINT } from '@/shared/config';
+import { KEY } from '@/shared/config';
 import { AuthService } from '@/lib/services';
-import { MenuType } from './reviewService';
+
 import { revalidateTag } from 'next/cache';
+import { MenuType } from '../model/reviewPost';
 
 export const removeReviewLike = async (
   reviewId: number,

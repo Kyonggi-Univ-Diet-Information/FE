@@ -1,12 +1,12 @@
 'use server';
 
-import { ENDPOINT } from '@/lib/axios';
-import { KEY } from '@/lib/constants';
+import { ENDPOINT } from '@/shared/config';
+import { KEY } from '@/shared/config';
 import { AuthService } from '@/lib/services';
-import type { MenuType } from './reviewService';
 
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { MenuType } from '../model/reviewPost';
 
 export const submitMenuReview = async (
   _prevState: { success: boolean; error?: string } | null,

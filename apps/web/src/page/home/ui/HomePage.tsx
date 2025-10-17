@@ -1,10 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/shared/i18n/routing';
 
-import { DormMenuDateModal, DormMenuSection } from '@/features/menu/components';
-import type { DormDay } from '@/types';
+import { DormMenuDateModal } from '@/features/menu/components';
+import type { DormDay } from '@/entities/dorm-menu/model/dormDay';
 import { Section } from '@/shared/ui';
 import { CampusMenuAll } from '@/entities/campus-menu';
+import { DormMenuAll } from '@/entities/dorm-menu';
 
 export interface HomeProps {
   searchParams: Promise<{ modal?: string; date?: string }>;
@@ -54,7 +55,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
           </Section.Content>
         </Section>
         <ReviewLinkButton />
-        <DormMenuSection date={date as DormDay} />
+        <DormMenuAll date={date as DormDay} />
       </div>
       {isModal && <DormMenuDateModal />}
     </>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { WeekSelector, Modal, Button } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
-import { DORM_DAY_KEY } from '@/lib/constants';
+import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
 
 export default function DormMenuDateModal() {
   const router = useRouter();

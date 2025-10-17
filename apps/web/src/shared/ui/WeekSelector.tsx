@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Button } from './Button';
-import { WEEKDAYS } from '@/lib/constants';
+import { WEEKDAYS } from '@/shared/lib/date';
 import {
   getCurrentDate,
   getWeekStart,

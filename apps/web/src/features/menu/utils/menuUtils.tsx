@@ -1,4 +1,4 @@
-import type { DormMenu } from '@/types';
+import type { DormMenu } from '@/entities/dorm-menu/model/dormMenu';
 import { Link } from '@/shared/i18n/routing';
 
 /**

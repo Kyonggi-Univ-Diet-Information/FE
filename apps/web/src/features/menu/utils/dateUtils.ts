@@ -1,5 +1,5 @@
-import type { DormDay } from '@/types';
-import { DORM_DAY_KEY } from '@/lib/constants';
+import type { DormDay } from '@/entities/dorm-menu/model/dormDay';
+import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
 
 /**
  * 현재 날짜를 기준으로 어제/내일 날짜를 계산하는 함수
