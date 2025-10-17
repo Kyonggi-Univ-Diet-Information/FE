@@ -92,3 +92,7 @@ export function isSameDay(date1: Date, date2: Date): boolean {
 export function isToday(date: Date): boolean {
   return isSameDay(date, getCurrentDate());
 }
+
+export const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'] as const;
+
+export type Weekday = (typeof WEEKDAYS)[number];
