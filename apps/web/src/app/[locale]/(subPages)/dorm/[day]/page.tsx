@@ -1,14 +1,18 @@
 import { Section, StaticTabNavigation } from '@/shared/ui';
-import { fetchDormMenuByDay } from '@/features/dorm/services';
+import { fetchDormMenuByDay } from '@/entities/dorm-menu/api/fetchDormMenuByDay';
 import { MenuCard } from '@/features/menu/components';
 import {
   getFallbackMenu,
   isWeekend,
   renderMenuItems,
 } from '@/features/menu/utils';
-import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
+import {
+  DORM_DAY,
+  DORM_DAY_EN,
+  DORM_DAY_KEY,
+} from '@/entities/dorm-menu/model/dormDay';
 import { getWeekDates, getWeekStart } from '@/shared/lib/date';
-import type { DormTime } from '@/types';
+import type { DormTime } from '@/entities/dorm-menu/model/dormTime';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 export const dynamicParams = false;

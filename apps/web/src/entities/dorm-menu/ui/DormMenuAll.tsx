@@ -1,0 +1,155 @@
+import { Link } from '@/shared/i18n/routing';
+import React from 'react';
+
+import type { DormTime } from '../model/dormTime';
+import {
+  type DormDay,
+  DORM_DAY,
+  DORM_DAY_EN,
+  DORM_DAY_KEY,
+} from '../model/dormDay';
+import { getCurrentDate } from '@/shared/lib/date';
+
+import { Section } from '@/shared/ui';
+
+import { MenuCard, NavigationButton } from '@/features/menu/components';
+import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
+import {
+  getAdjacentDates,
+  isSunday,
+  isSaturday,
+  isWeekend,
+  getFallbackMenu,
+  renderMenuItems,
+} from '@/features/menu/utils';
+import { getTranslations, getLocale } from 'next-intl/server';
+
+interface DormMenuSectionProps {
+  date?: DormDay;
+}
+
+export default async function DormMenuSection({ date }: DormMenuSectionProps) {
+  const dormMenu = await fetchDormMenu();
+  const tDorm = await getTranslations('dorm');
+  const t = await getTranslations('home');
+  const locale = await getLocale();
+  const today = getCurrentDate().getDay();
+  const currentDay = date || DORM_DAY_KEY[today];
+  const todayDormMenu = dormMenu && dormMenu[currentDay];
+
+  const getWeekDateString = (date?: DormDay) => {
+    if (!date) return locale === 'en' ? 'Today' : '오늘';
+    return locale === 'en' ? DORM_DAY_EN[date] : DORM_DAY[date];
+  };
+
+  const { yesterday, tomorrow } = getAdjacentDates(currentDay);
+  const isCurrentDaySunday = isSunday(currentDay);
+  const isCurrentDaySaturday = isSaturday(currentDay);
+
+  const dormMenuByTime = (time: DormTime) => {
+    if (!dormMenu) return getFallbackMenu(false);
+
+    if (isWeekend(currentDay)) {
+      return getFallbackMenu(true);
+    }
+
+    if (dormMenu[currentDay] === undefined) {
+      return getFallbackMenu(false);
+    }
+
+    if (todayDormMenu[time] === undefined) {
+      return getFallbackMenu(false);
+    }
+
+    return todayDormMenu[time].contents || [];
+  };
+
+  return (
+    <Section>
+      <Section.Header
+        title={
+          <>
+            <span className='text-point'>{t('dormHighlight')}</span>{' '}
+            <br className={locale === 'en' ? '' : 'hidden'} />
+            <Link
+              replace
+              href='?modal=open'
+              className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
+            >
+              {getWeekDateString(date)}
+            </Link>
+            {t('dormTitleLast')}
+            <span className='font-tossFace'> 🍚</span>
+          </>
+        }
+        subtitle={t('dormSubtitle')}
+        action={
+          <div className='flex gap-x-2'>
+            <NavigationButton
+              href={`/?date=${yesterday}`}
+              disabled={isCurrentDaySunday}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='lucide lucide-chevron-left size-5'
+              >
+                <path d='m15 18-6-6 6-6'></path>
+              </svg>
+            </NavigationButton>
+            <NavigationButton
+              href={`/?date=${tomorrow}`}
+              disabled={isCurrentDaySaturday}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='lucide lucide-chevron-right size-5'
+              >
+                <path d='m9 18 6-6-6-6'></path>
+              </svg>
+            </NavigationButton>
+          </div>
+        }
+      />
+      <Section.Content>
+        <MenuCard className='h-70'>
+          <MenuCard.Header>
+            {tDorm('breakfast')} <span className='font-tossFace'>☀️</span>
+          </MenuCard.Header>
+          <MenuCard.Content>{renderMenuItems([], locale)}</MenuCard.Content>
+        </MenuCard>
+        <MenuCard>
+          <MenuCard.Header>
+            {tDorm('lunch')} <span className='font-tossFace'>🍽️</span>{' '}
+          </MenuCard.Header>
+          <MenuCard.Content>
+            {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
+          </MenuCard.Content>
+        </MenuCard>
+        <MenuCard>
+          <MenuCard.Header>
+            {tDorm('dinner')} <span className='font-tossFace'>🌙</span>
+          </MenuCard.Header>
+          <MenuCard.Content>
+            {renderMenuItems(dormMenuByTime('DINNER'), locale)}
+          </MenuCard.Content>
+        </MenuCard>
+      </Section.Content>
+    </Section>
+  );
+}
