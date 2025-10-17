@@ -1,9 +1,10 @@
-import { AuthService } from '@/lib/services';
-import { ENDPOINT, PUBLIC_API_URL } from '@/shared/config/endpoint';
+import { logout } from '@/features/auth/action';
+import { getToken } from '@/features/auth/action/getToken';
+import { PUBLIC_API_URL } from '@/shared/config/endpoint';
 import { redirect } from 'next/navigation';
 
 export interface RequestBase {
-  request: keyof typeof ENDPOINT;
+  request: string;
   headers?: Record<string, string>;
   authorize?: boolean;
 }
@@ -11,6 +12,7 @@ export interface RequestBase {
 export interface GetRequestParams<TParams> extends RequestBase {
   params?: TParams;
   cache?: RequestCache;
+  next?: NextFetchRequestConfig;
 }
 
 export interface PostRequestParams<TData> extends RequestBase {
@@ -36,7 +38,7 @@ export class Http {
     };
 
     if (authorize) {
-      const accessToken = await AuthService.getAccessToken();
+      const accessToken = await getToken();
       if (!accessToken) {
         if (typeof window !== 'undefined') {
           alert('로그인이 필요해요!');
@@ -56,14 +58,19 @@ export class Http {
     url: string | URL,
     init: RequestInit,
     options: HttpOptions,
+    authorize?: boolean,
   ): Promise<T> {
     const res = await fetch(url, { ...init, credentials: 'include' });
 
     const data = await res.json().catch(() => ({}));
 
-    if (res.status === 401) {
-      await AuthService.clearTokens();
-      redirect('/auth/login');
+    if (res.status === 401 && authorize) {
+      await logout();
+      if (typeof window !== 'undefined') {
+        window.location.href = '/auth/login';
+      } else {
+        redirect('/auth/login');
+      }
     }
 
     if (!res.ok) {
@@ -81,8 +88,15 @@ export class Http {
     config: GetRequestParams<TParams>,
     options: HttpOptions = {},
   ): Promise<TResponse> {
-    const { request, headers, params, cache = 'default', authorize } = config;
-    const url = new URL(request, PUBLIC_API_URL);
+    const {
+      request,
+      headers,
+      params,
+      cache = 'default',
+      next,
+      authorize = false,
+    } = config;
+    const url = new URL(`${PUBLIC_API_URL}${request}`);
     if (params)
       Object.entries(params).forEach(([k, v]) =>
         v != null ? url.searchParams.append(k, String(v)) : null,
@@ -91,8 +105,9 @@ export class Http {
     const finalHeaders = await this.buildHeaders(headers, authorize);
     return this.request<TResponse>(
       url,
-      { method: 'GET', headers: finalHeaders, cache },
+      { method: 'GET', headers: finalHeaders, cache, next },
       options,
+      authorize,
     );
   }
 
@@ -100,17 +115,18 @@ export class Http {
     config: PostRequestParams<TData>,
     options: HttpOptions = {},
   ): Promise<TResponse> {
-    const { request, data, headers, authorize } = config;
+    const { request, data, headers, authorize = false } = config;
     const finalHeaders = await this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
-      new URL(request, PUBLIC_API_URL),
+      new URL(`${PUBLIC_API_URL}${request}`),
       {
         method: 'POST',
         headers: finalHeaders,
         body: data ? JSON.stringify(data) : undefined,
       },
       options,
+      authorize,
     );
   }
 
@@ -118,17 +134,18 @@ export class Http {
     config: DelRequestParams<TData>,
     options: HttpOptions = {},
   ): Promise<TResponse> {
-    const { request, data, headers, authorize } = config;
+    const { request, data, headers, authorize = false } = config;
     const finalHeaders = await this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
-      new URL(request, PUBLIC_API_URL),
+      new URL(`${PUBLIC_API_URL}${request}`),
       {
         method: 'DELETE',
         headers: finalHeaders,
         body: data ? JSON.stringify(data) : undefined,
       },
       options,
+      authorize,
     );
   }
 }

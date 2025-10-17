@@ -11,7 +11,7 @@ import {
   RESTAURANT_ID_BY_NAME,
 } from '@/lib/constants';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { fetchCampusMenu } from '../services';
+import { fetchCampusMenu } from '@/entities/campus-menu/api/fetchCampusMenu';
 
 export default async function CampusMenuSection() {
   const campusMenu = await fetchCampusMenu();
