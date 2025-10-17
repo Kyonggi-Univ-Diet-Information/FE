@@ -65,6 +65,10 @@ export default async function LocaleLayout({ children, params }: Props) {
           name='naver-site-verification'
           content='93445f88fb84c2015b74933d1b6deabbba65014e'
         />
+        <meta
+          name='google-site-verification'
+          content='V1odmpWgms6ZPdD3-m_eVSDwWliOCiVEehL6LawaKXs'
+        />
       </head>
       <body className='antialiased' suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>

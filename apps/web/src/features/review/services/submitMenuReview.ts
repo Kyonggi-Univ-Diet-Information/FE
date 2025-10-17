@@ -6,6 +6,7 @@ import { AuthService } from '@/lib/services';
 import type { MenuType } from './reviewService';
 
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export const submitMenuReview = async (
   _prevState: { success: boolean; error?: string } | null,
@@ -31,6 +32,11 @@ export const submitMenuReview = async (
         Authorization: `Bearer ${await AuthService.getAccessToken()}`,
       },
     });
+
+    if (!response.ok && response.status === 401) {
+      await AuthService.clearTokens();
+      redirect('/auth/login');
+    }
 
     if (!response.ok) {
       throw new Error('리뷰 등록에 실패했습니다');
