@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { routing } from '@/shared/i18n/routing';
 import { brBold, brRegular, tossFace, wantedSans } from '../font';
 
 import { BottomNavBar, Header } from '@/components/layout';

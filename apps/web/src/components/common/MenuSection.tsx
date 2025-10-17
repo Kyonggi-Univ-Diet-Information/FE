@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils';
 
 export default function MenuSection({ children }: { children: ReactNode }) {
   return <div className='flex flex-col gap-4'>{children}</div>;

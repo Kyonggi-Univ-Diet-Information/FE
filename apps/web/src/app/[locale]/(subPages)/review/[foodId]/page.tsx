@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { notFound } from 'next/navigation';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/shared/i18n/routing';
 
 import { getTranslations, getLocale } from 'next-intl/server';
 

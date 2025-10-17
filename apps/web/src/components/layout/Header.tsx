@@ -4,7 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { Link, useRouter } from '@/i18n/routing';
+import { Link, useRouter } from '@/shared/i18n/routing';
 
 import { AuthButton } from '@/features/auth/components';
 

@@ -7,7 +7,7 @@ import {
   renderMenuItems,
 } from '@/features/menu/utils';
 import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
-import { getWeekDates, getWeekStart } from '@/lib/utils';
+import { getWeekDates, getWeekStart } from '@/shared/lib/date';
 import type { DormTime } from '@/types';
 import { getLocale, getTranslations } from 'next-intl/server';
 

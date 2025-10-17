@@ -3,13 +3,13 @@
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'motion/react';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/shared/i18n/routing';
 import Restaurant2 from '../../../public/icons/icon-restaurant2.svg';
 import Restaurant1 from '../../../public/icons/icon-restaurant1.svg';
 import Home from '../../../public/icons/icon-home.svg';
 import Review from '../../../public/icons/icon-review.svg';
 import User from '../../../public/icons/icon-user.svg';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils';
 
 export default function BottomNavBar() {
   const pathname = usePathname();

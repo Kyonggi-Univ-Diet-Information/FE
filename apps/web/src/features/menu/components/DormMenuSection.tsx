@@ -1,9 +1,9 @@
-import { Link } from '@/i18n/routing';
+import { Link } from '@/shared/i18n/routing';
 import React from 'react';
 
 import type { DormDay, DormTime } from '@/types';
 import { DORM_DAY, DORM_DAY_EN, DORM_DAY_KEY } from '@/lib/constants';
-import { getCurrentDate } from '@/lib/utils';
+import { getCurrentDate } from '@/shared/lib/date';
 
 import { MenuSection } from '@/components/common';
 

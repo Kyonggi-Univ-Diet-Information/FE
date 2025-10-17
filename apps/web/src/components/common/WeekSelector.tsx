@@ -5,13 +5,13 @@ import React from 'react';
 import { Button } from './Button';
 import { WEEKDAYS } from '@/lib/constants';
 import {
-  cn,
   getCurrentDate,
   getWeekStart,
   getWeekDates,
   formatKoreanDate,
   isSameDay,
-} from '@/lib/utils';
+} from '@/shared/lib/date';
+import { cn } from '@/shared/utils';
 
 interface WeekSelectorProps {
   selectedDate?: Date;

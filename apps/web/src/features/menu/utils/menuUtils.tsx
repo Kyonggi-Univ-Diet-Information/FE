@@ -1,5 +1,5 @@
 import type { DormMenu } from '@/types';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/shared/i18n/routing';
 
 /**
  * 메뉴 데이터가 없을 때 표시할 기본 메시지
