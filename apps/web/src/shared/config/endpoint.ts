@@ -4,6 +4,7 @@ export const PUBLIC_API_URL =
 export const ENDPOINT = {
   CAMPUS_MENU: '/dietFood/kyongsul/all',
   CAMPUS_MENU_BY_RESTAURANT: '/dietFood/kyongsul/restaurant/',
+  CAMPUS_MENU_NAME: '/dietFood/kyongsul/get-names/',
   DORM_MENU: '/diet-content/dormitory',
   DORM_MENU_BY_DAY: '/diet-content/dormitory/dow/',
   KS_REVIEW_RATING_COUNT: '/review/kyongsul-food/rating-count/',

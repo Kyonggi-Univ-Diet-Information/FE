@@ -1,5 +1,5 @@
-import { ENDPOINT } from '@/lib/axios';
-import { KEY } from '@/lib/constants';
+import { ENDPOINT } from '@/shared/config';
+import { KEY } from '@/shared/config';
 import { Http } from '@/shared/api/http';
 
 export const fetchCampusReviewLikeCount = async (reviewId: number) => {

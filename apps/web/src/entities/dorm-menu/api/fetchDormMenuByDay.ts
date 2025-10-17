@@ -1,4 +1,4 @@
-import { ENDPOINT } from '@/lib/axios';
+import { ENDPOINT } from '@/shared/config';
 import type { DormDay } from '../model/dormDay';
 import type { DormMenu } from '../model/dormMenu';
 import type { DormTime } from '../model/dormTime';

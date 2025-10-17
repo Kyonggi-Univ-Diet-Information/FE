@@ -1,4 +1,4 @@
-import { KEY } from '@/lib/constants';
+import { KEY } from '@/shared/config';
 import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config/endpoint';
 

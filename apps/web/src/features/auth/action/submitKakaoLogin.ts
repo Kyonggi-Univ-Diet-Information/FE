@@ -2,7 +2,7 @@
 
 import { AuthService } from '@/lib/services';
 import { apiServer } from '@/lib/axios';
-import { ENDPOINT } from '@/lib/axios/endpoint';
+import { ENDPOINT } from '@/shared/config/endpoint';
 
 interface LoginResponse {
   token: string;
