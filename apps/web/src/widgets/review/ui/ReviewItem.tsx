@@ -1,5 +1,5 @@
 import { fetchCampusReviewLikeCount } from '@/entities/campus-review/api/fetchCampusReviewLikeCount';
-import { AuthService } from '@/lib/services';
+import { AuthService } from '@/shared/lib/auth';
 import ReviewLikeButton from './ReviewLikeButton';
 import type { Review } from '@/entities/campus-review/model/review';
 

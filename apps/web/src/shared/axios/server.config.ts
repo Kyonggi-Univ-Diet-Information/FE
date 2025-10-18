@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthService } from '../services';
+import { AuthService } from '../lib/auth';
 import {
   DelRequestParams,
   GetRequestParams,

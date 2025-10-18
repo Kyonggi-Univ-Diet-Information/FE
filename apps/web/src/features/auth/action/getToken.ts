@@ -1,6 +1,6 @@
 'use server';
 
-import { AuthService } from '@/lib/services';
+import { AuthService } from '@/shared/lib/auth';
 
 export async function getToken() {
   try {

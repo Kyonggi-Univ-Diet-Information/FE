@@ -1,7 +1,7 @@
 'use server';
 
-import { AuthService } from '@/lib/services';
-import { apiServer } from '@/lib/axios';
+import { AuthService } from '@/shared/lib/auth';
+import { apiServer } from '@/shared/axios/server.config';
 import { ENDPOINT } from '@/shared/config/endpoint';
 
 interface LoginResponse {

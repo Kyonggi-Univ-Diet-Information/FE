@@ -6,7 +6,7 @@ import { getTranslations } from 'next-intl/server';
 import { Button, Title } from '@/shared/ui';
 
 import { ReviewFormSection } from '@/features/review/components';
-import { AuthService } from '@/lib/services';
+import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal } from '@/shared/ui';
 import { Suspense } from 'react';
 import { CampusMenuName } from '@/entities/campus-menu';

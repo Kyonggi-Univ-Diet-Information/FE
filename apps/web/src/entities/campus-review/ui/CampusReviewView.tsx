@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { fetchCampusReview } from '../api/fetchCampusReview';
 import { fetchCampusReviewLiked } from '../api/fetchCampusReviewLiked';
 import ReviewItem from '@/widgets/review/ui/ReviewItem';
-import { AuthService } from '@/lib/services';
+import { AuthService } from '@/shared/lib/auth';
 
 interface ReviewPagedViewProps {
   foodId: number;

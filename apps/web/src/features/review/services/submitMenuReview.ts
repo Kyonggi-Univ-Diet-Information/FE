@@ -2,7 +2,7 @@
 
 import { ENDPOINT } from '@/shared/config';
 import { KEY } from '@/shared/config';
-import { AuthService } from '@/lib/services';
+import { AuthService } from '@/shared/lib/auth';
 
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
