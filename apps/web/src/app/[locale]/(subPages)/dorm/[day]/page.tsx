@@ -1,5 +1,5 @@
-import { DormMenuByDay, DormMenuByDayProps } from '@/entities/dorm-menu';
 import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
+import { DormMenuPage, DormMenuPageProps } from '@/page/dorm';
 
 export const dynamicParams = false;
 
@@ -15,8 +15,8 @@ export function generateStaticParams() {
   );
 }
 
-const Page = async (props: DormMenuByDayProps) => {
-  return <DormMenuByDay {...props} />;
+const Page = async (props: DormMenuPageProps) => {
+  return <DormMenuPage {...props} />;
 };
 
 export default Page;
