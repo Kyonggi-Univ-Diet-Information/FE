@@ -77,7 +77,7 @@ NEXT_PUBLIC_GA_DEBUG=false
 #### 1. 메뉴 관련 이벤트
 
 ```typescript
-import { trackMenuClick } from '@/lib/utils/ga4';
+import { trackMenuClick } from '@/shared/lib/ga4';
 
 trackMenuClick({
   menu_id: '12345',
@@ -96,7 +96,7 @@ import {
   trackReviewSubmitSuccess,
   trackReviewLike,
   trackReviewUnlike,
-} from '@/lib/utils/ga4';
+} from '@/shared/lib/ga4';
 
 // 평점 선택
 trackRatingSelect({
@@ -130,7 +130,7 @@ trackReviewUnlike({
 #### 3. 에러 추적
 
 ```typescript
-import { trackError, trackReviewSubmitError } from '@/lib/utils/ga4';
+import { trackError, trackReviewSubmitError } from '@/shared/lib/ga4';
 
 // 일반 에러
 trackError({
@@ -148,7 +148,7 @@ trackReviewSubmitError({
 #### 4. 커스텀 이벤트
 
 ```typescript
-import { trackEvent, trackConversion } from '@/lib/utils/ga4';
+import { trackEvent, trackConversion } from '@/shared/lib/ga4';
 
 // 일반 이벤트
 trackEvent('custom_event', {
@@ -175,9 +175,9 @@ GA4는 자동으로 초기화되고 페이지뷰를 추적합니다. 추가 작�
 ```typescript
 'use client';
 
-import { trackMenuClick } from '@/lib/utils/ga4';
+import { trackMenuClick } from '@/shared/lib/ga4';
 
-export default function MenuCard({ menu }) {
+export default function Card({ menu }) {
   const handleMenuClick = () => {
     // GA4 이벤트 추적
     trackMenuClick({

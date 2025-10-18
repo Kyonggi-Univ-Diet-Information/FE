@@ -1,6 +1,6 @@
-import { Link } from '@/i18n/routing';
-import { Button } from '@/components/common/Button';
-import { Title } from '@/components/layout';
+import { Link } from '@/shared/i18n/routing';
+import { Button } from '@/shared/ui/Button';
+import { Title } from '@/shared/ui';
 import { useTranslations } from 'next-intl';
 
 export default function NotFound() {

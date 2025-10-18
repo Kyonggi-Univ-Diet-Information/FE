@@ -1,0 +1,29 @@
+export const PUBLIC_API_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
+
+export const ENDPOINT = {
+  CAMPUS_MENU: '/dietFood/kyongsul/all',
+  CAMPUS_MENU_BY_RESTAURANT: '/dietFood/kyongsul/restaurant/',
+  CAMPUS_MENU_NAME: '/dietFood/kyongsul/get-names/',
+  DORM_MENU: '/diet-content/dormitory',
+  DORM_MENU_BY_DAY: '/diet-content/dormitory/dow/',
+  KS_REVIEW_RATING_COUNT: '/review/kyongsul-food/rating-count/',
+  KS_REVIEW_AVERAGE_RATING: '/review/kyongsul-food/average-rating/',
+  KS_REVIEW_PAGINATION: '/review/kyongsul-food/paged/',
+  KS_REVIEW_SUBMIT: '/review/kyongsul-food/new/',
+  KS_REVIEW_LIKE: '/review/favorite/kyongsul-food/{reviewId}/create-favorite',
+  KS_REVIEW_UNLIKE: '/review/favorite/kyongsul-food/delete/{reviewId}',
+  KS_REVIEW_LIKED_COUNT: '/review/favorite/kyongsul-food/count/',
+  KS_REVIEW_COUNT: '/review/kyongsul-food/count/',
+  KAKAO_LOGIN: '/kakao-login',
+  REVIEW_RATING_COUNT: '/review/diet-food/rating-count/',
+  REVIEW_AVERAGE_RATING: '/review/diet-food/average/',
+  REVIEW_PAGINATION: '/review/diet-food/all/paged/',
+  REVIEW_SUBMIT: '/review/diet-food/new/',
+  REVIEW_LIKE: '/review/favorite/diet-food/{reviewId}/create-favorite',
+  REVIEW_UNLIKE: '/review/favorite/diet-food/delete/{reviewId}',
+  REVIEW_LIKED_COUNT: '/review/favorite/diet-food/count/',
+  REVIEW_COUNT: '/review/diet-food/count/',
+  MEMBER_KS_REVIEW_LIKED: '/review/favorite/kyongsul-food/each-member/all',
+  MEMBER_REVIEW_LIKED: '/review/favorite/diet-food/each-member/all',
+};

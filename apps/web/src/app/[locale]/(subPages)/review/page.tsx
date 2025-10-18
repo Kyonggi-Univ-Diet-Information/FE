@@ -1,4 +1,4 @@
-// import { MenuSection } from '@/components/common';
+// import { MenuSection } from '@/shared/ui';
 // import { ReviewItem } from '@/features/review/components';
 
 import { useTranslations } from 'next-intl';

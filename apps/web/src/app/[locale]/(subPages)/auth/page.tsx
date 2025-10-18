@@ -1,13 +1,13 @@
 'use client';
 
-import { Link } from '@/i18n/routing';
+import { Link } from '@/shared/i18n/routing';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Suspense, useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
-import { KEY } from '@/lib/constants';
-import { Button, Loader } from '@/components/common';
+import { KEY } from '@/shared/config';
+import { Button, Loader } from '@/shared/ui';
 
 import { handleKakaoLogin } from '@/features/auth/action';
 

@@ -1,4 +1,4 @@
-import './globals.css';
+import '@/app/_styles/globals.css';
 import type { ReactNode } from 'react';
 
 export default function RootLayout({
