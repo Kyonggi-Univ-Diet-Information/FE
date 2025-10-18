@@ -5,13 +5,12 @@ import { getTranslations } from 'next-intl/server';
 
 import { Button, Title } from '@/shared/ui';
 
-import { ReviewFormSection } from '@/features/review/components';
+import { ReviewFormSection } from '@/features/review';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal } from '@/shared/ui';
 import { Suspense } from 'react';
 import { CampusMenuName } from '@/entities/campus-menu';
-import { CampusReviewView } from '@/entities/campus-review';
-import CampusReviewRating from '@/entities/campus-review/ui/CampusReviewRating';
+import { CampusReviewView, CampusReviewRating } from '@/entities/campus-review';
 
 export interface CampusReviewPageProps {
   params: Promise<{ foodId: string }>;
