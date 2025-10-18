@@ -44,7 +44,6 @@ export default async function CampusReviewView({
         <ReviewItem
           key={review.id}
           {...review}
-          menuType='campus'
           isLiked={isAuthenticated && likedReviewIds.includes(review.id)}
         />
       ))}

@@ -4,7 +4,6 @@ import ReviewLikeButton from './ReviewLikeButton';
 import type { Review } from '@/entities/campus-review/model/review';
 
 interface ReviewItemProps extends Review {
-  menuType: 'campus' | 'dorm';
   isLiked: boolean;
 }
 
@@ -14,7 +13,6 @@ export default async function ReviewItem({
   memberName,
   createdAt,
   id,
-  menuType,
   isLiked,
 }: ReviewItemProps) {
   const [likedCount, isAuthenticated] = await Promise.all([
@@ -33,7 +31,6 @@ export default async function ReviewItem({
         </div>
         <ReviewLikeButton
           reviewId={id}
-          menuType={menuType}
           initialIsLiked={isLiked}
           likedCount={likedCount}
           isDisabled={!isAuthenticated}

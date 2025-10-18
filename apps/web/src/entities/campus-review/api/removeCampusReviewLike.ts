@@ -6,7 +6,10 @@ import { revalidateTag } from 'next/cache';
 
 export const removeCampusReviewLike = async (reviewId: number) => {
   await Http.del({
-    request: ENDPOINT.KS_REVIEW_LIKE.replace('{reviewId}', reviewId.toString()),
+    request: ENDPOINT.KS_REVIEW_UNLIKE.replace(
+      '{reviewId}',
+      reviewId.toString(),
+    ),
     authorize: true,
   }).catch(error => ({ success: false, error }));
 
