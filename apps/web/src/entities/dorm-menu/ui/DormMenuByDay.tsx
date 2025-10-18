@@ -1,19 +1,18 @@
-import { Section, StaticTabNavigation } from '@/shared/ui';
+import { getLocale, getTranslations } from 'next-intl/server';
+
+import { Section, StaticTabNavigation, Card } from '@/shared/ui';
+import { getWeekDates, getWeekStart } from '@/shared/lib/date';
+
 import { fetchDormMenuByDay } from '@/entities/dorm-menu/api/fetchDormMenuByDay';
-import { MenuCard } from '@/features/menu/components';
 import {
   getFallbackMenu,
   isWeekend,
   renderMenuItems,
-} from '@/features/menu/utils';
-import {
   DORM_DAY,
   DORM_DAY_EN,
   DORM_DAY_KEY,
-} from '@/entities/dorm-menu/model/dormDay';
-import { getWeekDates, getWeekStart } from '@/shared/lib/date';
-import type { DormTime } from '@/entities/dorm-menu/model/dormTime';
-import { getLocale, getTranslations } from 'next-intl/server';
+  type DormTime,
+} from '@/entities/dorm-menu/model';
 
 export interface DormMenuByDayProps {
   params: Promise<{ day: number }>;
@@ -93,30 +92,30 @@ export default async function DormMenuByDay({ params }: DormMenuByDayProps) {
           </p>
 
           <div className='flex flex-col gap-3'>
-            <MenuCard>
-              <MenuCard.Header>
+            <Card>
+              <Card.Header>
                 {t('breakfast')} <span className='font-tossFace'>☀️</span>
-              </MenuCard.Header>
-              <MenuCard.Content>
+              </Card.Header>
+              <Card.Content>
                 {renderMenuItems(dormMenuByTime('BREAKFAST'), locale)}
-              </MenuCard.Content>
-            </MenuCard>
-            <MenuCard>
-              <MenuCard.Header>
+              </Card.Content>
+            </Card>
+            <Card>
+              <Card.Header>
                 {t('lunch')} <span className='font-tossFace'>🍽️</span>
-              </MenuCard.Header>
-              <MenuCard.Content>
+              </Card.Header>
+              <Card.Content>
                 {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
-              </MenuCard.Content>
-            </MenuCard>
-            <MenuCard>
-              <MenuCard.Header>
+              </Card.Content>
+            </Card>
+            <Card>
+              <Card.Header>
                 {t('dinner')} <span className='font-tossFace'>🌙</span>
-              </MenuCard.Header>
-              <MenuCard.Content>
+              </Card.Header>
+              <Card.Content>
                 {renderMenuItems(dormMenuByTime('DINNER'), locale)}
-              </MenuCard.Content>
-            </MenuCard>
+              </Card.Content>
+            </Card>
           </div>
         </Section.Content>
       </Section>

@@ -177,7 +177,7 @@ GA4는 자동으로 초기화되고 페이지뷰를 추적합니다. 추가 작�
 
 import { trackMenuClick } from '@/shared/lib/ga4';
 
-export default function MenuCard({ menu }) {
+export default function Card({ menu }) {
   const handleMenuClick = () => {
     // GA4 이벤트 추적
     trackMenuClick({

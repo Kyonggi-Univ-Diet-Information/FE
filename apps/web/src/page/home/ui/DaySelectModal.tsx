@@ -5,7 +5,7 @@ import { WeekSelector, Modal, Button } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
 
-export default function DormMenuDateModal() {
+export default function DaySelectModal() {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(
     new Date(),

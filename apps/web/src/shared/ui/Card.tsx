@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
-export default function MenuCard({
+export default function Card({
   href,
   children,
   className,
@@ -39,13 +39,13 @@ export default function MenuCard({
   );
 }
 
-function MenuCardHeader({ children }: { children: ReactNode }) {
+function CardHeader({ children }: { children: ReactNode }) {
   return <p className='font-semibold'>{children}</p>;
 }
 
-function MenuCardContent({ children }: { children: ReactNode }) {
+function CardContent({ children }: { children: ReactNode }) {
   return <div className='flex flex-col gap-1'>{children}</div>;
 }
 
-MenuCard.Header = MenuCardHeader;
-MenuCard.Content = MenuCardContent;
+Card.Header = CardHeader;
+Card.Content = CardContent;

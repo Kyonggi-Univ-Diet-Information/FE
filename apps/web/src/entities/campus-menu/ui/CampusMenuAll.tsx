@@ -1,4 +1,4 @@
-import { MenuCard } from '@/features/menu/components';
+import { Card } from '@/shared/ui';
 import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_NAME,
@@ -15,7 +15,7 @@ export default async function CampusMenuAll() {
   return (
     <>
       {CAMPUS_RESTAURANT_NAME.map(restaurant => (
-        <MenuCard
+        <Card
           key={restaurant}
           className='h-70'
           href={`/campus/${RESTAURANT_ID_BY_NAME[restaurant]}`}
@@ -27,7 +27,7 @@ export default async function CampusMenuAll() {
                 : CAMPUS_RESTAURANT[restaurant]}
             </span>
           </p>
-          <MenuCard.Content>
+          <Card.Content>
             {campusMenu[restaurant].slice(0, 8).map(menu => (
               <p
                 className='flex items-center justify-between text-gray-600'
@@ -42,8 +42,8 @@ export default async function CampusMenuAll() {
                 </span>
               </p>
             ))}
-          </MenuCard.Content>
-        </MenuCard>
+          </Card.Content>
+        </Card>
       ))}
     </>
   );
