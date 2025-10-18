@@ -8,7 +8,6 @@
 
 <img width="100" height="94" alt="logo" src="https://github.com/user-attachments/assets/5d7281c4-6c61-46e0-b98e-de14146f011c" />
 
-
 <br/>
 <br/>
 <br/>
@@ -39,6 +38,20 @@ pnpm install
 cd apps/web
 pnpm run dev
 ```
+
+## Project Structure
+
+```
+.
+├── apps/
+│   ├── web
+│   ├── web-legacy (legacy version of web service)
+│   └── land (landing page - will be updated)
+└── packages/
+    └── config
+```
+
+[`web` 프로젝트 구조 확인하러 가기](https://github.com/Kyonggi-Univ-Diet-Information/FE/blob/main/apps/web/README.md)
 
 ## Stacks
 
