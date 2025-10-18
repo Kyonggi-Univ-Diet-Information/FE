@@ -22,6 +22,7 @@ type FetchReviewLikedRes = {
 export const fetchCampusReviewLiked = async () => {
   const data = await Http.get<FetchReviewLikedRes[]>({
     request: ENDPOINT.MEMBER_KS_REVIEW_LIKED,
+    authorize: true,
     cache: 'force-cache',
     next: {
       tags: [KEY.KS_REVIEW_LIKED],
