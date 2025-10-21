@@ -19,11 +19,11 @@ export default function StaticTabNavigation({
   return (
     <div
       className={cn(
-        'scrollbar-hide flex h-fit flex-shrink-0 flex-wrap gap-2',
+        'scrollbar-hide flex h-fit w-screen flex-shrink-0 -translate-x-4 gap-2 overflow-x-scroll border-b border-gray-100 pb-4 pl-4',
         className,
       )}
     >
-      {tabs.map(tab => (
+      {tabs.map((tab, index) => (
         <Link
           prefetch
           key={tab.key}
@@ -34,6 +34,7 @@ export default function StaticTabNavigation({
             currentTabKey === tab.key
               ? 'bg-point text-white'
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+            index === tabs.length - 1 && 'mr-4',
           )}
         >
           {tab.label}

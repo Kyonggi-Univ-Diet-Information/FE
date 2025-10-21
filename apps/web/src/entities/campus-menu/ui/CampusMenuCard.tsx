@@ -3,6 +3,7 @@ import { Link } from '@/shared/i18n/routing';
 import { MessageSquareText } from 'lucide-react';
 import { fetchCampusReviewCount } from '@/entities/campus-review/api/fetchCampusReviewCount';
 import type { CampusMenu } from '../model/campusMenu';
+import Image from 'next/image';
 
 interface CampusMenuCardProps extends CampusMenu {
   locale?: string;
@@ -22,33 +23,35 @@ export default async function CampusMenuCard({
 
   const cardContent = (
     <>
-      <div className='flex flex-col justify-between'>
-        <span className='mb-2 font-medium'>{menuName}</span>
-        <span className='text-sm text-gray-900/40'>
+      <div className='flex flex-col gap-1'>
+        <span className='font-semibold'>{menuName}</span>
+        <span className='text-sm'>
           {locale === 'en'
             ? `${wonText}${price.toLocaleString()}`
             : `${price.toLocaleString()}${wonText}`}
         </span>
+        <span className='mt-0.5 text-xs text-gray-900/80'>
+          리뷰 <b className='font-semibold'>{reviewCount}</b>개
+        </span>
       </div>
-      <div className='flex items-start'>
-        <div className='flex items-center gap-1 rounded-xl border bg-white px-2 py-1'>
-          <MessageSquareText
-            size={14}
-            className='text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'
-          />
-          <span className='text-sm text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'>
-            {reviewCount}
-          </span>
-        </div>
-      </div>
+      <Image
+        src={`/images/no-image.png`}
+        alt={menuName}
+        width={100}
+        height={100}
+        className='rounded-2xl object-cover'
+      />
     </>
   );
 
   return (
     <>
-      <Link href={`/review/${id}`} className='md:hidden'>
+      <Link
+        href={`/review/${id}`}
+        className='w-screen -translate-x-4 border-b border-gray-100 md:hidden'
+      >
         <div
-          className='flex w-full cursor-pointer justify-between rounded-2xl bg-gray-100/50 p-4 text-gray-600 active:bg-gray-100'
+          className='group flex cursor-pointer justify-between p-4 text-gray-600 active:bg-gray-100/50'
           key={id}
         >
           {cardContent}

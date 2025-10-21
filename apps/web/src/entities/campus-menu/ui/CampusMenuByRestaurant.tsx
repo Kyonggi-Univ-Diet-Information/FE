@@ -9,6 +9,7 @@ import {
 import { fetchCampusMenuByRestaurant } from '../api/fetchCampusMenuByRestaurant';
 import { getLocale, getTranslations } from 'next-intl/server';
 import CampusMenuCard from './CampusMenuCard';
+import { Link } from '@/shared/i18n/routing';
 
 interface CampusMenuByRestaurantProps {
   restaurantId: string;
@@ -27,16 +28,24 @@ export default async function CampusMenuByRestaurant({
 
   return (
     <>
+      <div className='flex items-center gap-2 text-sm'>
+        <Link href={`/campus/${restaurantId}`}>전체</Link>
+        {CAMPUS_MENU_KEY[currentRestaurant].map(menuKey => (
+          <Link key={menuKey} href={`/campus/${restaurantId}?menu=${menuKey}`}>
+            {menuTexts[menuKey]}
+          </Link>
+        ))}
+      </div>
       {CAMPUS_MENU_KEY[currentRestaurant].length > 0 &&
         CAMPUS_MENU_KEY[currentRestaurant].map(menuKey => (
           <Fragment key={menuKey}>
-            <p className='flex items-center gap-2 font-medium' key={menuKey}>
+            {/* <p className='flex items-center gap-2 font-medium' key={menuKey}>
               <span className='font-tossFace'>
                 {CAMPUS_MENU_LABEL[menuKey]}
               </span>
               {menuTexts[menuKey]}
-            </p>
-            <div className='grid grid-cols-2 gap-4'>
+            </p> */}
+            <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
               {campusMenu
                 .filter(menu => menu.name.includes(menuKey))
                 .map(menu => (
@@ -60,7 +69,7 @@ export default async function CampusMenuByRestaurant({
                 <span className='font-tossFace'>🍽️</span>
                 {t('others')}
               </p>
-              <div className='grid grid-cols-2 gap-4'>
+              <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
                 {categorizedMenus.map(menu => (
                   <CampusMenuCard key={menu.id} {...menu} locale={locale} />
                 ))}
