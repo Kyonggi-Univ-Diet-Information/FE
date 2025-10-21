@@ -41,7 +41,12 @@
     "menu": "메뉴",
     "subtitle": "리뷰 버튼을 클릭해서 리뷰를 작성해보세요!",
     "others": "기타",
-    "review": "리뷰"
+    "review": "리뷰",
+    "all": "전체",
+    "total": "총",
+    "menus": "개",
+    "reviews": "개",
+    "reviewCount": "리뷰 "
   },
   "dorm": {
     "breakfast": "아침",

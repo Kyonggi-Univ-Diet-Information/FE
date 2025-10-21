@@ -5,79 +5,72 @@ import {
   CAMPUS_MENU_LABEL,
   CAMPUS_MENU_TEXT,
   CAMPUS_MENU_TEXT_EN,
+  MENU_KEY_TO_ID,
+  ID_TO_MENU_KEY,
 } from '../model/campusMenu';
 import { fetchCampusMenuByRestaurant } from '../api/fetchCampusMenuByRestaurant';
 import { getLocale, getTranslations } from 'next-intl/server';
 import CampusMenuCard from './CampusMenuCard';
 import { Link } from '@/shared/i18n/routing';
+import { fetchCategorizedCampusMenu } from '../api/fetchCategorizedCampusMenu';
 
 interface CampusMenuByRestaurantProps {
   restaurantId: string;
+  menuKeyId?: string;
 }
 
 export default async function CampusMenuByRestaurant({
   restaurantId,
+  menuKeyId,
 }: CampusMenuByRestaurantProps) {
   const currentRestaurant = CAMPUS_RESTAURANT_ID[restaurantId];
-  const campusMenu = await fetchCampusMenuByRestaurant(
-    CAMPUS_RESTAURANT_ID[restaurantId],
-  );
-  const t = await getTranslations('campus');
+
+  const menuKey = menuKeyId ? ID_TO_MENU_KEY[menuKeyId] : undefined;
+
+  const campusMenu = menuKeyId
+    ? await fetchCategorizedCampusMenu(
+        CAMPUS_RESTAURANT_ID[restaurantId],
+        menuKey as string,
+      )
+    : await fetchCampusMenuByRestaurant(CAMPUS_RESTAURANT_ID[restaurantId]);
+
   const locale = await getLocale();
   const menuTexts = locale === 'en' ? CAMPUS_MENU_TEXT_EN : CAMPUS_MENU_TEXT;
-
+  const t = await getTranslations('campus');
   return (
     <>
-      <div className='flex items-center gap-2 text-sm'>
-        <Link href={`/campus/${restaurantId}`}>전체</Link>
-        {CAMPUS_MENU_KEY[currentRestaurant].map(menuKey => (
-          <Link key={menuKey} href={`/campus/${restaurantId}?menu=${menuKey}`}>
-            {menuTexts[menuKey]}
+      <div className='flex items-center justify-between'>
+        <div className='flex items-center gap-2 text-sm'>
+          <Link
+            prefetch
+            href={`/campus/${restaurantId}`}
+            className={!menuKeyId ? 'text-point font-bold' : ''}
+          >
+            {t('all')}
           </Link>
-        ))}
+          {CAMPUS_MENU_KEY[currentRestaurant].map(key => (
+            <Link
+              prefetch
+              key={key}
+              href={`/campus/${restaurantId}/${MENU_KEY_TO_ID[key]}`}
+              className={menuKey === key ? 'text-point font-bold' : ''}
+            >
+              {menuTexts[key]}
+            </Link>
+          ))}
+        </div>
+        <span className='text-sm text-gray-600'>
+          {t('total')} {campusMenu.length}
+          {t('menus')}
+        </span>
       </div>
-      {CAMPUS_MENU_KEY[currentRestaurant].length > 0 &&
-        CAMPUS_MENU_KEY[currentRestaurant].map(menuKey => (
-          <Fragment key={menuKey}>
-            {/* <p className='flex items-center gap-2 font-medium' key={menuKey}>
-              <span className='font-tossFace'>
-                {CAMPUS_MENU_LABEL[menuKey]}
-              </span>
-              {menuTexts[menuKey]}
-            </p> */}
-            <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
-              {campusMenu
-                .filter(menu => menu.name.includes(menuKey))
-                .map(menu => (
-                  <CampusMenuCard key={menu.id} {...menu} locale={locale} />
-                ))}
-            </div>
-          </Fragment>
-        ))}
-      {(() => {
-        const categorizedMenus = campusMenu.filter(
-          menu =>
-            !CAMPUS_MENU_KEY[currentRestaurant].some(key =>
-              menu.name.includes(key),
-            ),
-        );
 
-        return (
-          categorizedMenus.length > 0 && (
-            <Fragment>
-              <p className='flex items-center gap-2 font-medium'>
-                <span className='font-tossFace'>🍽️</span>
-                {t('others')}
-              </p>
-              <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
-                {categorizedMenus.map(menu => (
-                  <CampusMenuCard key={menu.id} {...menu} locale={locale} />
-                ))}
-              </div>
-            </Fragment>
-          )
-        );
-      })()}
+      <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
+        {campusMenu.length > 0 &&
+          campusMenu.map(menu => (
+            <CampusMenuCard key={menu.id} {...menu} locale={locale} />
+          ))}
+      </div>
     </>
   );
 }

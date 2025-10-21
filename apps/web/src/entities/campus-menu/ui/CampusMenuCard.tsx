@@ -4,6 +4,7 @@ import { MessageSquareText } from 'lucide-react';
 import { fetchCampusReviewCount } from '@/entities/campus-review/api/fetchCampusReviewCount';
 import type { CampusMenu } from '../model/campusMenu';
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 
 interface CampusMenuCardProps extends CampusMenu {
   locale?: string;
@@ -20,6 +21,7 @@ export default async function CampusMenuCard({
   const reviewText = locale === 'en' ? 'Review' : '리뷰';
   const menuName = locale === 'en' ? nameEn : name;
   const reviewCount = await fetchCampusReviewCount(id);
+  const t = await getTranslations('campus');
 
   const cardContent = (
     <>
@@ -31,7 +33,9 @@ export default async function CampusMenuCard({
             : `${price.toLocaleString()}${wonText}`}
         </span>
         <span className='mt-0.5 text-xs text-gray-900/80'>
-          리뷰 <b className='font-semibold'>{reviewCount}</b>개
+          {t('reviewCount')}
+          <b className='font-semibold'>{reviewCount}</b>
+          {t('reviews')}
         </span>
       </div>
       <Image

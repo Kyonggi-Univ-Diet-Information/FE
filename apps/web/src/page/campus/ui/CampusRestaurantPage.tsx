@@ -11,13 +11,17 @@ import { CampusMenuByRestaurant } from '@/entities/campus-menu';
 import { getTranslations } from 'next-intl/server';
 
 export interface CampusRestaurantPageProps {
-  params: Promise<{ locale: string; restaurantId: string }>;
+  params: Promise<{
+    locale: string;
+    restaurantId: string;
+    menuKeyId?: string;
+  }>;
 }
 
 export default async function CampusRestaurantPage({
   params,
 }: CampusRestaurantPageProps) {
-  const { locale, restaurantId } = await params;
+  const { locale, restaurantId, menuKeyId } = await params;
   const t = await getTranslations('campus');
 
   const currentRestaurant = CAMPUS_RESTAURANT_ID[restaurantId];
@@ -46,7 +50,10 @@ export default async function CampusRestaurantPage({
         subtitle={t('subtitle')}
       />
       <StaticTabNavigation tabs={tabs} currentTabKey={restaurantId} />
-      <CampusMenuByRestaurant restaurantId={restaurantId} />
+      <CampusMenuByRestaurant
+        restaurantId={restaurantId}
+        menuKeyId={menuKeyId}
+      />
     </>
   );
 }

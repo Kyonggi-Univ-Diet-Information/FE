@@ -41,7 +41,12 @@
     "menu": "Menu",
     "subtitle": "Click the review button to write a review!",
     "others": "Others",
-    "review": "Review"
+    "review": "Review",
+    "all": "All",
+    "total": "Total",
+    "menus": " menus",
+    "reviews": " reviews",
+    "reviewCount": ""
   },
   "dorm": {
     "breakfast": "Breakfast",
