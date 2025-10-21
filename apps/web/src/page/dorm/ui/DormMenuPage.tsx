@@ -3,6 +3,8 @@ import {
   DORM_DAY,
   DORM_DAY_EN,
   DORM_DAY_KEY,
+  DORM_DAY_SHORT,
+  DORM_DAY_SHORT_EN,
 } from '@/entities/dorm-menu/model';
 import { getWeekDates, getWeekStart } from '@/shared/lib/date';
 import { Section, StaticTabNavigation } from '@/shared/ui';
@@ -26,11 +28,13 @@ export default async function DormMenuPage({ params }: DormMenuPageProps) {
 
   const weekDates = getWeekDates(monday);
 
+  const dayShortNames = locale === 'en' ? DORM_DAY_SHORT_EN : DORM_DAY_SHORT;
+
   const dayNames = locale === 'en' ? DORM_DAY_EN : DORM_DAY;
 
   const tabs = Object.keys(DORM_DAY_KEY).map(day => ({
     key: day,
-    label: dayNames[DORM_DAY_KEY[Number(day)]],
+    label: dayShortNames[DORM_DAY_KEY[Number(day)]],
     href: `/dorm/${day}`,
   }));
 

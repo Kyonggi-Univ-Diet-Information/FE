@@ -10,6 +10,26 @@ export const DORM_DAY = {
   SUNDAY: '일요일',
 };
 
+export const DORM_DAY_SHORT = {
+  MONDAY: '월',
+  TUESDAY: '화',
+  WEDNESDAY: '수',
+  THURSDAY: '목',
+  FRIDAY: '금',
+  SATURDAY: '토',
+  SUNDAY: '일',
+};
+
+export const DORM_DAY_SHORT_EN = {
+  MONDAY: 'Mon',
+  TUESDAY: 'Tue',
+  WEDNESDAY: 'Wed',
+  THURSDAY: 'Thu',
+  FRIDAY: 'Fri',
+  SATURDAY: 'Sat',
+  SUNDAY: 'Sun',
+};
+
 export const DORM_DAY_EN = {
   MONDAY: 'Monday',
   TUESDAY: 'Tuesday',

@@ -19,7 +19,7 @@ export default function StaticTabNavigation({
   return (
     <div
       className={cn(
-        'scrollbar-hide flex h-fit w-screen flex-shrink-0 -translate-x-4 gap-2 overflow-x-scroll border-b border-gray-100 pb-4 pl-4',
+        'scrollbar-hide flex h-fit w-full flex-shrink-0 gap-2 overflow-x-scroll border-b border-gray-100 pb-4',
         className,
       )}
     >
