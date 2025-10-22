@@ -19,7 +19,7 @@ export interface FetchDormMenuRes {
 
 export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
   const data = await Http.get<FetchDormMenuRes>({
-    request: ENDPOINT.DORM_MENU,
+    request: ENDPOINT.DORM.DORM_MENU,
     cache: 'force-cache',
   });
   return data.result;

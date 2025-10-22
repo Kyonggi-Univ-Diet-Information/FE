@@ -7,7 +7,7 @@ import { cache } from 'react';
 export const fetchCampusMenuByRestaurant = cache(
   async (restaurantId: SubRestaurant): Promise<CampusMenu[]> => {
     const data = await Http.get<CampusMenu[]>({
-      request: ENDPOINT.CAMPUS_MENU_BY_RESTAURANT + restaurantId,
+      request: ENDPOINT.MENU.MENU_BY_RESTAURANT('KYONGSUL', restaurantId),
       cache: 'force-cache',
     });
 

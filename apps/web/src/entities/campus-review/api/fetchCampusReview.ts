@@ -1,4 +1,4 @@
-import { ENDPOINT } from '@/shared/config';
+import { ENDPOINT, FOOD_COURT } from '@/shared/config';
 import { KEY } from '@/shared/config';
 import { Http } from '@/shared/api/http';
 import type { BasePagedResponse } from '@/shared/api/baseResponse';
@@ -9,7 +9,7 @@ export const fetchCampusReview = async (
   page: number = 0,
 ): Promise<BasePagedResponse<Review[]>> => {
   const data = await Http.get<BasePagedResponse<Review[]>>({
-    request: `${ENDPOINT.KS_REVIEW_PAGINATION + foodId}?pageNo=${page}`,
+    request: `${ENDPOINT.REVIEW_R.PAGED(FOOD_COURT.KYONGSUL, foodId)}?pageNo=${page}`,
     cache: 'force-cache',
     next: {
       tags: [KEY.KS_REVIEW(foodId), KEY.KS_REVIEW_PAGINATION(foodId, page)],

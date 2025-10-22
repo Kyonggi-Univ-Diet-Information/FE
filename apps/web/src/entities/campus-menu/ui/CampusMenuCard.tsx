@@ -39,6 +39,9 @@ export default async function CampusMenuCard({
         </span>
       </div>
       <Image
+        loading='lazy'
+        placeholder='blur'
+        blurDataURL='/images/no-image.png'
         src={`/images/no-image.png`}
         alt={menuName}
         width={100}

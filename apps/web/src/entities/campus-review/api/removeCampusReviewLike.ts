@@ -1,15 +1,12 @@
 'use server';
 
 import { Http } from '@/shared/api/http';
-import { ENDPOINT, KEY } from '@/shared/config';
+import { ENDPOINT, FOOD_COURT, KEY } from '@/shared/config';
 import { revalidateTag } from 'next/cache';
 
 export const removeCampusReviewLike = async (reviewId: number) => {
   await Http.del({
-    request: ENDPOINT.KS_REVIEW_UNLIKE.replace(
-      '{reviewId}',
-      reviewId.toString(),
-    ),
+    request: ENDPOINT.REVIEW_LIKE.UNLIKE(FOOD_COURT.KYONGSUL, reviewId),
     authorize: true,
   }).catch(error => ({ success: false, error }));
 

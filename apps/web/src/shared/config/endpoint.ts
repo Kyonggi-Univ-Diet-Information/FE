@@ -1,41 +1,61 @@
+import { SubRestaurant } from '@/entities/campus-menu/model/campusRestaurant';
+import { DormDay } from '@/entities/dorm-menu/model';
+
 export const PUBLIC_API_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
 
-export const RESTAURANT = {
+export const FOOD_COURT = {
   KYONGSUL: 'KYONGSUL',
   DORMITORY: 'DORMITORY',
-};
+} as const;
+
+export type FoodCourt = keyof typeof FOOD_COURT;
 
 export const ENDPOINT = {
-  CAMPUS_MENU: '/food/KYONGSUL/all',
-  CAMPUS_MENU_BY_RESTAURANT: '/food/KYONGSUL/restaurant/',
-  CAMPUS_MENU_NAME: '/food/KYONGSUL/get-names/',
-
-  DORM_MENU: '/diet-content/dormitory',
-  DORM_MENU_BY_DAY: '/diet-content/dormitory/dow/',
-
-  KS_REVIEW_RATING_COUNT: '/review/KYONGSUL/rating-count/',
-  KS_REVIEW_AVERAGE_RATING: '/review/KYONGSUL/average/',
-  KS_REVIEW_PAGINATION: '/review/KYONGSUL/paged/',
-  KS_REVIEW_SUBMIT: '/review/KYONGSUL/new/',
-
-  KS_REVIEW_LIKE: '/review/favorite/KYONGSUL/{reviewId}/create-favorite',
-  KS_REVIEW_UNLIKE: '/review/favorite/KYONGSUL/delete/{reviewId}',
-  KS_REVIEW_LIKED_COUNT: '/review/favorite/KYONGSUL/count/',
-  KS_REVIEW_COUNT: '/review/KYONGSUL/count/',
-
-  KAKAO_LOGIN: '/kakao-login',
-
-  REVIEW_RATING_COUNT: '/review/DORMITORY/rating-count/',
-  REVIEW_AVERAGE_RATING: '/review/DORMITORY/average/',
-  REVIEW_PAGINATION: '/review/DORMITORY/paged/',
-  REVIEW_SUBMIT: '/review/DORMITORY/new/',
-
-  REVIEW_LIKE: '/review/favorite/DORMITORY/{reviewId}/create-favorite',
-  REVIEW_UNLIKE: '/review/favorite/DORMITORY/delete/{reviewId}',
-  REVIEW_LIKED_COUNT: '/review/favorite/DORMITORY/count/',
-  REVIEW_COUNT: '/review/DORMITORY/count/',
-
-  MEMBER_KS_REVIEW_LIKED: '/review/favorite/KYONGSUL/each-member/all',
-  MEMBER_REVIEW_LIKED: '/review/favorite/DORMITORY/each-member/all',
+  AUTH: {
+    KAKAO_LOGIN: '/kakao-login',
+  },
+  DORM: {
+    DORM_MENU: '/diet-content/dormitory',
+    DORM_MENU_BY_DAY: (day: DormDay) => `/diet-content/dormitory/dow/${day}`,
+  },
+  MENU: {
+    MENU_ALL: (foodCourt: FoodCourt) => `/food/${foodCourt}/all`,
+    MENU_BY_RESTAURANT: (
+      foodCourt: Omit<FoodCourt, 'DORMITORY'>,
+      restaurant: SubRestaurant,
+    ) => `/food/${foodCourt}/restaurant/${restaurant}`,
+    MENU_NAME: (foodCourt: FoodCourt, foodId: number) =>
+      `/food/${foodCourt}/get-names/${foodId}`,
+  },
+  REVIEW_R: {
+    COUNT: (foodCourt: FoodCourt, foodId: number) =>
+      `/review/${foodCourt}/count/${foodId}`,
+    PAGED: (foodCourt: FoodCourt, foodId: number) =>
+      `/review/${foodCourt}/paged/${foodId}`,
+    RATING: (foodCourt: FoodCourt, foodId: number) =>
+      `/review/${foodCourt}/rating-count/${foodId}`,
+    AVERAGE_RATING: (foodCourt: FoodCourt, foodId: number) =>
+      `/review/${foodCourt}/average/${foodId}`,
+  },
+  REVIEW_CUD: {
+    SUBMIT: (foodCourt: FoodCourt, foodId: number) =>
+      `/review/${foodCourt}/new/${foodId}`,
+    UPDATE: (foodCourt: FoodCourt, reviewId: number) =>
+      `/review/${foodCourt}/modify/${reviewId}`,
+    DELETE: (foodCourt: FoodCourt, reviewId: number) =>
+      `/review/${foodCourt}/delete/${reviewId}`,
+  },
+  REVIEW_LIKE: {
+    LIKE: (foodCourt: FoodCourt, reviewId: number) =>
+      `/review/favorite/${foodCourt}/${reviewId}/create-favorite`,
+    UNLIKE: (foodCourt: FoodCourt, reviewId: number) =>
+      `/review/favorite/${foodCourt}/delete/${reviewId}`,
+    LIKED_COUNT: (foodCourt: FoodCourt, reviewId: number) =>
+      `/review/favorite/${foodCourt}/count/${reviewId}`,
+  },
+  MEMBER: {
+    MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>
+      `/review/favorite/${foodCourt}/each-member/all`,
+  },
 };

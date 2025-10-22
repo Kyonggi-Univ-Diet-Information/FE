@@ -12,7 +12,7 @@ interface LoginResponse {
 export async function handleKakaoLogin(code: string) {
   try {
     const response = await apiServer.get<LoginResponse, { code: string }>({
-      request: ENDPOINT.KAKAO_LOGIN,
+      request: ENDPOINT.AUTH.KAKAO_LOGIN,
       params: { code },
     });
 

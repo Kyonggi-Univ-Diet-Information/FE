@@ -1,4 +1,4 @@
-import { ENDPOINT } from '@/shared/config';
+import { ENDPOINT, FOOD_COURT } from '@/shared/config';
 import { KEY } from '@/shared/config';
 import { Http } from '@/shared/api/http';
 
@@ -6,7 +6,7 @@ export const fetchCampusReviewCount = async (
   foodId: number,
 ): Promise<number> => {
   const data = await Http.get<number>({
-    request: ENDPOINT.KS_REVIEW_COUNT + foodId,
+    request: ENDPOINT.REVIEW_R.COUNT(FOOD_COURT.KYONGSUL, foodId),
     cache: 'force-cache',
     next: {
       tags: [KEY.KS_REVIEW_COUNT(foodId)],

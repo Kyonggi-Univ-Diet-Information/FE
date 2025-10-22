@@ -1,5 +1,5 @@
 import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config/endpoint';
+import { ENDPOINT, FOOD_COURT } from '@/shared/config/endpoint';
 import type { CampusMenu } from '../model/campusMenu';
 import type { SubRestaurant } from '../model/campusRestaurant';
 import { cache } from 'react';
@@ -7,7 +7,7 @@ import { cache } from 'react';
 export const fetchCampusMenu = cache(
   async (): Promise<Record<SubRestaurant, CampusMenu[]>> => {
     const response = await Http.get<CampusMenu[]>({
-      request: ENDPOINT.CAMPUS_MENU,
+      request: ENDPOINT.MENU.MENU_ALL(FOOD_COURT.KYONGSUL),
       cache: 'force-cache',
     });
 

@@ -1,4 +1,4 @@
-import { ENDPOINT } from '@/shared/config/endpoint';
+import { ENDPOINT, FOOD_COURT } from '@/shared/config/endpoint';
 import { Http } from '@/shared/api/http';
 import { CampusMenuName } from '../model/campusMenuName';
 
@@ -6,7 +6,7 @@ export const fetchCampusMenuName = async (
   menuId: number,
 ): Promise<CampusMenuName> => {
   const data = await Http.get<CampusMenuName>({
-    request: ENDPOINT.CAMPUS_MENU_NAME + menuId,
+    request: ENDPOINT.MENU.MENU_NAME(FOOD_COURT.KYONGSUL, menuId),
     cache: 'force-cache',
   });
 

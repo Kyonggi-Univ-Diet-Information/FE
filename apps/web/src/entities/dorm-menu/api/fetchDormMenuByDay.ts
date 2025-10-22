@@ -22,7 +22,7 @@ export const fetchDormMenuByDay = async (
   day: DormDay,
 ): Promise<FetchDormMenuByDayRes['result']> => {
   const data = await Http.get<FetchDormMenuByDayRes>({
-    request: ENDPOINT.DORM_MENU_BY_DAY + day,
+    request: ENDPOINT.DORM.DORM_MENU_BY_DAY(day),
     cache: 'force-cache',
   });
   return data.result;
