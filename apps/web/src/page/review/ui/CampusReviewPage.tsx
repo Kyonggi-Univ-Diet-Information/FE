@@ -33,7 +33,6 @@ export default async function CampusReviewPage({
   }
 
   const t = await getTranslations('reviewPage');
-
   const isReviewMode = reviewMode === 'true';
 
   return (
@@ -52,10 +51,13 @@ export default async function CampusReviewPage({
           </Button>
         </Link>
       </section>
-      {isAuthenticated && isReviewMode && <ReviewFormSection foodId={foodId} />}
-      {!isAuthenticated && isReviewMode && <LoginModal foodId={foodId} />}
-      <CampusReviewRating foodId={foodId} />
+
       <Suspense fallback={<Loader />}>
+        {isAuthenticated && isReviewMode && (
+          <ReviewFormSection foodId={foodId} />
+        )}
+        {!isAuthenticated && isReviewMode && <LoginModal foodId={foodId} />}
+        <CampusReviewRating foodId={foodId} />
         <CampusReviewView foodId={foodId} pageNo={pageNo || 0} />
       </Suspense>
     </div>

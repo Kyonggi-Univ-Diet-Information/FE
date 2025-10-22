@@ -1,5 +1,6 @@
 import { getLocale } from 'next-intl/server';
 import { fetchCampusMenuName } from '../api/fetchCampusMenuName';
+import { Suspense } from 'react';
 
 export default async function CampusMenuName({
   menuId,
@@ -12,8 +13,10 @@ export default async function CampusMenuName({
   const menuName = await fetchCampusMenuName(menuId);
 
   return (
-    <span className={className}>
-      {locale === 'en' ? menuName.nameEn : menuName.name}
-    </span>
+    <Suspense>
+      <span className={className}>
+        {locale === 'en' ? menuName.nameEn : menuName.name}
+      </span>
+    </Suspense>
   );
 }
