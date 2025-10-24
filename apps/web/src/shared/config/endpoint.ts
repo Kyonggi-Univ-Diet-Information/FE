@@ -55,6 +55,9 @@ export const ENDPOINT = {
       `/review/favorite/${foodCourt}/count/${reviewId}`,
   },
   MEMBER: {
+    MEMBER_INFO: '/my-page/info',
+    MEMBER_REVIEW: '/my-page/reviews',
+    MEMBER_FAV_REVIEW: '/my-page/favorites',
     MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>
       `/review/favorite/${foodCourt}/each-member/all`,
   },

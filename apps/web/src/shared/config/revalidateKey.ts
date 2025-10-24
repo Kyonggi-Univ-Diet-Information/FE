@@ -1,5 +1,12 @@
+import type { FoodCourt } from './endpoint';
+
 export const KEY = {
   AUTH_STATUS: 'auth-status',
+  MEMBER_INFO: 'member-info',
+  MEMBER_FAV_REVIEW: (page: number, type: FoodCourt): string =>
+    `member-fav-review-${page}-${type}`,
+  MEMBER_REVIEW: (page: number, type: FoodCourt): string =>
+    `member-review-${page}-${type}`,
   KS_REVIEW: (foodId: number): string => `ks-review-${foodId}`,
   KS_REVIEW_PAGINATION: (foodId: number, page: number): string =>
     `ks-review-pagination-${foodId}-${page}`,
