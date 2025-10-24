@@ -1,11 +1,13 @@
 'use client';
 
-import { Link } from '@/shared/i18n/routing';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/shared/ui';
-import { useAuth } from '../hooks';
-import { logout } from '../action';
 import { useTranslations } from 'next-intl';
+
+import { Link } from '@/shared/i18n/routing';
+import { Button } from '@/shared/ui';
+
+import { logout } from '../action';
+import { useAuth } from '../hooks';
 
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();

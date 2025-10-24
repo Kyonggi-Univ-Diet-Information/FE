@@ -1,10 +1,15 @@
-import { getTranslations } from 'next-intl/server';
-import { Pagination } from '@/shared/ui';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+
+import ReviewItem from '@/widgets/review/ui/ReviewItem';
+
+import { AuthService } from '@/shared/lib/auth';
+import { Pagination } from '@/shared/ui';
+
 import { fetchCampusReview } from '../api/fetchCampusReview';
 import { fetchCampusReviewLiked } from '../api/fetchCampusReviewLiked';
-import ReviewItem from '@/widgets/review/ui/ReviewItem';
-import { AuthService } from '@/shared/lib/auth';
+
+
 
 interface ReviewPagedViewProps {
   foodId: number;

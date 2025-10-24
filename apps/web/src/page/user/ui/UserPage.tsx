@@ -1,14 +1,17 @@
 'use client';
 
+import { ChevronRight } from 'lucide-react';
+
 import { logout } from '@/features/auth/action';
 import { useAuth } from '@/features/auth/hooks';
+
+import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 import { Link, useRouter } from '@/shared/i18n/routing';
 import { Card, Loader, Section } from '@/shared/ui';
-import { useUserInfo } from '../api/useUserInfo';
+
 import { useUserFavReview } from '../api/useUserFavReview';
+import { useUserInfo } from '../api/useUserInfo';
 import { useUserReview } from '../api/useUserReview';
-import { ChevronRight } from 'lucide-react';
-import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 
 export default function UserPage() {
   const { isAuthenticated, isLoading, refresh } = useAuth();

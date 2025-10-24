@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { Link } from '@/shared/i18n/routing';
-import { useTranslations, useLocale } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
 
+import { Link } from '@/shared/i18n/routing';
 import { Button, Title } from '@/shared/ui';
 
 export default function LoginPage() {

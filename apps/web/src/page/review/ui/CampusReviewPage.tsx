@@ -1,16 +1,16 @@
 import { notFound } from 'next/navigation';
-import { Link } from '@/shared/i18n/routing';
-
 import { getTranslations } from 'next-intl/server';
-
-import { Button, Title } from '@/shared/ui';
+import { Suspense } from 'react';
 
 import { ReviewFormSection } from '@/features/review';
-import { AuthService } from '@/shared/lib/auth';
-import { Loader, Modal } from '@/shared/ui';
-import { Suspense } from 'react';
+
 import { CampusMenuName } from '@/entities/campus-menu';
 import { CampusReviewView, CampusReviewRating } from '@/entities/campus-review';
+
+import { Link } from '@/shared/i18n/routing';
+import { AuthService } from '@/shared/lib/auth';
+import { Loader, Modal } from '@/shared/ui';
+import { Button, Title } from '@/shared/ui';
 
 export interface CampusReviewPageProps {
   params: Promise<{ foodId: string }>;

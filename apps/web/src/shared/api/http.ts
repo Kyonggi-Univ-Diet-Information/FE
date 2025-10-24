@@ -1,7 +1,9 @@
+import { redirect } from 'next/navigation';
+
 import { logout } from '@/features/auth/action';
 import { getToken } from '@/features/auth/action/getToken';
+
 import { PUBLIC_API_URL } from '@/shared/config/endpoint';
-import { redirect } from 'next/navigation';
 
 export interface RequestBase {
   request: string;

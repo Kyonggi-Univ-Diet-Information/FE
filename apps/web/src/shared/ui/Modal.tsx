@@ -1,5 +1,6 @@
-import { Link } from '@/shared/i18n/routing';
 import type { ReactNode } from 'react';
+
+import { Link } from '@/shared/i18n/routing';
 
 export default function Modal({
   children,

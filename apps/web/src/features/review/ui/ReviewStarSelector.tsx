@@ -1,7 +1,8 @@
 'use client';
 
-import { cn } from '@/shared/utils';
 import type { Dispatch, SetStateAction } from 'react';
+
+import { cn } from '@/shared/utils';
 
 export default function StarSelector({
   selectedStars,

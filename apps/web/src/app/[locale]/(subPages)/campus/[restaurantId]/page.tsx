@@ -1,5 +1,6 @@
-import { CAMPUS_RESTAURANT_ID } from '@/entities/campus-menu/model/campusRestaurant';
 import { CampusRestaurantPage, CampusRestaurantPageProps } from '@/page/campus';
+
+import { CAMPUS_RESTAURANT_ID } from '@/entities/campus-menu/model/campusRestaurant';
 
 export const dynamicParams = false;
 

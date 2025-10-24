@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { AuthService } from '../lib/auth';
+
 import {
   DelRequestParams,
   GetRequestParams,
   Http,
   PostRequestParams,
 } from './http';
+import { AuthService } from '../lib/auth';
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 

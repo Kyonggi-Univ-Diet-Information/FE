@@ -1,8 +1,8 @@
 'use server';
 
-import { AuthService } from '@/shared/lib/auth';
 import { apiServer } from '@/shared/axios/server.config';
 import { ENDPOINT } from '@/shared/config/endpoint';
+import { AuthService } from '@/shared/lib/auth';
 
 interface LoginResponse {
   token: string;

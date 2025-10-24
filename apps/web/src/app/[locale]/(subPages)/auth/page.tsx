@@ -1,15 +1,15 @@
 'use client';
 
-import { Link } from '@/shared/i18n/routing';
 import { useRouter, useSearchParams } from 'next/navigation';
-
 import { Suspense, useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
+import { handleKakaoLogin } from '@/features/auth/action';
+
 import { KEY } from '@/shared/config';
+import { Link } from '@/shared/i18n/routing';
 import { Button, Loader } from '@/shared/ui';
 
-import { handleKakaoLogin } from '@/features/auth/action';
 
 function AuthContent() {
   const router = useRouter();

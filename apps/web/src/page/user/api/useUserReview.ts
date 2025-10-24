@@ -1,9 +1,10 @@
 import useSWR from 'swr';
 
+import type { Review } from '@/entities/campus-review/model/review';
+
+import type { BasePagedResponse } from '@/shared/api/baseResponse';
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, type FoodCourt, KEY } from '@/shared/config';
-import type { BasePagedResponse } from '@/shared/api/baseResponse';
-import type { Review } from '@/entities/campus-review/model/review';
 
 export function useUserReview(page: number, type: FoodCourt) {
   const { data, error, isLoading, mutate } = useSWR(

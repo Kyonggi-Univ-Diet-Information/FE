@@ -1,6 +1,6 @@
-import { fetchCampusReviewRating } from '../api/fetchCampusReviewRating';
-import { fetchCampusReviewCount } from '../api/fetchCampusReviewCount';
 import { fetchCampusReviewAverage } from '../api/fetchCampusReviewAverage';
+import { fetchCampusReviewCount } from '../api/fetchCampusReviewCount';
+import { fetchCampusReviewRating } from '../api/fetchCampusReviewRating';
 
 interface ReviewRatingSectionProps {
   foodId: number;

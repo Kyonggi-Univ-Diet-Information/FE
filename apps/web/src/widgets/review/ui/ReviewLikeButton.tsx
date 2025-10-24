@@ -1,10 +1,11 @@
 'use client';
 
-import { Button } from '@/shared/ui';
 import { useOptimistic, useTransition } from 'react';
 
 import { removeCampusReviewLike } from '@/entities/campus-review/api/removeCampusReviewLike';
 import { submitCampusReviewLike } from '@/entities/campus-review/api/submitCampusReviewLike';
+
+import { Button } from '@/shared/ui';
 
 interface ReviewLikeButtonProps {
   reviewId: number;

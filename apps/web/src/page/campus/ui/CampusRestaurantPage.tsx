@@ -1,3 +1,6 @@
+import { getTranslations } from 'next-intl/server';
+
+import { CampusMenuByRestaurant } from '@/entities/campus-menu';
 import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_ID,
@@ -7,8 +10,6 @@ import {
 } from '@/entities/campus-menu/model/campusRestaurant';
 
 import { Section, StaticTabNavigation } from '@/shared/ui';
-import { CampusMenuByRestaurant } from '@/entities/campus-menu';
-import { getTranslations } from 'next-intl/server';
 
 export interface CampusRestaurantPageProps {
   params: Promise<{

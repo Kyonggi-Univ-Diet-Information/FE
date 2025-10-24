@@ -1,6 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { Section, Card } from '@/shared/ui';
 
 import { fetchDormMenuByDay } from '@/entities/dorm-menu/api/fetchDormMenuByDay';
 import {
@@ -10,6 +9,8 @@ import {
   DORM_DAY_KEY,
   type DormTime,
 } from '@/entities/dorm-menu/model';
+
+import { Section, Card } from '@/shared/ui';
 
 export default async function DormMenuByDay({ day }: { day: number }) {
   const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]);

@@ -1,6 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
+
 import { checkAuth } from '../action';
 
 export function useAuth() {

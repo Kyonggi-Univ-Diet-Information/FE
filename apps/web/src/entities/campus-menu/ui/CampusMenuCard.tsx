@@ -1,10 +1,13 @@
-import { Link } from '@/shared/i18n/routing';
 
 import { MessageSquareText } from 'lucide-react';
-import { fetchCampusReviewCount } from '@/entities/campus-review/api/fetchCampusReviewCount';
-import type { CampusMenu } from '../model/campusMenu';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+
+import { fetchCampusReviewCount } from '@/entities/campus-review/api/fetchCampusReviewCount';
+
+import { Link } from '@/shared/i18n/routing';
+
+import type { CampusMenu } from '../model/campusMenu';
 
 interface CampusMenuCardProps extends CampusMenu {
   locale?: string;

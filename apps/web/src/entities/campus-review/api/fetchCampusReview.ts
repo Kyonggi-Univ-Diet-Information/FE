@@ -1,8 +1,10 @@
+import type { Review } from '@/entities/campus-review/model/review';
+
+import type { BasePagedResponse } from '@/shared/api/baseResponse';
+import { Http } from '@/shared/api/http';
 import { ENDPOINT, FOOD_COURT } from '@/shared/config';
 import { KEY } from '@/shared/config';
-import { Http } from '@/shared/api/http';
-import type { BasePagedResponse } from '@/shared/api/baseResponse';
-import type { Review } from '@/entities/campus-review/model/review';
+
 
 export const fetchCampusReview = async (
   foodId: number,

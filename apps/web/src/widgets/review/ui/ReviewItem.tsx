@@ -1,7 +1,9 @@
 import { fetchCampusReviewLikeCount } from '@/entities/campus-review/api/fetchCampusReviewLikeCount';
-import { AuthService } from '@/shared/lib/auth';
-import ReviewLikeButton from './ReviewLikeButton';
 import type { Review } from '@/entities/campus-review/model/review';
+
+import { AuthService } from '@/shared/lib/auth';
+
+import ReviewLikeButton from './ReviewLikeButton';
 
 interface ReviewItemProps extends Review {
   isLiked: boolean;

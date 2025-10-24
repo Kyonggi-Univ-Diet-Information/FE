@@ -1,8 +1,8 @@
 'use server';
 
+import { Http } from '@/shared/api/http';
 import { ENDPOINT, FOOD_COURT } from '@/shared/config';
 import { KEY } from '@/shared/config';
-import { Http } from '@/shared/api/http';
 
 type FetchReviewLikedRes = {
   id: number;

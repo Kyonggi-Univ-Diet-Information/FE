@@ -1,6 +1,10 @@
+import { getTranslations, getLocale } from 'next-intl/server';
 import React from 'react';
 
+import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
+
 import { Section } from '@/shared/ui';
+import { Card } from '@/shared/ui';
 
 import {
   type DormTime,
@@ -10,9 +14,6 @@ import {
   isWeekend,
 } from '../model';
 
-import { Card } from '@/shared/ui';
-import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
-import { getTranslations, getLocale } from 'next-intl/server';
 
 interface DormMenuSectionProps {
   date: DormDay;

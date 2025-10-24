@@ -1,8 +1,9 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, FOOD_COURT, KEY } from '@/shared/config';
-import { revalidateTag } from 'next/cache';
 
 export const removeCampusReviewLike = async (reviewId: number) => {
   await Http.del({

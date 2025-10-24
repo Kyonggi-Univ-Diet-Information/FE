@@ -1,12 +1,13 @@
-import {
-  CAMPUS_RESTAURANT_ID,
-  SubRestaurant,
-} from '@/entities/campus-menu/model/campusRestaurant';
+import { CampusRestaurantPage, CampusRestaurantPageProps } from '@/page/campus';
+
 import {
   CAMPUS_MENU_KEY,
   MENU_KEY_TO_ID,
 } from '@/entities/campus-menu/model/campusMenu';
-import { CampusRestaurantPage, CampusRestaurantPageProps } from '@/page/campus';
+import {
+  CAMPUS_RESTAURANT_ID,
+  SubRestaurant,
+} from '@/entities/campus-menu/model/campusRestaurant';
 
 export const dynamicParams = false;
 

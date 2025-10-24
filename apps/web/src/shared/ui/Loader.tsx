@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import type { LottiePlayer } from 'lottie-web';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Loader() {
   const ref = useRef<HTMLDivElement>(null);

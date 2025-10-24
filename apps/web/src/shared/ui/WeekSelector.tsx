@@ -2,9 +2,8 @@
 
 import React from 'react';
 
-import { Button } from './Button';
-import { WEEKDAYS } from '@/shared/lib/date';
 import {
+  WEEKDAYS,
   getCurrentDate,
   getWeekStart,
   getWeekDates,
@@ -12,6 +11,8 @@ import {
   isSameDay,
 } from '@/shared/lib/date';
 import { cn } from '@/shared/utils';
+
+import { Button } from './Button';
 
 interface WeekSelectorProps {
   selectedDate?: Date;

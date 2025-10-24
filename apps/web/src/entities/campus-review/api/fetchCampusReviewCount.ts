@@ -1,6 +1,6 @@
+import { Http } from '@/shared/api/http';
 import { ENDPOINT, FOOD_COURT } from '@/shared/config';
 import { KEY } from '@/shared/config';
-import { Http } from '@/shared/api/http';
 
 export const fetchCampusReviewCount = async (
   foodId: number,

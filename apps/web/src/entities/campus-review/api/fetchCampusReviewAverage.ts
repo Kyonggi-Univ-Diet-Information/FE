@@ -1,5 +1,5 @@
-import { KEY } from '@/shared/config';
 import { Http } from '@/shared/api/http';
+import { KEY } from '@/shared/config';
 import { ENDPOINT, FOOD_COURT } from '@/shared/config/endpoint';
 
 export const fetchCampusReviewAverage = async (

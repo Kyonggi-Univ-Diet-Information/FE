@@ -1,6 +1,7 @@
+import { Http } from '@/shared/api/http';
 import { ENDPOINT, FOOD_COURT } from '@/shared/config';
 import { KEY } from '@/shared/config';
-import { Http } from '@/shared/api/http';
+
 import { Rating } from '../model/review';
 
 export const fetchCampusReviewRating = async (

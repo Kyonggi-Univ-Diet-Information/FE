@@ -1,16 +1,17 @@
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import type { ReactNode } from 'react';
 
-import { routing } from '@/shared/i18n/routing';
 
-import { brBold, brRegular, tossFace, wantedSans } from '@/app/_styles/font';
-import { ErrorProvider, SWRProvider } from '@/app/_providers';
 import { GoogleAnalytics } from '@/app/_analytics';
 import { BottomNavBar, Header } from '@/app/_layout';
-import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
+import { ErrorProvider, SWRProvider } from '@/app/_providers';
+import { brBold, brRegular, tossFace, wantedSans } from '@/app/_styles/font';
+
+import { routing } from '@/shared/i18n/routing';
 
 type Props = {
   children: ReactNode;

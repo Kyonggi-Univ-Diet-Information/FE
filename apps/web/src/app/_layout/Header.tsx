@@ -1,13 +1,14 @@
 'use client';
 
-import React from 'react';
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
-import { Link, useRouter } from '@/shared/i18n/routing';
+import React from 'react';
 
 import { AuthButton } from '@/features/auth/components';
+
 import { INQUIRY_URL } from '@/shared/config';
+import { Link, useRouter } from '@/shared/i18n/routing';
 
 export default function Header() {
   const pathname = usePathname();
