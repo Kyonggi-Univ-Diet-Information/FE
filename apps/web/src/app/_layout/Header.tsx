@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Link, useRouter } from '@/shared/i18n/routing';
 
 import { AuthButton } from '@/features/auth/components';
+import { INQUIRY_URL } from '@/shared/config';
 
 export default function Header() {
   const pathname = usePathname();
@@ -72,7 +73,7 @@ export default function Header() {
             {locale === 'ko' ? '🇰🇷' : '🇺🇸'}
           </button>
           <Link
-            href='https://open.kakao.com/o/sgcUtX3g'
+            href={INQUIRY_URL}
             target='_blank'
             rel='noopener noreferrer'
             className='cursor-pointer transition-transform hover:scale-110'

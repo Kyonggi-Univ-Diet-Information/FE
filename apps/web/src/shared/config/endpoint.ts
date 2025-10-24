@@ -4,6 +4,11 @@ import { DormDay } from '@/entities/dorm-menu/model';
 export const PUBLIC_API_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
 
+export const INQUIRY_URL = 'https://open.kakao.com/o/sgcUtX3g';
+
+export const PATCHNOTE_URL =
+  'https://abounding-mice-0a1.notion.site/26ad8a0f1c3f804398f1d2baa67d3457';
+
 export const FOOD_COURT = {
   KYONGSUL: 'KYONGSUL',
   DORMITORY: 'DORMITORY',

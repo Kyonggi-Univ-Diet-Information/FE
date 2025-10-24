@@ -3,11 +3,12 @@
 import { logout } from '@/features/auth/action';
 import { useAuth } from '@/features/auth/hooks';
 import { Link, useRouter } from '@/shared/i18n/routing';
-import { useUserInfo } from '../api/useUserInfo';
 import { Card, Loader, Section } from '@/shared/ui';
+import { useUserInfo } from '../api/useUserInfo';
 import { useUserFavReview } from '../api/useUserFavReview';
 import { useUserReview } from '../api/useUserReview';
 import { ChevronRight } from 'lucide-react';
+import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 
 export default function UserPage() {
   const { isAuthenticated, isLoading, refresh } = useAuth();
@@ -81,8 +82,8 @@ export default function UserPage() {
         </div>
       </Section>
       <Section>
-        <Link href='/user/patch-note'>패치노트</Link>
-        <Link href='/user/inquiry'>문의하기</Link>
+        <Link href={PATCHNOTE_URL}>패치노트</Link>
+        <Link href={INQUIRY_URL}>문의하기</Link>
         <button onClick={handleLogout} className='text-start'>
           로그아웃
         </button>
