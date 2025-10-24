@@ -85,8 +85,12 @@ export default function UserPage() {
         </div>
       </Section>
       <Section>
-        <Link href={PATCHNOTE_URL}>패치노트</Link>
-        <Link href={INQUIRY_URL}>문의하기</Link>
+        <Link target='_blank' rel='noopener noreferrer' href={PATCHNOTE_URL}>
+          패치노트
+        </Link>
+        <Link target='_blank' rel='noopener noreferrer' href={INQUIRY_URL}>
+          문의하기
+        </Link>
         <button onClick={handleLogout} className='text-start'>
           로그아웃
         </button>
