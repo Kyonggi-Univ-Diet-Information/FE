@@ -1,15 +1,16 @@
 import { Http } from '@/shared/api/http';
-import { ENDPOINT, FOOD_COURT } from '@/shared/config';
+import { ENDPOINT, type FoodCourt } from '@/shared/config';
 import { KEY } from '@/shared/config';
 
-export const fetchCampusReviewCount = async (
+export const fetchReviewCount = async (
+  type: FoodCourt,
   foodId: number,
 ): Promise<number> => {
   const data = await Http.get<number>({
-    request: ENDPOINT.REVIEW_R.COUNT(FOOD_COURT.KYONGSUL, foodId),
+    request: ENDPOINT.REVIEW_R.COUNT(type, foodId),
     cache: 'force-cache',
     next: {
-      tags: [KEY.KS_REVIEW_COUNT(foodId)],
+      tags: [KEY.REVIEW_COUNT_TYPE(type, foodId)],
       revalidate: 60 * 5,
     },
   });

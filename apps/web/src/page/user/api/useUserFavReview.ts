@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { Review } from '@/entities/campus-review/model/review';
+import { type Review } from '@/entities/review/model/review';
 
 import { BasePagedResponse } from '@/shared/api/baseResponse';
 import { Http } from '@/shared/api/http';

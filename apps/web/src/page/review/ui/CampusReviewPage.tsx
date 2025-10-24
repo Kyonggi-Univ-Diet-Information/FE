@@ -5,8 +5,9 @@ import { Suspense } from 'react';
 import { ReviewFormSection } from '@/features/review';
 
 import { CampusMenuName } from '@/entities/campus-menu';
-import { CampusReviewView, CampusReviewRating } from '@/entities/campus-review';
+import { ReviewPagedView, ReviewRating } from '@/entities/review';
 
+import { FOOD_COURT } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal } from '@/shared/ui';
@@ -57,8 +58,12 @@ export default async function CampusReviewPage({
           <ReviewFormSection foodId={foodId} />
         )}
         {!isAuthenticated && isReviewMode && <LoginModal foodId={foodId} />}
-        <CampusReviewRating foodId={foodId} />
-        <CampusReviewView foodId={foodId} pageNo={pageNo || 0} />
+        <ReviewRating type={FOOD_COURT.KYONGSUL} foodId={foodId} />
+        <ReviewPagedView
+          type={FOOD_COURT.KYONGSUL}
+          foodId={foodId}
+          pageNo={pageNo || 0}
+        />
       </Suspense>
     </div>
   );

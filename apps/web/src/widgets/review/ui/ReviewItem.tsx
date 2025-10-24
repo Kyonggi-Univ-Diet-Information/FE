@@ -1,15 +1,18 @@
-import { fetchCampusReviewLikeCount } from '@/entities/campus-review/api/fetchCampusReviewLikeCount';
-import type { Review } from '@/entities/campus-review/model/review';
+import { fetchReviewFavCount } from '@/entities/review/api/fetchReviewFavCount';
+import type { Review } from '@/entities/review/model/review';
 
+import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 
 import ReviewLikeButton from './ReviewLikeButton';
 
 interface ReviewItemProps extends Review {
+  type: FoodCourt;
   isLiked: boolean;
 }
 
 export default async function ReviewItem({
+  type,
   rating,
   content,
   memberName,
@@ -18,7 +21,7 @@ export default async function ReviewItem({
   isLiked,
 }: ReviewItemProps) {
   const [likedCount, isAuthenticated] = await Promise.all([
-    fetchCampusReviewLikeCount(id),
+    fetchReviewFavCount(type, id),
     AuthService.isAuthenticated(),
   ]);
   const maskedMemberName =

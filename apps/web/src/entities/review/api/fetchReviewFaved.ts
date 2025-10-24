@@ -1,7 +1,7 @@
 'use server';
 
 import { Http } from '@/shared/api/http';
-import { ENDPOINT, FOOD_COURT } from '@/shared/config';
+import { ENDPOINT, type FoodCourt } from '@/shared/config';
 import { KEY } from '@/shared/config';
 
 type FetchReviewLikedRes = {
@@ -19,13 +19,13 @@ type FetchReviewLikedRes = {
   createdAt: string;
 };
 
-export const fetchCampusReviewLiked = async () => {
+export const fetchReviewFaved = async (type: FoodCourt) => {
   const data = await Http.get<FetchReviewLikedRes[]>({
-    request: ENDPOINT.MEMBER.MEMBER_REVIEW_LIKED(FOOD_COURT.KYONGSUL),
+    request: ENDPOINT.MEMBER.MEMBER_REVIEW_LIKED(type),
     authorize: true,
     cache: 'force-cache',
     next: {
-      tags: [KEY.KS_REVIEW_LIKED],
+      tags: [KEY.REVIEW_FAVED(type)],
     },
   });
 

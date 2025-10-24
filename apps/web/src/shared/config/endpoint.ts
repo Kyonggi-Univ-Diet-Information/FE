@@ -34,6 +34,8 @@ export const ENDPOINT = {
       `/food/${foodCourt}/get-names/${foodId}`,
   },
   REVIEW_R: {
+    TOP_5_RECENT: (type: FoodCourt) => `/review/${type}/reviews/top5-recent`,
+    TOP_5_LIKED: (type: FoodCourt) => `/review/${type}/reviews/top5-rating`,
     COUNT: (foodCourt: FoodCourt, foodId: number) =>
       `/review/${foodCourt}/count/${foodId}`,
     PAGED: (foodCourt: FoodCourt, foodId: number) =>

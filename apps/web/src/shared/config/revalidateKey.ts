@@ -25,4 +25,18 @@ export const KEY = {
     `ks-review-average-rating-${foodId}`,
   KS_REVIEW_RATING_COUNT: (foodId: number): string =>
     `ks-review-rating-count-${foodId}`,
+  REVIEW_PAGED: (type: FoodCourt, foodId: number, page: number): string =>
+    `review-paged-${type}-${foodId}-${page}`,
+  REVIEW_FAVED: (type: FoodCourt): string => `review-faved-${type}`,
+  REVIEW_TOP_5_RECENT: (type: FoodCourt): string =>
+    `review-top-5-recent-${type}`,
+  REVIEW_TOP_5_LIKED: (type: FoodCourt): string => `review-top-5-liked-${type}`,
+  REVIEW_RATING_COUNT: (type: FoodCourt, foodId: number): string =>
+    `review-rating-count-${type}-${foodId}`,
+  REVIEW_AVERAGE_RATING: (type: FoodCourt, foodId: number): string =>
+    `review-average-rating-${type}-${foodId}`,
+  REVIEW_FAVED_COUNT: (type: FoodCourt, reviewId: number): string =>
+    `review-faved-count-${type}-${reviewId}`,
+  REVIEW_COUNT_TYPE: (type: FoodCourt, foodId: number): string =>
+    `review-count-${type}-${foodId}`,
 };

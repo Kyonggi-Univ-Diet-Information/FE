@@ -1,10 +1,10 @@
-
 import { MessageSquareText } from 'lucide-react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
-import { fetchCampusReviewCount } from '@/entities/campus-review/api/fetchCampusReviewCount';
+import { fetchReviewCount } from '@/entities/review/api/fetchReviewCount';
 
+import { FOOD_COURT } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
 import type { CampusMenu } from '../model/campusMenu';
@@ -23,7 +23,7 @@ export default async function CampusMenuCard({
   const wonText = locale === 'en' ? '₩' : '원';
   const reviewText = locale === 'en' ? 'Review' : '리뷰';
   const menuName = locale === 'en' ? nameEn : name;
-  const reviewCount = await fetchCampusReviewCount(id);
+  const reviewCount = await fetchReviewCount(FOOD_COURT.KYONGSUL, id);
   const t = await getTranslations('campus');
 
   const cardContent = (

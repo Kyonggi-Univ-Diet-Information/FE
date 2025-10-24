@@ -60,7 +60,7 @@ export default function UserPage() {
           <p className='text-sm text-gray-500'>{userInfo?.email}</p>
         </div>
         <div className='grid grid-cols-2 gap-4'>
-          <Card className='min-w-1/2'>
+          <Card className='min-w-1/2' href='/user/fav'>
             <p className='flex items-center justify-between'>
               좋아요한 리뷰
               <ChevronRight size={16} />
@@ -71,7 +71,7 @@ export default function UserPage() {
               </span>
             </Card.Content>
           </Card>
-          <Card className='min-w-1/2'>
+          <Card className='min-w-1/2' href='/user/my'>
             <p className='flex items-center justify-between'>
               작성한 리뷰
               <ChevronRight size={16} />

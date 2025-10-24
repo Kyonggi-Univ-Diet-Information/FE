@@ -1,18 +1,22 @@
-import { fetchCampusReviewAverage } from '../api/fetchCampusReviewAverage';
-import { fetchCampusReviewCount } from '../api/fetchCampusReviewCount';
-import { fetchCampusReviewRating } from '../api/fetchCampusReviewRating';
+import { type FoodCourt } from '@/shared/config';
+
+import { fetchReviewCount } from '../api/fetchReviewCount';
+import { fetchReviewRating } from '../api/fetchReviewRating';
+import { fetchReviewRatingAverage } from '../api/fetchReviewRatingAverage';
 
 interface ReviewRatingSectionProps {
+  type: FoodCourt;
   foodId: number;
 }
 
-export default async function CampusReviewRating({
+export default async function ReviewRating({
+  type,
   foodId,
 }: ReviewRatingSectionProps) {
   const [rating, reviewCount, averageRating] = await Promise.all([
-    fetchCampusReviewRating(foodId),
-    fetchCampusReviewCount(foodId),
-    fetchCampusReviewAverage(foodId),
+    fetchReviewRating(type, foodId),
+    fetchReviewCount(type, foodId),
+    fetchReviewRatingAverage(type, foodId),
   ]);
 
   const ratingPercentage = {

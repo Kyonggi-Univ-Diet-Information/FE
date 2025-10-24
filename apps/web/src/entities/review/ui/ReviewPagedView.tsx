@@ -3,30 +3,31 @@ import { getTranslations } from 'next-intl/server';
 
 import ReviewItem from '@/widgets/review/ui/ReviewItem';
 
+import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { Pagination } from '@/shared/ui';
 
-import { fetchCampusReview } from '../api/fetchCampusReview';
-import { fetchCampusReviewLiked } from '../api/fetchCampusReviewLiked';
-
-
+import { fetchReviewFaved } from '../api/fetchReviewFaved';
+import { fetchReviewPaged } from '../api/fetchReviewPaged';
 
 interface ReviewPagedViewProps {
+  type: FoodCourt;
   foodId: number;
   pageNo: number;
 }
 
-export default async function CampusReviewView({
+export default async function ReviewPagedView({
+  type,
   foodId,
   pageNo,
 }: ReviewPagedViewProps) {
   const t = await getTranslations('reviewPage');
   const isAuthenticated = await AuthService.isAuthenticated();
   const likedReviewItems = isAuthenticated
-    ? await fetchCampusReviewLiked()
+    ? await fetchReviewFaved(type)
     : Promise.resolve([]);
 
-  const reviews = await fetchCampusReview(foodId, pageNo);
+  const reviews = await fetchReviewPaged(type, foodId, pageNo);
   const totalPages = reviews.totalPages;
 
   const likedReviewIds = likedReviewItems
@@ -48,6 +49,7 @@ export default async function CampusReviewView({
       {reviews.content.map(review => (
         <ReviewItem
           key={review.id}
+          type={type}
           {...review}
           isLiked={isAuthenticated && likedReviewIds.includes(review.id)}
         />
