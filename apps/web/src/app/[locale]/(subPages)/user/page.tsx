@@ -1,11 +1,10 @@
 import { ProtectedRoute } from '@/app/_providers';
+import { UserPage } from '@/page/user';
 
-export default function UserPage() {
+export default function Page() {
   return (
     <ProtectedRoute>
-      로그인에 성공했어요.
-      <br />
-      유저 페이지는 아직 개발중이에요!
+      <UserPage />
     </ProtectedRoute>
   );
 }
