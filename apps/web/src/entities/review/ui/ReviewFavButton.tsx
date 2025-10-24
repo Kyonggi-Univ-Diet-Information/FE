@@ -2,12 +2,14 @@
 
 import { useOptimistic, useTransition } from 'react';
 
-import { removeCampusReviewLike } from '@/entities/campus-review/api/removeCampusReviewLike';
-import { submitCampusReviewLike } from '@/entities/campus-review/api/submitCampusReviewLike';
-
+import { type FoodCourt } from '@/shared/config';
 import { Button } from '@/shared/ui';
 
+import { removeReviewFav } from '../api/removeReviewFav';
+import { submitReviewFav } from '../api/submitReviewFav';
+
 interface ReviewLikeButtonProps {
+  type: FoodCourt;
   reviewId: number;
   initialIsLiked: boolean;
   likedCount: number;
@@ -15,6 +17,7 @@ interface ReviewLikeButtonProps {
 }
 
 export default function ReviewLikeButton({
+  type,
   reviewId,
   initialIsLiked,
   likedCount,
@@ -28,9 +31,9 @@ export default function ReviewLikeButton({
       setOptimisticLiked(!optimisticLiked);
 
       if (optimisticLiked) {
-        await removeCampusReviewLike(reviewId);
+        await removeReviewFav(reviewId, type);
       } else {
-        await submitCampusReviewLike(reviewId);
+        await submitReviewFav(reviewId, type);
       }
     });
   };

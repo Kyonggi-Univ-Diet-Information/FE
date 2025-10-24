@@ -1,2 +1,2 @@
-export { default as CampusReviewPage } from './ui/CampusReviewPage';
-export type { CampusReviewPageProps } from './ui/CampusReviewPage';
+export { default as ReviewPage } from './ui/ReviewPage';
+export type { ReviewPageProps } from './ui/ReviewPage';

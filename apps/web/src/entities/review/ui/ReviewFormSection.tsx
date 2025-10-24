@@ -5,10 +5,11 @@ import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 
 import type { ReviewPost } from '@/entities/review/model/review';
 
+import { FOOD_COURT } from '@/shared/config';
 import { Button } from '@/shared/ui/Button';
 
 import ReviewStarSelector from './ReviewStarSelector';
-import { submitMenuReview } from '../services/submitMenuReview';
+import { submitReview } from '../api/submitReview';
 
 interface ReviewTextAreaProps {
   register: UseFormRegisterReturn<'content'>;
@@ -32,7 +33,7 @@ export default function ReviewFormSection({ foodId }: ReviewFormSectionProps) {
   const { register, watch, reset } = useForm<ReviewPost>();
 
   const [selectedStars, setSelectedStars] = useState(3);
-  const [state, formAction, isPending] = useActionState(submitMenuReview, null);
+  const [state, formAction, isPending] = useActionState(submitReview, null);
 
   const isFormValid = watch('content')?.length > 0;
 
@@ -51,7 +52,12 @@ export default function ReviewFormSection({ foodId }: ReviewFormSectionProps) {
       action={formAction}
     >
       <input type='hidden' name='foodId' value={foodId} readOnly />
-      <input type='hidden' name='menuType' value='campus' readOnly />
+      <input
+        type='hidden'
+        name='foodCourt'
+        value={FOOD_COURT.KYONGSUL}
+        readOnly
+      />
       <input type='hidden' name='rating' value={selectedStars} readOnly />
       <ReviewStarSelector
         selectedStars={selectedStars}

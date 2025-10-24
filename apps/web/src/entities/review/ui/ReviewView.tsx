@@ -1,10 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
-import ReviewItem from '@/widgets/review/ui/ReviewItem';
-
 import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 
+import ReviewItem from './ReviewItem';
 import { fetchReviewTop5Recent } from '../api/fetchReview';
 import { fetchReviewFaved } from '../api/fetchReviewFaved';
 

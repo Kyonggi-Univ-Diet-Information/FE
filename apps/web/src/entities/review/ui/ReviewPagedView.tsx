@@ -1,12 +1,11 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
-import ReviewItem from '@/widgets/review/ui/ReviewItem';
-
 import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { Pagination } from '@/shared/ui';
 
+import ReviewItem from './ReviewItem';
 import { fetchReviewFaved } from '../api/fetchReviewFaved';
 import { fetchReviewPaged } from '../api/fetchReviewPaged';
 

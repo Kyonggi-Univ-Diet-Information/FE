@@ -4,7 +4,7 @@ import type { Review } from '@/entities/review/model/review';
 import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 
-import ReviewLikeButton from './ReviewLikeButton';
+import ReviewFavButton from './ReviewFavButton';
 
 interface ReviewItemProps extends Review {
   type: FoodCourt;
@@ -34,7 +34,8 @@ export default async function ReviewItem({
           <p className='font-semibold'>{maskedMemberName}</p>
           <p className='text-sm text-gray-600'>{createdAt}</p>
         </div>
-        <ReviewLikeButton
+        <ReviewFavButton
+          type={type}
           reviewId={id}
           initialIsLiked={isLiked}
           likedCount={likedCount}

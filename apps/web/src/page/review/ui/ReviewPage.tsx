@@ -2,10 +2,12 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
-import { ReviewFormSection } from '@/features/review';
-
 import { CampusMenuName } from '@/entities/campus-menu';
-import { ReviewPagedView, ReviewRating } from '@/entities/review';
+import {
+  ReviewFormSection,
+  ReviewPagedView,
+  ReviewRating,
+} from '@/entities/review';
 
 import { FOOD_COURT } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
@@ -13,7 +15,7 @@ import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal } from '@/shared/ui';
 import { Button, Title } from '@/shared/ui';
 
-export interface CampusReviewPageProps {
+export interface ReviewPageProps {
   params: Promise<{ foodId: string }>;
   searchParams: Promise<{
     reviewMode?: string;
@@ -21,10 +23,10 @@ export interface CampusReviewPageProps {
   }>;
 }
 
-export default async function CampusReviewPage({
+export default async function ReviewPage({
   params,
   searchParams,
-}: CampusReviewPageProps) {
+}: ReviewPageProps) {
   const [{ foodId: foodIdParam }, { reviewMode, pageNo }, isAuthenticated] =
     await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
 

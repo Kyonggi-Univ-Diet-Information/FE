@@ -1,7 +1,7 @@
-import { CampusReviewPage, CampusReviewPageProps } from '@/page/review';
+import { ReviewPage, ReviewPageProps } from '@/page/review';
 
-const Page = async (props: CampusReviewPageProps) => {
-  return <CampusReviewPage {...props} />;
+const Page = async (props: ReviewPageProps) => {
+  return <ReviewPage {...props} />;
 };
 
 export default Page;
