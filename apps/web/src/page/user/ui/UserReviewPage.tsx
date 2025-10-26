@@ -41,17 +41,19 @@ export default async function UserReviewPage({
             작성한 리뷰가 없어요!
           </div>
         )}
-        {data?.content.map(review => (
-          <ReviewItem
-            key={review.id}
-            type='KYONGSUL'
-            isLiked={likedReviewItems.some(
-              (item: { kyongsulFoodReviewId: number }) =>
-                item.kyongsulFoodReviewId === review.id,
-            )}
-            {...review}
-          />
-        ))}
+        <div className='flex flex-col gap-2'>
+          {data?.content.map(review => (
+            <ReviewItem
+              key={review.id}
+              type='KYONGSUL'
+              isLiked={likedReviewItems.some(
+                (item: { kyongsulFoodReviewId: number }) =>
+                  item.kyongsulFoodReviewId === review.id,
+              )}
+              {...review}
+            />
+          ))}
+        </div>
       </Suspense>
 
       {totalPages > 1 && (

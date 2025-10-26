@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
-import { Loader, Pagination, Title } from '@/shared/ui';
+import { Loader, Pagination, Section, Title } from '@/shared/ui';
 
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
@@ -38,14 +38,16 @@ export default async function UserFavReviewPage({
             좋아요한 리뷰가 없어요!
           </div>
         )}
-        {data?.content.map(review => (
-          <ReviewItem
-            key={review.id}
-            type='KYONGSUL'
-            isLiked={true}
-            {...review}
-          />
-        ))}
+        <div className='flex flex-col gap-2'>
+          {data?.content.map(review => (
+            <ReviewItem
+              key={review.id}
+              type='KYONGSUL'
+              isLiked={true}
+              {...review}
+            />
+          ))}
+        </div>
       </Suspense>
 
       {totalPages > 1 && (
