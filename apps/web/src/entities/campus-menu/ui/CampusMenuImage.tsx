@@ -9,7 +9,7 @@ interface CampusMenuImageProps {
 
 export default function CampusMenuImage({ menuId }: CampusMenuImageProps) {
   const [imageSrc, setImageSrc] = useState(
-    `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761488524/130_ymlcvs.webp`,
+    `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761492742/${menuId}.jpg`,
   );
 
   const handleError = () => {
