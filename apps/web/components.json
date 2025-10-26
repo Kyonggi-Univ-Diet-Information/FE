@@ -15,6 +15,6 @@
     "hooks": "@/hooks",
     "lib": "@/lib",
     "utils": "@/shared/utils",
-    "ui": "@/components/common"
+    "ui": "@/shared/ui"
   }
 }
