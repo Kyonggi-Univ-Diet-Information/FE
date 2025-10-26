@@ -1,8 +1,8 @@
 'use server';
 
-import { AuthService } from '@/shared/lib/auth';
-import { apiServer } from '@/shared/axios/server.config';
+import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config/endpoint';
+import { AuthService } from '@/shared/lib/auth';
 
 interface LoginResponse {
   token: string;
@@ -11,13 +11,13 @@ interface LoginResponse {
 
 export async function handleKakaoLogin(code: string) {
   try {
-    const response = await apiServer.get<LoginResponse, { code: string }>({
+    const response = await Http.get<LoginResponse, { code: string }>({
       request: ENDPOINT.AUTH.KAKAO_LOGIN,
       params: { code },
     });
 
-    if (response.data?.token) {
-      await AuthService.setTokens(response.data.token, response.data.token);
+    if (response.token) {
+      await AuthService.setTokens(response.token, response.token);
       return { success: true };
     }
 

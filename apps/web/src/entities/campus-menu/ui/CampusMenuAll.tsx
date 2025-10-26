@@ -1,12 +1,14 @@
+import { getLocale, getTranslations } from 'next-intl/server';
+
 import { Card } from '@/shared/ui';
+
+import { fetchCampusMenu } from '../api/fetchCampusMenu';
 import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_NAME,
   CAMPUS_RESTAURANT_NAME_EN,
   RESTAURANT_ID_BY_NAME,
 } from '../model/campusRestaurant';
-import { getLocale, getTranslations } from 'next-intl/server';
-import { fetchCampusMenu } from '../api/fetchCampusMenu';
 
 export default async function CampusMenuAll() {
   const locale = await getLocale();

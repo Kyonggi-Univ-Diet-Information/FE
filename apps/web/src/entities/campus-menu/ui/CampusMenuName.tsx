@@ -1,6 +1,7 @@
 import { getLocale } from 'next-intl/server';
-import { fetchCampusMenuName } from '../api/fetchCampusMenuName';
 import { Suspense } from 'react';
+
+import { fetchCampusMenuName } from '../api/fetchCampusMenuName';
 
 export default async function CampusMenuName({
   menuId,

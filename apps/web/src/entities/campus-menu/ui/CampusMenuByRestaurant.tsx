@@ -1,18 +1,18 @@
-import { Fragment } from 'react';
-import { CAMPUS_RESTAURANT_ID } from '../model/campusRestaurant';
+import { getLocale, getTranslations } from 'next-intl/server';
+
+import { Link } from '@/shared/i18n/routing';
+
+import CampusMenuCard from './CampusMenuCard';
+import { fetchCampusMenuByRestaurant } from '../api/fetchCampusMenuByRestaurant';
+import { fetchCategorizedCampusMenu } from '../api/fetchCategorizedCampusMenu';
 import {
   CAMPUS_MENU_KEY,
-  CAMPUS_MENU_LABEL,
   CAMPUS_MENU_TEXT,
   CAMPUS_MENU_TEXT_EN,
   MENU_KEY_TO_ID,
   ID_TO_MENU_KEY,
 } from '../model/campusMenu';
-import { fetchCampusMenuByRestaurant } from '../api/fetchCampusMenuByRestaurant';
-import { getLocale, getTranslations } from 'next-intl/server';
-import CampusMenuCard from './CampusMenuCard';
-import { Link } from '@/shared/i18n/routing';
-import { fetchCategorizedCampusMenu } from '../api/fetchCategorizedCampusMenu';
+import { CAMPUS_RESTAURANT_ID } from '../model/campusRestaurant';
 
 interface CampusMenuByRestaurantProps {
   restaurantId: string;

@@ -1,8 +1,9 @@
+import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config';
+
 import type { DormDay } from '../model/dormDay';
 import type { DormMenu } from '../model/dormMenu';
 import type { DormTime } from '../model/dormTime';
-import { Http } from '@/shared/api/http';
 
 export interface FetchDormMenuByDayRes {
   result: {

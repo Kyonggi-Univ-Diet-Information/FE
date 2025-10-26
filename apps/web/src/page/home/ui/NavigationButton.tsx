@@ -1,5 +1,6 @@
-import { Link } from '@/shared/i18n/routing';
 import React from 'react';
+
+import { Link } from '@/shared/i18n/routing';
 
 interface NavigationButtonProps {
   href?: string;

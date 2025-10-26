@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-
 import { useEffect, type ReactNode } from 'react';
+
+import { useAuth } from '@/features/auth/hooks';
 
 import { Loader } from '@/shared/ui';
 
-import { useAuth } from '@/features/auth/hooks';
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();

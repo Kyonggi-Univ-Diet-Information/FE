@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { WeekSelector, Modal, Button } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
+
+import { WeekSelector, Modal, Button } from '@/shared/ui';
 
 export default function DaySelectModal() {
   const router = useRouter();

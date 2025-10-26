@@ -1,8 +1,10 @@
+import { cache } from 'react';
+
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, FOOD_COURT } from '@/shared/config/endpoint';
+
 import type { CampusMenu } from '../model/campusMenu';
 import type { SubRestaurant } from '../model/campusRestaurant';
-import { cache } from 'react';
 
 export const fetchCampusMenu = cache(
   async (): Promise<Record<SubRestaurant, CampusMenu[]>> => {

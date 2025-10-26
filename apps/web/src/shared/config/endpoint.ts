@@ -4,6 +4,11 @@ import { DormDay } from '@/entities/dorm-menu/model';
 export const PUBLIC_API_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
 
+export const INQUIRY_URL = 'https://open.kakao.com/o/sgcUtX3g';
+
+export const PATCHNOTE_URL =
+  'https://abounding-mice-0a1.notion.site/26ad8a0f1c3f804398f1d2baa67d3457';
+
 export const FOOD_COURT = {
   KYONGSUL: 'KYONGSUL',
   DORMITORY: 'DORMITORY',
@@ -29,6 +34,8 @@ export const ENDPOINT = {
       `/food/${foodCourt}/get-names/${foodId}`,
   },
   REVIEW_R: {
+    TOP_5_RECENT: (type: FoodCourt) => `/review/${type}/reviews/top5-recent`,
+    TOP_5_LIKED: (type: FoodCourt) => `/review/${type}/reviews/top5-rating`,
     COUNT: (foodCourt: FoodCourt, foodId: number) =>
       `/review/${foodCourt}/count/${foodId}`,
     PAGED: (foodCourt: FoodCourt, foodId: number) =>
@@ -55,6 +62,9 @@ export const ENDPOINT = {
       `/review/favorite/${foodCourt}/count/${reviewId}`,
   },
   MEMBER: {
+    MEMBER_INFO: '/my-page/info',
+    MEMBER_REVIEW: '/my-page/reviews',
+    MEMBER_FAV_REVIEW: '/my-page/favorites',
     MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>
       `/review/favorite/${foodCourt}/each-member/all`,
   },

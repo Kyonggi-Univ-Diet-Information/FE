@@ -1,6 +1,7 @@
+import { useTranslations } from 'next-intl';
+
 import { Link } from '@/shared/i18n/routing';
 import { Button, Title } from '@/shared/ui';
-import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
   const t = useTranslations('notFound');

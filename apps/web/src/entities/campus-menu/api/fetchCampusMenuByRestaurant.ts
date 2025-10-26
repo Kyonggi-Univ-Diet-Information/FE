@@ -1,8 +1,10 @@
+import { cache } from 'react';
+
 import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config/endpoint';
-import type { SubRestaurant } from '../model/campusRestaurant';
+
 import type { CampusMenu } from '../model/campusMenu';
-import { cache } from 'react';
+import type { SubRestaurant } from '../model/campusRestaurant';
 
 export const fetchCampusMenuByRestaurant = cache(
   async (restaurantId: SubRestaurant): Promise<CampusMenu[]> => {

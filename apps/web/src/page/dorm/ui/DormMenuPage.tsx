@@ -1,3 +1,5 @@
+import { getLocale, getTranslations } from 'next-intl/server';
+
 import { DormMenuByDay } from '@/entities/dorm-menu';
 import {
   DORM_DAY,
@@ -6,9 +8,9 @@ import {
   DORM_DAY_SHORT,
   DORM_DAY_SHORT_EN,
 } from '@/entities/dorm-menu/model';
+
 import { getWeekDates, getWeekStart } from '@/shared/lib/date';
 import { Section, StaticTabNavigation } from '@/shared/ui';
-import { getLocale, getTranslations } from 'next-intl/server';
 
 export interface DormMenuPageProps {
   params: Promise<{ day: number }>;

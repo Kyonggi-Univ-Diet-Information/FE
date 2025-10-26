@@ -1,23 +1,28 @@
 import { getLocale, getTranslations } from 'next-intl/server';
-import { Link } from '@/shared/i18n/routing';
 
+import { CampusMenuAll } from '@/entities/campus-menu';
+import { DormMenuAll } from '@/entities/dorm-menu';
+import {
+  getAdjacentDates,
+  isSaturday,
+  isSunday,
+} from '@/entities/dorm-menu/model';
 import {
   DORM_DAY,
   DORM_DAY_EN,
   DORM_DAY_KEY,
   type DormDay,
 } from '@/entities/dorm-menu/model/dormDay';
+
+import { Link } from '@/shared/i18n/routing';
+import { getCurrentDate } from '@/shared/lib/date';
 import { Section } from '@/shared/ui';
-import { CampusMenuAll } from '@/entities/campus-menu';
-import { DormMenuAll } from '@/entities/dorm-menu';
+
+
 import DaySelectModal from './DaySelectModal';
 import NavigationButton from './NavigationButton';
-import {
-  getAdjacentDates,
-  isSaturday,
-  isSunday,
-} from '@/entities/dorm-menu/model';
-import { getCurrentDate } from '@/shared/lib/date';
+
+
 
 export interface HomeProps {
   searchParams: Promise<{ modal?: string; date?: string }>;
