@@ -3,7 +3,7 @@ import React from 'react';
 
 import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
 
-import { Section } from '@/shared/ui';
+import { AnimatedCard, Section } from '@/shared/ui';
 import { Card } from '@/shared/ui';
 
 import {
@@ -13,7 +13,6 @@ import {
   renderMenuItems,
   isWeekend,
 } from '../model';
-
 
 interface DormMenuSectionProps {
   date: DormDay;
@@ -47,28 +46,34 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
 
   return (
     <Section.Content>
-      <Card className='h-70'>
-        <Card.Header>
-          {tDorm('breakfast')} <span className='font-tossFace'>☀️</span>
-        </Card.Header>
-        <Card.Content>{renderMenuItems([], locale)}</Card.Content>
-      </Card>
-      <Card>
-        <Card.Header>
-          {tDorm('lunch')} <span className='font-tossFace'>🍽️</span>{' '}
-        </Card.Header>
-        <Card.Content>
-          {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
-        </Card.Content>
-      </Card>
-      <Card>
-        <Card.Header>
-          {tDorm('dinner')} <span className='font-tossFace'>🌙</span>
-        </Card.Header>
-        <Card.Content>
-          {renderMenuItems(dormMenuByTime('DINNER'), locale)}
-        </Card.Content>
-      </Card>
+      <AnimatedCard index={0}>
+        <Card className='h-70'>
+          <Card.Header>
+            {tDorm('breakfast')} <span className='font-tossFace'>☀️</span>
+          </Card.Header>
+          <Card.Content>{renderMenuItems([], locale)}</Card.Content>
+        </Card>
+      </AnimatedCard>
+      <AnimatedCard index={1}>
+        <Card className='h-full'>
+          <Card.Header>
+            {tDorm('lunch')} <span className='font-tossFace'>🍽️</span>{' '}
+          </Card.Header>
+          <Card.Content>
+            {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
+          </Card.Content>
+        </Card>
+      </AnimatedCard>
+      <AnimatedCard index={2}>
+        <Card className='h-full'>
+          <Card.Header>
+            {tDorm('dinner')} <span className='font-tossFace'>🌙</span>
+          </Card.Header>
+          <Card.Content>
+            {renderMenuItems(dormMenuByTime('DINNER'), locale)}
+          </Card.Content>
+        </Card>
+      </AnimatedCard>
     </Section.Content>
   );
 }

@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { CampusMenuAll } from '@/entities/campus-menu';
@@ -16,27 +17,14 @@ import {
 
 import { Link } from '@/shared/i18n/routing';
 import { getCurrentDate } from '@/shared/lib/date';
-import { Section } from '@/shared/ui';
-
+import { AnimatedCard, Section } from '@/shared/ui';
 
 import DaySelectModal from './DaySelectModal';
 import NavigationButton from './NavigationButton';
 
-
-
 export interface HomeProps {
   searchParams: Promise<{ modal?: string; date?: string }>;
 }
-
-// function MenuSectionsSkeleton() {
-//   return (
-//     <>
-//       <div className='h-80 animate-pulse rounded-2xl bg-gray-100/20' />
-//       <div className='h-32 animate-pulse rounded-2xl bg-gray-100/20' />
-//       <div className='h-80 animate-pulse rounded-2xl bg-gray-100/20' />
-//     </>
-//   );
-// }
 
 export default async function HomePage({ searchParams }: HomeProps) {
   const { modal, date } = await searchParams;
@@ -159,13 +147,20 @@ async function ReviewLinkButton() {
   return (
     <Link
       href='/review'
-      className='flex cursor-pointer flex-col rounded-2xl bg-gray-100/50 px-6 py-6 transition-all duration-300 active:bg-gray-100 md:px-8'
+      className='group -mb-2 -mt-2 cursor-pointer rounded-2xl transition-all duration-300'
     >
-      <p className='text-lg font-bold'>
-        {t('reviewPrompt')}
-        <span className='font-tossFace'> 😋</span>
-      </p>
-      <p>{t('reviewDescription')}</p>
+      <AnimatedCard index={0} animationType='spring'>
+        <div className='flex items-center justify-between'>
+          <div className='text-lg font-semibold group-hover:text-gray-900/60 group-active:text-gray-900/60'>
+            <span className='font-tossFace'>😋 </span>
+            {t('reviewPrompt')}
+          </div>
+          <div className='flex items-center gap-1 text-sm text-gray-600 group-hover:text-gray-900/60 group-active:text-gray-900/60'>
+            {t('reviewDescription')}
+            <ChevronRight size={14} />
+          </div>
+        </div>
+      </AnimatedCard>
     </Link>
   );
 }

@@ -1,6 +1,7 @@
 export * from './Avatar';
 export * from './Button';
 
+export { default as AnimatedCard } from './AnimatedCard';
 export { default as Card } from './Card';
 export { default as Modal } from './Modal';
 export { default as TabNavigation } from './TabNavigation';
