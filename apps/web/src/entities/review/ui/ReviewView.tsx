@@ -1,7 +1,6 @@
 import { CampusMenuName } from '@/entities/campus-menu';
 
 import { type FoodCourt } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 import { Card, Section } from '@/shared/ui';
 
 import ReviewAnimatedCard from './ReviewAnimatedCard';
@@ -20,7 +19,7 @@ export default async function ReviewView({ type }: ReviewViewProps) {
   const recentReviews = await fetchReviewTop5Recent(type);
 
   return (
-    <>
+    <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
       <Section>
         <Section.Header
           title='인기 리뷰'
@@ -44,7 +43,7 @@ export default async function ReviewView({ type }: ReviewViewProps) {
           ))}
         </div>
       </Section>
-    </>
+    </div>
   );
 }
 
