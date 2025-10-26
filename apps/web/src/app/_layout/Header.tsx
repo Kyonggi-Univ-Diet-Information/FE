@@ -1,5 +1,6 @@
 'use client';
 
+import { ChevronLeftIcon } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
@@ -33,10 +34,48 @@ export default function Header() {
     router.push(pathWithoutLocale, { locale: newLocale });
   };
 
-  return (
-    <header className='fixed top-0 z-50 flex h-14 w-full border-b border-gray-100 bg-white py-8'>
-      <div className='mx-auto flex w-full max-w-[770px] items-center justify-between px-4'>
-        <Link href='/' className='flex cursor-pointer items-baseline gap-2'>
+  const isDepthPage = () => {
+    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
+    if (
+      pathWithoutLocale.split('/').length > 2 &&
+      !pathWithoutLocale.startsWith('/campus') &&
+      !pathWithoutLocale.startsWith('/dorm')
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const MobileHeader = () => {
+    return (
+      <button
+        onClick={() => {
+          if (isDepthPage()) router.back();
+          else router.push('/');
+        }}
+        className='flex cursor-pointer items-baseline gap-2 focus:outline-none md:hidden'
+      >
+        {isDepthPage() ? (
+          <ChevronLeftIcon />
+        ) : (
+          <>
+            <span className='font-brBold text-2xl font-bold'>기밥</span>
+            <span className='font-brRegular hidden md:block'>
+              {tCommon('appName')}
+            </span>
+          </>
+        )}
+      </button>
+    );
+  };
+
+  const DesktopHeader = () => {
+    return (
+      <>
+        <Link
+          href='/'
+          className='hidden cursor-pointer items-baseline gap-2 md:flex'
+        >
           <span className='font-brBold text-2xl font-bold'>기밥</span>
           <span className='font-brRegular hidden md:block'>
             {tCommon('appName')}
@@ -65,6 +104,15 @@ export default function Header() {
             );
           })}
         </div>
+      </>
+    );
+  };
+
+  return (
+    <header className='fixed top-0 z-50 flex h-14 w-full border-b border-gray-100 bg-white py-8'>
+      <div className='mx-auto flex w-full max-w-[770px] items-center justify-between px-4'>
+        <MobileHeader />
+        <DesktopHeader />
         <div className='flex items-center gap-4'>
           <button
             onClick={handleLanguageToggle}
@@ -73,6 +121,7 @@ export default function Header() {
           >
             {locale === 'ko' ? '🇰🇷' : '🇺🇸'}
           </button>
+
           <Link
             href={INQUIRY_URL}
             target='_blank'
