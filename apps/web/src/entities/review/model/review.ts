@@ -8,6 +8,16 @@ export type Review = {
   updatedAt: string;
 };
 
+export type TopReview = {
+  content: string;
+  favoriteCount: number;
+  foodId: number;
+  memberName: string;
+  rating: number;
+  reviewId: number;
+  title: string;
+};
+
 export type ReviewPost = Pick<Review, 'rating' | 'title' | 'content'>;
 
 export type Rating = {

@@ -1,9 +1,7 @@
 import { Http } from '@/shared/api/http';
 import { KEY, ENDPOINT, type FoodCourt } from '@/shared/config';
 
-import { type Review } from '../model/review';
-
-type TopReview = Review & { foodId: number };
+import type { TopReview } from '../model/review';
 
 export const fetchReviewTop5Recent = async (
   type: FoodCourt,
