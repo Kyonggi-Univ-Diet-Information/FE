@@ -22,6 +22,9 @@ export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
   const data = await Http.get<FetchDormMenuRes>({
     request: ENDPOINT.DORM.DORM_MENU,
     cache: 'force-cache',
+    next: {
+      revalidate: 60 * 60 * 2,
+    },
   });
   return data.result;
 };

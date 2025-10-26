@@ -25,6 +25,9 @@ export const fetchDormMenuByDay = async (
   const data = await Http.get<FetchDormMenuByDayRes>({
     request: ENDPOINT.DORM.DORM_MENU_BY_DAY(day),
     cache: 'force-cache',
+    next: {
+      revalidate: 60 * 60 * 2,
+    },
   });
   return data.result;
 };
