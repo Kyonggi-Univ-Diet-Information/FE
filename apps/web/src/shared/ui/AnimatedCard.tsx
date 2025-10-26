@@ -22,6 +22,11 @@ export default function AnimatedCard({
         scale: animationType === 'spring' ? 0.9 : 1,
       }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{
+        opacity: 0,
+        y: 50,
+        transition: { duration: 0.3 },
+      }}
       transition={{
         delay: index * 0.1,
         ...(animationType === 'spring'

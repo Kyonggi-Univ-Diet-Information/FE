@@ -2,7 +2,7 @@ import { ChevronRight } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { CampusMenuAll } from '@/entities/campus-menu';
-import { DormMenuAll } from '@/entities/dorm-menu';
+import { DormMenuAll, DormMenuAnimatedWrapper } from '@/entities/dorm-menu';
 import {
   getAdjacentDates,
   isSaturday,
@@ -133,7 +133,9 @@ export default async function HomePage({ searchParams }: HomeProps) {
               </div>
             }
           />
-          <DormMenuAll date={currentDay} />
+          <DormMenuAnimatedWrapper currentDay={currentDay}>
+            <DormMenuAll date={currentDay} />
+          </DormMenuAnimatedWrapper>
         </Section>
       </div>
       {isModal && <DaySelectModal />}
