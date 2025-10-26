@@ -1,47 +1,77 @@
-import { getTranslations } from 'next-intl/server';
+import { CampusMenuName } from '@/entities/campus-menu';
 
 import { type FoodCourt } from '@/shared/config';
-import { AuthService } from '@/shared/lib/auth';
+import { Card, Section } from '@/shared/ui';
 
-import ReviewItem from './ReviewItem';
-import { fetchReviewTop5Recent } from '../api/fetchReview';
-import { fetchReviewFaved } from '../api/fetchReviewFaved';
+import ReviewAnimatedCard from './ReviewAnimatedCard';
+import {
+  fetchReviewTop5Liked,
+  fetchReviewTop5Recent,
+} from '../api/fetchReview';
+import { TopReview } from '../model/review';
 
 interface ReviewViewProps {
   type: FoodCourt;
 }
 
 export default async function ReviewView({ type }: ReviewViewProps) {
-  const t = await getTranslations('reviewPage');
-  const isAuthenticated = await AuthService.isAuthenticated();
-  const likedReviewItems = isAuthenticated
-    ? await fetchReviewFaved(type)
-    : Promise.resolve([]);
-
-  const reviews = await fetchReviewTop5Recent(type);
-
-  const likedReviewIds = likedReviewItems
-    ? (await likedReviewItems).map(
-        (item: { kyongsulFoodReviewId: number }) => item.kyongsulFoodReviewId,
-      )
-    : [];
-
-  if (reviews.length === 0) {
-    return (
-      <div className='mt-10 text-center text-gray-500'>{t('noReviews')}</div>
-    );
-  }
+  const popularReviews = await fetchReviewTop5Liked(type);
+  const recentReviews = await fetchReviewTop5Recent(type);
 
   return (
-    <div className='flex flex-col gap-2'>
-      {reviews.map(review => (
-        <ReviewItem
-          key={review.id}
-          type={type}
-          {...review}
-          isLiked={isAuthenticated && likedReviewIds.includes(review.id)}
+    <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
+      <Section>
+        <Section.Header
+          title={
+            <>
+              <span className='font-tossFace'>🔥</span> 인기 리뷰
+            </>
+          }
+          subtitle='리뷰를 클릭해 해당 메뉴의 리뷰를 확인해보세요!'
         />
-      ))}
+        <div className='flex flex-col gap-2'>
+          {popularReviews.map((review, index) => (
+            <ReviewCard key={review.reviewId} review={review} index={index} />
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <Section.Header
+          title={
+            <>
+              <span className='font-tossFace'>✨</span> 최근 리뷰
+            </>
+          }
+          subtitle='최근에 작성된 리뷰들이에요!'
+        />
+        <div className='flex flex-col gap-2'>
+          {recentReviews.map((review, index) => (
+            <ReviewCard key={review.reviewId} review={review} index={index} />
+          ))}
+        </div>
+      </Section>
     </div>
+  );
+}
+
+function ReviewCard({ review, index }: { review: TopReview; index: number }) {
+  return (
+    <ReviewAnimatedCard index={index}>
+      <Card href={`/review/${review.foodId}`} className='h-34'>
+        <div className='flex items-center justify-between'>
+          <span className='font-tossFace'>{'⭐️'.repeat(review.rating)}</span>
+          <p className='flex items-center gap-1 text-sm'>
+            <span className='font-tossFace'>👍</span>
+            {review.favoriteCount}
+          </p>
+        </div>
+        <CampusMenuName
+          menuId={review.foodId}
+          className='text-sm font-semibold'
+        />
+        <p className='line-clamp-2 text-sm'>{review.content}</p>
+      </Card>
+    </ReviewAnimatedCard>
   );
 }
