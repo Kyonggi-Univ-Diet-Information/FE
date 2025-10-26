@@ -1,11 +1,11 @@
 import { ProtectedRoute } from '@/app/_providers';
 
-import { UserReviewPage } from '@/page/user';
+import { UserReviewPage, UserReviewPageProps } from '@/page/user';
 
-const Page = () => {
+const Page = (props: UserReviewPageProps) => {
   return (
     <ProtectedRoute>
-      <UserReviewPage />
+      <UserReviewPage {...props} />
     </ProtectedRoute>
   );
 };
