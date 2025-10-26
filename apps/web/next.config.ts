@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
+  },
   outputFileTracingRoot: process.env.OUTPUT_FILE_TRACING_ROOT || '../..',
   serverExternalPackages: [],
 

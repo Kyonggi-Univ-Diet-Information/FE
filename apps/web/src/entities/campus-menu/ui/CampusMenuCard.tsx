@@ -7,6 +7,7 @@ import { fetchReviewCount } from '@/entities/review/api/fetchReviewCount';
 import { FOOD_COURT } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
+import CampusMenuImage from './CampusMenuImage';
 import type { CampusMenu } from '../model/campusMenu';
 
 interface CampusMenuCardProps extends CampusMenu {
@@ -41,16 +42,7 @@ export default async function CampusMenuCard({
           {t('reviews')}
         </span>
       </div>
-      <Image
-        loading='lazy'
-        placeholder='blur'
-        blurDataURL='/images/no-image.png'
-        src={`/images/no-image.png`}
-        alt={menuName}
-        width={100}
-        height={100}
-        className='rounded-2xl object-cover'
-      />
+      <CampusMenuImage menuId={id} />
     </>
   );
 
