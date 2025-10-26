@@ -1,6 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import React, { Suspense } from 'react';
 
+import { fetchReviewFaved } from '@/entities/review/api/fetchReviewFaved';
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
 import { Loader, Pagination, Title } from '@/shared/ui';
@@ -19,6 +20,8 @@ export default async function UserReviewPage({
 }: UserReviewPageProps) {
   const { pageNo = 0 } = await searchParams;
   const data = await fetchUserReview(pageNo, 'KYONGSUL');
+  const likedReviewItems = await fetchReviewFaved('KYONGSUL');
+
   const totalPages = data?.totalPages;
 
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i);
@@ -42,7 +45,10 @@ export default async function UserReviewPage({
           <ReviewItem
             key={review.id}
             type='KYONGSUL'
-            isLiked={false}
+            isLiked={likedReviewItems.some(
+              (item: { kyongsulFoodReviewId: number }) =>
+                item.kyongsulFoodReviewId === review.id,
+            )}
             {...review}
           />
         ))}
