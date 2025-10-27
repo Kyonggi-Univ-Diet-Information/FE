@@ -1,12 +1,16 @@
 import { getTranslations } from 'next-intl/server';
 
-import { CampusMenuByRestaurant } from '@/entities/campus-menu';
+import {
+  CampusMenuByFoodCourt,
+  CampusMenuByRestaurant,
+} from '@/entities/campus-menu';
 import {
   CAMPUS_FOOD_COURTS,
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_NAME_EN,
-  RESTAURANT_ID_BY_NAME,
   getRestaurantsByFoodCourt,
+  hasSubRestaurants,
+  RESTAURANT_ID_BY_NAME,
 } from '@/entities/campus-menu/model/campusRestaurant';
 
 import {
@@ -19,19 +23,17 @@ import { Link } from '@/shared/i18n/routing';
 import { Section, StaticTabNavigation } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
-export interface CampusRestaurantPageProps {
+export interface CampusFoodCourtPageProps {
   params: Promise<{
     locale: string;
     foodCourtId: string;
-    restaurantId: string;
-    menuKeyId?: string;
   }>;
 }
 
-export default async function CampusRestaurantPage({
+export default async function CampusFoodCourtPage({
   params,
-}: CampusRestaurantPageProps) {
-  const { locale, foodCourtId, restaurantId, menuKeyId } = await params;
+}: CampusFoodCourtPageProps) {
+  const { locale, foodCourtId } = await params;
   const t = await getTranslations('campus');
 
   const foodCourt = getFoodCourtById(foodCourtId);
@@ -55,15 +57,33 @@ export default async function CampusRestaurantPage({
     </Link>
   ));
 
-  const restaurantsInFoodCourt = getRestaurantsByFoodCourt(foodCourt);
-  const restaurantNames =
-    locale === 'en' ? CAMPUS_RESTAURANT_NAME_EN : CAMPUS_RESTAURANT;
+  if (hasSubRestaurants(foodCourt)) {
+    const restaurants = getRestaurantsByFoodCourt(foodCourt);
+    const firstRestaurant = restaurants[0];
+    const firstRestaurantId = RESTAURANT_ID_BY_NAME[firstRestaurant];
+    const restaurantNames =
+      locale === 'en' ? CAMPUS_RESTAURANT_NAME_EN : CAMPUS_RESTAURANT;
 
-  const tabs = restaurantsInFoodCourt.map(restaurant => ({
-    key: RESTAURANT_ID_BY_NAME[restaurant],
-    label: restaurantNames[restaurant],
-    href: `/campus/${foodCourtId}/${RESTAURANT_ID_BY_NAME[restaurant]}`,
-  }));
+    const tabs = restaurants.map(restaurant => ({
+      key: RESTAURANT_ID_BY_NAME[restaurant],
+      label: restaurantNames[restaurant],
+      href: `/campus/${foodCourtId}/${RESTAURANT_ID_BY_NAME[restaurant]}`,
+    }));
+
+    return (
+      <>
+        <Section.Header
+          title={<div className='flex items-center gap-2'>{foodCourts}</div>}
+          subtitle={t('subtitle')}
+        />
+        <StaticTabNavigation tabs={tabs} currentTabKey={firstRestaurantId} />
+        <CampusMenuByRestaurant
+          foodCourtId={foodCourtId}
+          restaurantId={firstRestaurantId}
+        />
+      </>
+    );
+  }
 
   return (
     <>
@@ -71,14 +91,7 @@ export default async function CampusRestaurantPage({
         title={<div className='flex items-center gap-2'>{foodCourts}</div>}
         subtitle={t('subtitle')}
       />
-      {tabs.length > 0 && (
-        <StaticTabNavigation tabs={tabs} currentTabKey={restaurantId} />
-      )}
-      <CampusMenuByRestaurant
-        foodCourtId={foodCourtId}
-        restaurantId={restaurantId}
-        menuKeyId={menuKeyId}
-      />
+      <CampusMenuByFoodCourt foodCourt={foodCourt} />
     </>
   );
 }

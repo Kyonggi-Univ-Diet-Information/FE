@@ -2,6 +2,10 @@ import { ChevronRight } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { CampusMenuAll } from '@/entities/campus-menu';
+import {
+  FOOD_COURT_RESTAURANTS,
+  RESTAURANT_ID_BY_NAME,
+} from '@/entities/campus-menu/model/campusRestaurant';
 import { DormMenuAll, DormMenuAnimatedWrapper } from '@/entities/dorm-menu';
 import {
   getAdjacentDates,
@@ -15,6 +19,7 @@ import {
   type DormDay,
 } from '@/entities/dorm-menu/model/dormDay';
 
+import { FOOD_COURT_ID } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { getCurrentDate } from '@/shared/lib/date';
 import { AnimatedCard, Section } from '@/shared/ui';
@@ -43,6 +48,10 @@ export default async function HomePage({ searchParams }: HomeProps) {
   const isCurrentDaySunday = isSunday(currentDay);
   const isCurrentDaySaturday = isSaturday(currentDay);
 
+  const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
+  const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
+  const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
+
   return (
     <>
       <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pt-6 focus:outline-none'>
@@ -60,7 +69,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
             action={
               <Link
                 prefetch
-                href='/campus/1'
+                href={defaultCampusHref}
                 className='text-sm underline hover:text-gray-600'
               >
                 {t('campusAllView')}

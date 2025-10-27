@@ -12,9 +12,39 @@ export const PATCHNOTE_URL =
 export const FOOD_COURT = {
   KYONGSUL: 'KYONGSUL',
   DORMITORY: 'DORMITORY',
+  E_SQUARE: 'E_SQUARE',
+} as const;
+
+export const FOOD_COURT_ID: Record<FoodCourt, string> = {
+  KYONGSUL: 'ks',
+  DORMITORY: 'do',
+  E_SQUARE: 'es',
+} as const;
+
+export const FOOD_COURT_NAME: Record<FoodCourt, string> = {
+  KYONGSUL: '경슐랭',
+  DORMITORY: '기숙사식당',
+  E_SQUARE: '이스퀘어',
+} as const;
+
+export const FOOD_COURT_NAME_EN: Record<FoodCourt, string> = {
+  KYONGSUL: 'Kyongsulin',
+  DORMITORY: 'Dormitory',
+  E_SQUARE: 'E-Square',
 } as const;
 
 export type FoodCourt = keyof typeof FOOD_COURT;
+export type FoodCourtId = (typeof FOOD_COURT_ID)[FoodCourt];
+
+export const ID_TO_FOOD_COURT: Record<string, FoodCourt> = {
+  ks: 'KYONGSUL',
+  do: 'DORMITORY',
+  es: 'E_SQUARE',
+} as const;
+
+export const getFoodCourtById = (id: string): FoodCourt | undefined => {
+  return ID_TO_FOOD_COURT[id];
+};
 
 export const ENDPOINT = {
   AUTH: {
