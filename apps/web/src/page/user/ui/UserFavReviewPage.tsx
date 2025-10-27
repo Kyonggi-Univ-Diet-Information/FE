@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
-import { Loader, Pagination, Section, Title } from '@/shared/ui';
+import { Loader, Pagination, Title } from '@/shared/ui';
 
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
