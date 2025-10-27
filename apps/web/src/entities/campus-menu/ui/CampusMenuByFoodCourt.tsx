@@ -28,7 +28,12 @@ export default async function CampusMenuByFoodCourt({
       <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
         {campusMenu.length > 0 &&
           campusMenu.map(menu => (
-            <CampusMenuCard key={menu.id} {...menu} locale={locale} />
+            <CampusMenuCard
+              key={menu.id}
+              {...menu}
+              foodCourt={foodCourt}
+              locale={locale}
+            />
           ))}
       </div>
     </>
