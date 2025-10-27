@@ -154,10 +154,11 @@ export default async function HomePage({ searchParams }: HomeProps) {
 
 async function ReviewLinkButton() {
   const t = await getTranslations('home');
+  const defaultReviewHref = `/review`;
 
   return (
     <Link
-      href='/review'
+      href={defaultReviewHref}
       className='group -mb-2 -mt-2 cursor-pointer rounded-2xl transition-all duration-300'
     >
       <AnimatedCard index={0} animationType='spring'>
