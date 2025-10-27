@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import { getFoodCourtById } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
 import CampusMenuCard from './CampusMenuCard';
@@ -26,6 +27,7 @@ export default async function CampusMenuByRestaurant({
   menuKeyId,
 }: CampusMenuByRestaurantProps) {
   const currentRestaurant = CAMPUS_RESTAURANT_ID[restaurantId];
+  const foodCourt = getFoodCourtById(foodCourtId);
 
   const menuKey = menuKeyId ? ID_TO_MENU_KEY[menuKeyId] : undefined;
 
@@ -69,8 +71,14 @@ export default async function CampusMenuByRestaurant({
 
       <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
         {campusMenu.length > 0 &&
+          foodCourt &&
           campusMenu.map(menu => (
-            <CampusMenuCard key={menu.id} {...menu} locale={locale} />
+            <CampusMenuCard
+              key={menu.id}
+              {...menu}
+              foodCourt={foodCourt}
+              locale={locale}
+            />
           ))}
       </div>
     </>
