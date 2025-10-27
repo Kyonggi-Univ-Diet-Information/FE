@@ -1,6 +1,6 @@
 import { CampusMenuName } from '@/entities/campus-menu';
 
-import { type FoodCourt } from '@/shared/config';
+import { FOOD_COURT_ID, type FoodCourt } from '@/shared/config';
 import { Card, Section } from '@/shared/ui';
 
 import ReviewAnimatedCard from './ReviewAnimatedCard';
@@ -31,7 +31,13 @@ export default async function ReviewView({ type }: ReviewViewProps) {
         />
         <div className='flex flex-col gap-2'>
           {popularReviews.map((review, index) => (
-            <ReviewCard key={review.reviewId} review={review} index={index} />
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              index={index}
+              foodCourt={type}
+              foodCourtId={FOOD_COURT_ID[type]}
+            />
           ))}
         </div>
       </Section>
@@ -47,7 +53,13 @@ export default async function ReviewView({ type }: ReviewViewProps) {
         />
         <div className='flex flex-col gap-2'>
           {recentReviews.map((review, index) => (
-            <ReviewCard key={review.reviewId} review={review} index={index} />
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              index={index}
+              foodCourt={type}
+              foodCourtId={FOOD_COURT_ID[type]}
+            />
           ))}
         </div>
       </Section>
@@ -55,10 +67,20 @@ export default async function ReviewView({ type }: ReviewViewProps) {
   );
 }
 
-function ReviewCard({ review, index }: { review: TopReview; index: number }) {
+function ReviewCard({
+  review,
+  index,
+  foodCourt,
+  foodCourtId,
+}: {
+  review: TopReview;
+  index: number;
+  foodCourt: FoodCourt;
+  foodCourtId: string;
+}) {
   return (
     <ReviewAnimatedCard index={index}>
-      <Card href={`/review/${review.foodId}`} className='h-34'>
+      <Card href={`/review/${foodCourtId}/${review.foodId}`} className='h-34'>
         <div className='flex items-center justify-between'>
           <span className='font-tossFace'>{'⭐️'.repeat(review.rating)}</span>
           <p className='flex items-center gap-1 text-sm'>
@@ -67,6 +89,7 @@ function ReviewCard({ review, index }: { review: TopReview; index: number }) {
           </p>
         </div>
         <CampusMenuName
+          foodCourt={foodCourt}
           menuId={review.foodId}
           className='text-sm font-semibold'
         />
