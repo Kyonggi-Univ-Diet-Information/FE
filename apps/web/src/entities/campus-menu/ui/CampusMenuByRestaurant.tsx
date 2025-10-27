@@ -15,11 +15,13 @@ import {
 import { CAMPUS_RESTAURANT_ID } from '../model/campusRestaurant';
 
 interface CampusMenuByRestaurantProps {
+  foodCourtId: string;
   restaurantId: string;
   menuKeyId?: string;
 }
 
 export default async function CampusMenuByRestaurant({
+  foodCourtId,
   restaurantId,
   menuKeyId,
 }: CampusMenuByRestaurantProps) {
@@ -43,7 +45,7 @@ export default async function CampusMenuByRestaurant({
         <div className='flex items-center gap-2 text-sm'>
           <Link
             prefetch
-            href={`/campus/${restaurantId}`}
+            href={`/campus/${foodCourtId}/${restaurantId}`}
             className={!menuKeyId ? 'text-point font-bold' : ''}
           >
             {t('all')}
@@ -52,7 +54,7 @@ export default async function CampusMenuByRestaurant({
             <Link
               prefetch
               key={key}
-              href={`/campus/${restaurantId}/${MENU_KEY_TO_ID[key]}`}
+              href={`/campus/${foodCourtId}/${restaurantId}/${MENU_KEY_TO_ID[key]}`}
               className={menuKey === key ? 'text-point font-bold' : ''}
             >
               {menuTexts[key]}

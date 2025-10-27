@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import { FOOD_COURT_ID } from '@/shared/config';
 import { AnimatedCard, Card } from '@/shared/ui';
 
 import { fetchCampusMenu } from '../api/fetchCampusMenu';
@@ -14,13 +15,15 @@ export default async function CampusMenuAll() {
   const locale = await getLocale();
   const t = await getTranslations('home');
   const campusMenu = await fetchCampusMenu();
+  const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
+
   return (
     <>
       {CAMPUS_RESTAURANT_NAME.map((restaurant, index) => (
         <AnimatedCard key={restaurant} index={index}>
           <Card
             className='h-70'
-            href={`/campus/${RESTAURANT_ID_BY_NAME[restaurant]}`}
+            href={`/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[restaurant]}`}
           >
             <p className='flex items-center justify-between font-semibold'>
               <span>
