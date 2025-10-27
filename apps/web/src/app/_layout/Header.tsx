@@ -8,7 +8,12 @@ import React from 'react';
 
 import { AuthButton } from '@/features/auth/components';
 
-import { INQUIRY_URL } from '@/shared/config';
+import {
+  FOOD_COURT_RESTAURANTS,
+  RESTAURANT_ID_BY_NAME,
+} from '@/entities/campus-menu/model/campusRestaurant';
+
+import { FOOD_COURT_ID, INQUIRY_URL } from '@/shared/config';
 import { Link, useRouter } from '@/shared/i18n/routing';
 
 export default function Header() {
@@ -20,9 +25,13 @@ export default function Header() {
 
   const today = new Date().getDay();
 
+  const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
+  const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
+  const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
+
   const navItems = [
     { href: '/', label: t('home') },
-    { href: '/campus/1', label: t('campus') },
+    { href: defaultCampusHref, label: t('campus') },
     { href: `/dorm/${today}`, label: t('dorm') },
     { href: '/review', label: t('review') },
     { href: '/user', label: t('myPage') },
