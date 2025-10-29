@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { CampusMenuAll } from '@/entities/campus-menu';
@@ -22,7 +23,7 @@ import {
 import { FOOD_COURT_ID } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { getCurrentDate } from '@/shared/lib/date';
-import { AnimatedCard, Section } from '@/shared/ui';
+import { AnimatedCard, Card, Section } from '@/shared/ui';
 
 import DaySelectModal from './DaySelectModal';
 import NavigationButton from './NavigationButton';
@@ -77,9 +78,39 @@ export default async function HomePage({ searchParams }: HomeProps) {
             }
           />
           <Section.Content>
-            <CampusMenuAll />
+            {/* <AnimatedCard index={0} className='min-w-full flex-1'>
+              <Card className='relative h-[300px] w-full'>
+                <Image
+                  src='/images/campus-map.png'
+                  alt='campus'
+                  fill
+                  className='object-cover'
+                />
+              </Card>
+            </AnimatedCard> */}
+            <div className='grid w-full grid-cols-3 divide-x divide-gray-100 rounded-2xl bg-gray-100/50 text-center'>
+              <Link
+                href='/campus/ks'
+                className='py-4 text-gray-600 active:text-gray-900'
+              >
+                경슐랭
+              </Link>
+              <Link
+                href='/campus/es'
+                className='py-4 text-gray-600 active:text-gray-900'
+              >
+                이스퀘어
+              </Link>
+              <Link
+                href='/campus/sb'
+                className='py-4 text-gray-600 active:text-gray-900'
+              >
+                샐리박스
+              </Link>
+            </div>
           </Section.Content>
         </Section>
+
         <ReviewLinkButton />
         <Section>
           <Section.Header

@@ -7,15 +7,18 @@ interface AnimatedCardProps {
   children: ReactNode;
   index: number;
   animationType?: 'spring' | 'ease';
+  className?: string;
 }
 
 export default function AnimatedCard({
   children,
   index,
   animationType = 'ease',
+  className,
 }: AnimatedCardProps) {
   return (
     <motion.div
+      className={className}
       initial={{
         opacity: 0,
         y: animationType === 'spring' ? 0 : 20,
