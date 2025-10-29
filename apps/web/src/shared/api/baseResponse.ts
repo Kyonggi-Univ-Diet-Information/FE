@@ -34,3 +34,7 @@ export type BasePagedResponse<T> = {
   };
   empty: boolean;
 };
+
+export type BaseResponse<T> = {
+  result: T;
+};

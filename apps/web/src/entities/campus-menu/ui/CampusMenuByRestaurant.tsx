@@ -4,75 +4,89 @@ import { getFoodCourtById } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
 import CampusMenuCard from './CampusMenuCard';
-import { fetchCampusMenuByRestaurant } from '../api/fetchCampusMenuByRestaurant';
-import { fetchCategorizedCampusMenu } from '../api/fetchCategorizedCampusMenu';
+import { fetchCampusMenuByCategory } from '../api/fetchCampusMenuByCategory';
 import {
-  CAMPUS_MENU_KEY,
-  CAMPUS_MENU_TEXT,
-  CAMPUS_MENU_TEXT_EN,
-  MENU_KEY_TO_ID,
-  ID_TO_MENU_KEY,
+  CATEGORY_TO_TEXT,
+  CATEGORY_TO_TEXT_EN,
+  type CampusMenuWithCategory,
 } from '../model/campusMenu';
-import { CAMPUS_RESTAURANT_ID } from '../model/campusRestaurant';
+import {
+  CAMPUS_RESTAURANT_ID,
+  hasSubRestaurants,
+} from '../model/campusRestaurant';
 
 interface CampusMenuByRestaurantProps {
   foodCourtId: string;
   restaurantId: string;
-  menuKeyId?: string;
+  categoryKey?: string;
 }
 
 export default async function CampusMenuByRestaurant({
   foodCourtId,
   restaurantId,
-  menuKeyId,
+  categoryKey,
 }: CampusMenuByRestaurantProps) {
-  const currentRestaurant = CAMPUS_RESTAURANT_ID[restaurantId];
   const foodCourt = getFoodCourtById(foodCourtId);
+  if (!foodCourt) {
+    return null;
+  }
 
-  const menuKey = menuKeyId ? ID_TO_MENU_KEY[menuKeyId] : undefined;
+  const currentRestaurant = hasSubRestaurants(foodCourt)
+    ? CAMPUS_RESTAURANT_ID[restaurantId]
+    : undefined;
 
-  const campusMenu = menuKeyId
-    ? await fetchCategorizedCampusMenu(
-        CAMPUS_RESTAURANT_ID[restaurantId],
-        menuKey as string,
-      )
-    : await fetchCampusMenuByRestaurant(CAMPUS_RESTAURANT_ID[restaurantId]);
+  const { categories, menusByCategory } = await fetchCampusMenuByCategory(
+    foodCourt,
+    currentRestaurant,
+  );
 
   const locale = await getLocale();
-  const menuTexts = locale === 'en' ? CAMPUS_MENU_TEXT_EN : CAMPUS_MENU_TEXT;
+  const categoryTexts =
+    locale === 'en' ? CATEGORY_TO_TEXT_EN : CATEGORY_TO_TEXT;
   const t = await getTranslations('campus');
+
+  let displayMenus: CampusMenuWithCategory[] = [];
+  let totalCount = 0;
+
+  if (categoryKey && menusByCategory[categoryKey]) {
+    displayMenus = menusByCategory[categoryKey];
+    totalCount = displayMenus.length;
+  } else {
+    displayMenus = Object.values(menusByCategory).flat();
+    totalCount = displayMenus.length;
+  }
+
   return (
     <>
       <div className='flex items-center justify-between'>
-        <div className='flex items-center gap-2 text-sm'>
+        <div className='flex items-center gap-2 overflow-x-auto text-sm'>
           <Link
             prefetch
             href={`/campus/${foodCourtId}/${restaurantId}`}
-            className={!menuKeyId ? 'text-point font-bold' : ''}
+            className={!categoryKey ? 'text-point font-bold' : ''}
           >
             {t('all')}
           </Link>
-          {CAMPUS_MENU_KEY[currentRestaurant].map(key => (
+          {categories.map(key => (
             <Link
               prefetch
               key={key}
-              href={`/campus/${foodCourtId}/${restaurantId}/${MENU_KEY_TO_ID[key]}`}
-              className={menuKey === key ? 'text-point font-bold' : ''}
+              href={`/campus/${foodCourtId}/${restaurantId}/${key}`}
+              className={categoryKey === key ? 'text-point font-bold' : ''}
             >
-              {menuTexts[key]}
+              {categoryTexts[key] || key}
             </Link>
           ))}
         </div>
-        <span className='text-sm text-gray-600'>
-          {t('total')} {campusMenu.length}
+        <span className='whitespace-nowrap text-sm text-gray-600'>
+          {t('total')} {totalCount}
           {t('menus')}
         </span>
       </div>
 
       <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
-        {campusMenu.length > 0 &&
-          foodCourt &&
-          campusMenu.map(menu => (
+        {displayMenus.length > 0 &&
+          displayMenus.map(menu => (
             <CampusMenuCard
               key={menu.id}
               {...menu}

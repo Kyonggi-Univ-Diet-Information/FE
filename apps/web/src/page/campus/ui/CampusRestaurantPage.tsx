@@ -24,14 +24,14 @@ export interface CampusRestaurantPageProps {
     locale: string;
     foodCourtId: string;
     restaurantId: string;
-    menuKeyId?: string;
+    categoryKey?: string;
   }>;
 }
 
 export default async function CampusRestaurantPage({
   params,
 }: CampusRestaurantPageProps) {
-  const { locale, foodCourtId, restaurantId, menuKeyId } = await params;
+  const { locale, foodCourtId, restaurantId, categoryKey } = await params;
   const t = await getTranslations('campus');
 
   const foodCourt = getFoodCourtById(foodCourtId);
@@ -77,7 +77,7 @@ export default async function CampusRestaurantPage({
       <CampusMenuByRestaurant
         foodCourtId={foodCourtId}
         restaurantId={restaurantId}
-        menuKeyId={menuKeyId}
+        categoryKey={categoryKey}
       />
     </>
   );

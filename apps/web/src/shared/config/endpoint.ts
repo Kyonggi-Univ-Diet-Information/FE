@@ -39,6 +39,7 @@ export const FOOD_COURT_NAME_EN: Record<FoodCourt, string> = {
 
 export type FoodCourt = keyof typeof FOOD_COURT;
 export type FoodCourtId = (typeof FOOD_COURT_ID)[FoodCourt];
+export type CampusFoodCourt = Exclude<FoodCourt, 'DORMITORY'>;
 
 export const ID_TO_FOOD_COURT: Record<string, FoodCourt> = {
   ks: 'KYONGSUL',
@@ -47,8 +48,14 @@ export const ID_TO_FOOD_COURT: Record<string, FoodCourt> = {
   sb: 'SALLY_BOX',
 } as const;
 
-export const getFoodCourtById = (id: string): FoodCourt | undefined => {
-  return ID_TO_FOOD_COURT[id];
+export const ID_TO_CAMPUS_FOOD_COURT: Record<string, CampusFoodCourt> = {
+  ks: 'KYONGSUL',
+  es: 'E_SQUARE',
+  sb: 'SALLY_BOX',
+} as const;
+
+export const getFoodCourtById = (id: string): CampusFoodCourt | undefined => {
+  return ID_TO_CAMPUS_FOOD_COURT[id] as CampusFoodCourt | undefined;
 };
 
 export const ENDPOINT = {
@@ -62,11 +69,13 @@ export const ENDPOINT = {
   MENU: {
     MENU_ALL: (foodCourt: FoodCourt) => `/food/${foodCourt}/all`,
     MENU_BY_RESTAURANT: (
-      foodCourt: Omit<FoodCourt, 'DORMITORY'>,
+      foodCourt: CampusFoodCourt,
       restaurant: SubRestaurant,
     ) => `/food/${foodCourt}/restaurant/${restaurant}`,
     MENU_NAME: (foodCourt: FoodCourt, foodId: number) =>
       `/food/${foodCourt}/get-names/${foodId}`,
+    MENU_BY_CATEGORY: (foodCourt: CampusFoodCourt) =>
+      `/food/${foodCourt}/each-category`,
   },
   REVIEW_R: {
     TOP_5_RECENT: (type: FoodCourt) => `/review/${type}/reviews/top5-recent`,

@@ -1,5 +1,7 @@
 import type { SubRestaurant } from './campusRestaurant';
 
+export type { CampusFoodCourt } from '@/shared/config/endpoint';
+
 export type CampusMenu = {
   id: number;
   name: string;
@@ -8,85 +10,91 @@ export type CampusMenu = {
   subRestaurant: SubRestaurant;
 };
 
-export const CAMPUS_MENU_KEY: Record<SubRestaurant, string[]> = {
-  BURGER_TACO: ['버거', '타코', '세트', '콤보', '떡뽀끼'],
-  MANKWON: ['덮밥'],
-  SYONG: ['돈까스', '카츠', '우동', '파스타'],
-  WIDELGA: ['찌개'],
-  SINMEOI: ['쌀국수'],
+export type CampusMenuWithCategory = CampusMenu & {
+  category: string;
+  categoryKorean: string;
 };
 
-export const CAMPUS_MENU_LABEL: Record<string, string> = {
-  세트: '🍟',
-  콤보: '🥤',
-  버거: '🍔',
-  타코: '🌮',
-  떡뽀끼: '🍴',
-  덮밥: '🍚',
-  돈까스: '🍛',
-  카츠: '🍛',
-  우동: '🍜',
-  파스타: '🍝',
-  찌개: '🥘',
-  쌀국수: '🍜',
+export type KyongsulCategoryMenuResponse = {
+  [key in SubRestaurant]?: {
+    [category: string]: CampusMenuWithCategory[];
+  };
 };
 
-export const CAMPUS_MENU_TEXT: Record<string, string> = {
-  세트: '세트',
-  콤보: '콤보',
-  버거: '버거',
-  타코: '타코',
-  떡뽀끼: '떡뽀끼',
-  덮밥: '덮밥',
-  돈까스: '돈까스',
-  카츠: '카츠',
-  우동: '우동',
-  파스타: '파스타',
-  찌개: '찌개',
-  쌀국수: '쌀국수',
+export type SimpleCategoryMenuResponse = {
+  [category: string]: CampusMenuWithCategory[];
 };
 
-export const CAMPUS_MENU_TEXT_EN: Record<string, string> = {
-  세트: 'Set',
-  콤보: 'Combo',
-  버거: 'Burger',
-  타코: 'Taco',
-  떡뽀끼: 'Tteokbokki',
-  덮밥: 'Rice Bowl',
-  돈까스: 'Pork Cutlet',
-  카츠: 'Katsu',
-  우동: 'Udon',
-  파스타: 'Pasta',
-  찌개: 'Stew',
-  쌀국수: 'Rice Noodles',
+export type CategoryMenuResponse =
+  | KyongsulCategoryMenuResponse
+  | SimpleCategoryMenuResponse;
+
+export const CATEGORY_TO_TEXT: Record<string, string> = {
+  MEALS: '식사',
+  STREET: '분식',
+  SOBA: '소바',
+  KATSU: '카츠',
+  CHICKEN: '치킨',
+  JJIGAE: '찌개',
+  SOUP: '탕',
+  ICE_CREAM: '아이스크림',
+  COFFEE_BEVERAGE: '커피/음료',
+  CUTLET: '돈까스',
+  SIDE: '사이드',
+  STEAK: '스테이크',
+  NOODLE: '면',
+  BOWL: '덮밥',
+  CURRY: '커리',
+  TTEOKBOKKI: '떡볶이',
+  UDON: '우동',
+  BURGER: '버거',
+  TACO: '타코',
+  SET: '세트',
+  COMBO: '콤보',
+  STEW: '찌개',
+  RICE_NOODLE: '쌀국수',
+  PASTA: '파스타',
+  PACK: '팩',
+  RICE: '밥',
+  SANDWICH: '샌드위치',
+  DRINK: '커피/음료',
+  PHO: '쌀국수',
+  ETC: '기타',
+  BANHMI: '반미',
+  SHRIMP: '새우',
 };
 
-export const MENU_KEY_TO_ID: Record<string, string> = {
-  버거: '0',
-  타코: '1',
-  세트: '2',
-  콤보: '3',
-  떡뽀끼: '4',
-  덮밥: '5',
-  돈까스: '6',
-  카츠: '7',
-  우동: '8',
-  파스타: '9',
-  찌개: '10',
-  쌀국수: '11',
-};
-
-export const ID_TO_MENU_KEY: Record<string, string> = {
-  '0': '버거',
-  '1': '타코',
-  '2': '세트',
-  '3': '콤보',
-  '4': '떡뽀끼',
-  '5': '덮밥',
-  '6': '돈까스',
-  '7': '카츠',
-  '8': '우동',
-  '9': '파스타',
-  '10': '찌개',
-  '11': '쌀국수',
+export const CATEGORY_TO_TEXT_EN: Record<string, string> = {
+  MEALS: 'Meals',
+  STREET: 'Street Food',
+  SOBA: 'Soba',
+  KATSU: 'Katsu',
+  CHICKEN: 'Chicken',
+  JJIGAE: 'Jjigae',
+  SOUP: 'Soup',
+  ICE_CREAM: 'Ice Cream',
+  COFFEE_BEVERAGE: 'Coffee/Beverage',
+  CUTLET: 'Cutlet',
+  SIDE: 'Side',
+  STEAK: 'Steak',
+  NOODLE: 'Noodle',
+  BOWL: 'Bowl',
+  CURRY: 'Curry',
+  TTEOKBOKKI: 'Tteokbokki',
+  UDON: 'Udon',
+  BURGER: 'Burger',
+  TACO: 'Taco',
+  SET: 'Set',
+  COMBO: 'Combo',
+  STEW: 'Stew',
+  RICE_NOODLE: 'Rice Noodle',
+  PASTA: 'Pasta',
+  PACK: 'Pack',
+  RICE: 'Rice',
+  SANDWICH: 'Sandwich',
+  DRINK: 'Drink',
+  PHO: 'Pho',
+  ETC: 'Etc',
+  BANHMI: 'Banh Mi',
+  SHRIMP: 'Shrimp',
 };

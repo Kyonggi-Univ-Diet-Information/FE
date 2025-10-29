@@ -27,13 +27,14 @@ export interface CampusFoodCourtPageProps {
   params: Promise<{
     locale: string;
     foodCourtId: string;
+    categoryKey?: string;
   }>;
 }
 
 export default async function CampusFoodCourtPage({
   params,
 }: CampusFoodCourtPageProps) {
-  const { locale, foodCourtId } = await params;
+  const { locale, foodCourtId, categoryKey } = await params;
   const t = await getTranslations('campus');
 
   const foodCourt = getFoodCourtById(foodCourtId);
@@ -91,7 +92,7 @@ export default async function CampusFoodCourtPage({
         title={<div className='flex items-center gap-2'>{foodCourts}</div>}
         subtitle={t('subtitle')}
       />
-      <CampusMenuByFoodCourt foodCourt={foodCourt} />
+      <CampusMenuByFoodCourt foodCourt={foodCourt} categoryKey={categoryKey} />
     </>
   );
 }
