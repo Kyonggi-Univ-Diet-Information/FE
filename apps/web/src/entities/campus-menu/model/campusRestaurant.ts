@@ -42,9 +42,14 @@ export const FOOD_COURT_RESTAURANTS = {
   KYONGSUL: ['MANKWON', 'SYONG', 'BURGER_TACO', 'WIDELGA', 'SINMEOI'] as const,
   E_SQUARE: [] as const,
   DORMITORY: [] as const,
+  SALLY_BOX: [] as const,
 } as const;
 
-export const CAMPUS_FOOD_COURTS = ['KYONGSUL', 'E_SQUARE'] as const;
+export const CAMPUS_FOOD_COURTS = [
+  'KYONGSUL',
+  'E_SQUARE',
+  'SALLY_BOX',
+] as const;
 export type CampusFoodCourt = (typeof CAMPUS_FOOD_COURTS)[number];
 
 export type RestaurantsOfFoodCourt<T extends FoodCourt> =
