@@ -1,7 +1,10 @@
 'use client';
 
-import { ChevronLeftIcon } from 'lucide-react';
-import Image from 'next/image';
+import {
+  ChevronLeftIcon,
+  LanguagesIcon,
+  MessageSquareWarning,
+} from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import React from 'react';
@@ -68,7 +71,7 @@ export default function Header() {
           <ChevronLeftIcon />
         ) : (
           <>
-            <span className='font-brBold text-2xl font-bold'>기밥</span>
+            <span className='font-brBold text-xl font-bold'>기밥</span>
             <span className='font-brRegular hidden md:block'>
               {tCommon('appName')}
             </span>
@@ -118,17 +121,17 @@ export default function Header() {
   };
 
   return (
-    <header className='fixed top-0 z-50 flex h-14 w-full border-b border-gray-100 bg-white py-8'>
+    <header className='fixed top-0 z-50 flex h-14 w-full bg-white py-8'>
       <div className='mx-auto flex w-full max-w-[770px] items-center justify-between px-4'>
         <MobileHeader />
         <DesktopHeader />
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-5'>
           <button
             onClick={handleLanguageToggle}
-            className='font-tossFace cursor-pointer text-2xl transition-transform hover:scale-110'
+            className='cursor-pointer transition-transform hover:scale-110'
             aria-label='Toggle language'
           >
-            {locale === 'ko' ? '🇰🇷' : '🇺🇸'}
+            <LanguagesIcon size={20} className='text-accent-foreground' />
           </button>
 
           <Link
@@ -137,11 +140,9 @@ export default function Header() {
             rel='noopener noreferrer'
             className='cursor-pointer transition-transform hover:scale-110'
           >
-            <Image
-              src='/icons/icon-help.svg'
-              alt='inquire'
-              width={22}
-              height={20}
+            <MessageSquareWarning
+              size={20}
+              className='text-accent-foreground'
             />
           </Link>
           <AuthButton />
