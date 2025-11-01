@@ -125,7 +125,7 @@ export default function Header() {
       <div className='mx-auto flex w-full max-w-[770px] items-center justify-between px-4'>
         <MobileHeader />
         <DesktopHeader />
-        <div className='flex items-center gap-5'>
+        <div className='flex items-center gap-4'>
           <button
             onClick={handleLanguageToggle}
             className='cursor-pointer transition-transform hover:scale-110'
