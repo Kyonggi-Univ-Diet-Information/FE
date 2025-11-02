@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import { getFoodCourtById } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
+import { cn } from '@/shared/utils';
 
 import CampusMenuCard from './CampusMenuCard';
 import { fetchCampusMenuByCategory } from '../api/fetchCampusMenuByCategory';
@@ -58,12 +59,15 @@ export default async function CampusMenuByRestaurant({
 
   return (
     <>
-      <div className='flex items-center justify-between'>
-        <div className='flex items-center gap-2 overflow-x-auto text-sm'>
+      <div className='flex items-center justify-between gap-4'>
+        <div className='scrollbar-hide flex items-center divide-x divide-gray-200 overflow-x-scroll text-sm'>
           <Link
             prefetch
             href={`/campus/${foodCourtId}/${restaurantId}`}
-            className={!categoryKey ? 'text-point font-bold' : ''}
+            className={cn(
+              !categoryKey ? 'text-point font-bold' : '',
+              'cursor-pointer text-nowrap pr-2',
+            )}
           >
             {t('all')}
           </Link>
@@ -72,13 +76,16 @@ export default async function CampusMenuByRestaurant({
               prefetch
               key={key}
               href={`/campus/${foodCourtId}/${restaurantId}/${key}`}
-              className={categoryKey === key ? 'text-point font-bold' : ''}
+              className={cn(
+                categoryKey === key ? 'text-point font-bold' : '',
+                'cursor-pointer text-nowrap px-2',
+              )}
             >
               {categoryTexts[key] || key}
             </Link>
           ))}
         </div>
-        <span className='whitespace-nowrap text-sm text-gray-600'>
+        <span className='whitespace-nowrap rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-600'>
           {t('total')} {totalCount}
           {t('menus')}
         </span>
