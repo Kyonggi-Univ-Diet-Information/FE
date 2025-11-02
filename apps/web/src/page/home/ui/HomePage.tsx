@@ -82,51 +82,52 @@ export default async function HomePage({ searchParams }: HomeProps) {
             ))}
           </CarouselWrapper>
         </Section>
-        <Section className='relative z-10 -mt-6 rounded-t-3xl bg-white px-4 pt-6'>
-          <Section.Header
-            title={
-              <>
-                <span className='text-point'>{t('dormHighlight')}</span>{' '}
-                <br className={locale === 'en' ? '' : 'hidden'} />
-                <Link
-                  replace
-                  href='?modal=open'
-                  className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
-                >
-                  {getWeekDateString(currentDay)}
-                </Link>
-                {t('dormTitleLast')}
-                <span className='font-tossFace'> 🍚</span>
-              </>
-            }
-            subtitle={t('dormSubtitle')}
-            action={
-              <div className='flex gap-x-2'>
-                <NavigationButton
-                  href={`/?date=${yesterday}`}
-                  disabled={isCurrentDaySunday}
-                >
-                  <ChevronLeft className='size-5 text-gray-700' />
-                </NavigationButton>
-                <NavigationButton
-                  href={`/?date=${tomorrow}`}
-                  disabled={isCurrentDaySaturday}
-                >
-                  <ChevronRight className='size-5 text-gray-700' />
-                </NavigationButton>
-              </div>
-            }
-          />
-          <Section.Content>
-            <DormMenuAnimatedWrapper currentDay={currentDay}>
-              <DormMenuAll date={currentDay} />
-            </DormMenuAnimatedWrapper>
-          </Section.Content>
-        </Section>
-
-        <Section className='p-4 py-6'>
-          <ReviewLinkButton />
-        </Section>
+        <div className='relative z-10 -mt-6 rounded-t-3xl bg-white px-4 pt-6'>
+          <Section className='pb-6'>
+            <ReviewLinkButton />
+          </Section>
+          <Section>
+            <Section.Header
+              title={
+                <>
+                  <span className='text-point'>{t('dormHighlight')}</span>{' '}
+                  <br className={locale === 'en' ? '' : 'hidden'} />
+                  <Link
+                    replace
+                    href='?modal=open'
+                    className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
+                  >
+                    {getWeekDateString(currentDay)}
+                  </Link>
+                  {t('dormTitleLast')}
+                  <span className='font-tossFace'> 🍚</span>
+                </>
+              }
+              subtitle={t('dormSubtitle')}
+              action={
+                <div className='flex gap-x-2'>
+                  <NavigationButton
+                    href={`/?date=${yesterday}`}
+                    disabled={isCurrentDaySunday}
+                  >
+                    <ChevronLeft className='size-5 text-gray-700' />
+                  </NavigationButton>
+                  <NavigationButton
+                    href={`/?date=${tomorrow}`}
+                    disabled={isCurrentDaySaturday}
+                  >
+                    <ChevronRight className='size-5 text-gray-700' />
+                  </NavigationButton>
+                </div>
+              }
+            />
+            <Section.Content>
+              <DormMenuAnimatedWrapper currentDay={currentDay}>
+                <DormMenuAll date={currentDay} />
+              </DormMenuAnimatedWrapper>
+            </Section.Content>
+          </Section>
+        </div>
       </div>
       {isModal && <DaySelectModal />}
     </>
