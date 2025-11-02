@@ -1,12 +1,7 @@
-import { ChevronRight } from 'lucide-react';
-import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { CampusMenuAll } from '@/entities/campus-menu';
-import {
-  FOOD_COURT_RESTAURANTS,
-  RESTAURANT_ID_BY_NAME,
-} from '@/entities/campus-menu/model/campusRestaurant';
+import { RESTAURANT_ID_BY_NAME } from '@/entities/campus-menu/model/campusRestaurant';
 import { DormMenuAll, DormMenuAnimatedWrapper } from '@/entities/dorm-menu';
 import {
   getAdjacentDates,
@@ -23,8 +18,9 @@ import {
 import { FOOD_COURT_ID } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { getCurrentDate } from '@/shared/lib/date';
-import { AnimatedCard, Card, Section } from '@/shared/ui';
+import { AnimatedCard, Section } from '@/shared/ui';
 
+import CarouselWrapper from './CarouselWrapper';
 import DaySelectModal from './DaySelectModal';
 import NavigationButton from './NavigationButton';
 
@@ -49,70 +45,44 @@ export default async function HomePage({ searchParams }: HomeProps) {
   const isCurrentDaySunday = isSunday(currentDay);
   const isCurrentDaySaturday = isSaturday(currentDay);
 
-  const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
-  const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
-  const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
+  const CampusFoodCourts = [
+    {
+      href: `/campus/${FOOD_COURT_ID.KYONGSUL}/${RESTAURANT_ID_BY_NAME.MANKWON}`,
+      title: '경슐랭',
+      location: '제 1복지관 지하 1층',
+      time: '10:30 ~ 19:00 (주문마감 18:30)',
+    },
+    {
+      href: `/campus/${FOOD_COURT_ID.E_SQUARE}`,
+      title: '이스퀘어',
+      location: '제 1복지관 지하 1층',
+      time: '07:30 ~ 20:30 (주문마감 19:30)',
+    },
+    {
+      href: `/campus/${FOOD_COURT_ID.SALLY_BOX}`,
+      title: '샐리박스',
+      location: '교수연구동(학생회관 앞) 5층',
+      time: '08:30 ~ 19:30 (주문마감 19:00)',
+    },
+  ];
 
   return (
     <>
-      <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col gap-8 overflow-y-scroll p-4 pt-6 focus:outline-none'>
-        <Section>
-          <Section.Header
-            title={
-              <>
-                {t('campusTitle')}{' '}
-                <span className='text-point'>{t('campusHighlight')}</span>{' '}
-                {t('campusTitleLast')}
-                <span className='font-tossFace'> 🍚</span>
-              </>
-            }
-            subtitle={t('campusSubtitle')}
-            action={
-              <Link
-                prefetch
-                href={defaultCampusHref}
-                className='text-sm underline hover:text-gray-600'
-              >
-                {t('campusAllView')}
-              </Link>
-            }
-          />
-          <Section.Content>
-            {/* <AnimatedCard index={0} className='min-w-full flex-1'>
-              <Card className='relative h-[300px] w-full'>
-                <Image
-                  src='/images/campus-map.png'
-                  alt='campus'
-                  fill
-                  className='object-cover'
-                />
-              </Card>
-            </AnimatedCard> */}
-            <div className='grid w-full grid-cols-3 divide-x divide-gray-100 rounded-2xl bg-gray-100/50 text-center'>
-              <Link
-                href='/campus/ks'
-                className='py-4 text-gray-600 active:text-gray-900'
-              >
-                경슐랭
-              </Link>
-              <Link
-                href='/campus/es'
-                className='py-4 text-gray-600 active:text-gray-900'
-              >
-                이스퀘어
-              </Link>
-              <Link
-                href='/campus/sb'
-                className='py-4 text-gray-600 active:text-gray-900'
-              >
-                샐리박스
-              </Link>
-            </div>
-          </Section.Content>
+      <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col overflow-y-scroll focus:outline-none'>
+        <Section className='relative z-0'>
+          <CarouselWrapper>
+            {CampusFoodCourts.map(campusFoodCourt => (
+              <CampusFoodCourtCard
+                key={campusFoodCourt.href}
+                href={campusFoodCourt.href}
+                title={campusFoodCourt.title}
+                location={campusFoodCourt.location}
+                time={campusFoodCourt.time}
+              />
+            ))}
+          </CarouselWrapper>
         </Section>
-
-        <ReviewLinkButton />
-        <Section>
+        <Section className='relative z-10 -mt-6 rounded-t-3xl bg-white px-4 pt-6'>
           <Section.Header
             title={
               <>
@@ -136,46 +106,26 @@ export default async function HomePage({ searchParams }: HomeProps) {
                   href={`/?date=${yesterday}`}
                   disabled={isCurrentDaySunday}
                 >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='24'
-                    height='24'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    className='lucide lucide-chevron-left size-5'
-                  >
-                    <path d='m15 18-6-6 6-6'></path>
-                  </svg>
+                  <ChevronLeft className='size-5 text-gray-700' />
                 </NavigationButton>
                 <NavigationButton
                   href={`/?date=${tomorrow}`}
                   disabled={isCurrentDaySaturday}
                 >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='24'
-                    height='24'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    className='lucide lucide-chevron-right size-5'
-                  >
-                    <path d='m9 18 6-6-6-6'></path>
-                  </svg>
+                  <ChevronRight className='size-5 text-gray-700' />
                 </NavigationButton>
               </div>
             }
           />
-          <DormMenuAnimatedWrapper currentDay={currentDay}>
-            <DormMenuAll date={currentDay} />
-          </DormMenuAnimatedWrapper>
+          <Section.Content>
+            <DormMenuAnimatedWrapper currentDay={currentDay}>
+              <DormMenuAll date={currentDay} />
+            </DormMenuAnimatedWrapper>
+          </Section.Content>
+        </Section>
+
+        <Section className='p-4 py-6'>
+          <ReviewLinkButton />
         </Section>
       </div>
       {isModal && <DaySelectModal />}
@@ -204,6 +154,45 @@ async function ReviewLinkButton() {
           </div>
         </div>
       </AnimatedCard>
+    </Link>
+  );
+}
+
+function CampusFoodCourtCard({
+  href,
+  title,
+  location,
+  time,
+}: {
+  href: string;
+  title: string;
+  location: string;
+  time: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className='to-point/20 group flex w-screen min-w-0 flex-[0_0_100%] flex-shrink-0 flex-col bg-gradient-to-b from-white px-6 pb-20 pt-6'
+    >
+      <div className='flex h-full flex-col justify-between'>
+        <div className='flex justify-end'>
+          <div className='flex items-center gap-2 rounded-full border bg-white/60 p-2 transition-all group-active:scale-[0.98] group-active:bg-gray-100/80'>
+            <ChevronRight className='size-5 text-gray-700' />
+          </div>
+        </div>
+
+        <div className='space-y-2'>
+          <div className='space-y-1'>
+            <h3 className='text-2xl font-bold text-gray-900'>{title}</h3>
+            <p className='text-sm text-gray-600'>{location}</p>
+          </div>
+          <div className='border-point/20 flex gap-2 border-t pt-2 text-sm text-gray-700'>
+            <span className='font-medium'>{time}</span>
+            <span className='text-gray-500'>•</span>
+            <span>주말 및 공휴일 휴무</span>
+          </div>
+        </div>
+      </div>
     </Link>
   );
 }
