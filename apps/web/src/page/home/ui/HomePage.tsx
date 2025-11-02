@@ -48,21 +48,21 @@ export default async function HomePage({ searchParams }: HomeProps) {
   const CampusFoodCourts = [
     {
       href: `/campus/${FOOD_COURT_ID.KYONGSUL}/${RESTAURANT_ID_BY_NAME.MANKWON}`,
-      title: '경슐랭',
-      location: '제 1복지관 지하 1층',
-      time: '10:30 ~ 19:00 (주문마감 18:30)',
+      title: t('kyongsulang.title'),
+      location: t('kyongsulang.location'),
+      time: t('kyongsulang.time'),
     },
     {
       href: `/campus/${FOOD_COURT_ID.E_SQUARE}`,
-      title: '이스퀘어',
-      location: '제 1복지관 지하 1층',
-      time: '07:30 ~ 20:30 (주문마감 19:30)',
+      title: t('eSquare.title'),
+      location: t('eSquare.location'),
+      time: t('eSquare.time'),
     },
     {
       href: `/campus/${FOOD_COURT_ID.SALLY_BOX}`,
-      title: '샐리박스',
-      location: '교수연구동(학생회관 앞) 5층',
-      time: '08:30 ~ 19:30 (주문마감 19:00)',
+      title: t('sallyBox.title'),
+      location: t('sallyBox.location'),
+      time: t('sallyBox.time'),
     },
   ];
 
@@ -78,6 +78,8 @@ export default async function HomePage({ searchParams }: HomeProps) {
                 title={campusFoodCourt.title}
                 location={campusFoodCourt.location}
                 time={campusFoodCourt.time}
+                viewMenuText={t('viewMenu')}
+                holidayClosedText={t('holidayClosed')}
               />
             ))}
           </CarouselWrapper>
@@ -164,11 +166,15 @@ function CampusFoodCourtCard({
   title,
   location,
   time,
+  viewMenuText,
+  holidayClosedText,
 }: {
   href: string;
   title: string;
   location: string;
   time: string;
+  viewMenuText: string;
+  holidayClosedText: string;
 }) {
   return (
     <Link
@@ -178,7 +184,7 @@ function CampusFoodCourtCard({
       <div className='flex h-full flex-col justify-between'>
         <div className='flex justify-end'>
           <div className='flex items-center gap-2 p-1 transition-all group-active:scale-[0.98] group-active:bg-gray-100/80'>
-            <span className='text-sm text-gray-700'>메뉴 보러가기</span>
+            <span className='text-sm text-gray-700'>{viewMenuText}</span>
             <ArrowRight className='size-4 text-gray-700' />
           </div>
         </div>
@@ -191,7 +197,7 @@ function CampusFoodCourtCard({
           <div className='border-point/20 flex gap-2 border-t pt-2 text-sm text-gray-700'>
             <span className='font-medium'>{time}</span>
             <span className='text-gray-500'>•</span>
-            <span>주말 및 공휴일 휴무</span>
+            <span>{holidayClosedText}</span>
           </div>
         </div>
       </div>

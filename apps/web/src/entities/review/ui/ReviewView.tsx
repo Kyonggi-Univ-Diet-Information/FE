@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server';
+
 import { CampusMenuName } from '@/entities/campus-menu';
 
 import { FOOD_COURT_ID, type FoodCourt } from '@/shared/config';
@@ -15,6 +17,7 @@ interface ReviewViewProps {
 }
 
 export default async function ReviewView({ type }: ReviewViewProps) {
+  const t = await getTranslations('review');
   const popularReviews = await fetchReviewTop5Liked(type);
   const recentReviews = await fetchReviewTop5Recent(type);
 
@@ -24,10 +27,10 @@ export default async function ReviewView({ type }: ReviewViewProps) {
         <Section.Header
           title={
             <>
-              <span className='font-tossFace'>🔥</span> 인기 리뷰
+              <span className='font-tossFace'>🔥</span> {t('popularTitle')}
             </>
           }
-          subtitle='리뷰를 클릭해 해당 메뉴의 리뷰를 확인해보세요!'
+          subtitle={t('popularSubtitle')}
         />
         <div className='flex flex-col gap-2'>
           {popularReviews.map((review, index) => (
@@ -46,10 +49,10 @@ export default async function ReviewView({ type }: ReviewViewProps) {
         <Section.Header
           title={
             <>
-              <span className='font-tossFace'>✨</span> 최근 리뷰
+              <span className='font-tossFace'>✨</span> {t('recentTitle')}
             </>
           }
-          subtitle='최근에 작성된 리뷰들이에요!'
+          subtitle={t('recentSubtitle')}
         />
         <div className='flex flex-col gap-2'>
           {recentReviews.map((review, index) => (

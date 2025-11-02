@@ -23,7 +23,24 @@
     "dormSubtitle": "이번 주 경기드림타워 식단을 확인해보세요.",
     "dormTitleLast": "의 메뉴",
     "reviewPrompt": "식사는 어땠나요?",
-    "reviewDescription": "인기/최신 리뷰 보러가기"
+    "reviewDescription": "인기/최신 리뷰 보러가기",
+    "kyongsulang": {
+      "title": "경슐랭",
+      "location": "제 1복지관 지하 1층",
+      "time": "10:30 ~ 19:00 (주문마감 18:30)"
+    },
+    "eSquare": {
+      "title": "이스퀘어",
+      "location": "제 1복지관 지하 1층",
+      "time": "07:30 ~ 20:30 (주문마감 19:30)"
+    },
+    "sallyBox": {
+      "title": "샐리박스",
+      "location": "교수연구동(학생회관 앞) 5층",
+      "time": "08:30 ~ 19:30 (주문마감 19:00)"
+    },
+    "viewMenu": "메뉴 보러가기",
+    "holidayClosed": "주말 및 공휴일 휴무"
   },
   "auth": {
     "loading": "로딩 중...",
@@ -62,7 +79,11 @@
     "title": "리뷰",
     "write": "리뷰 작성",
     "list": "리뷰 목록",
-    "empty": "작성된 리뷰가 없습니다"
+    "empty": "작성된 리뷰가 없습니다",
+    "popularTitle": "인기 리뷰",
+    "popularSubtitle": "리뷰를 클릭해 해당 메뉴의 리뷰를 확인해보세요!",
+    "recentTitle": "최근 리뷰",
+    "recentSubtitle": "최근에 작성된 리뷰들이에요!"
   },
   "notFound": {
     "title": "페이지를 찾을 수 없어요",
