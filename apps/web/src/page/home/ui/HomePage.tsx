@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { RESTAURANT_ID_BY_NAME } from '@/entities/campus-menu/model/campusRestaurant';
@@ -82,8 +82,8 @@ export default async function HomePage({ searchParams }: HomeProps) {
             ))}
           </CarouselWrapper>
         </Section>
-        <div className='relative z-10 -mt-6 rounded-t-3xl bg-white px-4 pt-6'>
-          <Section className='pb-6'>
+        <div className='relative z-10 -mt-6 flex flex-col gap-8 rounded-t-3xl bg-white px-4 pt-8'>
+          <Section>
             <ReviewLinkButton />
           </Section>
           <Section>
@@ -141,12 +141,12 @@ async function ReviewLinkButton() {
   return (
     <Link
       href={defaultReviewHref}
-      className='group -mb-2 -mt-2 cursor-pointer rounded-2xl transition-all duration-300'
+      className='group -mb-2 -mt-2 cursor-pointer rounded-2xl bg-gray-100/50 px-2.5 py-1.5 transition-all duration-300 active:bg-gray-100'
     >
       <AnimatedCard index={0} animationType='spring'>
         <div className='flex items-center justify-between'>
           <div className='text-lg font-semibold group-hover:text-gray-900/60 group-active:text-gray-900/60'>
-            <span className='font-tossFace'>😋 </span>
+            <span className='font-tossFace'>😋&nbsp;&nbsp;</span>
             {t('reviewPrompt')}
           </div>
           <div className='flex items-center gap-1 text-sm text-gray-600 group-hover:text-gray-900/60 group-active:text-gray-900/60'>
@@ -173,12 +173,13 @@ function CampusFoodCourtCard({
   return (
     <Link
       href={href}
-      className='to-point/20 group flex w-screen min-w-0 flex-[0_0_100%] flex-shrink-0 flex-col bg-gradient-to-b from-white px-6 pb-20 pt-6'
+      className='to-point/20 group flex w-screen min-w-0 flex-[0_0_100%] flex-shrink-0 flex-col bg-gradient-to-b from-white px-6 pb-20 pt-4'
     >
       <div className='flex h-full flex-col justify-between'>
         <div className='flex justify-end'>
-          <div className='flex items-center gap-2 rounded-full border bg-white/60 p-2 transition-all group-active:scale-[0.98] group-active:bg-gray-100/80'>
-            <ChevronRight className='size-5 text-gray-700' />
+          <div className='flex items-center gap-2 p-1 transition-all group-active:scale-[0.98] group-active:bg-gray-100/80'>
+            <span className='text-sm text-gray-700'>메뉴 보러가기</span>
+            <ArrowRight className='size-4 text-gray-700' />
           </div>
         </div>
 

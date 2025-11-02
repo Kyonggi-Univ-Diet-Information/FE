@@ -46,7 +46,7 @@ function CarouselIndicator({
   totalItems: number;
 }) {
   return (
-    <div className='top-42 absolute left-1/2 flex -translate-x-1/2 justify-center gap-1.5 pt-3'>
+    <div className='top-42 absolute left-1/2 flex -translate-x-1/2 justify-center gap-1.5'>
       {Array.from({ length: totalItems }).map((_, index) => (
         <button
           key={index}
