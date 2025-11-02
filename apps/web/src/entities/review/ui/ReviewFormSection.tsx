@@ -5,7 +5,7 @@ import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 
 import type { ReviewPost } from '@/entities/review/model/review';
 
-import { FOOD_COURT } from '@/shared/config';
+import { type FoodCourt } from '@/shared/config';
 import { Button } from '@/shared/ui/Button';
 
 import ReviewStarSelector from './ReviewStarSelector';
@@ -26,10 +26,14 @@ const ReviewTextArea = memo(({ register }: ReviewTextAreaProps) => {
 });
 
 interface ReviewFormSectionProps {
+  foodCourt: FoodCourt;
   foodId: number;
 }
 
-export default function ReviewFormSection({ foodId }: ReviewFormSectionProps) {
+export default function ReviewFormSection({
+  foodCourt,
+  foodId,
+}: ReviewFormSectionProps) {
   const { register, watch, reset } = useForm<ReviewPost>();
 
   const [selectedStars, setSelectedStars] = useState(3);
@@ -52,12 +56,7 @@ export default function ReviewFormSection({ foodId }: ReviewFormSectionProps) {
       action={formAction}
     >
       <input type='hidden' name='foodId' value={foodId} readOnly />
-      <input
-        type='hidden'
-        name='foodCourt'
-        value={FOOD_COURT.KYONGSUL}
-        readOnly
-      />
+      <input type='hidden' name='foodCourt' value={foodCourt} readOnly />
       <input type='hidden' name='rating' value={selectedStars} readOnly />
       <ReviewStarSelector
         selectedStars={selectedStars}

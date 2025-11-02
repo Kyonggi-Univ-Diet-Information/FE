@@ -1,16 +1,16 @@
 import { MessageSquareText } from 'lucide-react';
-import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
 import { fetchReviewCount } from '@/entities/review/api/fetchReviewCount';
 
-import { FOOD_COURT } from '@/shared/config';
+import { type FoodCourt, FOOD_COURT_ID } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
 import CampusMenuImage from './CampusMenuImage';
 import type { CampusMenu } from '../model/campusMenu';
 
 interface CampusMenuCardProps extends CampusMenu {
+  foodCourt: FoodCourt;
   locale?: string;
 }
 
@@ -19,12 +19,14 @@ export default async function CampusMenuCard({
   name,
   nameEn,
   price,
+  foodCourt,
   locale,
 }: CampusMenuCardProps) {
   const wonText = locale === 'en' ? '₩' : '원';
   const reviewText = locale === 'en' ? 'Review' : '리뷰';
   const menuName = locale === 'en' ? nameEn : name;
-  const reviewCount = await fetchReviewCount(FOOD_COURT.KYONGSUL, id);
+  const reviewCount = await fetchReviewCount(foodCourt, id);
+  const foodCourtId = FOOD_COURT_ID[foodCourt];
   const t = await getTranslations('campus');
 
   const cardContent = (
@@ -42,14 +44,14 @@ export default async function CampusMenuCard({
           {t('reviews')}
         </span>
       </div>
-      <CampusMenuImage menuId={id} />
+      <CampusMenuImage foodCourt={foodCourt} menuId={id} />
     </>
   );
 
   return (
     <>
       <Link
-        href={`/review/${id}`}
+        href={`/review/${foodCourtId}/${id}`}
         className='w-screen -translate-x-4 border-b border-gray-100 md:hidden'
       >
         <div
@@ -74,7 +76,7 @@ export default async function CampusMenuCard({
         </div>
         <div className='flex items-start'>
           <Link
-            href={`/review/${id}`}
+            href={`/review/${foodCourtId}/${id}`}
             className='group flex cursor-pointer items-center gap-1 rounded-xl border bg-white px-2 py-1 duration-200 hover:bg-gray-200 active:bg-gray-300'
           >
             <MessageSquareText

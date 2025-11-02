@@ -12,9 +12,51 @@ export const PATCHNOTE_URL =
 export const FOOD_COURT = {
   KYONGSUL: 'KYONGSUL',
   DORMITORY: 'DORMITORY',
+  E_SQUARE: 'E_SQUARE',
+  SALLY_BOX: 'SALLY_BOX',
+} as const;
+
+export const FOOD_COURT_ID: Record<FoodCourt, string> = {
+  KYONGSUL: 'ks',
+  DORMITORY: 'do',
+  E_SQUARE: 'es',
+  SALLY_BOX: 'sb',
+} as const;
+
+export const FOOD_COURT_NAME: Record<FoodCourt, string> = {
+  KYONGSUL: '경슐랭',
+  DORMITORY: '기숙사식당',
+  E_SQUARE: '이스퀘어',
+  SALLY_BOX: '샐리박스',
+} as const;
+
+export const FOOD_COURT_NAME_EN: Record<FoodCourt, string> = {
+  KYONGSUL: 'Kyongsulin',
+  DORMITORY: 'Dormitory',
+  E_SQUARE: 'E-Square',
+  SALLY_BOX: 'Sally Box',
 } as const;
 
 export type FoodCourt = keyof typeof FOOD_COURT;
+export type FoodCourtId = (typeof FOOD_COURT_ID)[FoodCourt];
+export type CampusFoodCourt = Exclude<FoodCourt, 'DORMITORY'>;
+
+export const ID_TO_FOOD_COURT: Record<string, FoodCourt> = {
+  ks: 'KYONGSUL',
+  do: 'DORMITORY',
+  es: 'E_SQUARE',
+  sb: 'SALLY_BOX',
+} as const;
+
+export const ID_TO_CAMPUS_FOOD_COURT: Record<string, CampusFoodCourt> = {
+  ks: 'KYONGSUL',
+  es: 'E_SQUARE',
+  sb: 'SALLY_BOX',
+} as const;
+
+export const getFoodCourtById = (id: string): CampusFoodCourt | undefined => {
+  return ID_TO_CAMPUS_FOOD_COURT[id] as CampusFoodCourt | undefined;
+};
 
 export const ENDPOINT = {
   AUTH: {
@@ -27,11 +69,13 @@ export const ENDPOINT = {
   MENU: {
     MENU_ALL: (foodCourt: FoodCourt) => `/food/${foodCourt}/all`,
     MENU_BY_RESTAURANT: (
-      foodCourt: Omit<FoodCourt, 'DORMITORY'>,
+      foodCourt: CampusFoodCourt,
       restaurant: SubRestaurant,
     ) => `/food/${foodCourt}/restaurant/${restaurant}`,
     MENU_NAME: (foodCourt: FoodCourt, foodId: number) =>
       `/food/${foodCourt}/get-names/${foodId}`,
+    MENU_BY_CATEGORY: (foodCourt: CampusFoodCourt) =>
+      `/food/${foodCourt}/each-category`,
   },
   REVIEW_R: {
     TOP_5_RECENT: (type: FoodCourt) => `/review/${type}/reviews/top5-recent`,

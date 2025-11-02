@@ -1,14 +1,22 @@
 'use client';
 
-import { ChevronLeftIcon } from 'lucide-react';
-import Image from 'next/image';
+import {
+  ChevronLeftIcon,
+  LanguagesIcon,
+  MessageSquareWarning,
+} from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import React from 'react';
 
 import { AuthButton } from '@/features/auth/components';
 
-import { INQUIRY_URL } from '@/shared/config';
+import {
+  FOOD_COURT_RESTAURANTS,
+  RESTAURANT_ID_BY_NAME,
+} from '@/entities/campus-menu/model/campusRestaurant';
+
+import { FOOD_COURT_ID, INQUIRY_URL } from '@/shared/config';
 import { Link, useRouter } from '@/shared/i18n/routing';
 
 export default function Header() {
@@ -20,9 +28,13 @@ export default function Header() {
 
   const today = new Date().getDay();
 
+  const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
+  const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
+  const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
+
   const navItems = [
     { href: '/', label: t('home') },
-    { href: '/campus/1', label: t('campus') },
+    { href: defaultCampusHref, label: t('campus') },
     { href: `/dorm/${today}`, label: t('dorm') },
     { href: '/review', label: t('review') },
     { href: '/user', label: t('myPage') },
@@ -59,7 +71,7 @@ export default function Header() {
           <ChevronLeftIcon />
         ) : (
           <>
-            <span className='font-brBold text-2xl font-bold'>기밥</span>
+            <span className='font-brBold text-xl font-bold'>기밥</span>
             <span className='font-brRegular hidden md:block'>
               {tCommon('appName')}
             </span>
@@ -109,17 +121,17 @@ export default function Header() {
   };
 
   return (
-    <header className='fixed top-0 z-50 flex h-14 w-full border-b border-gray-100 bg-white py-8'>
+    <header className='fixed top-0 z-50 flex h-14 w-full bg-white py-8'>
       <div className='mx-auto flex w-full max-w-[770px] items-center justify-between px-4'>
         <MobileHeader />
         <DesktopHeader />
         <div className='flex items-center gap-4'>
           <button
             onClick={handleLanguageToggle}
-            className='font-tossFace cursor-pointer text-2xl transition-transform hover:scale-110'
+            className='cursor-pointer transition-transform hover:scale-110'
             aria-label='Toggle language'
           >
-            {locale === 'ko' ? '🇰🇷' : '🇺🇸'}
+            <LanguagesIcon size={20} className='text-accent-foreground' />
           </button>
 
           <Link
@@ -128,11 +140,9 @@ export default function Header() {
             rel='noopener noreferrer'
             className='cursor-pointer transition-transform hover:scale-110'
           >
-            <Image
-              src='/icons/icon-help.svg'
-              alt='inquire'
-              width={22}
-              height={20}
+            <MessageSquareWarning
+              size={20}
+              className='text-accent-foreground'
             />
           </Link>
           <AuthButton />

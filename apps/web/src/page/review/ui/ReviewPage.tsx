@@ -9,14 +9,14 @@ import {
   ReviewRating,
 } from '@/entities/review';
 
-import { FOOD_COURT } from '@/shared/config';
+import { getFoodCourtById } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal } from '@/shared/ui';
 import { Button, Title } from '@/shared/ui';
 
 export interface ReviewPageProps {
-  params: Promise<{ foodId: string }>;
+  params: Promise<{ foodCourtId: string; foodId: string }>;
   searchParams: Promise<{
     reviewMode?: string;
     pageNo?: number;
@@ -27,8 +27,16 @@ export default async function ReviewPage({
   params,
   searchParams,
 }: ReviewPageProps) {
-  const [{ foodId: foodIdParam }, { reviewMode, pageNo }, isAuthenticated] =
-    await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
+  const [
+    { foodCourtId, foodId: foodIdParam },
+    { reviewMode, pageNo },
+    isAuthenticated,
+  ] = await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
+
+  const foodCourt = getFoodCourtById(foodCourtId);
+  if (!foodCourt) {
+    notFound();
+  }
 
   const foodId = Number(foodIdParam);
   if (isNaN(foodId) || !Number.isInteger(foodId) || foodId <= 0) {
@@ -43,12 +51,16 @@ export default async function ReviewPage({
       <section className='flex items-start justify-between'>
         <div className='flex flex-col gap-1'>
           <Title>
-            <CampusMenuName menuId={foodId} className='text-point' />
+            <CampusMenuName
+              foodCourt={foodCourt}
+              menuId={foodId}
+              className='text-point'
+            />
             {t('reviewPromptTitle')}
           </Title>
           <p className='text-sm text-gray-600'>{t('reviewPrompt')}</p>
         </div>
-        <Link href={`/review/${foodId}?reviewMode=true`}>
+        <Link href={`/review/${foodCourtId}/${foodId}?reviewMode=true`}>
           <Button variant='secondary' size='sm'>
             {t('writeReview')}
           </Button>
@@ -57,12 +69,14 @@ export default async function ReviewPage({
 
       <Suspense fallback={<Loader />}>
         {isAuthenticated && isReviewMode && (
-          <ReviewFormSection foodId={foodId} />
+          <ReviewFormSection foodCourt={foodCourt} foodId={foodId} />
         )}
-        {!isAuthenticated && isReviewMode && <LoginModal foodId={foodId} />}
-        <ReviewRating type={FOOD_COURT.KYONGSUL} foodId={foodId} />
+        {!isAuthenticated && isReviewMode && (
+          <LoginModal foodCourtId={foodCourtId} foodId={foodId} />
+        )}
+        <ReviewRating type={foodCourt} foodId={foodId} />
         <ReviewPagedView
-          type={FOOD_COURT.KYONGSUL}
+          type={foodCourt}
           foodId={foodId}
           pageNo={pageNo || 0}
         />
@@ -71,12 +85,18 @@ export default async function ReviewPage({
   );
 }
 
-async function LoginModal({ foodId }: { foodId: number }) {
+async function LoginModal({
+  foodCourtId,
+  foodId,
+}: {
+  foodCourtId: string;
+  foodId: number;
+}) {
   const t = await getTranslations('reviewPage');
-  const currentPath = `/review/${foodId}`;
+  const currentPath = `/review/${foodCourtId}/${foodId}`;
 
   return (
-    <Modal href={`/review/${foodId}`}>
+    <Modal href={`/review/${foodCourtId}/${foodId}`}>
       <Modal.Header title={t('loginRequiredTitle')} />
       <p>{t('loginRequiredDescription')}</p>
       <Link

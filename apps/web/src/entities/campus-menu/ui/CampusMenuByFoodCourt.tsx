@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { getFoodCourtById } from '@/shared/config';
+import { type FoodCourt, FOOD_COURT_ID } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
 import CampusMenuCard from './CampusMenuCard';
@@ -8,37 +8,21 @@ import { fetchCampusMenuByCategory } from '../api/fetchCampusMenuByCategory';
 import {
   CATEGORY_TO_TEXT,
   CATEGORY_TO_TEXT_EN,
+  type CampusFoodCourt,
   type CampusMenuWithCategory,
 } from '../model/campusMenu';
-import {
-  CAMPUS_RESTAURANT_ID,
-  hasSubRestaurants,
-} from '../model/campusRestaurant';
 
-interface CampusMenuByRestaurantProps {
-  foodCourtId: string;
-  restaurantId: string;
+interface CampusMenuByFoodCourtProps {
+  foodCourt: CampusFoodCourt;
   categoryKey?: string;
 }
 
-export default async function CampusMenuByRestaurant({
-  foodCourtId,
-  restaurantId,
+export default async function CampusMenuByFoodCourt({
+  foodCourt,
   categoryKey,
-}: CampusMenuByRestaurantProps) {
-  const foodCourt = getFoodCourtById(foodCourtId);
-  if (!foodCourt) {
-    return null;
-  }
-
-  const currentRestaurant = hasSubRestaurants(foodCourt)
-    ? CAMPUS_RESTAURANT_ID[restaurantId]
-    : undefined;
-
-  const { categories, menusByCategory } = await fetchCampusMenuByCategory(
-    foodCourt,
-    currentRestaurant,
-  );
+}: CampusMenuByFoodCourtProps) {
+  const { categories, menusByCategory } =
+    await fetchCampusMenuByCategory(foodCourt);
 
   const locale = await getLocale();
   const categoryTexts =
@@ -56,13 +40,15 @@ export default async function CampusMenuByRestaurant({
     totalCount = displayMenus.length;
   }
 
+  const foodCourtId = FOOD_COURT_ID[foodCourt as keyof typeof FOOD_COURT_ID];
+
   return (
     <>
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2 overflow-x-auto text-sm'>
           <Link
             prefetch
-            href={`/campus/${foodCourtId}/${restaurantId}`}
+            href={`/campus/${foodCourtId}`}
             className={!categoryKey ? 'text-point font-bold' : ''}
           >
             {t('all')}
@@ -71,7 +57,7 @@ export default async function CampusMenuByRestaurant({
             <Link
               prefetch
               key={key}
-              href={`/campus/${foodCourtId}/${restaurantId}/${key}`}
+              href={`/campus/${foodCourtId}/${key}`}
               className={categoryKey === key ? 'text-point font-bold' : ''}
             >
               {categoryTexts[key] || key}
@@ -90,7 +76,7 @@ export default async function CampusMenuByRestaurant({
             <CampusMenuCard
               key={menu.id}
               {...menu}
-              foodCourt={foodCourt}
+              foodCourt={foodCourt as FoodCourt}
               locale={locale}
             />
           ))}

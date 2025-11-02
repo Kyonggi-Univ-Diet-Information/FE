@@ -14,16 +14,33 @@
   },
   "home": {
     "won": "₩",
-    "campusTitle": "",
-    "campusHighlight": "KyongSulang",
-    "campusTitleLast": "Menu",
-    "campusSubtitle": "Click the card to check out the full menu!",
+    "campusTitle": "Where to eat",
+    "campusHighlight": "in campus?",
+    "campusTitleLast": "",
+    "campusSubtitle": "Click the map or button to check out the menu of the restaurant!",
     "campusAllView": "View All",
     "dormHighlight": "Dorm Cafeteria",
     "dormSubtitle": "Check out the menu for this week!",
     "dormTitleLast": "'s Menu",
     "reviewPrompt": "How was your meal?",
-    "reviewDescription": "Check out the latest & popular reviews!"
+    "reviewDescription": "Check out the latest & popular reviews!",
+    "kyongsulang": {
+      "title": "KyongSulang",
+      "location": "1st Welfare Center B1F",
+      "time": "10:30 AM ~ 7:00 PM (Last order 6:30 PM)"
+    },
+    "eSquare": {
+      "title": "E-Square",
+      "location": "1st Welfare Center B1F",
+      "time": "7:30 AM ~ 8:30 PM (Last order 7:30 PM)"
+    },
+    "sallyBox": {
+      "title": "Sally Box",
+      "location": "Faculty Research Bldg (front of Student Hall) 5F",
+      "time": "8:30 AM ~ 7:30 PM (Last order 7:00 PM)"
+    },
+    "viewMenu": "View Menu",
+    "holidayClosed": "Closed on weekends and holidays"
   },
   "auth": {
     "loading": "Loading...",
@@ -62,7 +79,11 @@
     "title": "Reviews",
     "write": "Write Review",
     "list": "Review List",
-    "empty": "No reviews yet"
+    "empty": "No reviews yet",
+    "popularTitle": "Popular Reviews",
+    "popularSubtitle": "Click on a review to see all reviews for that menu!",
+    "recentTitle": "Recent Reviews",
+    "recentSubtitle": "These are the recently posted reviews!"
   },
   "notFound": {
     "title": "Page not found",

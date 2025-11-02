@@ -2,8 +2,14 @@ import React, { ReactNode } from 'react';
 
 import { cn } from '@/shared/utils';
 
-export default function Section({ children }: { children: ReactNode }) {
-  return <div className='flex flex-col gap-4'>{children}</div>;
+export default function Section({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={cn('flex flex-col gap-4', className)}>{children}</div>;
 }
 
 function SectionHeader({

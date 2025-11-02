@@ -4,6 +4,12 @@ import { motion } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 
+import {
+  FOOD_COURT_RESTAURANTS,
+  RESTAURANT_ID_BY_NAME,
+} from '@/entities/campus-menu/model/campusRestaurant';
+
+import { FOOD_COURT_ID } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
@@ -13,16 +19,19 @@ import Restaurant2 from '../../../public/icons/icon-restaurant2.svg';
 import Review from '../../../public/icons/icon-review.svg';
 import User from '../../../public/icons/icon-user.svg';
 
-
 export default function BottomNavBar() {
   const pathname = usePathname();
   const t = useTranslations('navigation');
   const locale = useLocale();
   const today = new Date().getDay();
 
+  const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
+  const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
+  const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
+
   const navItems = [
     {
-      href: '/campus/1',
+      href: defaultCampusHref,
       label: t('campus'),
       icon: <Restaurant2 width={32} height={32} />,
       alt: 'restaurant2',
@@ -68,7 +77,7 @@ export default function BottomNavBar() {
 
   return (
     <motion.div
-      className='shadow-t-md fixed bottom-0 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-6 pt-2 sm:px-14 md:hidden'
+      className='shadow-t-md fixed bottom-0 z-50 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-6 pt-2 sm:px-14 md:hidden'
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
