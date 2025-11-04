@@ -55,7 +55,7 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
         </Card>
       </AnimatedCard> */}
       <AnimatedCard index={0}>
-        <Card className='h-70'>
+        <Card className='min-h-70 h-fit'>
           <Card.Header>
             {tDorm('lunch')} <span className='font-tossFace'>🍽️</span>{' '}
           </Card.Header>
@@ -65,7 +65,7 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
         </Card>
       </AnimatedCard>
       <AnimatedCard index={1}>
-        <Card className='h-70'>
+        <Card className='min-h-70 h-fit'>
           <Card.Header>
             {tDorm('dinner')} <span className='font-tossFace'>🌙</span>
           </Card.Header>
