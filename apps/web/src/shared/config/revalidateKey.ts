@@ -7,11 +7,13 @@ export const KEY = {
     `member-fav-review-${page}-${type}`,
   MEMBER_REVIEW: (page: number, type: FoodCourt): string =>
     `member-review-${page}-${type}`,
-  REVIEW: (foodId: number): string => `review-${foodId}`,
-  REVIEW_PAGINATION: (foodId: number, page: number): string =>
-    `review-pagination-${foodId}-${page}`,
+  REVIEW: (type: FoodCourt, foodId: number): string =>
+    `review-${type}-${foodId}`,
+  REVIEW_PAGINATION: (type: FoodCourt, foodId: number, page: number): string =>
+    `review-pagination-${type}-${foodId}-${page}`,
   REVIEW_LIKED: 'member-review-liked',
-  REVIEW_COUNT: (foodId: number): string => `review-count-${foodId}`,
+  REVIEW_COUNT: (type: FoodCourt, foodId: number): string =>
+    `review-count-${type}-${foodId}`,
   REVIEW_PAGED: (type: FoodCourt, foodId: number, page: number): string =>
     `review-paged-${type}-${foodId}-${page}`,
   REVIEW_FAVED: (type: FoodCourt): string => `review-faved-${type}`,

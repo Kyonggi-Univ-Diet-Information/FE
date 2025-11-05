@@ -12,16 +12,16 @@ export const submitReview = async (
   _prevState: { success: boolean; error?: string } | null,
   formData: FormData,
 ): Promise<{ success: boolean; error?: string }> => {
-  const foodId = String(formData.get('foodId'));
+  const foodId = Number(formData.get('foodId'));
   const rating = Number(formData.get('rating'));
   const title = '';
   const content = String(formData.get('content'));
   const type = formData.get('foodCourt') as FoodCourt;
 
   return Http.post<ReviewPost>({
-    request: ENDPOINT.REVIEW_CUD.SUBMIT(type, Number(foodId)),
+    request: ENDPOINT.REVIEW_CUD.SUBMIT(type, foodId),
     data: {
-      rating: Number(rating),
+      rating: rating,
       title: title,
       content: content,
     },
@@ -32,10 +32,10 @@ export const submitReview = async (
       error: error.message || '리뷰 등록에 실패했습니다',
     }))
     .then(() => {
-      revalidateTag(KEY.REVIEW(Number(foodId)));
-      revalidateTag(KEY.REVIEW_COUNT(Number(foodId)));
-      revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, Number(foodId)));
-      revalidateTag(KEY.REVIEW_RATING_COUNT(type, Number(foodId)));
+      revalidateTag(KEY.REVIEW(type, foodId));
+      revalidateTag(KEY.REVIEW_COUNT(type, foodId));
+      revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, foodId));
+      revalidateTag(KEY.REVIEW_RATING_COUNT(type, foodId));
       return { success: true };
     });
 };

@@ -13,7 +13,7 @@ export const fetchReviewPaged = async (
     request: `${ENDPOINT.REVIEW_R.PAGED(type, foodId)}?pageNo=${page}`,
     cache: 'force-cache',
     next: {
-      tags: [KEY.REVIEW_PAGED(type, foodId, page)],
+      tags: [KEY.REVIEW(type, foodId), KEY.REVIEW_PAGED(type, foodId, page)],
       revalidate: 60 * 5,
     },
   });
