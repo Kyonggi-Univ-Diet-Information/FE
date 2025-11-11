@@ -30,16 +30,17 @@ export default function CampusMenuImage({
   };
 
   return (
-    <Image
-      loading='lazy'
-      placeholder='blur'
-      blurDataURL='/images/no-image.png'
-      src={imageSrc}
-      alt={menuId.toString()}
-      width={100}
-      height={100}
-      onError={handleError}
-      className='rounded-xl object-cover'
-    />
+    <div className='relative size-[100px] overflow-hidden rounded-xl'>
+      <Image
+        loading='lazy'
+        placeholder='blur'
+        blurDataURL='/images/no-image.png'
+        src={imageSrc}
+        alt={menuId.toString()}
+        fill
+        onError={handleError}
+        className='absolute inset-0 size-full object-cover'
+      />
+    </div>
   );
 }
