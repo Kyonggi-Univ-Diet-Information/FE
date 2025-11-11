@@ -15,9 +15,17 @@ export default function CampusMenuImage({
   menuId,
 }: CampusMenuImageProps) {
   const isKyongsul = foodCourt === FOOD_COURT.KYONGSUL;
+
+  const imageKey: Record<FoodCourt, string> = {
+    [FOOD_COURT.KYONGSUL]: '',
+    [FOOD_COURT.DORMITORY]: 'do_',
+    [FOOD_COURT.E_SQUARE]: 'es_',
+    [FOOD_COURT.SALLY_BOX]: 'sb_',
+  };
+
   const [imageSrc, setImageSrc] = useState(
     isKyongsul
-      ? `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761492742/${menuId}.jpg`
+      ? `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761492742/${imageKey[foodCourt]}${menuId}.jpg`
       : '/images/no-image.png',
   );
 
