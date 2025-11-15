@@ -36,6 +36,9 @@ export const submitReview = async (
       revalidateTag(KEY.REVIEW_COUNT(type, foodId));
       revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, foodId));
       revalidateTag(KEY.REVIEW_RATING_COUNT(type, foodId));
+      revalidateTag(KEY.TOP_MENU);
+      revalidateTag(KEY.RECENT_REVIEW);
+
       return { success: true };
     });
 };

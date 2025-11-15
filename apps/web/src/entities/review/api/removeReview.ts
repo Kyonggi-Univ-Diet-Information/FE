@@ -19,6 +19,8 @@ export const removeReview = async (reviewId: number, type: FoodCourt) => {
   revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, reviewId));
   revalidateTag(KEY.REVIEW_RATING_COUNT(type, reviewId));
   revalidateTag(KEY.MEMBER_REVIEW(0, type));
+  revalidateTag(KEY.TOP_MENU);
+  revalidateTag(KEY.RECENT_REVIEW);
 
   return { success: true };
 };
