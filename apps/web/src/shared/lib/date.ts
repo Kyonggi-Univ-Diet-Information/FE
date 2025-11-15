@@ -1,3 +1,5 @@
+import dayjs from 'dayjs-ext';
+
 /**
  * 서버-클라이언트 간 일관된 날짜 처리를 위한 유틸리티 함수들
  */
@@ -96,3 +98,25 @@ export function isToday(date: Date): boolean {
 export const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'] as const;
 
 export type Weekday = (typeof WEEKDAYS)[number];
+
+/**
+ * 상대 날짜를 반환하는 함수
+ */
+export function getRelativeDate(date: Date): string {
+  const diffDays = Math.abs(dayjs(date).diff(dayjs(), 'day'));
+  const diffHours = Math.abs(dayjs(date).diff(dayjs(), 'hour'));
+
+  if (diffHours === 0) {
+    return '방금 전';
+  }
+
+  if (diffHours > 0 && diffHours < 24) {
+    return `${diffHours}시간 전`;
+  }
+
+  if (diffDays > 0 && diffDays < 10) {
+    return `${diffDays}일 전`;
+  }
+
+  return dayjs(date).format('YYYY년 MM월 D일');
+}
