@@ -1,11 +1,11 @@
-import { ReviewView } from '@/entities/review';
-
-import { FOOD_COURT } from '@/shared/config';
+import { CampusTopMenu } from '@/entities/campus-menu';
+import { RecentReviewView } from '@/entities/review';
 
 export default async function ReviewHomePage() {
   return (
-    <>
-      <ReviewView type={FOOD_COURT.KYONGSUL} />
-    </>
+    <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
+      <CampusTopMenu />
+      <RecentReviewView />
+    </div>
   );
 }

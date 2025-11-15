@@ -12,8 +12,7 @@ import {
 import { getFoodCourtById } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { AuthService } from '@/shared/lib/auth';
-import { Loader, Modal } from '@/shared/ui';
-import { Button, Title } from '@/shared/ui';
+import { Loader, Modal, Button, Title } from '@/shared/ui';
 
 export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;

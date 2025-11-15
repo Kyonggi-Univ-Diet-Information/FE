@@ -80,8 +80,8 @@
     "write": "Write Review",
     "list": "Review List",
     "empty": "No reviews yet",
-    "popularTitle": "Popular Reviews",
-    "popularSubtitle": "Click on a review to see all reviews for that menu!",
+    "popularTitle": "Popular Menus",
+    "popularSubtitle": "The menus with the most reviews are here!",
     "recentTitle": "Recent Reviews",
     "recentSubtitle": "These are the recently posted reviews!"
   },

@@ -1,3 +1,5 @@
+import type { FoodCourt } from '@/shared/config';
+
 import type { SubRestaurant } from './campusRestaurant';
 
 export type { CampusFoodCourt } from '@/shared/config/endpoint';
@@ -8,6 +10,14 @@ export type CampusMenu = {
   nameEn: string;
   price: number;
   subRestaurant: SubRestaurant;
+};
+
+export type CampusTopMenu = CampusMenu & {
+  restaurantType: FoodCourt;
+  reviewCount: 3;
+  cuisine: 'KOREAN';
+  foodType: 'RICE_BOWL';
+  detailedMenu: 'RICE_BOWL';
 };
 
 export type CampusMenuWithCategory = CampusMenu & {

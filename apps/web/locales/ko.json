@@ -80,8 +80,8 @@
     "write": "리뷰 작성",
     "list": "리뷰 목록",
     "empty": "작성된 리뷰가 없습니다",
-    "popularTitle": "인기 리뷰",
-    "popularSubtitle": "리뷰를 클릭해 해당 메뉴의 리뷰를 확인해보세요!",
+    "popularTitle": "리뷰 많은 메뉴",
+    "popularSubtitle": "실시간으로 가장 많은 리뷰를 받은 메뉴들이에요!",
     "recentTitle": "최근 리뷰",
     "recentSubtitle": "최근에 작성된 리뷰들이에요!"
   },
