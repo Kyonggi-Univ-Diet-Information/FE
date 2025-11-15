@@ -67,6 +67,7 @@ export const ENDPOINT = {
     DORM_MENU_BY_DAY: (day: DormDay) => `/diet-content/dormitory/dow/${day}`,
   },
   MENU: {
+    TOP_MENU: '/food/top5-menu',
     MENU_ALL: (foodCourt: FoodCourt) => `/food/${foodCourt}/all`,
     MENU_BY_RESTAURANT: (
       foodCourt: CampusFoodCourt,
@@ -78,8 +79,7 @@ export const ENDPOINT = {
       `/food/${foodCourt}/each-category`,
   },
   REVIEW_R: {
-    TOP_5_RECENT: (type: FoodCourt) => `/review/${type}/reviews/top5-recent`,
-    TOP_5_LIKED: (type: FoodCourt) => `/review/${type}/reviews/top5-rating`,
+    RECENT_REVIEW: '/review/top5-recent',
     COUNT: (foodCourt: FoodCourt, foodId: number) =>
       `/review/${foodCourt}/count/${foodId}`,
     PAGED: (foodCourt: FoodCourt, foodId: number) =>

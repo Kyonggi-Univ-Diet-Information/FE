@@ -1,3 +1,5 @@
+import { FoodCourt } from '@/shared/config';
+
 export type Review = {
   id: number;
   rating: number;
@@ -8,14 +10,13 @@ export type Review = {
   updatedAt: string;
 };
 
-export type TopReview = {
-  content: string;
-  favoriteCount: number;
+export type RecentReview = Pick<
+  Review,
+  'memberName' | 'rating' | 'title' | 'content' | 'createdAt'
+> & {
   foodId: number;
-  memberName: string;
-  rating: number;
   reviewId: number;
-  title: string;
+  restaurantType: FoodCourt;
 };
 
 export type ReviewPost = Pick<Review, 'rating' | 'title' | 'content'>;
