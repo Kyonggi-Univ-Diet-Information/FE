@@ -2,6 +2,7 @@ import type { FoodCourt } from './endpoint';
 
 export const KEY = {
   AUTH_STATUS: 'auth-status',
+  DORM_MENU: 'dorm-menu',
   MEMBER_INFO: 'member-info',
   MEMBER_FAV_REVIEW: (page: number): string => `member-fav-review-${page}`,
   MEMBER_REVIEW: (page: number): string => `member-review-${page}`,
