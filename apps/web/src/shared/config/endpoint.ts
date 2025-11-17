@@ -107,8 +107,8 @@ export const ENDPOINT = {
   },
   MEMBER: {
     MEMBER_INFO: '/my-page/info',
-    MEMBER_REVIEW: '/my-page/reviews',
-    MEMBER_FAV_REVIEW: '/my-page/favorites',
+    MEMBER_REVIEW: '/my-page/reviews/written',
+    MEMBER_FAV_REVIEW: '/my-page/reviews/favorited',
     MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>
       `/review/favorite/${foodCourt}/each-member/all`,
   },

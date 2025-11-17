@@ -19,7 +19,7 @@ export default async function UserReviewPage({
   searchParams,
 }: UserReviewPageProps) {
   const { pageNo = 0 } = await searchParams;
-  const data = await fetchUserReview(pageNo, 'KYONGSUL');
+  const data = await fetchUserReview(pageNo);
   const likedReviewItems = await fetchReviewFaved('KYONGSUL');
 
   const totalPages = data?.totalPages;
@@ -44,12 +44,14 @@ export default async function UserReviewPage({
         <div className='flex flex-col gap-2'>
           {data?.content.map(review => (
             <ReviewItem
-              key={review.id}
+              key={review.reviewId}
               type='KYONGSUL'
               isLiked={likedReviewItems.some(
                 (item: { kyongsulFoodReviewId: number }) =>
-                  item.kyongsulFoodReviewId === review.id,
+                  item.kyongsulFoodReviewId === review.reviewId,
               )}
+              id={review.reviewId}
+              updatedAt={review.createdAt}
               {...review}
             />
           ))}

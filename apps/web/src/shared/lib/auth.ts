@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
-import { ENDPOINT } from '../config';
+
 import { Http } from '../api/http';
+import { ENDPOINT } from '../config';
 
 export class AuthService {
   private static readonly ACCESS_TOKEN_KEY = 'access_token';

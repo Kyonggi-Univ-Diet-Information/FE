@@ -1,15 +1,15 @@
 import useSWR from 'swr';
 
-import type { Review } from '@/entities/review/model/review';
+import type { RecentReview } from '@/entities/review/model/review';
 
 import type { BasePagedResponse } from '@/shared/api/baseResponse';
 import { Http } from '@/shared/api/http';
-import { ENDPOINT, type FoodCourt, KEY } from '@/shared/config';
+import { ENDPOINT, KEY } from '@/shared/config';
 
-export function useUserReview(page: number, type: FoodCourt) {
+export function useUserReview(page: number) {
   const { data, error, isLoading, mutate } = useSWR(
-    KEY.MEMBER_REVIEW(page, type),
-    () => getUserReview(page, type),
+    KEY.MEMBER_REVIEW(page),
+    () => getUserReview(page),
   );
 
   return {
@@ -17,17 +17,15 @@ export function useUserReview(page: number, type: FoodCourt) {
     isLoading,
     error,
     refresh: mutate,
-    goToPage: (page: number, type: FoodCourt) =>
-      mutate(getUserReview(page, type)),
+    goToPage: (page: number) => mutate(getUserReview(page)),
   };
 }
 
-async function getUserReview(page: number, type: FoodCourt) {
-  const data = await Http.get<BasePagedResponse<Review[]>>({
+async function getUserReview(page: number) {
+  const data = await Http.get<BasePagedResponse<RecentReview[]>>({
     request: ENDPOINT.MEMBER.MEMBER_REVIEW,
     params: {
       page,
-      type,
     },
     authorize: true,
   });

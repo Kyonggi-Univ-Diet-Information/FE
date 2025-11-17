@@ -19,11 +19,8 @@ export default function UserPage() {
 
   const { data: userInfo, isLoading: isUserInfoLoading } = useUserInfo();
   const { data: userFavReview, isLoading: isUserFavReviewLoading } =
-    useUserFavReview(0, 'KYONGSUL');
-  const { data: userReview, isLoading: isUserReviewLoading } = useUserReview(
-    0,
-    'KYONGSUL',
-  );
+    useUserFavReview(0);
+  const { data: userReview, isLoading: isUserReviewLoading } = useUserReview(0);
 
   const likedReviewCount = userFavReview?.totalElements;
   const writtenReviewCount = userReview?.totalElements;
