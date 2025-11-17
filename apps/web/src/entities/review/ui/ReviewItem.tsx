@@ -3,9 +3,10 @@ import type { Review } from '@/entities/review/model/review';
 
 import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
+import { getRelativeDate } from '@/shared/lib/date';
 
-import ReviewFavButton from './ReviewFavButton';
 import ReviewDelButton from './ReviewDelButton';
+import ReviewFavButton from './ReviewFavButton';
 
 interface ReviewItemProps extends Review {
   type: FoodCourt;
@@ -33,12 +34,14 @@ export default async function ReviewItem({
 
   const isMyReview = userInfo?.name === memberName;
 
+  const relativeDate = getRelativeDate(new Date(createdAt));
+
   return (
     <div className='flex h-32 w-full rounded-2xl bg-gray-100/50 p-4'>
       <div className='flex h-full w-40 shrink-0 flex-col items-start gap-0.5'>
         <div className='flex flex-1 flex-col gap-0.5'>
           <p className='font-semibold'>{maskedMemberName}</p>
-          <p className='text-sm text-gray-600'>{createdAt}</p>
+          <p className='text-sm text-gray-600'>{relativeDate}</p>
         </div>
         <div className='flex gap-1'>
           <ReviewFavButton
