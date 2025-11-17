@@ -1,26 +1,29 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
-
 import { Http } from '@/shared/api/http';
-import { ENDPOINT, type FoodCourt, KEY } from '@/shared/config';
+import { ENDPOINT, type FoodCourt } from '@/shared/config';
 
-export const removeReview = async (reviewId: number, type: FoodCourt) => {
-  await Http.del({
-    request: ENDPOINT.REVIEW_CUD.DELETE(type, reviewId),
-    authorize: true,
-  }).catch(error => ({
-    success: false,
-    error: error.message || '리뷰 삭제에 실패했습니다',
-  }));
+import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 
-  revalidateTag(KEY.REVIEW(type, reviewId));
-  revalidateTag(KEY.REVIEW_COUNT(type, reviewId));
-  revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, reviewId));
-  revalidateTag(KEY.REVIEW_RATING_COUNT(type, reviewId));
-  revalidateTag(KEY.MEMBER_REVIEW(0, type));
-  revalidateTag(KEY.TOP_MENU);
-  revalidateTag(KEY.RECENT_REVIEW);
+export const removeReview = async (
+  reviewId: number,
+  foodId: number,
+  type: FoodCourt,
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    await Http.del({
+      request: ENDPOINT.REVIEW_CUD.DELETE(type, reviewId),
+      authorize: true,
+    });
 
-  return { success: true };
+    revalidateReviewCache({ type, foodId });
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : '리뷰 삭제에 실패했습니다',
+    };
+  }
 };

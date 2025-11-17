@@ -1,11 +1,9 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
-
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, FoodCourt } from '@/shared/config';
-import { KEY } from '@/shared/config';
 
+import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 import { ReviewPost } from '../model/reviewPost';
 
 export const submitReview = async (
@@ -32,12 +30,7 @@ export const submitReview = async (
       error: error.message || '리뷰 등록에 실패했습니다',
     }))
     .then(() => {
-      revalidateTag(KEY.REVIEW(type, foodId));
-      revalidateTag(KEY.REVIEW_COUNT(type, foodId));
-      revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, foodId));
-      revalidateTag(KEY.REVIEW_RATING_COUNT(type, foodId));
-      revalidateTag(KEY.TOP_MENU);
-      revalidateTag(KEY.RECENT_REVIEW);
+      revalidateReviewCache({ type, foodId });
 
       return { success: true };
     });
