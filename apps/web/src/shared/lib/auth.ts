@@ -1,4 +1,6 @@
 import { cookies } from 'next/headers';
+import { ENDPOINT } from '../config';
+import { Http } from '../api/http';
 
 export class AuthService {
   private static readonly ACCESS_TOKEN_KEY = 'access_token';
@@ -41,5 +43,16 @@ export class AuthService {
   static async isAuthenticated(): Promise<boolean> {
     const accessToken = await this.getAccessToken();
     return !!accessToken;
+  }
+
+  static async getUserInfo(): Promise<{ email: string; name: string } | null> {
+    const accessToken = await this.getAccessToken();
+    if (!accessToken) return null;
+
+    const user = await Http.get<{ email: string; name: string }>({
+      request: ENDPOINT.MEMBER.MEMBER_INFO,
+      authorize: true,
+    });
+    return { email: user.email, name: user.name };
   }
 }

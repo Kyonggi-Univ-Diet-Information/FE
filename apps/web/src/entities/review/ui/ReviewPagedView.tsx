@@ -49,6 +49,7 @@ export default async function ReviewPagedView({
         <ReviewItem
           key={review.id}
           type={type}
+          foodId={foodId}
           {...review}
           isLiked={isAuthenticated && likedReviewIds.includes(review.id)}
         />
