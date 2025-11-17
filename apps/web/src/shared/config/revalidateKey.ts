@@ -25,6 +25,4 @@ export const KEY = {
     `review-average-rating-${type}-${foodId}`,
   REVIEW_FAVED_COUNT: (type: FoodCourt, reviewId: number): string =>
     `review-faved-count-${type}-${reviewId}`,
-  REVIEW_COUNT_TYPE: (type: FoodCourt, foodId: number): string =>
-    `review-count-${type}-${foodId}`,
 };

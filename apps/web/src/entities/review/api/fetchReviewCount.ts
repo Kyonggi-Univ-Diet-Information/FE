@@ -10,7 +10,7 @@ export const fetchReviewCount = async (
     request: ENDPOINT.REVIEW_R.COUNT(type, foodId),
     cache: 'force-cache',
     next: {
-      tags: [KEY.REVIEW_COUNT_TYPE(type, foodId)],
+      tags: [KEY.REVIEW_COUNT(type, foodId)],
       revalidate: 60 * 5,
     },
   });
