@@ -24,9 +24,7 @@ export function revalidateReviewCache({
     revalidatePath(ENDPOINT.REVIEW_R.PAGED(type, foodId));
   }
 
-  revalidatePath(ENDPOINT.MEMBER.MEMBER_REVIEW);
-  revalidatePath(ENDPOINT.MEMBER.MEMBER_FAV_REVIEW);
-
+  revalidateTag(KEY.MEMBER_REVIEW(0));
   revalidateTag(KEY.TOP_MENU);
   revalidateTag(KEY.RECENT_REVIEW);
 }
@@ -37,6 +35,5 @@ export function revalidateReviewFavCache(
 ): void {
   revalidateTag(KEY.REVIEW_FAVED_COUNT(type, reviewId));
   revalidateTag(KEY.REVIEW_FAVED(type));
-  revalidatePath(ENDPOINT.MEMBER.MEMBER_FAV_REVIEW);
-  revalidatePath(ENDPOINT.MEMBER.MEMBER_REVIEW);
+  revalidateTag(KEY.MEMBER_FAV_REVIEW(0));
 }
