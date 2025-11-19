@@ -103,8 +103,8 @@ export type Weekday = (typeof WEEKDAYS)[number];
  * 상대 날짜를 반환하는 함수
  */
 export function getRelativeDate(date: Date): string {
-  const diffDays = Math.abs(dayjs(date).diff(dayjs(), 'day'));
-  const diffHours = Math.abs(dayjs(date).diff(dayjs(), 'hour'));
+  const diffDays = Math.abs(dayjs(date).diff(dayjs(new Date()), 'day'));
+  const diffHours = Math.abs(dayjs(date).diff(dayjs(new Date()), 'hour'));
 
   if (diffHours === 0) {
     return '방금 전';
@@ -114,7 +114,7 @@ export function getRelativeDate(date: Date): string {
     return `${diffHours}시간 전`;
   }
 
-  if (diffDays > 0 && diffDays < 10) {
+  if (diffDays > 0 && diffDays < 30) {
     return `${diffDays}일 전`;
   }
 
