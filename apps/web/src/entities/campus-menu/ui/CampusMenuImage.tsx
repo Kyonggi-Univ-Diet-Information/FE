@@ -21,12 +21,21 @@ export default function CampusMenuImage({
     [FOOD_COURT.SALLY_BOX]: 'sb_',
   };
 
-  const [imageSrc, setImageSrc] = useState(
-    `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761492742/${imageKey[foodCourt]}${menuId}.jpg`,
+  const [imageFormat, setImageFormat] = useState<'jpg' | 'png' | 'fallback'>(
+    'jpg',
   );
 
+  const imageSrc =
+    imageFormat === 'fallback'
+      ? '/images/no-image.png'
+      : `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761492742/${imageKey[foodCourt]}${menuId}.${imageFormat}`;
+
   const handleError = () => {
-    setImageSrc('/images/no-image.png');
+    if (imageFormat === 'jpg') {
+      setImageFormat('png');
+    } else if (imageFormat === 'png') {
+      setImageFormat('fallback');
+    }
   };
 
   return (
