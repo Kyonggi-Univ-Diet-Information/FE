@@ -105,9 +105,14 @@ export type Weekday = (typeof WEEKDAYS)[number];
 export function getRelativeDate(date: Date): string {
   const diffDays = Math.abs(dayjs(date).diff(dayjs(new Date()), 'day'));
   const diffHours = Math.abs(dayjs(date).diff(dayjs(new Date()), 'hour'));
+  const diffMinutes = Math.abs(dayjs(date).diff(dayjs(new Date()), 'minute'));
 
-  if (diffHours === 0) {
+  if (diffMinutes < 1) {
     return '방금 전';
+  }
+
+  if (diffMinutes > 0 && diffMinutes < 60) {
+    return `${diffMinutes}분 전`;
   }
 
   if (diffHours > 0 && diffHours < 24) {
