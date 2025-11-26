@@ -79,6 +79,8 @@ export const ENDPOINT = {
       `/food/${foodCourt}/each-category`,
     HAS_SET: (type: CampusFoodCourt, baseFoodId: number) =>
       `/food/${type}/get-sets/${baseFoodId}`,
+    MENU_DETAIL: (foodCourt: FoodCourt, foodId: number) =>
+      `/food/${foodCourt}/${foodId}`,
   },
   REVIEW_R: {
     RECENT_REVIEW: '/review/top5-recent',
