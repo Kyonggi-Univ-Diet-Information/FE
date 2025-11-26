@@ -14,7 +14,7 @@ import {
   ReviewRating,
 } from '@/entities/review';
 
-import { getFoodCourtById } from '@/shared/config';
+import { FOOD_COURT, getFoodCourtById } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal, Button, Title } from '@/shared/ui';
@@ -80,7 +80,10 @@ export default async function ReviewPage({
         <span className='text-gray-500'>가격</span>
         <CampusMenuPrice foodCourt={foodCourt} menuId={foodId} />
       </p>
-      <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
+
+      {foodCourt === FOOD_COURT.KYONGSUL && (
+        <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
+      )}
 
       <Suspense fallback={<Loader />}>
         {isAuthenticated && isReviewMode && (
