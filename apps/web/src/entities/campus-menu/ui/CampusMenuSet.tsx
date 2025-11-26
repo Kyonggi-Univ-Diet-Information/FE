@@ -20,8 +20,8 @@ export default async function CampusMenuSet({
       : '(단품 + 탄산음료)';
 
   return (
-    <section className='flex flex-col gap-2 rounded-xl border border-gray-200 p-4'>
-      {/* <h3 className='font-medium'>해당 메뉴의 세트메뉴를 확인해보세요!</h3> */}
+    <section className='flex flex-col gap-2 border-b border-t border-gray-200 p-4'>
+      <h3 className='mb-2 font-semibold'>연관 메뉴</h3>
       <div className='flex flex-col gap-2'>
         {setMenus.map(setMenu => (
           <div className='flex items-center justify-between' key={setMenu.id}>
