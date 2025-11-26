@@ -4,12 +4,26 @@ import type { SubRestaurant } from './campusRestaurant';
 
 export type { CampusFoodCourt } from '@/shared/config/endpoint';
 
+export const SET = {
+  SET: 'SET',
+  COMBO: 'COMBO',
+} as const;
+
+export type SetType = (typeof SET)[keyof typeof SET];
+
 export type CampusMenu = {
   id: number;
   name: string;
   nameEn: string;
   price: number;
   subRestaurant: SubRestaurant;
+};
+
+export type CampusSetMenu = CampusMenu & {
+  baseFoodId: 129;
+  setType: SetType;
+  category: string;
+  categoryKorean: string;
 };
 
 export type CampusTopMenu = CampusMenu & {
