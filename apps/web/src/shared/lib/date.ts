@@ -101,11 +101,16 @@ export type Weekday = (typeof WEEKDAYS)[number];
 
 /**
  * 상대 날짜를 반환하는 함수
+ * 한국 시간대 기준으로 처리
  */
 export function getRelativeDate(date: Date): string {
-  const diffDays = Math.abs(dayjs(date).diff(dayjs(new Date()), 'day'));
-  const diffHours = Math.abs(dayjs(date).diff(dayjs(new Date()), 'hour'));
-  const diffMinutes = Math.abs(dayjs(date).diff(dayjs(new Date()), 'minute'));
+  const now = new Date(
+    new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
+  );
+
+  const diffDays = Math.abs(dayjs(date).diff(dayjs(now), 'day'));
+  const diffHours = Math.abs(dayjs(date).diff(dayjs(now), 'hour'));
+  const diffMinutes = Math.abs(dayjs(date).diff(dayjs(now), 'minute'));
 
   if (diffMinutes < 1) {
     return '방금 전';
