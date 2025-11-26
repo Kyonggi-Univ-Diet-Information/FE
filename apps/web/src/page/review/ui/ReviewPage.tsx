@@ -2,7 +2,12 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
-import { CampusMenuName } from '@/entities/campus-menu';
+import {
+  CampusMenuName,
+  CampusMenuPrice,
+  CampusMenuSet,
+} from '@/entities/campus-menu';
+import CampusMenuImage from '@/entities/campus-menu/ui/CampusMenuImage';
 import {
   ReviewFormSection,
   ReviewPagedView,
@@ -65,6 +70,17 @@ export default async function ReviewPage({
           </Button>
         </Link>
       </section>
+
+      <CampusMenuImage
+        foodCourt={foodCourt}
+        menuId={foodId}
+        className='aspect-square h-[180px] w-full border border-gray-200'
+      />
+      <p className='flex items-center justify-between px-4'>
+        <span className='text-gray-500'>가격</span>
+        <CampusMenuPrice foodCourt={foodCourt} menuId={foodId} />
+      </p>
+      <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
 
       <Suspense fallback={<Loader />}>
         {isAuthenticated && isReviewMode && (

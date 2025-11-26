@@ -4,15 +4,18 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { FOOD_COURT, type FoodCourt } from '@/shared/config';
+import { cn } from '@/shared/utils';
 
 interface CampusMenuImageProps {
   menuId: number;
   foodCourt: FoodCourt;
+  className?: string;
 }
 
 export default function CampusMenuImage({
   foodCourt,
   menuId,
+  className,
 }: CampusMenuImageProps) {
   const imageKey: Record<FoodCourt, string> = {
     [FOOD_COURT.KYONGSUL]: '',
@@ -39,7 +42,12 @@ export default function CampusMenuImage({
   };
 
   return (
-    <div className='relative size-[100px] overflow-hidden rounded-xl'>
+    <div
+      className={cn(
+        'relative size-[100px] overflow-hidden rounded-xl',
+        className,
+      )}
+    >
       <Image
         loading='lazy'
         placeholder='blur'
