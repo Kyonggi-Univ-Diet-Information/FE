@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   static async getUserInfo(): Promise<{ email: string; name: string } | null> {
-    if (!this.isAuthenticated()) return null;
+    if (!(await this.isAuthenticated())) return null;
 
     const user = await Http.get<{ email: string; name: string }>({
       request: ENDPOINT.MEMBER.MEMBER_INFO,
