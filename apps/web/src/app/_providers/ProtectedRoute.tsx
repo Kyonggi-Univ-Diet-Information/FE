@@ -7,7 +7,6 @@ import { useAuth } from '@/features/auth/hooks';
 
 import { Loader } from '@/shared/ui';
 
-
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();

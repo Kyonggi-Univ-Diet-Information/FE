@@ -1,2 +1,2 @@
-export * from './revalidateKey';
+export * from './key';
 export * from './endpoint';

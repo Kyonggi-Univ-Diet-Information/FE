@@ -1,10 +1,5 @@
 import { redirect } from 'next/navigation';
 
-import { logout } from '@/features/auth/action';
-import { getToken } from '@/features/auth/action/getToken';
-
-import { PUBLIC_API_URL } from '@/shared/config/endpoint';
-
 export interface RequestBase {
   request: string;
   headers?: Record<string, string>;
@@ -30,27 +25,53 @@ interface HttpOptions {
 }
 
 export class Http {
-  private static async buildHeaders(
+  private static getBaseUrl(): string {
+    if (typeof window !== 'undefined') {
+      return '';
+    }
+
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      return process.env.NEXT_PUBLIC_SITE_URL;
+    }
+
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+
+    return 'http://localhost:3000';
+  }
+
+  private static buildBffUrl(
+    request: string,
+    params?: Record<string, unknown>,
+  ): string {
+    const bffPath = request.startsWith('/') ? request.slice(1) : request;
+    const baseUrl = this.getBaseUrl();
+    let urlString = `${baseUrl}/api/bff/${bffPath}`;
+
+    if (params) {
+      const searchParams = new URLSearchParams();
+      Object.entries(params).forEach(([k, v]) => {
+        if (v != null) searchParams.append(k, String(v));
+      });
+      const queryString = searchParams.toString();
+      if (queryString) urlString += `?${queryString}`;
+    }
+
+    return urlString;
+  }
+
+  private static buildHeaders(
     headers?: Record<string, string>,
     authorize?: boolean,
-  ): Promise<HeadersInit> {
+  ): HeadersInit {
     const finalHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
       ...headers,
     };
 
     if (authorize) {
-      const accessToken = await getToken();
-      if (!accessToken) {
-        if (typeof window !== 'undefined') {
-          alert('로그인이 필요해요!');
-          window.location.href = '/auth/login';
-        } else {
-          redirect('/auth/login');
-        }
-        throw new Error('로그인이 필요합니다.');
-      }
-      finalHeaders.Authorization = `Bearer ${accessToken}`;
+      finalHeaders['x-require-auth'] = 'true';
     }
 
     return finalHeaders;
@@ -67,8 +88,14 @@ export class Http {
     const data = await res.json().catch(() => ({}));
 
     if (res.status === 401 && authorize) {
-      await logout();
+      const logoutUrl =
+        typeof window !== 'undefined'
+          ? '/api/auth/logout'
+          : `${this.getBaseUrl()}/api/auth/logout`;
+      await fetch(logoutUrl, { method: 'POST' }).catch(() => {});
+
       if (typeof window !== 'undefined') {
+        alert('로그인이 필요해요!');
         window.location.href = '/auth/login';
       } else {
         redirect('/auth/login');
@@ -77,7 +104,8 @@ export class Http {
 
     if (!res.ok) {
       throw new Error(
-        data.message ||
+        data.error ||
+          data.message ||
           options.errorMessage ||
           `요청에 실패했습니다 (status: ${res.status})`,
       );
@@ -98,15 +126,15 @@ export class Http {
       next,
       authorize = false,
     } = config;
-    const url = new URL(`${PUBLIC_API_URL}${request}`);
-    if (params)
-      Object.entries(params).forEach(([k, v]) =>
-        v != null ? url.searchParams.append(k, String(v)) : null,
-      );
 
-    const finalHeaders = await this.buildHeaders(headers, authorize);
+    const urlString = this.buildBffUrl(
+      request,
+      params as Record<string, unknown>,
+    );
+    const finalHeaders = this.buildHeaders(headers, authorize);
+
     return this.request<TResponse>(
-      url,
+      urlString,
       { method: 'GET', headers: finalHeaders, cache, next },
       options,
       authorize,
@@ -118,10 +146,12 @@ export class Http {
     options: HttpOptions = {},
   ): Promise<TResponse> {
     const { request, data, headers, authorize = false } = config;
-    const finalHeaders = await this.buildHeaders(headers, authorize);
+
+    const urlString = this.buildBffUrl(request);
+    const finalHeaders = this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
-      new URL(`${PUBLIC_API_URL}${request}`),
+      urlString,
       {
         method: 'POST',
         headers: finalHeaders,
@@ -137,10 +167,12 @@ export class Http {
     options: HttpOptions = {},
   ): Promise<TResponse> {
     const { request, data, headers, authorize = false } = config;
-    const finalHeaders = await this.buildHeaders(headers, authorize);
+
+    const urlString = this.buildBffUrl(request);
+    const finalHeaders = this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
-      new URL(`${PUBLIC_API_URL}${request}`),
+      urlString,
       {
         method: 'DELETE',
         headers: finalHeaders,

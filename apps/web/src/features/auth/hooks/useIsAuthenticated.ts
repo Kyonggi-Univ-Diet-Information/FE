@@ -2,22 +2,21 @@
 
 import useSWR from 'swr';
 
-import { checkAuth } from '../action';
+import { fetchIsAuthenticated } from '../action';
 
 export function useAuth() {
   const { data, error, isLoading, mutate } = useSWR(
     'auth-status',
-    () => checkAuth(),
+    () => fetchIsAuthenticated(),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
-      dedupingInterval: 10000,
+      dedupingInterval: 1000 * 60 * 60 * 24,
     },
   );
 
   return {
     isAuthenticated: data?.isAuthenticated ?? false,
-    hasToken: data?.hasToken ?? false,
     isLoading,
     error,
     refresh: mutate,
