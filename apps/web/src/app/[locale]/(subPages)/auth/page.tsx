@@ -10,7 +10,6 @@ import { KEY } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 import { Button, Loader } from '@/shared/ui';
 
-
 function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -33,7 +32,26 @@ function AuthContent() {
     try {
       const result = await handleKakaoLogin(code);
 
-      if (result.success) {
+      if (
+        result.success &&
+        'accessToken' in result &&
+        'refreshToken' in result
+      ) {
+        const cookieResponse = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            accessToken: result.accessToken,
+            refreshToken: result.refreshToken,
+          }),
+        });
+
+        if (!cookieResponse.ok) {
+          throw new Error('Failed to set cookies');
+        }
+
         await mutate(KEY.AUTH_STATUS);
 
         let returnUrl = '/';
