@@ -1,44 +1,12 @@
 import { cookies } from 'next/headers';
 
 import { Http } from '../api/http';
-import { ENDPOINT } from '../config';
+import { COOKIE_KEYS, ENDPOINT } from '../config';
 
 export class AuthService {
-  private static readonly ACCESS_TOKEN_KEY = 'access_token';
-  private static readonly REFRESH_TOKEN_KEY = 'refresh_token';
-
-  static async setTokens(accessToken: string, refreshToken: string) {
+  private static async getAccessToken(): Promise<string | null> {
     const cookieStore = await cookies();
-
-    cookieStore.set(this.ACCESS_TOKEN_KEY, accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 15 * 60,
-    });
-
-    cookieStore.set(this.REFRESH_TOKEN_KEY, refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60,
-    });
-  }
-
-  static async getAccessToken(): Promise<string | null> {
-    const cookieStore = await cookies();
-    return cookieStore.get(this.ACCESS_TOKEN_KEY)?.value || null;
-  }
-
-  static async getRefreshToken(): Promise<string | null> {
-    const cookieStore = await cookies();
-    return cookieStore.get(this.REFRESH_TOKEN_KEY)?.value || null;
-  }
-
-  static async clearTokens() {
-    const cookieStore = await cookies();
-    cookieStore.delete(this.ACCESS_TOKEN_KEY);
-    cookieStore.delete(this.REFRESH_TOKEN_KEY);
+    return cookieStore.get(COOKIE_KEYS.ACCESS_TOKEN)?.value || null;
   }
 
   static async isAuthenticated(): Promise<boolean> {
@@ -47,12 +15,12 @@ export class AuthService {
   }
 
   static async getUserInfo(): Promise<{ email: string; name: string } | null> {
-    const accessToken = await this.getAccessToken();
-    if (!accessToken) return null;
+    if (!this.isAuthenticated()) return null;
 
     const user = await Http.get<{ email: string; name: string }>({
       request: ENDPOINT.MEMBER.MEMBER_INFO,
       authorize: true,
+      cache: 'force-cache',
     });
     return { email: user.email, name: user.name };
   }
