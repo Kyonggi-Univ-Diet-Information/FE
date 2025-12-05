@@ -11,7 +11,7 @@ export function useAuth() {
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
-      dedupingInterval: 10000,
+      dedupingInterval: 1000 * 60 * 60 * 24,
     },
   );
 
