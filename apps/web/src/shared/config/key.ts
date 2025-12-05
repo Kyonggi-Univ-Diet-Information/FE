@@ -1,5 +1,10 @@
 import type { FoodCourt } from './endpoint';
 
+export const COOKIE_KEYS = {
+  ACCESS_TOKEN: 'access_token',
+  REFRESH_TOKEN: 'refresh_token',
+} as const;
+
 export const KEY = {
   AUTH_STATUS: 'auth-status',
   DORM_MENU: 'dorm-menu',
