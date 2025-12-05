@@ -28,8 +28,25 @@ async function handleRequest(
 
     const authHeader = request.headers.get('x-require-auth');
     if (authHeader === 'true') {
-      const cookieStore = await cookies();
-      const accessToken = cookieStore.get(COOKIE_KEYS.ACCESS_TOKEN)?.value;
+      let accessToken: string | undefined;
+
+      const cookieHeader = request.headers.get('cookie');
+      if (cookieHeader) {
+        const cookies = cookieHeader.split(';').reduce(
+          (acc, cookie) => {
+            const [key, value] = cookie.trim().split('=');
+            acc[key] = value;
+            return acc;
+          },
+          {} as Record<string, string>,
+        );
+        accessToken = cookies[COOKIE_KEYS.ACCESS_TOKEN];
+      }
+
+      if (!accessToken) {
+        const cookieStore = await cookies();
+        accessToken = cookieStore.get(COOKIE_KEYS.ACCESS_TOKEN)?.value;
+      }
 
       if (!accessToken) {
         return NextResponse.json(

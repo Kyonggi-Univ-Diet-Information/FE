@@ -61,10 +61,10 @@ export class Http {
     return urlString;
   }
 
-  private static buildHeaders(
+  private static async buildHeaders(
     headers?: Record<string, string>,
     authorize?: boolean,
-  ): HeadersInit {
+  ): Promise<HeadersInit> {
     const finalHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
       ...headers,
@@ -72,6 +72,23 @@ export class Http {
 
     if (authorize) {
       finalHeaders['x-require-auth'] = 'true';
+    }
+
+    if (typeof window === 'undefined') {
+      try {
+        const { cookies } = await import('next/headers');
+        const cookieStore = await cookies();
+        const cookieHeader = cookieStore
+          .getAll()
+          .map(cookie => `${cookie.name}=${cookie.value}`)
+          .join('; ');
+
+        if (cookieHeader) {
+          finalHeaders['Cookie'] = cookieHeader;
+        }
+      } catch (error) {
+        console.warn('Failed to get cookies:', error);
+      }
     }
 
     return finalHeaders;
@@ -131,7 +148,7 @@ export class Http {
       request,
       params as Record<string, unknown>,
     );
-    const finalHeaders = this.buildHeaders(headers, authorize);
+    const finalHeaders = await this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
       urlString,
@@ -148,7 +165,7 @@ export class Http {
     const { request, data, headers, authorize = false } = config;
 
     const urlString = this.buildBffUrl(request);
-    const finalHeaders = this.buildHeaders(headers, authorize);
+    const finalHeaders = await this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
       urlString,
@@ -169,7 +186,7 @@ export class Http {
     const { request, data, headers, authorize = false } = config;
 
     const urlString = this.buildBffUrl(request);
-    const finalHeaders = this.buildHeaders(headers, authorize);
+    const finalHeaders = await this.buildHeaders(headers, authorize);
 
     return this.request<TResponse>(
       urlString,
