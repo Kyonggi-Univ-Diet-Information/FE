@@ -2,8 +2,8 @@
 
 import { ChevronRight } from 'lucide-react';
 
-import { logout } from '@/features/auth/action';
 import { useAuth } from '@/features/auth/hooks';
+import { logout } from '@/features/auth/lib/logout';
 
 import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 import { Link, useRouter } from '@/shared/i18n/routing';

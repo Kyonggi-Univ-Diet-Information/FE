@@ -1,8 +1,9 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
 import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config/endpoint';
-import { AuthService } from '@/shared/lib/auth';
+import { COOKIE_KEYS, ENDPOINT } from '@/shared/config';
 
 interface LoginResponse {
   token: string;
@@ -17,7 +18,22 @@ export async function handleKakaoLogin(code: string) {
     });
 
     if (response.token) {
-      await AuthService.setTokens(response.token, response.token);
+      const cookieStore = await cookies();
+
+      cookieStore.set(COOKIE_KEYS.ACCESS_TOKEN, response.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 15 * 60,
+      });
+
+      cookieStore.set(COOKIE_KEYS.REFRESH_TOKEN, response.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60,
+      });
+
       return { success: true };
     }
 

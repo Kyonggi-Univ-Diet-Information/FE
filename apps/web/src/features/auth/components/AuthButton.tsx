@@ -6,8 +6,8 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/shared/i18n/routing';
 import { Button } from '@/shared/ui';
 
-import { logout } from '../action';
 import { useAuth } from '../hooks';
+import { logout } from '../lib/logout';
 
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();
