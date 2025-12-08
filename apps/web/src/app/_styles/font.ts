@@ -26,9 +26,13 @@ export const wantedSans = localFont({
 });
 
 export const brBold = localFont({
-  src: '../../../public/fonts/brBold.otf',
-  weight: '700',
-  style: 'normal',
+  src: [
+    {
+      path: '../../../public/fonts/brBold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-brBold',
   display: 'swap',
   preload: false,
@@ -36,9 +40,13 @@ export const brBold = localFont({
 });
 
 export const brRegular = localFont({
-  src: '../../../public/fonts/brRegular.otf',
-  weight: '400',
-  style: 'normal',
+  src: [
+    {
+      path: '../../../public/fonts/brRegular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
   variable: '--font-brRegular',
   display: 'swap',
   preload: false,
@@ -46,9 +54,13 @@ export const brRegular = localFont({
 });
 
 export const tossFace = localFont({
-  src: '../../../public/fonts/tossFace.ttf',
-  weight: '400',
-  style: 'normal',
+  src: [
+    {
+      path: '../../../public/fonts/tossFace.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
   variable: '--font-tossFace',
   display: 'swap',
   preload: false,

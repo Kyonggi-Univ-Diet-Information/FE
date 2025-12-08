@@ -45,7 +45,7 @@ export async function generateStaticParams() {
       const foodCourtId = FOOD_COURT_ID[foodCourt];
 
       try {
-        const response = await Http.get<BaseResponse<CategoryMenuResponse>>({
+        const response = await Http.getDirect<BaseResponse<CategoryMenuResponse>>({
           request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
           cache: 'force-cache',
         });

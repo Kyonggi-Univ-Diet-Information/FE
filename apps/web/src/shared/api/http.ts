@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 
+import { PUBLIC_API_URL } from '@/shared/config/endpoint';
+
 export interface RequestBase {
   request: string;
   headers?: Record<string, string>;
@@ -10,6 +12,7 @@ export interface GetRequestParams<TParams> extends RequestBase {
   params?: TParams;
   cache?: RequestCache;
   next?: NextFetchRequestConfig;
+  skipCookies?: boolean;
 }
 
 export interface PostRequestParams<TData> extends RequestBase {
@@ -61,9 +64,29 @@ export class Http {
     return urlString;
   }
 
+  private static buildDirectUrl(
+    request: string,
+    params?: Record<string, unknown>,
+  ): string {
+    const path = request.startsWith('/') ? request : `/${request}`;
+    let urlString = `${PUBLIC_API_URL}${path}`;
+
+    if (params) {
+      const searchParams = new URLSearchParams();
+      Object.entries(params).forEach(([k, v]) => {
+        if (v != null) searchParams.append(k, String(v));
+      });
+      const queryString = searchParams.toString();
+      if (queryString) urlString += `?${queryString}`;
+    }
+
+    return urlString;
+  }
+
   private static async buildHeaders(
     headers?: Record<string, string>,
     authorize?: boolean,
+    skipCookies?: boolean,
   ): Promise<HeadersInit> {
     const finalHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -74,7 +97,7 @@ export class Http {
       finalHeaders['x-require-auth'] = 'true';
     }
 
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' && !skipCookies) {
       try {
         const { cookies } = await import('next/headers');
         const cookieStore = await cookies();
@@ -142,19 +165,50 @@ export class Http {
       cache = 'default',
       next,
       authorize = false,
+      skipCookies = false,
     } = config;
 
     const urlString = this.buildBffUrl(
       request,
       params as Record<string, unknown>,
     );
-    const finalHeaders = await this.buildHeaders(headers, authorize);
+    const finalHeaders = await this.buildHeaders(
+      headers,
+      authorize,
+      skipCookies,
+    );
 
     return this.request<TResponse>(
       urlString,
       { method: 'GET', headers: finalHeaders, cache, next },
       options,
       authorize,
+    );
+  }
+
+  /**
+   * BFF를 거치지 않고 외부 API를 직접 호출합니다.
+   * 주로 generateStaticParams 등 빌드 타임에 사용합니다.
+   */
+  static async getDirect<TResponse, TParams = unknown>(
+    config: Omit<GetRequestParams<TParams>, 'authorize' | 'skipCookies'>,
+    options: HttpOptions = {},
+  ): Promise<TResponse> {
+    const { request, headers, params, cache = 'default', next } = config;
+
+    const urlString = this.buildDirectUrl(
+      request,
+      params as Record<string, unknown>,
+    );
+    const finalHeaders: HeadersInit = {
+      'Content-Type': 'application/json',
+      ...headers,
+    };
+
+    return this.request<TResponse>(
+      urlString,
+      { method: 'GET', headers: finalHeaders, cache, next },
+      options,
     );
   }
 

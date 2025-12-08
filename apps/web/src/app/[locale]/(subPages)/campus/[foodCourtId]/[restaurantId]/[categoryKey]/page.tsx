@@ -31,10 +31,12 @@ export async function generateStaticParams() {
     const restaurants = FOOD_COURT_RESTAURANTS[foodCourt];
 
     try {
-      const response = await Http.get<BaseResponse<CategoryMenuResponse>>({
-        request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
-        cache: 'force-cache',
-      });
+      const response = await Http.getDirect<BaseResponse<CategoryMenuResponse>>(
+        {
+          request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
+          cache: 'force-cache',
+        },
+      );
 
       const data = response.result;
 
