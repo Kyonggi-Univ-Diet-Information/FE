@@ -81,6 +81,7 @@ export const ENDPOINT = {
       `/food/${type}/get-sets/${baseFoodId}`,
     MENU_DETAIL: (foodCourt: FoodCourt, foodId: number) =>
       `/food/${foodCourt}/${foodId}`,
+    SEARCH: '/search',
   },
   REVIEW_R: {
     RECENT_REVIEW: '/review/top5-recent',

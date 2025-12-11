@@ -112,5 +112,15 @@
   "metadata": {
     "title": "Kiryong Let's Eat",
     "description": "Easily find dining information at Kyonggi University!"
+  },
+  "search": {
+    "title": "Search",
+    "subtitle": "Search for the menu you want!",
+    "placeholder": "Enter the search term.",
+    "searchButton": "Search",
+    "searchResult": "Search Result",
+    "searchResultCount": "results",
+    "searchResultCountText": "results found",
+    "noResults": "No results found for {q}"
   }
 }
