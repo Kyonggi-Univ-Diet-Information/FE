@@ -1,5 +1,6 @@
 'use client';
 
+import { Search } from 'lucide-react';
 import { motion } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
@@ -14,7 +15,6 @@ import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
 import Home from '../../../public/icons/icon-home.svg';
-import Restaurant1 from '../../../public/icons/icon-restaurant1.svg';
 import Restaurant2 from '../../../public/icons/icon-restaurant2.svg';
 import Review from '../../../public/icons/icon-review.svg';
 import User from '../../../public/icons/icon-user.svg';
@@ -38,8 +38,8 @@ export default function BottomNavBar() {
     {
       href: `/search`,
       label: t('search'),
-      icon: <Restaurant1 width={32} height={32} />,
-      alt: 'restaurant1',
+      icon: <Search className='mb-[5px] mt-2 size-5' />,
+      alt: 'search',
     },
     {
       href: '/',
