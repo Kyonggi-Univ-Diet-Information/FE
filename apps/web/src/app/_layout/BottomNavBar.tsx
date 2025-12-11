@@ -23,7 +23,6 @@ export default function BottomNavBar() {
   const pathname = usePathname();
   const t = useTranslations('navigation');
   const locale = useLocale();
-  const today = new Date().getDay();
 
   const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
   const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
@@ -37,8 +36,8 @@ export default function BottomNavBar() {
       alt: 'restaurant2',
     },
     {
-      href: `/dorm/${today}`,
-      label: t('dorm'),
+      href: `/search`,
+      label: t('search'),
       icon: <Restaurant1 width={32} height={32} />,
       alt: 'restaurant1',
     },
@@ -65,8 +64,7 @@ export default function BottomNavBar() {
   const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
   if (
     pathWithoutLocale.split('/').length > 2 &&
-    !pathWithoutLocale.startsWith('/campus') &&
-    !pathWithoutLocale.startsWith('/dorm')
+    !pathWithoutLocale.startsWith('/campus')
   ) {
     return null;
   }

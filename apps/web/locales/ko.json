@@ -8,6 +8,7 @@
   "navigation": {
     "home": "홈",
     "campus": "교내식당",
+    "search": "검색",
     "dorm": "기숙사",
     "review": "리뷰",
     "myPage": "마이"
@@ -66,6 +67,7 @@
     "reviewCount": "리뷰 "
   },
   "dorm": {
+    "subtitle": "이번 주 경기드림타워 메뉴를 확인하세요!",
     "breakfast": "아침",
     "lunch": "점심",
     "dinner": "저녁",

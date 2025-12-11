@@ -8,8 +8,9 @@
   "navigation": {
     "home": "Home",
     "campus": "Campus",
-    "dorm": "Dorm",
+    "search": "Search",
     "review": "Review",
+    "dorm": "Dorm",
     "myPage": "My"
   },
   "home": {
@@ -66,6 +67,7 @@
     "reviewCount": ""
   },
   "dorm": {
+    "subtitle": "Check out the menu for this week!",
     "breakfast": "Breakfast",
     "lunch": "Lunch",
     "dinner": "Dinner",
