@@ -3,6 +3,8 @@ import type { SubRestaurant } from '@/entities/campus-menu/model/campusRestauran
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, type FoodCourt } from '@/shared/config';
 
+import type { FoodType, SortingType } from '../model/search';
+
 export type SearchResult = {
   menuId: number;
   price: number;
@@ -17,16 +19,30 @@ export type SearchResult = {
   averageRating: number;
 };
 
-export const fetchSearch = async (q: string): Promise<SearchResult[]> => {
+export type SearchOption = {
+  keyword: string;
+  foodType: FoodType;
+  restaurantType: FoodCourt;
+  priceMin: number;
+  priceMax: number;
+  sortingType: SortingType;
+};
+
+export const fetchSearch = async (
+  option: SearchOption,
+): Promise<SearchResult[]> => {
+  const { keyword, foodType, restaurantType, priceMin, priceMax, sortingType } =
+    option;
+
   const response: { result: SearchResult[] } = await Http.get({
     request: ENDPOINT.MENU.SEARCH,
     params: {
-      keyword: q,
-      foodType: 'RICE_BOWL',
-      restaurantType: 'KYONGSUL',
-      priceMin: 0,
-      priceMax: 100000,
-      sortingType: 'BASIC',
+      keyword,
+      foodType,
+      restaurantType,
+      priceMin,
+      priceMax,
+      sortingType: sortingType,
     },
   });
 
