@@ -30,7 +30,7 @@ export default async function SearchResult({
 
   if (results.length === 0) {
     return (
-      <div className='flex h-[300px] items-center justify-center text-center text-gray-600'>
+      <div className='col-span-2 flex h-[300px] w-full items-center justify-center text-center text-gray-600'>
         {t('noResults', { q: q || '해당 조건' })}
       </div>
     );

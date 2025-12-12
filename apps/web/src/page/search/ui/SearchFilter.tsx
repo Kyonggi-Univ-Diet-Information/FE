@@ -1,4 +1,4 @@
-import { AlignCenter, RotateCw } from 'lucide-react';
+import { RotateCw, SortDescIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 
@@ -7,7 +7,7 @@ import {
   FOOD_COURT_NAME,
   type FoodCourt,
 } from '@/shared/config/endpoint';
-import { Button, Select } from '@/shared/ui';
+import { Select } from '@/shared/ui';
 import {
   SelectContent,
   SelectGroup,
@@ -38,8 +38,6 @@ export default memo(function SearchFilter({
 }: SearchFilterProps) {
   const router = useRouter();
 
-  console.log('SearchFilter 리렌더링');
-
   const onReset = () => {
     router.push(`/search`);
   };
@@ -66,9 +64,7 @@ export default memo(function SearchFilter({
       >
         <SelectTrigger className='w-fit rounded-xl'>
           <SelectValue
-            placeholder={
-              foodType === FOOD_TYPE.DEFAULT ? '타입 선택' : foodType
-            }
+            placeholder={foodType === FOOD_TYPE.DEFAULT ? '전체' : foodType}
           />
         </SelectTrigger>
         <SelectContent align='start'>
@@ -119,20 +115,19 @@ export default memo(function SearchFilter({
         }
       >
         <SelectTrigger
-          className='flex h-full w-fit cursor-pointer items-center justify-center rounded-xl border-none hover:bg-gray-100 focus:outline-none active:bg-gray-200'
+          className='flex h-full w-fit cursor-pointer items-center justify-center rounded-xl border-none px-0 hover:bg-gray-100 focus:outline-none active:bg-gray-200'
           icon={false}
         >
-          <AlignCenter size={16} />
+          <SortDescIcon size={16} />
+          <span>{SORTING_TYPE_NAME[sort]}</span>
         </SelectTrigger>
-        <SelectContent align='end'>
+        <SelectContent align='start'>
           <SelectGroup>
-            {Object.values(SORTING_TYPE)
-              .filter(type => type !== SORTING_TYPE.BASIC)
-              .map(type => (
-                <SelectItem key={type} value={type}>
-                  {SORTING_TYPE_NAME[type]}
-                </SelectItem>
-              ))}
+            {Object.values(SORTING_TYPE).map(type => (
+              <SelectItem key={type} value={type}>
+                {SORTING_TYPE_NAME[type]}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -141,19 +136,17 @@ export default memo(function SearchFilter({
 
   return (
     <div className='flex items-center gap-2'>
+      <div className='flex flex-1 items-center justify-start'>
+        <FilterSortingType />
+      </div>
       <FilterFoodType />
       <FilterRestaurantType />
-      <Button
-        size='sm'
-        variant='outline'
-        className='h-full'
+      <button
+        className='h-full cursor-pointer focus:outline-none'
         onClick={() => onReset()}
       >
         <RotateCw size={16} />
-      </Button>
-      <div className='flex flex-1 items-center justify-end'>
-        <FilterSortingType />
-      </div>
+      </button>
     </div>
   );
 });
