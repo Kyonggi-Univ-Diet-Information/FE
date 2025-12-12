@@ -13,7 +13,7 @@ export type SearchResult = {
   name: string;
   nameEn: string;
   cuisine: string;
-  foodType: string;
+  foodType: FoodType;
   detailedMenu: string;
   reviewCount: number;
   averageRating: number;

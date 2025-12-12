@@ -1,20 +1,27 @@
 import { MessageSquareText } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import { CATEGORY_TO_TEXT } from '@/entities/campus-menu/model/campusMenu';
+import { CAMPUS_RESTAURANT } from '@/entities/campus-menu/model/campusRestaurant';
 import CampusMenuImage from '@/entities/campus-menu/ui/CampusMenuImage';
 
-import { FOOD_COURT_ID } from '@/shared/config';
+import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
 import { Link } from '@/shared/i18n/routing';
 
 import type { SearchResult } from '../api/fetchSearch';
+import { FOOD_TYPE_NAME } from '../model/search';
 
 export default async function SearchMenuCard({
   menuId,
   price,
   restaurantType,
+  subRestaurant,
   name,
   nameEn,
   reviewCount,
+  averageRating,
+  foodType,
+  detailedMenu,
 }: SearchResult) {
   const locale = await getLocale();
   const wonText = locale === 'en' ? '₩' : '원';
@@ -22,17 +29,40 @@ export default async function SearchMenuCard({
   const cardContent = (
     <>
       <div className='flex flex-col gap-1'>
+        <span className='text-sm leading-none text-gray-900/40'>
+          {FOOD_COURT_NAME[restaurantType]} {CAMPUS_RESTAURANT[subRestaurant]}
+        </span>
         <span className='font-semibold'>{locale === 'en' ? nameEn : name}</span>
         <span className='text-sm'>
           {locale === 'en'
             ? `${wonText}${price.toLocaleString()}`
             : `${price.toLocaleString()}${wonText}`}
         </span>
-        <span className='mt-0.5 text-xs text-gray-900/80'>
-          {t('reviewCount')}
-          <b className='font-semibold'>{reviewCount.toLocaleString()}</b>
-          {t('reviews')}
+        <span className='flex items-center gap-1 text-xs text-gray-900/80'>
+          {averageRating > 0 && (
+            <>
+              <span className='font-tossFace'>
+                {'⭐️'.repeat(Math.floor(averageRating))}
+              </span>
+              <b className='font-semibold'> {averageRating.toFixed(1)} </b>
+            </>
+          )}
+          <span>
+            {t('reviewCount')}
+            <b className='font-semibold'>{reviewCount.toLocaleString()}</b>
+            {t('reviews')}
+          </span>
         </span>
+        <div className='flex items-center gap-1'>
+          <span className='text-xs text-gray-900/40'>
+            #{FOOD_TYPE_NAME[foodType]}
+          </span>
+          {foodType !== detailedMenu && (
+            <span className='text-xs text-gray-900/40'>
+              #{CATEGORY_TO_TEXT[detailedMenu]}
+            </span>
+          )}
+        </div>
       </div>
       <CampusMenuImage foodCourt={restaurantType} menuId={menuId} />
     </>
