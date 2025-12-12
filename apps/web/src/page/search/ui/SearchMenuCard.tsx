@@ -42,7 +42,7 @@ export default async function SearchMenuCard({
     <>
       <Link
         href={`/review/${FOOD_COURT_ID[restaurantType]}/${menuId}`}
-        className='border-b border-gray-100 md:hidden'
+        className='border-b border-gray-100 focus:outline-none md:hidden'
       >
         <div
           className='group flex cursor-pointer justify-between p-4 text-gray-600 active:bg-gray-100/50'
@@ -53,7 +53,7 @@ export default async function SearchMenuCard({
       </Link>
 
       <div
-        className='hidden w-full justify-between rounded-2xl bg-gray-100/50 p-4 text-gray-600 md:flex'
+        className='hidden h-fit w-full justify-between rounded-2xl bg-gray-100/50 p-4 text-gray-600 md:flex'
         key={menuId}
       >
         <div className='flex flex-col justify-between'>
@@ -76,7 +76,7 @@ export default async function SearchMenuCard({
               className='text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'
             />
             <div className='text-sm text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'>
-              {t('reviewCount')} {reviewCount.toLocaleString()} {t('reviews')}
+              {t('reviewCount')} {reviewCount.toLocaleString()}
             </div>
           </Link>
         </div>
