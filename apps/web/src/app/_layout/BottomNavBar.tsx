@@ -1,10 +1,10 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { motion } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import {
   FOOD_COURT_RESTAURANTS,
@@ -25,18 +25,44 @@ export default function BottomNavBar() {
   const t = useTranslations('navigation');
   const locale = useLocale();
   const [hidden, setHidden] = useState(false);
-  const { scrollY } = useScroll();
+  const lastScrollY = useRef(0);
 
-  useMotionValueEvent(scrollY, 'change', latest => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      // 아래로 스크롤 & 150px 이상 스크롤됨
-      setHidden(true);
+  useEffect(() => {
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const currentScrollY = target.scrollTop || window.scrollY;
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+        setHidden(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    const scrollContainers = document.querySelectorAll(
+      'main [class*="overflow-y-scroll"], main .scrollbar-hide, .scrollbar-hide',
+    );
+
+    if (scrollContainers.length > 0) {
+      scrollContainers.forEach(container => {
+        container.addEventListener('scroll', handleScroll, { passive: true });
+      });
     } else {
-      // 위로 스크롤
-      setHidden(false);
+      window.addEventListener('scroll', handleScroll, { passive: true });
     }
-  });
+
+    return () => {
+      if (scrollContainers.length > 0) {
+        scrollContainers.forEach(container => {
+          container.removeEventListener('scroll', handleScroll);
+        });
+      } else {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [pathname]);
 
   const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
   const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
