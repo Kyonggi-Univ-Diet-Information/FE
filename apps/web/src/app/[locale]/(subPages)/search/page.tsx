@@ -21,7 +21,7 @@ export default async function SearchPage({
   }>;
 }) {
   const {
-    q,
+    q = '',
     foodType = FOOD_TYPE.DEFAULT,
     restaurantType = FOOD_COURT.KYONGSUL,
     sort = SORTING_TYPE.BASIC,
@@ -29,7 +29,7 @@ export default async function SearchPage({
 
   return (
     <Suspense
-      key={q || ''}
+      key={q}
       fallback={
         <>
           <SearchSkeleton />
@@ -39,7 +39,7 @@ export default async function SearchPage({
       }
     >
       <SearchResult
-        q={q || ''}
+        q={q}
         foodType={foodType}
         restaurantType={restaurantType}
         sort={sort}

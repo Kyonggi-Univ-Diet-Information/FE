@@ -121,6 +121,6 @@
     "searchResult": "검색 결과",
     "searchResultCount": "개",
     "searchResultCountText": "개의 검색 결과가 있습니다.",
-    "noResults": "{q}에 대한 검색 결과가 없습니다."
+    "noResults": "해당 조건에 대한 검색 결과가 없습니다."
   }
 }

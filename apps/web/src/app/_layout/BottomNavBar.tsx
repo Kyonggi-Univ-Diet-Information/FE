@@ -1,9 +1,10 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
+import { useState } from 'react';
 
 import {
   FOOD_COURT_RESTAURANTS,
@@ -23,6 +24,19 @@ export default function BottomNavBar() {
   const pathname = usePathname();
   const t = useTranslations('navigation');
   const locale = useLocale();
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, 'change', latest => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      // 아래로 스크롤 & 150px 이상 스크롤됨
+      setHidden(true);
+    } else {
+      // 위로 스크롤
+      setHidden(false);
+    }
+  });
 
   const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
   const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
@@ -76,9 +90,12 @@ export default function BottomNavBar() {
   return (
     <motion.div
       className='shadow-t-md fixed bottom-0 z-50 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-6 pt-2 sm:px-14 md:hidden'
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: '100%' },
+      }}
+      animate={hidden ? 'hidden' : 'visible'}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       {navItems.map(item => {
         const isActive =

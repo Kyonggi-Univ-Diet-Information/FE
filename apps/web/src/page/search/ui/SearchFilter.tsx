@@ -39,7 +39,7 @@ export default memo(function SearchFilter({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const q = searchParams.get('q');
+  const q = searchParams.get('q') || '';
 
   const onReset = () => {
     router.push(`/search?q=${q}`);
