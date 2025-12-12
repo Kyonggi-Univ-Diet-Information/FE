@@ -13,25 +13,29 @@ export default function Section({
 }
 
 function SectionHeader({
+  className,
   children,
   title,
   subtitle,
   action,
 }: {
+  className?: string;
   children?: ReactNode;
   title?: ReactNode;
   subtitle?: ReactNode;
   action?: ReactNode;
 }) {
   return (
-    <div className='flex items-center justify-between'>
-      <div className='flex flex-col gap-1'>
-        {title && <div className='text-xl font-bold'>{title}</div>}
-        {subtitle && <div className='text-sm text-gray-600'>{subtitle}</div>}
-        {children}
+    <header className={cn('flex flex-col', className)}>
+      <div className='flex items-center justify-between'>
+        <div className='flex flex-col gap-1'>
+          {title && <div className='text-xl font-bold'>{title}</div>}
+          {subtitle && <div className='text-sm text-gray-600'>{subtitle}</div>}
+        </div>
+        {action}
       </div>
-      {action}
-    </div>
+      {children}
+    </header>
   );
 }
 

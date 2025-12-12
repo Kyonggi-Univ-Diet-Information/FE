@@ -44,7 +44,7 @@ export default function CampusMenuImage({
   return (
     <div
       className={cn(
-        'relative size-[100px] overflow-hidden rounded-xl',
+        'relative size-[100px] overflow-hidden rounded-xl focus:outline-none',
         className,
       )}
     >

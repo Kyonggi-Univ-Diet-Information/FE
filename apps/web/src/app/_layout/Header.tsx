@@ -26,8 +26,6 @@ export default function Header() {
   const locale = useLocale();
   const router = useRouter();
 
-  const today = new Date().getDay();
-
   const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
   const firstRestaurant = FOOD_COURT_RESTAURANTS.KYONGSUL[0];
   const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
@@ -35,7 +33,7 @@ export default function Header() {
   const navItems = [
     { href: '/', label: t('home') },
     { href: defaultCampusHref, label: t('campus') },
-    { href: `/dorm/${today}`, label: t('dorm') },
+    { href: `/search`, label: t('search') },
     { href: '/review', label: t('review') },
     { href: '/user', label: t('myPage') },
   ];
@@ -50,8 +48,7 @@ export default function Header() {
     const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
     if (
       pathWithoutLocale.split('/').length > 2 &&
-      !pathWithoutLocale.startsWith('/campus') &&
-      !pathWithoutLocale.startsWith('/dorm')
+      !pathWithoutLocale.startsWith('/campus')
     ) {
       return true;
     }

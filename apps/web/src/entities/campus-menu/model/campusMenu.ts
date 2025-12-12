@@ -53,7 +53,7 @@ export type CategoryMenuResponse =
   | KyongsulCategoryMenuResponse
   | SimpleCategoryMenuResponse;
 
-export const CATEGORY_TO_TEXT: Record<string, string> = {
+const CATEGORY_TO_TEXT_BASE = {
   MEALS: '식사',
   STREET: '분식',
   SOBA: '소바',
@@ -86,9 +86,22 @@ export const CATEGORY_TO_TEXT: Record<string, string> = {
   ETC: '기타',
   BANHMI: '반미',
   SHRIMP: '새우',
-};
+  PORK_CUTLET: '돈까스',
+  SOMEN: '모밀',
+  GUOUI: '꿔이',
+  COLD_NOODLE: '냉면',
+} as const;
 
-export const CATEGORY_TO_TEXT_EN: Record<string, string> = {
+export const CATEGORY_TO_TEXT: Record<string, string> = new Proxy(
+  CATEGORY_TO_TEXT_BASE,
+  {
+    get: (target, prop: string) => {
+      return target[prop as keyof typeof target] ?? '기타';
+    },
+  },
+);
+
+const CATEGORY_TO_TEXT_EN_BASE = {
   MEALS: 'Meals',
   STREET: 'Street Food',
   SOBA: 'Soba',
@@ -121,4 +134,17 @@ export const CATEGORY_TO_TEXT_EN: Record<string, string> = {
   ETC: 'Etc',
   BANHMI: 'Banh Mi',
   SHRIMP: 'Shrimp',
-};
+  PORK_CUTLET: 'Pork Cutlet',
+  SOMEN: 'Somen',
+  GUOUI: 'Guoui',
+  COLD_NOODLE: 'Cold Noodle',
+} as const;
+
+export const CATEGORY_TO_TEXT_EN: Record<string, string> = new Proxy(
+  CATEGORY_TO_TEXT_EN_BASE,
+  {
+    get: (target, prop: string) => {
+      return target[prop as keyof typeof target] ?? 'Etc';
+    },
+  },
+);

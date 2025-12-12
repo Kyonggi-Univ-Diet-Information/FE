@@ -8,6 +8,7 @@
   "navigation": {
     "home": "홈",
     "campus": "교내식당",
+    "search": "검색",
     "dorm": "기숙사",
     "review": "리뷰",
     "myPage": "마이"
@@ -66,6 +67,7 @@
     "reviewCount": "리뷰 "
   },
   "dorm": {
+    "subtitle": "이번 주 경기드림타워 메뉴를 확인하세요!",
     "breakfast": "아침",
     "lunch": "점심",
     "dinner": "저녁",
@@ -110,5 +112,15 @@
   "metadata": {
     "title": "기룡아 밥먹자",
     "description": "경기대학교 내부 식당 정보를 쉽게 찾아봐요!"
+  },
+  "search": {
+    "title": "검색하기",
+    "subtitle": "원하는 메뉴를 검색해보세요!",
+    "placeholder": "검색어를 입력해주세요.",
+    "searchButton": "검색",
+    "searchResult": "검색 결과",
+    "searchResultCount": "개",
+    "searchResultCountText": "개의 검색 결과가 있습니다.",
+    "noResults": "해당 조건에 대한 검색 결과가 없습니다."
   }
 }
