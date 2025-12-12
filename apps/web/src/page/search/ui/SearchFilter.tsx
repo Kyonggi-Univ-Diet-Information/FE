@@ -1,5 +1,5 @@
 import { RotateCw, SortDescIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 
 import {
@@ -37,9 +37,12 @@ export default memo(function SearchFilter({
   sort,
 }: SearchFilterProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const q = searchParams.get('q');
 
   const onReset = () => {
-    router.push(`/search`);
+    router.push(`/search?q=${q}`);
   };
 
   const onSelect = (
@@ -51,7 +54,7 @@ export default memo(function SearchFilter({
     if (type) params.set('foodType', type);
     if (restaurantType) params.set('restaurantType', restaurantType);
     if (sort) params.set('sort', sort);
-    router.push(`/search?${params.toString()}`);
+    router.push(`/search?q=${q}&${params.toString()}`);
   };
 
   function FilterFoodType() {
