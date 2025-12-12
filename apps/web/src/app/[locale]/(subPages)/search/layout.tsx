@@ -12,9 +12,9 @@ export default async function SearchLayout({
 }) {
   const t = await getTranslations('search');
   return (
-    <>
+    <div className='scrollbar-hide fixed inset-0 top-[64px] mx-auto flex max-w-[770px] flex-col overflow-y-hidden pt-6 focus:outline-none'>
       <Section.Header
-        className='-mb-4 gap-2'
+        className='-mb-4 gap-2 px-4'
         title={t('title')}
         subtitle={t('subtitle')}
       >
@@ -23,6 +23,6 @@ export default async function SearchLayout({
       <div className='scrollbar-hide top-46 absolute inset-0 bottom-20 overflow-y-scroll md:bottom-0 md:grid md:h-fit md:grid-cols-2 md:gap-4 md:px-4 md:pb-20'>
         {children}
       </div>
-    </>
+    </div>
   );
 }
