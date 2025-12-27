@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 
-
 import { GoogleAnalytics } from '@/app/_analytics';
 import { BottomNavBar, Header } from '@/app/_layout';
 import { ErrorProvider, SWRProvider } from '@/app/_providers';
