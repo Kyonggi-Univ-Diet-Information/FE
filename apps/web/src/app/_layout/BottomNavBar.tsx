@@ -102,6 +102,9 @@ export default function BottomNavBar() {
   ];
 
   const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
+  if (pathWithoutLocale.startsWith('/search')) {
+    return null;
+  }
   if (
     pathWithoutLocale.split('/').length > 2 &&
     !pathWithoutLocale.startsWith('/campus')
