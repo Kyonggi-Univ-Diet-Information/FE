@@ -5,22 +5,19 @@ import { type FoodCourt } from '@/shared/config/endpoint';
 
 import SearchMenuCard from './SearchMenuCard';
 import { fetchSearch } from '../api/fetchSearch';
-import { FoodType, SortingType } from '../model/search';
+import { SortingType } from '../model/search';
 
 export default async function SearchResult({
   q,
-  foodType,
   restaurantType,
   sort,
 }: {
   q: string;
-  foodType: FoodType;
   restaurantType: FoodCourt;
   sort: SortingType;
 }): Promise<ReactNode> {
   const results = await fetchSearch({
     keyword: q,
-    foodType,
     restaurantType,
     priceMin: 0,
     priceMax: 100000,
@@ -28,7 +25,7 @@ export default async function SearchResult({
   });
   const t = await getTranslations('search');
 
-  if (results.length === 0) {
+  if (!results || results.length === 0) {
     return (
       <div className='col-span-2 flex h-[300px] w-full items-center justify-center text-center text-gray-600'>
         {t('noResults')}

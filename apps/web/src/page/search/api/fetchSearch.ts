@@ -21,7 +21,6 @@ export type SearchResult = {
 
 export type SearchOption = {
   keyword: string;
-  foodType: FoodType;
   restaurantType: FoodCourt;
   priceMin: number;
   priceMax: number;
@@ -31,14 +30,12 @@ export type SearchOption = {
 export const fetchSearch = async (
   option: SearchOption,
 ): Promise<SearchResult[]> => {
-  const { keyword, foodType, restaurantType, priceMin, priceMax, sortingType } =
-    option;
+  const { keyword, restaurantType, priceMin, priceMax, sortingType } = option;
 
-  const response: { result: SearchResult[] } = await Http.get({
+  const response: { result: SearchResult[] } = await Http.getDirect({
     request: ENDPOINT.MENU.SEARCH,
     params: {
       keyword,
-      foodType,
       restaurantType,
       priceMin,
       priceMax,

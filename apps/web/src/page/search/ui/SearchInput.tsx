@@ -3,19 +3,18 @@
 import { SearchIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { FOOD_COURT, FoodCourt } from '@/shared/config/endpoint';
+import { FoodCourt } from '@/shared/config/endpoint';
 
 import SearchFilter from './SearchFilter';
-import {
-  FOOD_TYPE,
-  FoodType,
-  SORTING_TYPE,
-  SortingType,
-} from '../model/search';
+import { SORTING_TYPE, SortingType } from '../model/search';
 
-export default function SearchHeader() {
+interface SearchInputProps {
+  showFilter?: boolean;
+}
+
+export default function SearchInput({ showFilter = false }: SearchInputProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -24,11 +23,15 @@ export default function SearchHeader() {
   const t = useTranslations('search');
   const q = searchParams.get('q');
 
-  const foodType =
-    (searchParams.get('foodType') as FoodType) || FOOD_TYPE.DEFAULT;
   const restaurantType =
-    (searchParams.get('restaurantType') as FoodCourt) || FOOD_COURT.KYONGSUL;
+    (searchParams.get('restaurantType') as FoodCourt) || ('ALL' as FoodCourt);
   const sort = (searchParams.get('sort') as SortingType) || SORTING_TYPE.BASIC;
+
+  useEffect(() => {
+    if (q) {
+      setSearch(q);
+    }
+  }, [q]);
 
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -36,7 +39,14 @@ export default function SearchHeader() {
 
   const onSubmit = () => {
     if (!search || q === search) return;
-    router.push(`/search?q=${search}`);
+    const params = new URLSearchParams();
+    params.set('q', search);
+    if (showFilter) {
+      if (restaurantType !== ('ALL' as FoodCourt))
+        params.set('restaurantType', restaurantType);
+      if (sort !== SORTING_TYPE.BASIC) params.set('sort', sort);
+    }
+    router.replace(`/search/result?${params.toString()}`);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -51,7 +61,7 @@ export default function SearchHeader() {
   };
 
   return (
-    <>
+    <div className='flex flex-col gap-4'>
       <form className='relative' onSubmit={handleSubmit}>
         <button type='submit' onClick={onSubmit}>
           <SearchIcon className='size-4.5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 active:text-gray-300' />
@@ -65,11 +75,9 @@ export default function SearchHeader() {
           placeholder={t('placeholder')}
         />
       </form>
-      <SearchFilter
-        foodType={foodType}
-        restaurantType={restaurantType}
-        sort={sort}
-      />
-    </>
+      {showFilter && (
+        <SearchFilter restaurantType={restaurantType} sort={sort} />
+      )}
+    </div>
   );
 }
