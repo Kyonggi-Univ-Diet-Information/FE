@@ -34,7 +34,6 @@ export default function Header() {
   const navItems = [
     { href: '/', label: t('home') },
     { href: defaultCampusHref, label: t('campus') },
-    { href: `/search`, label: t('search') },
     { href: '/review', label: t('review') },
     { href: '/user', label: t('myPage') },
   ];
@@ -127,12 +126,14 @@ export default function Header() {
         <MobileHeader />
         <DesktopHeader />
         <div className='flex items-center gap-4'>
-          <Link
-            href='/search'
-            className='cursor-pointer transition-transform hover:scale-110'
-          >
-            <Search size={20} className='text-accent-foreground' />
-          </Link>
+          {!isDepthPage() && (
+            <Link
+              href='/search'
+              className='cursor-pointer transition-transform hover:scale-110'
+            >
+              <Search size={20} className='text-accent-foreground' />
+            </Link>
+          )}
           <button
             onClick={handleLanguageToggle}
             className='cursor-pointer transition-transform hover:scale-110'

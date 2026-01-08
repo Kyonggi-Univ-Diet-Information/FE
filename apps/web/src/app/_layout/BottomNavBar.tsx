@@ -70,22 +70,16 @@ export default function BottomNavBar() {
 
   const navItems = [
     {
-      href: defaultCampusHref,
-      label: t('campus'),
-      icon: <Restaurant2 width={32} height={32} />,
-      alt: 'restaurant2',
-    },
-    {
-      href: `/search`,
-      label: t('search'),
-      icon: <Search className='mb-[5px] mt-2 size-5' />,
-      alt: 'search',
-    },
-    {
       href: '/',
       label: t('home'),
       icon: <Home width={32} height={32} />,
       alt: 'home',
+    },
+    {
+      href: defaultCampusHref,
+      label: t('campus'),
+      icon: <Restaurant2 width={32} height={32} />,
+      alt: 'restaurant2',
     },
     {
       href: '/review',
@@ -118,7 +112,7 @@ export default function BottomNavBar() {
 
   return (
     <motion.div
-      className='shadow-t-md fixed bottom-0 z-50 flex w-full items-center justify-between rounded-t-2xl border-t border-gray-100 bg-white px-8 pb-6 pt-2 sm:px-14 md:hidden'
+      className='shadow-t-md px-18 fixed bottom-0 z-50 grid w-full grid-cols-4 items-center rounded-t-2xl border-t border-gray-100 bg-white pb-6 pt-2 sm:px-14 md:hidden'
       variants={{
         visible: { y: 0 },
         hidden: { y: '100%' },
