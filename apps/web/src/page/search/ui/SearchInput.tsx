@@ -70,7 +70,7 @@ export default function SearchInput({ showFilter = false }: SearchInputProps) {
           value={search}
           onChange={onChangeSearch}
           onKeyDown={onKeyDown}
-          className='w-full rounded-2xl border p-2.5 pl-3 pr-10 text-[15px] focus:outline-none'
+          className='w-full rounded-2xl border p-2.5 pl-3 pr-10 text-base focus:outline-none'
           type='text'
           placeholder={t('placeholder')}
         />
