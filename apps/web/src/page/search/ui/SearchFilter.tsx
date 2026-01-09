@@ -16,23 +16,14 @@ import {
   SelectValue,
 } from '@/shared/ui/SelectComponent';
 
-import {
-  FOOD_TYPE,
-  FOOD_TYPE_NAME,
-  FoodType,
-  SORTING_TYPE,
-  SORTING_TYPE_NAME,
-  SortingType,
-} from '../model/search';
+import { SORTING_TYPE, SORTING_TYPE_NAME, SortingType } from '../model/search';
 
 interface SearchFilterProps {
-  foodType: FoodType;
   restaurantType: FoodCourt;
   sort: SortingType;
 }
 
 export default memo(function SearchFilter({
-  foodType,
   restaurantType,
   sort,
 }: SearchFilterProps) {
@@ -42,60 +33,31 @@ export default memo(function SearchFilter({
   const q = searchParams.get('q') || '';
 
   const onReset = () => {
-    router.push(`/search?q=${q}`);
+    router.push(`/search/result?q=${q}`);
   };
 
-  const onSelect = (
-    type?: FoodType,
-    restaurantType?: FoodCourt,
-    sort?: SortingType,
-  ) => {
+  const onSelect = (restaurantType?: FoodCourt, sort?: SortingType) => {
     const params = new URLSearchParams();
-    if (type) params.set('foodType', type);
+    params.set('q', q);
     if (restaurantType) params.set('restaurantType', restaurantType);
     if (sort) params.set('sort', sort);
-    router.push(`/search?q=${q}&${params.toString()}`);
+    router.push(`/search/result?${params.toString()}`);
   };
-
-  function FilterFoodType() {
-    return (
-      <Select
-        value={foodType}
-        onValueChange={value =>
-          onSelect(value as FoodType, restaurantType, sort)
-        }
-      >
-        <SelectTrigger className='w-fit rounded-xl'>
-          <SelectValue
-            placeholder={foodType === FOOD_TYPE.DEFAULT ? '전체' : foodType}
-          />
-        </SelectTrigger>
-        <SelectContent align='start'>
-          <SelectGroup>
-            {Object.values(FOOD_TYPE)
-              .filter(type => type !== FOOD_TYPE.DEFAULT)
-              .map(type => (
-                <SelectItem key={type} value={type}>
-                  {FOOD_TYPE_NAME[type]}
-                </SelectItem>
-              ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    );
-  }
 
   function FilterRestaurantType() {
     return (
       <Select
         value={restaurantType}
-        onValueChange={value => onSelect(foodType, value as FoodCourt, sort)}
+        onValueChange={value => onSelect(value as FoodCourt, sort)}
       >
         <SelectTrigger className='w-fit rounded-xl'>
           <SelectValue placeholder={restaurantType} />
         </SelectTrigger>
         <SelectContent align='start'>
           <SelectGroup>
+            <SelectItem key={'ALL'} value={'ALL'}>
+              전체
+            </SelectItem>
             {Object.values(FOOD_COURT)
               .filter(type => type !== FOOD_COURT.DORMITORY)
               .map(type => (
@@ -113,9 +75,7 @@ export default memo(function SearchFilter({
     return (
       <Select
         value={sort}
-        onValueChange={value =>
-          onSelect(foodType, restaurantType, value as SortingType)
-        }
+        onValueChange={value => onSelect(restaurantType, value as SortingType)}
       >
         <SelectTrigger
           className='flex h-full w-fit cursor-pointer items-center justify-center rounded-xl border-none px-0 hover:bg-gray-100 focus:outline-none active:bg-gray-200'
@@ -142,7 +102,6 @@ export default memo(function SearchFilter({
       <div className='flex flex-1 items-center justify-start'>
         <FilterSortingType />
       </div>
-      <FilterFoodType />
       <FilterRestaurantType />
       <button
         className='h-full cursor-pointer focus:outline-none'

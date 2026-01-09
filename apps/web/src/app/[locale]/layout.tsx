@@ -63,6 +63,10 @@ export default async function LocaleLayout({ children, params }: Props) {
         <meta property='og:url' content='https://www.kiryong.kr/' />
         <meta property='og:type' content='website' />
         <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        />
+        <meta
           name='naver-site-verification'
           content='93445f88fb84c2015b74933d1b6deabbba65014e'
         />
