@@ -1,5 +1,5 @@
 {
-  "name": "example-with-tailwindcss",
+  "name": "@kiryong/land",
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",
