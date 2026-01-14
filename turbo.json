@@ -9,7 +9,8 @@
         ".next/**",
         "!.next/cache/**",
         "storybook-static/**",
-        "dist/**"
+        "dist/**",
+        ".output/**"
       ]
     },
     "lint": {
