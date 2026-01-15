@@ -4,18 +4,15 @@ import { CAMPUS_FOOD_COURTS } from '@/entities/campus-menu/model/campusRestauran
 
 import { FOOD_COURT_ID } from '@/shared/config';
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 export function generateStaticParams() {
-  const locales = ['ko', 'en'];
   const foodCourtIds = CAMPUS_FOOD_COURTS.map(fc => FOOD_COURT_ID[fc]);
 
-  return locales.flatMap(locale =>
-    foodCourtIds.map(foodCourtId => ({
-      locale,
-      foodCourtId,
-    })),
-  );
+  return foodCourtIds.map(foodCourtId => ({
+    foodCourtId,
+  }));
 }
 
 const Page = async (props: CampusFoodCourtPageProps) => {

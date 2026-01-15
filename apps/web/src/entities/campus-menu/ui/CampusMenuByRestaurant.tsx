@@ -1,14 +1,12 @@
-import { getLocale, getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 import { getFoodCourtById } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
 import CampusMenuCard from './CampusMenuCard';
 import { fetchCampusMenuByCategory } from '../api/fetchCampusMenuByCategory';
 import {
   CATEGORY_TO_TEXT,
-  CATEGORY_TO_TEXT_EN,
   type CampusMenuWithCategory,
 } from '../model/campusMenu';
 import {
@@ -41,10 +39,7 @@ export default async function CampusMenuByRestaurant({
     currentRestaurant,
   );
 
-  const locale = await getLocale();
-  const categoryTexts =
-    locale === 'en' ? CATEGORY_TO_TEXT_EN : CATEGORY_TO_TEXT;
-  const t = await getTranslations('campus');
+  const categoryTexts = CATEGORY_TO_TEXT;
 
   let displayMenus: CampusMenuWithCategory[] = [];
   let totalCount = 0;
@@ -69,7 +64,7 @@ export default async function CampusMenuByRestaurant({
               'cursor-pointer text-nowrap pr-2',
             )}
           >
-            {t('all')}
+            전체
           </Link>
           {categories.map(key => (
             <Link
@@ -86,20 +81,14 @@ export default async function CampusMenuByRestaurant({
           ))}
         </div>
         <span className='whitespace-nowrap rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-600'>
-          {t('total')} {totalCount}
-          {t('menus')}
+          총 {totalCount}개
         </span>
       </div>
 
       <div className='flex flex-col md:grid md:grid-cols-2 md:gap-4'>
         {displayMenus.length > 0 &&
           displayMenus.map(menu => (
-            <CampusMenuCard
-              key={menu.id}
-              {...menu}
-              foodCourt={foodCourt}
-              locale={locale}
-            />
+            <CampusMenuCard key={menu.id} {...menu} foodCourt={foodCourt} />
           ))}
       </div>
     </>

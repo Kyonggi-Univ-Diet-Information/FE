@@ -1,12 +1,13 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { useAuth } from '@/features/auth/hooks';
 import { logout } from '@/features/auth/lib/logout';
 
 import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
-import { Link, useRouter } from '@/shared/i18n/routing';
 import { Card, Loader, Section } from '@/shared/ui';
 
 import { useUserFavReview } from '../api/useUserFavReview';

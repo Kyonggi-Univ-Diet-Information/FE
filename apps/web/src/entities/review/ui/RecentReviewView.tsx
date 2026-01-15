@@ -1,5 +1,3 @@
-import { getTranslations } from 'next-intl/server';
-
 import { CampusMenuName } from '@/entities/campus-menu';
 
 import {
@@ -15,7 +13,6 @@ import { fetchRecentReview } from '../api/fetchRecentReview';
 import type { RecentReview } from '../model/review';
 
 export default async function RecentReviewView() {
-  const t = await getTranslations('review');
   const recentReviews = await fetchRecentReview();
 
   return (
@@ -23,10 +20,10 @@ export default async function RecentReviewView() {
       <Section.Header
         title={
           <>
-            <span className='font-tossFace'>✨</span> {t('recentTitle')}
+            <span className='font-tossFace'>✨</span> 최근 리뷰
           </>
         }
-        subtitle={t('recentSubtitle')}
+        subtitle="최근에 작성된 리뷰들이에요!"
       />
       <div className='flex flex-col gap-2'>
         {recentReviews.map((review, index) => (

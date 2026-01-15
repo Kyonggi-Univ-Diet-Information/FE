@@ -1,47 +1,33 @@
 import { MessageSquareText } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 import { fetchReviewCount } from '@/entities/review/api/fetchReviewCount';
 
 import { type FoodCourt, FOOD_COURT_ID } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 
 import CampusMenuImage from './CampusMenuImage';
 import type { CampusMenu } from '../model/campusMenu';
 
 interface CampusMenuCardProps extends CampusMenu {
   foodCourt: FoodCourt;
-  locale?: string;
 }
 
 export default async function CampusMenuCard({
   id,
   name,
-  nameEn,
   price,
   foodCourt,
-  locale,
 }: CampusMenuCardProps) {
-  const wonText = locale === 'en' ? '₩' : '원';
-  const reviewText = locale === 'en' ? 'Review' : '리뷰';
-  const menuName = locale === 'en' ? nameEn : name;
   const reviewCount = await fetchReviewCount(foodCourt, id);
   const foodCourtId = FOOD_COURT_ID[foodCourt];
-  const t = await getTranslations('campus');
 
   const cardContent = (
     <>
       <div className='flex flex-col gap-1'>
-        <span className='font-semibold'>{menuName}</span>
-        <span className='text-sm'>
-          {locale === 'en'
-            ? `${wonText}${price.toLocaleString()}`
-            : `${price.toLocaleString()}${wonText}`}
-        </span>
+        <span className='font-semibold'>{name}</span>
+        <span className='text-sm'>{price.toLocaleString()}원</span>
         <span className='mt-0.5 text-xs text-gray-900/80'>
-          {t('reviewCount')}
-          <b className='font-semibold'>{reviewCount}</b>
-          {t('reviews')}
+          리뷰 <b className='font-semibold'>{reviewCount}</b>개
         </span>
       </div>
       <CampusMenuImage foodCourt={foodCourt} menuId={id} />
@@ -67,11 +53,9 @@ export default async function CampusMenuCard({
         key={id}
       >
         <div className='flex flex-col justify-between'>
-          <span className='mb-2 font-medium'>{menuName}</span>
+          <span className='mb-2 font-medium'>{name}</span>
           <span className='text-sm text-gray-900/40'>
-            {locale === 'en'
-              ? `${wonText}${price.toLocaleString()}`
-              : `${price.toLocaleString()}${wonText}`}
+            {price.toLocaleString()}원
           </span>
         </div>
         <div className='flex items-start'>
@@ -84,7 +68,7 @@ export default async function CampusMenuCard({
               className='text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'
             />
             <div className='text-sm text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'>
-              {reviewText} {reviewCount}
+              리뷰 {reviewCount}
             </div>
           </Link>
         </div>

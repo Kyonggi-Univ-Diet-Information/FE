@@ -2,7 +2,6 @@
 
 import { SearchIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 
 import { FoodCourt } from '@/shared/config/endpoint';
@@ -20,7 +19,6 @@ export default function SearchInput({ showFilter = false }: SearchInputProps) {
 
   const [search, setSearch] = useState('');
 
-  const t = useTranslations('search');
   const q = searchParams.get('q');
 
   const restaurantType =
@@ -72,7 +70,7 @@ export default function SearchInput({ showFilter = false }: SearchInputProps) {
           onKeyDown={onKeyDown}
           className='w-full rounded-2xl border p-2.5 pl-3 pr-10 text-base focus:outline-none'
           type='text'
-          placeholder={t('placeholder')}
+          placeholder="검색어를 입력해주세요."
         />
       </form>
       {showFilter && (

@@ -1,5 +1,3 @@
-import { getLocale, getTranslations } from 'next-intl/server';
-
 import { FOOD_COURT_ID } from '@/shared/config';
 import { AnimatedCard, Card } from '@/shared/ui';
 
@@ -7,13 +5,10 @@ import { fetchCampusMenu } from '../api/fetchCampusMenu';
 import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_NAME,
-  CAMPUS_RESTAURANT_NAME_EN,
   RESTAURANT_ID_BY_NAME,
 } from '../model/campusRestaurant';
 
 export default async function CampusMenuAll() {
-  const locale = await getLocale();
-  const t = await getTranslations('home');
   const campusMenu = await fetchCampusMenu();
   const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
 
@@ -26,11 +21,7 @@ export default async function CampusMenuAll() {
             href={`/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[restaurant]}`}
           >
             <p className='flex items-center justify-between font-semibold'>
-              <span>
-                {locale === 'en'
-                  ? CAMPUS_RESTAURANT_NAME_EN[restaurant]
-                  : CAMPUS_RESTAURANT[restaurant]}
-              </span>
+              <span>{CAMPUS_RESTAURANT[restaurant]}</span>
             </p>
             <Card.Content>
               {campusMenu[restaurant].slice(0, 8).map(menu => (
@@ -38,12 +29,9 @@ export default async function CampusMenuAll() {
                   className='flex items-center justify-between text-gray-600'
                   key={menu.id}
                 >
-                  <span className='max-w-[70%] truncate'>
-                    {locale === 'en' ? menu.nameEn : menu.name}
-                  </span>
+                  <span className='max-w-[70%] truncate'>{menu.name}</span>
                   <span className='text-sm text-gray-900/40'>
-                    {menu.price}
-                    {t('won')}
+                    {menu.price}원
                   </span>
                 </p>
               ))}

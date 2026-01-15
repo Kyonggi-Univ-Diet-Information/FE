@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server';
 import { type ReactNode } from 'react';
 
 import { type FoodCourt } from '@/shared/config/endpoint';
@@ -23,12 +22,11 @@ export default async function SearchResult({
     priceMax: 100000,
     sortingType: sort,
   });
-  const t = await getTranslations('search');
 
   if (!results || results.length === 0) {
     return (
       <div className='col-span-2 flex h-[300px] w-full items-center justify-center text-center text-gray-600'>
-        {t('noResults')}
+        해당 조건에 대한 검색 결과가 없습니다.
       </div>
     );
   }

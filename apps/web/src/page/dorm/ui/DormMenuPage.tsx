@@ -1,12 +1,8 @@
-import { getLocale, getTranslations } from 'next-intl/server';
-
 import { DormMenuByDay } from '@/entities/dorm-menu';
 import {
   DORM_DAY,
-  DORM_DAY_EN,
   DORM_DAY_KEY,
   DORM_DAY_SHORT,
-  DORM_DAY_SHORT_EN,
 } from '@/entities/dorm-menu/model';
 
 import { getCampusMainTabs } from '@/shared/lib/campus';
@@ -18,10 +14,6 @@ export interface DormMenuPageProps {
 }
 
 export default async function DormMenuPage({ params }: DormMenuPageProps) {
-  const t = await getTranslations('dorm');
-  const tNav = await getTranslations('navigation');
-  const locale = await getLocale();
-
   const todayDate = new Date();
   const { day = todayDate.getDay() } = await params;
 
@@ -31,23 +23,20 @@ export default async function DormMenuPage({ params }: DormMenuPageProps) {
 
   const weekDates = getWeekDates(monday);
 
-  const dayShortNames = locale === 'en' ? DORM_DAY_SHORT_EN : DORM_DAY_SHORT;
-  const dayNames = locale === 'en' ? DORM_DAY_EN : DORM_DAY;
+  const dayShortNames = DORM_DAY_SHORT;
+  const dayNames = DORM_DAY;
 
-  const mainTabs = getCampusMainTabs(locale, tNav('dorm'), todayDate.getDay());
+  const mainTabs = getCampusMainTabs('ko', '기숙사', todayDate.getDay());
   const dayTabs = Object.keys(DORM_DAY_KEY).map(day => ({
     key: day,
     label: dayShortNames[DORM_DAY_KEY[Number(day)]],
     href: `/campus/dorm/${day}`,
   }));
 
-  const formattedDate = weekDates[day].toLocaleDateString(
-    locale === 'en' ? 'en-US' : 'ko-KR',
-    {
-      month: 'long',
-      day: 'numeric',
-    },
-  );
+  const formattedDate = weekDates[day].toLocaleDateString('ko-KR', {
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
     <>
@@ -59,7 +48,7 @@ export default async function DormMenuPage({ params }: DormMenuPageProps) {
             variant='header'
           />
         }
-        subtitle={t('subtitle')}
+        subtitle="이번 주 경기드림타워 메뉴를 확인하세요!"
       />
       <Section>
         <Section.Content className='flex flex-col gap-4'>
@@ -69,7 +58,7 @@ export default async function DormMenuPage({ params }: DormMenuPageProps) {
             <span className='text-point font-wantedSans'>
               {dayNames[DORM_DAY_KEY[day]]}
             </span>
-            {t('menuOf')}
+            의 식단
             <span className='font-tossFace'> 🍚</span>
           </p>
           <div className='flex flex-col gap-3'>

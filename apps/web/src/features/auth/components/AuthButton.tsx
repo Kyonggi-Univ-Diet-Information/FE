@@ -1,9 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 
-import { Link } from '@/shared/i18n/routing';
 import { Button } from '@/shared/ui';
 
 import { useAuth } from '../hooks';
@@ -12,7 +11,6 @@ import { logout } from '../lib/logout';
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();
   const router = useRouter();
-  const t = useTranslations('auth');
 
   const handleLogout = async () => {
     const result = await logout();
@@ -25,7 +23,7 @@ export function AuthButton() {
   if (isLoading) {
     return (
       <Button variant='outline' size='sm' disabled>
-        {t('loading')}
+        로딩 중...
       </Button>
     );
   }
@@ -33,7 +31,7 @@ export function AuthButton() {
   if (isAuthenticated) {
     return (
       <Button variant='outline' size='sm' onClick={handleLogout}>
-        {t('logout')}
+        로그아웃
       </Button>
     );
   }
@@ -41,7 +39,7 @@ export function AuthButton() {
   return (
     <Link href='/auth/login' prefetch>
       <Button variant='outline' size='sm'>
-        {t('login')}
+        로그인
       </Button>
     </Link>
   );

@@ -1,23 +1,20 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl';
+import { Suspense } from 'react';
 
-import { Link } from '@/shared/i18n/routing';
 import { Button, Title } from '@/shared/ui';
 
-export default function LoginPage() {
-  const t = useTranslations('auth');
-  const tCommon = useTranslations('common');
-  const locale = useLocale();
+function LoginContent() {
   const searchParams = useSearchParams();
   const returnUrl = searchParams.get('returnUrl') || '/';
 
   const kakaoRestApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
   const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URL;
 
-  const state = encodeURIComponent(JSON.stringify({ returnUrl, locale }));
+  const state = encodeURIComponent(JSON.stringify({ returnUrl, locale: 'ko' }));
   const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${kakaoRestApiKey}&redirect_uri=${redirectUri}&state=${state}`;
 
   return (
@@ -25,21 +22,14 @@ export default function LoginPage() {
       <div className='max-w-120 min-h-50 flex w-4/5 min-w-80 flex-col justify-between rounded-2xl border border-gray-100 bg-gray-100/50 p-4 py-6'>
         <div className='flex flex-col gap-y-1'>
           <Title>
-            <span className='text-point font-brBold'>{tCommon('appName')}</span>
-            <br className={locale === 'en' ? '' : 'hidden'} />
-            {t('authRequest')
-              .split('\n')
-              .map((line, i) => (
-                <span key={i}>
-                  {line}
-                  {i === 0 && <br />}
-                </span>
-              ))}
+            <span className='text-point font-brBold'>기룡아 밥먹자</span>
+            <br />
+            에서
+            <br />
+            인증을 요청했어요
           </Title>
-          <p
-            className={`text-sm text-gray-600 ${locale === 'en' ? 'mb-6' : ''}`}
-          >
-            {t('authDescription')}
+          <p className='text-sm text-gray-600'>
+            카카오 로그인 후 리뷰 기능을 이용해보세요!
           </p>
         </div>
         <Link href={kakaoLoginUrl}>
@@ -50,10 +40,18 @@ export default function LoginPage() {
               width={20}
               height={20}
             />
-            {t('kakaoLogin')}
+            카카오 로그인
           </Button>
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

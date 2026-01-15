@@ -1,13 +1,8 @@
 'use client';
 
-import {
-  ChevronLeftIcon,
-  LanguagesIcon,
-  MessageSquareWarning,
-  Search,
-} from 'lucide-react';
-import { usePathname } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl';
+import { ChevronLeftIcon, MessageSquareWarning, Search } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 import { AuthButton } from '@/features/auth/components';
@@ -18,13 +13,9 @@ import {
 } from '@/entities/campus-menu/model/campusRestaurant';
 
 import { FOOD_COURT_ID, INQUIRY_URL } from '@/shared/config';
-import { Link, useRouter } from '@/shared/i18n/routing';
 
 export default function Header() {
   const pathname = usePathname();
-  const t = useTranslations('navigation');
-  const tCommon = useTranslations('common');
-  const locale = useLocale();
   const router = useRouter();
 
   const defaultFoodCourtId = FOOD_COURT_ID.KYONGSUL;
@@ -32,27 +23,17 @@ export default function Header() {
   const defaultCampusHref = `/campus/${defaultFoodCourtId}/${RESTAURANT_ID_BY_NAME[firstRestaurant]}`;
 
   const navItems = [
-    { href: '/', label: t('home') },
-    { href: defaultCampusHref, label: t('campus') },
-    { href: '/review', label: t('review') },
-    { href: '/user', label: t('myPage') },
+    { href: '/', label: '홈' },
+    { href: defaultCampusHref, label: '교내식당' },
+    { href: '/review', label: '리뷰' },
+    { href: '/user', label: '마이' },
   ];
 
-  const handleLanguageToggle = () => {
-    const newLocale = locale === 'ko' ? 'en' : 'ko';
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
-    router.push(pathWithoutLocale, { locale: newLocale });
-  };
-
   const isDepthPage = () => {
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
-    if (pathWithoutLocale.startsWith('/search')) {
+    if (pathname.startsWith('/search')) {
       return true;
     }
-    if (
-      pathWithoutLocale.split('/').length > 2 &&
-      !pathWithoutLocale.startsWith('/campus')
-    ) {
+    if (pathname.split('/').length > 2 && !pathname.startsWith('/campus')) {
       return true;
     }
     return false;
@@ -73,7 +54,7 @@ export default function Header() {
           <>
             <span className='font-brBold text-xl font-bold'>기밥</span>
             <span className='font-brRegular hidden md:block'>
-              {tCommon('appName')}
+              기룡아 밥먹자
             </span>
           </>
         )}
@@ -89,15 +70,13 @@ export default function Header() {
           className='hidden cursor-pointer items-baseline gap-2 md:flex'
         >
           <span className='font-brBold text-2xl font-bold'>기밥</span>
-          <span className='font-brRegular hidden md:block'>
-            {tCommon('appName')}
-          </span>
+          <span className='font-brRegular hidden md:block'>기룡아 밥먹자</span>
         </Link>
         <div className='hidden items-baseline gap-4 md:flex'>
           {navItems.map(item => {
             const isActive =
               item.href === '/'
-                ? pathname === `/${locale}` || pathname === '/'
+                ? pathname === '/'
                 : pathname.includes(`${item.href.split('/')[1]}`);
 
             return (
@@ -134,13 +113,6 @@ export default function Header() {
               <Search size={20} className='text-accent-foreground' />
             </Link>
           )}
-          <button
-            onClick={handleLanguageToggle}
-            className='cursor-pointer transition-transform hover:scale-110'
-            aria-label='Toggle language'
-          >
-            <LanguagesIcon size={20} className='text-accent-foreground' />
-          </button>
 
           <Link
             href={INQUIRY_URL}

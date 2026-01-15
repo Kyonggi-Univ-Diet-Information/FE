@@ -13,12 +13,11 @@ import { Http } from '@/shared/api/http';
 import { FOOD_COURT_ID, getFoodCourtById } from '@/shared/config';
 import { ENDPOINT } from '@/shared/config/endpoint';
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const locales = ['ko', 'en'];
   const params: Array<{
-    locale: string;
     foodCourtId: string;
     restaurantId: string;
   }> = [];
@@ -28,13 +27,10 @@ export async function generateStaticParams() {
     const restaurants = FOOD_COURT_RESTAURANTS[foodCourt];
 
     if (restaurants.length > 0) {
-      locales.forEach(locale => {
-        restaurants.forEach(restaurant => {
-          params.push({
-            locale,
-            foodCourtId,
-            restaurantId: RESTAURANT_ID_BY_NAME[restaurant],
-          });
+      restaurants.forEach(restaurant => {
+        params.push({
+          foodCourtId,
+          restaurantId: RESTAURANT_ID_BY_NAME[restaurant],
         });
       });
     }
@@ -52,13 +48,10 @@ export async function generateStaticParams() {
 
         const categories = Object.keys(response.result);
 
-        locales.forEach(locale => {
-          categories.forEach(category => {
-            params.push({
-              locale,
-              foodCourtId,
-              restaurantId: category,
-            });
+        categories.forEach(category => {
+          params.push({
+            foodCourtId,
+            restaurantId: category,
           });
         });
       } catch (error) {
@@ -72,12 +65,11 @@ export async function generateStaticParams() {
 
 const Page = async (props: {
   params: Promise<{
-    locale: string;
     foodCourtId: string;
     restaurantId: string;
   }>;
 }) => {
-  const { locale, foodCourtId, restaurantId } = await props.params;
+  const { foodCourtId, restaurantId } = await props.params;
   const foodCourt = getFoodCourtById(foodCourtId);
 
   if (!foodCourt) {
@@ -87,7 +79,7 @@ const Page = async (props: {
   if (hasSubRestaurants(foodCourt)) {
     return (
       <CampusRestaurantPage
-        params={Promise.resolve({ locale, foodCourtId, restaurantId })}
+        params={Promise.resolve({ foodCourtId, restaurantId })}
       />
     );
   }
@@ -95,7 +87,6 @@ const Page = async (props: {
   return (
     <CampusFoodCourtPage
       params={Promise.resolve({
-        locale,
         foodCourtId,
         categoryKey: restaurantId,
       })}

@@ -2,18 +2,15 @@ import { DormMenuPage, DormMenuPageProps } from '@/page/dorm';
 
 import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 export function generateStaticParams() {
-  const locales = ['ko', 'en'];
   const days = Object.keys(DORM_DAY_KEY);
 
-  return locales.flatMap(locale =>
-    days.map(day => ({
-      locale,
-      day,
-    })),
-  );
+  return days.map(day => ({
+    day,
+  }));
 }
 
 const Page = async (props: DormMenuPageProps) => {

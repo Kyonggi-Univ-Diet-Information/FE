@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
 import {
@@ -15,7 +15,6 @@ import {
 } from '@/entities/review';
 
 import { FOOD_COURT, getFoodCourtById } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal, Button, Title } from '@/shared/ui';
 
@@ -47,7 +46,6 @@ export default async function ReviewPage({
     notFound();
   }
 
-  const t = await getTranslations('reviewPage');
   const isReviewMode = reviewMode === 'true';
 
   return (
@@ -60,13 +58,13 @@ export default async function ReviewPage({
               menuId={foodId}
               className='text-point'
             />
-            {t('reviewPromptTitle')}
+            , 어땠나요?
           </Title>
-          <p className='text-sm text-gray-600'>{t('reviewPrompt')}</p>
+          <p className='text-sm text-gray-600'>리뷰를 작성해주세요!</p>
         </div>
         <Link href={`/review/${foodCourtId}/${foodId}?reviewMode=true`}>
           <Button variant='secondary' size='sm'>
-            {t('writeReview')}
+            리뷰 작성하기
           </Button>
         </Link>
       </section>
@@ -103,20 +101,19 @@ export default async function ReviewPage({
   );
 }
 
-async function LoginModal({
+function LoginModal({
   foodCourtId,
   foodId,
 }: {
   foodCourtId: string;
   foodId: number;
 }) {
-  const t = await getTranslations('reviewPage');
   const currentPath = `/review/${foodCourtId}/${foodId}`;
 
   return (
     <Modal href={`/review/${foodCourtId}/${foodId}`}>
-      <Modal.Header title={t('loginRequiredTitle')} />
-      <p>{t('loginRequiredDescription')}</p>
+      <Modal.Header title="로그인이 필요해요!" />
+      <p>로그인 후 리뷰를 작성할 수 있어요.</p>
       <Link
         href={{
           pathname: '/auth/login',
@@ -125,7 +122,7 @@ async function LoginModal({
         className='self-end'
       >
         <Button variant='secondary' size='lg' className='w-fit'>
-          {t('loginButton')}
+          로그인 하러가기
         </Button>
       </Link>
     </Modal>

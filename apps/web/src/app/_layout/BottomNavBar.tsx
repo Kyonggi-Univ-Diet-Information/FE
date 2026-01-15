@@ -1,9 +1,8 @@
 'use client';
 
-import { Search } from 'lucide-react';
 import { motion } from 'motion/react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl';
 import { useState, useEffect, useRef } from 'react';
 
 import {
@@ -12,7 +11,6 @@ import {
 } from '@/entities/campus-menu/model/campusRestaurant';
 
 import { FOOD_COURT_ID } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
 import Home from '../../../public/icons/icon-home.svg';
@@ -22,8 +20,6 @@ import User from '../../../public/icons/icon-user.svg';
 
 export default function BottomNavBar() {
   const pathname = usePathname();
-  const t = useTranslations('navigation');
-  const locale = useLocale();
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -71,42 +67,41 @@ export default function BottomNavBar() {
   const navItems = [
     {
       href: '/',
-      label: t('home'),
+      label: '홈',
       icon: <Home width={32} height={32} />,
       alt: 'home',
     },
     {
       href: defaultCampusHref,
-      label: t('campus'),
+      label: '교내식당',
       icon: <Restaurant2 width={32} height={32} />,
       alt: 'restaurant2',
     },
     {
       href: '/review',
-      label: t('review'),
+      label: '리뷰',
       icon: <Review width={32} height={32} />,
       alt: 'review',
     },
     {
       href: '/user',
-      label: t('myPage'),
+      label: '마이',
       icon: <User width={32} height={32} />,
       alt: 'user',
     },
   ];
 
-  const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
-  if (pathWithoutLocale.startsWith('/search')) {
+  if (pathname.startsWith('/search')) {
     return null;
   }
   if (
-    pathWithoutLocale.split('/').length > 2 &&
-    !pathWithoutLocale.startsWith('/campus')
+    pathname.split('/').length > 2 &&
+    !pathname.startsWith('/campus')
   ) {
     return null;
   }
 
-  if (pathWithoutLocale.startsWith('/auth')) {
+  if (pathname.startsWith('/auth')) {
     return null;
   }
 
@@ -123,8 +118,8 @@ export default function BottomNavBar() {
       {navItems.map(item => {
         const isActive =
           item.href === '/'
-            ? pathWithoutLocale === '/'
-            : pathWithoutLocale.startsWith(`/${item.href.split('/')[1]}`);
+            ? pathname === '/'
+            : pathname.startsWith(`/${item.href.split('/')[1]}`);
 
         return (
           <Link

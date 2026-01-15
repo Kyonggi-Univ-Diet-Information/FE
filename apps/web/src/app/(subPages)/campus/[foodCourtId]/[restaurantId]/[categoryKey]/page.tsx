@@ -13,12 +13,11 @@ import { Http } from '@/shared/api/http';
 import { FOOD_COURT_ID } from '@/shared/config';
 import { ENDPOINT } from '@/shared/config/endpoint';
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const locales = ['ko', 'en'];
   const params: Array<{
-    locale: string;
     foodCourtId: string;
     restaurantId: string;
     categoryKey: string;
@@ -40,24 +39,21 @@ export async function generateStaticParams() {
 
       const data = response.result;
 
-      locales.forEach(locale => {
-        restaurants.forEach(restaurant => {
-          const restaurantId = RESTAURANT_ID_BY_NAME[restaurant];
-          const restaurantData = data[restaurant];
+      restaurants.forEach(restaurant => {
+        const restaurantId = RESTAURANT_ID_BY_NAME[restaurant];
+        const restaurantData = data[restaurant];
 
-          if (restaurantData && typeof restaurantData === 'object') {
-            const categories = Object.keys(restaurantData);
+        if (restaurantData && typeof restaurantData === 'object') {
+          const categories = Object.keys(restaurantData);
 
-            categories.forEach(category => {
-              params.push({
-                locale,
-                foodCourtId,
-                restaurantId,
-                categoryKey: category,
-              });
+          categories.forEach(category => {
+            params.push({
+              foodCourtId,
+              restaurantId,
+              categoryKey: category,
             });
-          }
-        });
+          });
+        }
       });
     } catch (error) {
       console.error(`Failed to fetch categories for ${foodCourt}:`, error);
@@ -69,18 +65,16 @@ export async function generateStaticParams() {
 
 const Page = async (props: {
   params: Promise<{
-    locale: string;
     foodCourtId: string;
     restaurantId: string;
     categoryKey: string;
   }>;
 }) => {
-  const { locale, foodCourtId, restaurantId, categoryKey } = await props.params;
+  const { foodCourtId, restaurantId, categoryKey } = await props.params;
 
   return (
     <CampusRestaurantPage
       params={Promise.resolve({
-        locale,
         foodCourtId,
         restaurantId,
         categoryKey,
