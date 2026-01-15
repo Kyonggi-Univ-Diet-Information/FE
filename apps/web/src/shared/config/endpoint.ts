@@ -68,6 +68,7 @@ export const getFoodCourtById = (id: string): CampusFoodCourt | undefined => {
 export const ENDPOINT = {
   AUTH: {
     KAKAO_LOGIN: '/kakao-login',
+    APPLE_LOGIN_URL: '/apple-form',
   },
   DORM: {
     DORM_MENU: '/diet-content/dormitory',
