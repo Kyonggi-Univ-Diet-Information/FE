@@ -1,9 +1,4 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import createMiddleware from 'next-intl/middleware';
-
-import { routing } from '@/shared/i18n/routing';
-
-const intlMiddleware = createMiddleware(routing);
 
 function isReactNativeWebView(request: NextRequest): boolean {
   const userAgent = request.headers.get('user-agent') || '';
@@ -39,7 +34,7 @@ export default function middleware(request: NextRequest) {
     }
   }
 
-  const response = intlMiddleware(request);
+  const response = NextResponse.next();
 
   if (pathname.match(/\.(woff|woff2|ttf|otf|eot)$/)) {
     response.headers.set(
@@ -66,5 +61,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(ko|en)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };

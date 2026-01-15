@@ -1,8 +1,5 @@
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 
 import { GoogleAnalytics } from '@/app/_analytics';
@@ -10,39 +7,19 @@ import { BottomNavBar, Header } from '@/app/_layout';
 import { ErrorProvider, SWRProvider } from '@/app/_providers';
 import { brBold, brRegular, tossFace, wantedSans } from '@/app/_styles/font';
 
-import { routing } from '@/shared/i18n/routing';
+export const metadata: Metadata = {
+  title: '기룡아 밥먹자',
+  description: '경기대학교 내부 식당 정보를 쉽게 찾아봐요!',
+};
 
 type Props = {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({
-  params,
-}: Omit<Props, 'children'>): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  return {
-    title: t('title'),
-    description: t('description'),
-  };
-}
-
-export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params;
-
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as 'ko' | 'en')) {
-    notFound();
-  }
-
-  // Providing all messages to the client side is the easiest way to get started
-  const messages = await getMessages();
-
+export default function SubPagesLayout({ children }: Props) {
   return (
     <html
-      lang={locale}
+      lang='ko'
       className={`${wantedSans.variable} ${brBold.variable} ${brRegular.variable} ${tossFace.variable}`}
       suppressHydrationWarning
     >
@@ -76,21 +53,21 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
       </head>
       <body className='antialiased' suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
-          <GoogleAnalytics />
-          <ErrorProvider>
-            <VercelAnalytics />
-            <SWRProvider>
-              <Header />
-              <div className='size-full pt-[65px]'>
-                <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
+        <GoogleAnalytics />
+        <ErrorProvider>
+          <VercelAnalytics />
+          <SWRProvider>
+            <Header />
+            <div className='size-full pt-[65px]'>
+              <main className='relative mx-auto flex min-h-[calc(100vh-65px)] max-w-[770px]'>
+                <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col gap-8 overflow-x-visible overflow-y-scroll p-4 pt-6 focus:outline-none'>
                   {children}
-                </main>
-              </div>
-              <BottomNavBar />
-            </SWRProvider>
-          </ErrorProvider>
-        </NextIntlClientProvider>
+                </div>
+              </main>
+            </div>
+            <BottomNavBar />
+          </SWRProvider>
+        </ErrorProvider>
       </body>
     </html>
   );
