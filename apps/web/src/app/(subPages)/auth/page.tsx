@@ -55,19 +55,17 @@ function AuthContent() {
         await mutate(KEY.AUTH_STATUS);
 
         let returnUrl = '/';
-        let locale = 'ko';
 
         if (state) {
           try {
             const decodedState = JSON.parse(decodeURIComponent(state));
             returnUrl = decodedState.returnUrl || '/';
-            locale = decodedState.locale || 'ko';
           } catch (e) {
             console.error('Failed to parse state:', e);
           }
         }
 
-        router.replace(`/${locale}${returnUrl}`);
+        router.replace(`${returnUrl}`);
       } else {
         setError(true);
       }

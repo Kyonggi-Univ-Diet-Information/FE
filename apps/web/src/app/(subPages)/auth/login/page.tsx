@@ -14,7 +14,7 @@ function LoginContent() {
   const kakaoRestApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
   const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URL;
 
-  const state = encodeURIComponent(JSON.stringify({ returnUrl, locale: 'ko' }));
+  const state = encodeURIComponent(JSON.stringify({ returnUrl }));
   const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${kakaoRestApiKey}&redirect_uri=${redirectUri}&state=${state}`;
 
   return (
