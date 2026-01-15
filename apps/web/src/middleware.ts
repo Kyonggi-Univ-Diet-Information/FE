@@ -5,8 +5,25 @@ import { routing } from '@/shared/i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
+function isReactNativeWebView(request: NextRequest): boolean {
+  const userAgent = request.headers.get('user-agent') || '';
+  const customHeader = request.headers.get('x-react-native-webview');
+  return userAgent.includes('ReactNative') || customHeader === 'true';
+}
+
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (isReactNativeWebView(request)) {
+    if (pathname !== '/entry') {
+      return NextResponse.redirect(new URL('/entry', request.url));
+    }
+    return NextResponse.next();
+  }
+
+  if (pathname === '/entry') {
+    return NextResponse.next();
+  }
 
   if (process.env.NEXT_MAINTENANCE_MODE === 'true') {
     if (pathname.startsWith('/maintenance')) {

@@ -47,11 +47,18 @@ export default function Index() {
             uri:
               process.env.EXPO_PUBLIC_WEB_URL ||
               'https://new-kiryong-git-refactor-75-yujin-hans-projects.vercel.app/ko',
+            headers: {
+              'X-React-Native-WebView': 'true',
+            },
           }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           originWhitelist={['*']}
           onError={error => console.error('WebView 에러:', error)}
+          injectedJavaScript={`
+            window.ReactNativeWebView = true;
+            true; 
+          `}
         />
       </SafeAreaView>
     </SafeAreaProvider>
