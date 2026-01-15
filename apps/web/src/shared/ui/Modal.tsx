@@ -1,6 +1,5 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
-
-import { Link } from '@/shared/i18n/routing';
 
 export default function Modal({
   children,

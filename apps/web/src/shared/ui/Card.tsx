@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
 export default function Card({

@@ -1,6 +1,3 @@
-import { getLocale, getTranslations } from 'next-intl/server';
-
-
 import { fetchDormMenuByDay } from '@/entities/dorm-menu/api/fetchDormMenuByDay';
 import {
   getFallbackMenu,
@@ -14,8 +11,6 @@ import { Section, Card } from '@/shared/ui';
 
 export default async function DormMenuByDay({ day }: { day: number }) {
   const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]);
-  const t = await getTranslations('dorm');
-  const locale = await getLocale();
 
   const todayDormMenu = dormMenu && dormMenu.diet;
 
@@ -44,26 +39,26 @@ export default async function DormMenuByDay({ day }: { day: number }) {
           <div className='flex flex-col gap-3'>
             <Card>
               <Card.Header>
-                {t('breakfast')} <span className='font-tossFace'>☀️</span>
+                아침 <span className='font-tossFace'>☀️</span>
               </Card.Header>
               <Card.Content>
-                {renderMenuItems(dormMenuByTime('BREAKFAST'), locale)}
+                {renderMenuItems(dormMenuByTime('BREAKFAST'), 'ko')}
               </Card.Content>
             </Card>
             <Card>
               <Card.Header>
-                {t('lunch')} <span className='font-tossFace'>🍽️</span>
+                점심 <span className='font-tossFace'>🍽️</span>
               </Card.Header>
               <Card.Content>
-                {renderMenuItems(dormMenuByTime('LUNCH'), locale)}
+                {renderMenuItems(dormMenuByTime('LUNCH'), 'ko')}
               </Card.Content>
             </Card>
             <Card>
               <Card.Header>
-                {t('dinner')} <span className='font-tossFace'>🌙</span>
+                저녁 <span className='font-tossFace'>🌙</span>
               </Card.Header>
               <Card.Content>
-                {renderMenuItems(dormMenuByTime('DINNER'), locale)}
+                {renderMenuItems(dormMenuByTime('DINNER'), 'ko')}
               </Card.Content>
             </Card>
           </div>

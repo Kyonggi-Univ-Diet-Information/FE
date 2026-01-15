@@ -1,9 +1,6 @@
-import { getLocale, getTranslations } from 'next-intl/server';
-
 import {
   FOOD_COURT_ID,
   FOOD_COURT_NAME,
-  FOOD_COURT_NAME_EN,
 } from '@/shared/config';
 import { Card, Section } from '@/shared/ui';
 
@@ -13,41 +10,28 @@ import type { CampusTopMenu } from '../model/campusMenu';
 
 export default async function CampusTopMenu() {
   const topMenus = await fetchTopMenu();
-  const locale = await getLocale();
-  const t = await getTranslations('review');
 
   return (
     <Section>
       <Section.Header
         title={
           <>
-            <span className='font-tossFace'>💬</span> {t('popularTitle')}
+            <span className='font-tossFace'>💬</span> 리뷰 많은 메뉴
           </>
         }
-        subtitle={t('popularSubtitle')}
+        subtitle="실시간으로 가장 많은 리뷰를 받은 메뉴들이에요!"
       />
       <div className='w-full space-y-2'>
         {topMenus.map((menu, index) => (
-          <MenuCard key={menu.id} menu={menu} index={index} locale={locale} />
+          <MenuCard key={menu.id} menu={menu} index={index} />
         ))}
       </div>
     </Section>
   );
 }
 
-function MenuCard({
-  menu,
-  index,
-  locale,
-}: {
-  menu: CampusTopMenu;
-  index: number;
-  locale: string;
-}) {
-  const foodCourtName =
-    locale === 'en'
-      ? FOOD_COURT_NAME_EN[menu.restaurantType]
-      : FOOD_COURT_NAME[menu.restaurantType];
+function MenuCard({ menu, index }: { menu: CampusTopMenu; index: number }) {
+  const foodCourtName = FOOD_COURT_NAME[menu.restaurantType];
   const getMedal = (index: number) => {
     switch (index) {
       case 1:
@@ -70,7 +54,7 @@ function MenuCard({
             <span className='rounded-full border px-1.5 py-0.5 text-xs font-medium'>
               {foodCourtName}
             </span>
-            {locale === 'en' ? menu.nameEn : menu.name}
+            {menu.name}
           </div>
           <div className='flex items-center justify-end gap-1'>
             <span className='font-tossFace'>💬</span>

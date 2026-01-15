@@ -1,12 +1,9 @@
-import { getTranslations } from 'next-intl/server';
-
 import {
   CampusMenuByFoodCourt,
   CampusMenuByRestaurant,
 } from '@/entities/campus-menu';
 import {
   CAMPUS_RESTAURANT,
-  CAMPUS_RESTAURANT_NAME_EN,
   getRestaurantsByFoodCourt,
   hasSubRestaurants,
   RESTAURANT_ID_BY_NAME,
@@ -16,9 +13,10 @@ import { getFoodCourtById } from '@/shared/config';
 import { getCampusMainTabs } from '@/shared/lib/campus';
 import { Section, StaticTabNavigation } from '@/shared/ui';
 
+export const dynamic = 'force-dynamic';
+
 export interface CampusFoodCourtPageProps {
   params: Promise<{
-    locale: string;
     foodCourtId: string;
     categoryKey?: string;
   }>;
@@ -27,23 +25,20 @@ export interface CampusFoodCourtPageProps {
 export default async function CampusFoodCourtPage({
   params,
 }: CampusFoodCourtPageProps) {
-  const { locale, foodCourtId, categoryKey } = await params;
-  const t = await getTranslations('campus');
-  const tNav = await getTranslations('navigation');
+  const { foodCourtId, categoryKey } = await params;
 
   const foodCourt = getFoodCourtById(foodCourtId);
   if (!foodCourt) {
     throw new Error('Invalid food court id');
   }
 
-  const mainTabs = getCampusMainTabs(locale, tNav('dorm'));
+  const mainTabs = getCampusMainTabs('ko', '기숙사');
 
   if (hasSubRestaurants(foodCourt)) {
     const restaurants = getRestaurantsByFoodCourt(foodCourt);
     const firstRestaurant = restaurants[0];
     const firstRestaurantId = RESTAURANT_ID_BY_NAME[firstRestaurant];
-    const restaurantNames =
-      locale === 'en' ? CAMPUS_RESTAURANT_NAME_EN : CAMPUS_RESTAURANT;
+    const restaurantNames = CAMPUS_RESTAURANT;
 
     const restaurantTabs = restaurants.map(restaurant => ({
       key: RESTAURANT_ID_BY_NAME[restaurant],
@@ -61,7 +56,7 @@ export default async function CampusFoodCourtPage({
               variant='header'
             />
           }
-          subtitle={t('subtitle')}
+          subtitle="리뷰 버튼을 클릭해서 리뷰를 작성해보세요!"
         />
         <StaticTabNavigation
           tabs={restaurantTabs}
@@ -85,7 +80,7 @@ export default async function CampusFoodCourtPage({
             variant='header'
           />
         }
-        subtitle={t('subtitle')}
+        subtitle="리뷰 버튼을 클릭해서 리뷰를 작성해보세요!"
       />
       <CampusMenuByFoodCourt foodCourt={foodCourt} categoryKey={categoryKey} />
     </>

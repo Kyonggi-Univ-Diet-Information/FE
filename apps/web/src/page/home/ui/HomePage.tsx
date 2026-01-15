@@ -1,5 +1,5 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { RESTAURANT_ID_BY_NAME } from '@/entities/campus-menu/model/campusRestaurant';
@@ -11,13 +11,11 @@ import {
 } from '@/entities/dorm-menu/model';
 import {
   DORM_DAY,
-  DORM_DAY_EN,
   DORM_DAY_KEY,
   type DormDay,
 } from '@/entities/dorm-menu/model/dormDay';
 
 import { FOOD_COURT_ID } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 import { getCurrentDate } from '@/shared/lib/date';
 import { AnimatedCard, Section } from '@/shared/ui';
 
@@ -32,12 +30,10 @@ export interface HomeProps {
 export default async function HomePage({ searchParams }: HomeProps) {
   const { modal, date } = await searchParams;
   const isModal = modal === 'open' ? true : false;
-  const t = await getTranslations('home');
-  const locale = await getLocale();
 
   const getWeekDateString = (date?: DormDay) => {
-    if (!date) return locale === 'en' ? 'Today' : '오늘';
-    return locale === 'en' ? DORM_DAY_EN[date] : DORM_DAY[date];
+    if (!date) return '오늘';
+    return DORM_DAY[date];
   };
 
   const today = getCurrentDate().getDay();
@@ -49,21 +45,21 @@ export default async function HomePage({ searchParams }: HomeProps) {
   const CampusFoodCourts = [
     {
       href: `/campus/${FOOD_COURT_ID.KYONGSUL}/${RESTAURANT_ID_BY_NAME.MANKWON}`,
-      title: t('kyongsulang.title'),
-      location: t('kyongsulang.location'),
-      time: t('kyongsulang.time'),
+      title: '경슐랭',
+      location: '제 1복지관 지하 1층',
+      time: '10:30 ~ 19:00 (주문마감 18:30)',
     },
     {
       href: `/campus/${FOOD_COURT_ID.E_SQUARE}`,
-      title: t('eSquare.title'),
-      location: t('eSquare.location'),
-      time: t('eSquare.time'),
+      title: '이스퀘어',
+      location: '제 1복지관 지하 1층',
+      time: '07:30 ~ 20:30 (주문마감 19:30)',
     },
     {
       href: `/campus/${FOOD_COURT_ID.SALLY_BOX}`,
-      title: t('sallyBox.title'),
-      location: t('sallyBox.location'),
-      time: t('sallyBox.time'),
+      title: '샐리박스',
+      location: '교수연구동(학생회관 앞) 5층',
+      time: '08:30 ~ 19:30 (주문마감 19:00)',
     },
   ];
 
@@ -79,8 +75,8 @@ export default async function HomePage({ searchParams }: HomeProps) {
                 title={campusFoodCourt.title}
                 location={campusFoodCourt.location}
                 time={campusFoodCourt.time}
-                viewMenuText={t('viewMenu')}
-                holidayClosedText={t('holidayClosed')}
+                viewMenuText="메뉴 보러가기"
+                holidayClosedText="주말 및 공휴일 휴무"
               />
             ))}
           </CarouselWrapper>
@@ -94,8 +90,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
               <Section.Header
                 title={
                   <>
-                    <span className='text-point'>{t('dormHighlight')}</span>{' '}
-                    <br className={locale === 'en' ? '' : 'hidden'} />
+                    <span className='text-point'>경기드림타워</span>{' '}
                     <Link
                       replace
                       href='?modal=open'
@@ -103,11 +98,11 @@ export default async function HomePage({ searchParams }: HomeProps) {
                     >
                       {getWeekDateString(currentDay)}
                     </Link>
-                    {t('dormTitleLast')}
+                    의 메뉴
                     <span className='font-tossFace'> 🍚</span>
                   </>
                 }
-                subtitle={t('dormSubtitle')}
+                subtitle="이번 주 경기드림타워 식단을 확인해보세요."
                 action={
                   <div className='flex gap-x-2'>
                     <NavigationButton
@@ -139,8 +134,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
   );
 }
 
-async function ReviewLinkButton() {
-  const t = await getTranslations('home');
+function ReviewLinkButton() {
   const defaultReviewHref = `/review`;
 
   return (
@@ -152,10 +146,10 @@ async function ReviewLinkButton() {
         <div className='flex items-center justify-between'>
           <div className='text-lg font-semibold group-hover:text-gray-900/60 group-active:text-gray-900/60'>
             <span className='font-tossFace'>😋&nbsp;&nbsp;</span>
-            {t('reviewPrompt')}
+            식사는 어땠나요?
           </div>
           <div className='flex items-center gap-1 text-sm text-gray-600 group-hover:text-gray-900/60 group-active:text-gray-900/60'>
-            {t('reviewDescription')}
+            인기/최신 리뷰 보러가기
             <ChevronRight size={14} />
           </div>
         </div>

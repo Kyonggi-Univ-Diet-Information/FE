@@ -1,5 +1,4 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
 import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
@@ -20,7 +19,6 @@ export default async function ReviewPagedView({
   foodId,
   pageNo,
 }: ReviewPagedViewProps) {
-  const t = await getTranslations('reviewPage');
   const isAuthenticated = await AuthService.isAuthenticated();
   const likedReviewItems = isAuthenticated
     ? await fetchReviewFaved(type)
@@ -39,7 +37,9 @@ export default async function ReviewPagedView({
 
   if (reviews.content.length === 0) {
     return (
-      <div className='mt-10 text-center text-gray-500'>{t('noReviews')}</div>
+      <div className='mt-10 text-center text-gray-500'>
+        아직 작성된 리뷰가 없어요.
+      </div>
     );
   }
 

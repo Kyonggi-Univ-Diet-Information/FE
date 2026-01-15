@@ -1,8 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-import { Link } from '@/shared/i18n/routing';
 import { cn } from '@/shared/utils';
 
 interface TabNavigationProps {

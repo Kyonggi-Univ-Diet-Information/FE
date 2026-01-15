@@ -1,4 +1,3 @@
-import { getLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
 import { type FoodCourt } from '@/shared/config';
@@ -14,15 +13,12 @@ export default async function CampusMenuPrice({
   menuId: number;
   className?: string;
 }) {
-  const locale = await getLocale();
   const menuDetail = await fetchCampusMenuDetail(foodCourt, menuId);
-  const wonText = locale === 'en' ? '₩' : '원';
 
   return (
     <Suspense>
       <span className={className}>
-        {menuDetail.price}
-        {wonText}
+        {menuDetail.price}원
       </span>
     </Suspense>
   );

@@ -1,4 +1,5 @@
-import { Link } from '@/shared/i18n/routing';
+import Link from 'next/link';
+
 import { cn } from '@/shared/utils';
 
 interface StaticTabNavigationProps {

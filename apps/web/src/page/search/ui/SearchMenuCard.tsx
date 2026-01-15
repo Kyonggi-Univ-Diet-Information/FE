@@ -1,43 +1,34 @@
 import { MessageSquareText } from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 import { CATEGORY_TO_TEXT } from '@/entities/campus-menu/model/campusMenu';
 import { CAMPUS_RESTAURANT } from '@/entities/campus-menu/model/campusRestaurant';
 import CampusMenuImage from '@/entities/campus-menu/ui/CampusMenuImage';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
-import { Link } from '@/shared/i18n/routing';
 
 import type { SearchResult } from '../api/fetchSearch';
 import { FOOD_TYPE_NAME } from '../model/search';
 
-export default async function SearchMenuCard({
+export default function SearchMenuCard({
   menuId,
   price,
   restaurantType,
   subRestaurant,
   name,
-  nameEn,
   reviewCount,
   averageRating,
   foodType,
   detailedMenu,
 }: SearchResult) {
-  const locale = await getLocale();
-  const wonText = locale === 'en' ? '₩' : '원';
-  const t = await getTranslations('campus');
   const cardContent = (
     <>
       <div className='flex flex-col gap-1'>
         <span className='text-sm leading-none text-gray-900/40'>
           {FOOD_COURT_NAME[restaurantType]} {CAMPUS_RESTAURANT[subRestaurant]}
         </span>
-        <span className='font-semibold'>{locale === 'en' ? nameEn : name}</span>
-        <span className='text-sm'>
-          {locale === 'en'
-            ? `${wonText}${price.toLocaleString()}`
-            : `${price.toLocaleString()}${wonText}`}
-        </span>
+        <span className='font-semibold'>{name}</span>
+        <span className='text-sm'>{price.toLocaleString()}원</span>
         <span className='flex items-center gap-1 text-xs text-gray-900/80'>
           {averageRating > 0 && (
             <>
@@ -48,9 +39,7 @@ export default async function SearchMenuCard({
             </>
           )}
           <span>
-            {t('reviewCount')}
-            <b className='font-semibold'>{reviewCount.toLocaleString()}</b>
-            {t('reviews')}
+            리뷰 <b className='font-semibold'>{reviewCount.toLocaleString()}</b>개
           </span>
         </span>
         <div className='flex items-center gap-1'>
@@ -87,13 +76,9 @@ export default async function SearchMenuCard({
         key={menuId}
       >
         <div className='flex flex-col justify-between'>
-          <span className='mb-2 font-medium'>
-            {locale === 'en' ? nameEn : name}
-          </span>
+          <span className='mb-2 font-medium'>{name}</span>
           <span className='text-sm text-gray-900/40'>
-            {locale === 'en'
-              ? `${wonText}${price.toLocaleString()}`
-              : `${price.toLocaleString()}${wonText}`}
+            {price.toLocaleString()}원
           </span>
         </div>
         <div className='flex items-start'>
@@ -106,7 +91,7 @@ export default async function SearchMenuCard({
               className='text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'
             />
             <div className='text-sm text-gray-900/40 group-hover:text-gray-900/80 group-active:text-gray-900/80'>
-              {t('reviewCount')} {reviewCount.toLocaleString()}
+              리뷰 {reviewCount.toLocaleString()}
             </div>
           </Link>
         </div>
