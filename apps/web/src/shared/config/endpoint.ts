@@ -4,6 +4,13 @@ import { DormDay } from '@/entities/dorm-menu/model';
 export const PUBLIC_API_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';
 
+export const POLICY_URL = {
+  TERMS_OF_SERVICE:
+    'https://abounding-mice-0a1.notion.site/2e7d8a0f1c3f8007a4d4c53c451fb684',
+  PRIVACY_POLICY:
+    'https://abounding-mice-0a1.notion.site/2e7d8a0f1c3f8042aea7cd51f36ea27d',
+};
+
 export const INQUIRY_URL = 'https://open.kakao.com/o/sgcUtX3g';
 
 export const PATCHNOTE_URL =

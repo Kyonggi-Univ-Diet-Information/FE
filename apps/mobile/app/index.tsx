@@ -46,7 +46,7 @@ export default function Index() {
           source={{
             uri:
               process.env.EXPO_PUBLIC_WEB_URL ||
-              'https://new-kiryong-git-refactor-75-yujin-hans-projects.vercel.app/ko',
+              'https://new-kiryong-git-feature-77-yujin-hans-projects.vercel.app/entry',
             headers: {
               'X-React-Native-WebView': 'true',
             },
@@ -68,6 +68,5 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
 });
