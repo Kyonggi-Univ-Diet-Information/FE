@@ -1,13 +1,17 @@
 import { StyleSheet, BackHandler, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { WebView } from 'react-native-webview';
 
 import { router } from 'expo-router';
 
 export default function Index() {
   const webViewRef = useRef<WebView>(null);
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  const isTransparentPath =
+    currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
 
   useEffect(() => {
     const backAction = () => {
@@ -38,6 +42,7 @@ export default function Index() {
           styles.container,
           {
             paddingBottom: Platform.OS === 'ios' ? -24 : 0,
+            backgroundColor: isTransparentPath ? 'transparent' : '#ffffff',
           },
         ]}
       >
@@ -50,6 +55,9 @@ export default function Index() {
             headers: {
               'X-React-Native-WebView': 'true',
             },
+          }}
+          onNavigationStateChange={navState => {
+            setCurrentUrl(navState.url);
           }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
