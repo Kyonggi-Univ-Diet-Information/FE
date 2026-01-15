@@ -7,7 +7,32 @@ export default createHandler(() => (
       <html lang='ko'>
         <head>
           <meta charset='utf-8' />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <meta
+            name='viewport'
+            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+          />
+          <meta
+            name='naver-site-verification'
+            content='93445f88fb84c2015b74933d1b6deabbba65014e'
+          />
+          <meta
+            name='google-site-verification'
+            content='V1odmpWgms6ZPdD3-m_eVSDwWliOCiVEehL6LawaKXs'
+          />
+          <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+          <link rel='preconnect' href='https://www.googletagmanager.com' />
+          <script
+            async
+            src='https://www.googletagmanager.com/gtag/js?id=G-NKEL4R473V'
+          ></script>
+          <script
+            innerHTML={`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-NKEL4R473V');
+              `}
+          />
           <title>기룡아 밥먹자는 잠시 쉬어가요!</title>
           <meta name='description' content='기룡아 밥먹자는 잠시 쉬어가요!' />
           <link rel='icon' href='/favicon/favicon.ico' sizes='any' />
