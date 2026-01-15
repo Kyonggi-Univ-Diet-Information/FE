@@ -1,25 +1,14 @@
-import { A } from "@solidjs/router";
+import { A } from '@solidjs/router';
 
 export default function NotFound() {
   return (
-    <main class="text-center mx-auto text-gray-700 p-4">
-      <h1 class="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">Not Found</h1>
-      <p class="mt-8">
-        Visit{" "}
-        <a href="https://solidjs.com" target="_blank" class="text-sky-600 hover:underline">
-          solidjs.com
-        </a>{" "}
-        to learn how to build Solid apps.
-      </p>
-      <p class="my-4">
-        <A href="/" class="text-sky-600 hover:underline">
-          Home
-        </A>
-        {" - "}
-        <A href="/about" class="text-sky-600 hover:underline">
-          About Page
-        </A>
-      </p>
+    <main class='flex min-h-screen flex-col items-center justify-center bg-white px-6 text-center text-gray-700'>
+      <div class='mb-8 text-6xl'>🍽️</div>
+      <h1 class='mb-4 text-2xl font-bold text-gray-900'>잘못된 접근이에요!</h1>
+      <p class='mb-6 text-gray-500'>잘못된 접근이에요! 홈으로 돌아가세요.</p>
+      <A href='/' class='text-orange-500 hover:underline'>
+        홈으로 돌아가기
+      </A>
     </main>
   );
 }
