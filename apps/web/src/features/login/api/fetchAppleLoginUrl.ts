@@ -5,9 +5,16 @@ interface AppleLoginUrlResponse {
   url: string;
 }
 
-export const fetchAppleLoginUrl = async (): Promise<AppleLoginUrlResponse> => {
-  const response = await Http.get<AppleLoginUrlResponse>({
+interface AppleLoginUrlParams {
+  loginState?: string;
+}
+
+export const fetchAppleLoginUrl = async (
+  params?: AppleLoginUrlParams,
+): Promise<AppleLoginUrlResponse> => {
+  const response = await Http.get<AppleLoginUrlResponse, AppleLoginUrlParams>({
     request: ENDPOINT.AUTH.APPLE_LOGIN_URL,
+    params,
   });
   return response;
 };

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { setState } from '@/shared/utils';
+import { setLoginState } from '@/shared/utils';
 
 interface KakaoLoginOptions {
   redirectUri?: string;
@@ -40,7 +40,7 @@ export const useKakaoLogin = (
 
       window.Kakao.Auth.authorize({
         redirectUri: redirectUri as string,
-        state: setState('kakao'),
+        state: setLoginState('kakao'),
       });
 
       onSuccess?.();
