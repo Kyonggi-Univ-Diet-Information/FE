@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 interface KakaoAuth {
-  authorize: (settings: { redirectUri: string }) => void;
+  authorize: (settings: { redirectUri: string; state?: string }) => void;
   getAccessToken: () => string | null;
   setAccessToken: (token: string) => void;
   logout: (callback?: () => void) => void;
