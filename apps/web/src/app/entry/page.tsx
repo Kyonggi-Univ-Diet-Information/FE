@@ -10,8 +10,8 @@ import { LoginSection } from '@/features/login/ui';
 export default function EntryPage() {
   return (
     <main className='fixed relative inset-0 flex h-screen w-full flex-col items-center overflow-hidden bg-[#F9FAFB]'>
-      <div className='bg-point/10 pointer-events-none absolute -left-24 -top-24 h-[500px] w-[500px] rounded-full blur-[120px]' />
-      <div className='pointer-events-none absolute -bottom-24 -right-24 h-[500px] w-[500px] rounded-full bg-orange-100 blur-[120px]' />
+      <div className='bg-point/10 pointer-events-none absolute -left-24 -top-24 h-[40vh] w-screen rounded-full blur-[120px]' />
+      <div className='pointer-events-none absolute -bottom-24 -right-24 h-[500px] w-screen rounded-full bg-orange-100 blur-[120px]' />
 
       <EntryLogoSection />
 
