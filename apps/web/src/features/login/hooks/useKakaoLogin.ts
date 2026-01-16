@@ -10,7 +10,6 @@ interface KakaoLoginOptions {
 
 interface KakaoLoginReturn {
   handleKakaoLogin: () => void;
-  logout: () => void;
 }
 
 export const useKakaoLogin = (
@@ -51,17 +50,5 @@ export const useKakaoLogin = (
     }
   }, [redirectUri, onSuccess, onError]);
 
-  const logout = useCallback(() => {
-    try {
-      localStorage.removeItem('accessToken');
-      onSuccess?.();
-    } catch (error) {
-      console.error('카카오 로그아웃 중 에러가 발생했습니다.', error);
-    }
-  }, [onSuccess]);
-
-  return {
-    handleKakaoLogin,
-    logout,
-  };
+  return { handleKakaoLogin };
 };
