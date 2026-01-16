@@ -11,8 +11,7 @@ export const useSocialLogin = (params: SocialLoginParams) => {
   const { provider } = params;
 
   const handleAppleLogin = async () => {
-    const loginState = setLoginState('apple');
-    const { url } = await fetchAppleLoginUrl({ loginState });
+    const { url } = await fetchAppleLoginUrl();
     return (window.location.href = url);
   };
 

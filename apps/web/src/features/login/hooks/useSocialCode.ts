@@ -16,7 +16,6 @@ export const useSocialCode = () => {
   const searchParams = useSearchParams();
 
   const code = searchParams.get('code');
-  const loginState = searchParams.get('loginState');
   const state = searchParams.get('state');
   const userParam = searchParams.get('user');
 
@@ -33,12 +32,9 @@ export const useSocialCode = () => {
 
     setIsLoading(true);
     try {
-      let loginInfo = getLoginState(loginState);
-      if (!loginInfo && state) {
-        loginInfo = getLoginState(state);
-      }
+      const loginInfo = state ? getLoginState(state) : null;
 
-      const provider = loginInfo?.provider || 'kakao';
+      const provider = loginInfo?.provider || 'apple';
       const returnUrl = loginInfo?.returnUrl || '/';
 
       let result;
