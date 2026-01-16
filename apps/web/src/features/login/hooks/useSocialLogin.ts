@@ -1,3 +1,6 @@
+// import { useRouter } from 'next/navigation';
+
+import { useKakaoLogin } from './useKakaoLogin';
 import { fetchAppleLoginUrl } from '../api/fetchAppleLoginUrl';
 
 interface SocialLoginParams {
@@ -6,15 +9,21 @@ interface SocialLoginParams {
 
 export default function useSocialLogin(params: SocialLoginParams) {
   const { provider } = params;
+  // const router = useRouter();
 
   const handleAppleLogin = async () => {
     const { url } = await fetchAppleLoginUrl();
     return (window.location.href = url);
   };
 
-  const handleKakaoLogin = async () => {
-    alert('kakao login');
-  };
+  const { handleKakaoLogin } = useKakaoLogin({
+    onSuccess: () => {
+      // router.push('/loading');
+    },
+    onError: loginError => {
+      console.error(`로그인 실패 ${loginError.message}`);
+    },
+  });
 
   const handleGoogleLogin = async () => {
     alert('google login');

@@ -1,9 +1,11 @@
 import { LoginButton } from '@/shared/ui';
 import { isIos } from '@/shared/utils';
 
+import { useKakaoSDK } from '../hooks/useKakaoSDK';
 import useSocialLogin from '../hooks/useSocialLogin';
 
 export default function LoginSection() {
+  useKakaoSDK();
   return (
     <div className='flex flex-col gap-3.5'>
       <KakaoLoginButton />
