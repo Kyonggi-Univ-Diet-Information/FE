@@ -1,8 +1,7 @@
 import { LoginButton } from '@/shared/ui';
 import { isIos } from '@/shared/utils';
 
-import { useKakaoSDK } from '../hooks/useKakaoSDK';
-import useSocialLogin from '../hooks/useSocialLogin';
+import { useKakaoSDK, useSocialLogin } from '../hooks';
 
 export default function LoginSection() {
   useKakaoSDK();
