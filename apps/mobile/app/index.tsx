@@ -50,8 +50,7 @@ export default function Index() {
           ref={webViewRef}
           source={{
             uri:
-              process.env.EXPO_PUBLIC_WEB_URL ||
-              'https://new-kiryong-git-feature-77-yujin-hans-projects.vercel.app/entry',
+              process.env.EXPO_PUBLIC_WEB_URL || 'https://www.kiryong.kr/404',
             headers: {
               'X-React-Native-WebView': 'true',
             },
