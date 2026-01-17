@@ -1,13 +1,26 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { COOKIE_KEYS } from '@/shared/config';
+
 function isReactNativeWebView(request: NextRequest): boolean {
   const userAgent = request.headers.get('user-agent') || '';
   const customHeader = request.headers.get('x-react-native-webview');
   return userAgent.includes('ReactNative') || customHeader === 'true';
 }
 
+function isAuthenticated(request: NextRequest): boolean {
+  const accessToken = request.cookies.get(COOKIE_KEYS.ACCESS_TOKEN);
+  return !!accessToken?.value;
+}
+
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname.includes('/user')) {
+    if (!isAuthenticated(request)) {
+      return NextResponse.redirect(new URL('/auth/login', request.url));
+    }
+  }
 
   if (isReactNativeWebView(request)) {
     if (pathname !== '/entry') {
