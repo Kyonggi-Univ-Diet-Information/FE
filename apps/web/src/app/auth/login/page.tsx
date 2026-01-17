@@ -11,8 +11,7 @@ import { POLICY_URL } from '@/shared/config';
 
 function LoginContent() {
   return (
-    <main className='fixed relative inset-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#F9FAFB]'>
-      <div className='bg-point/10 pointer-events-none absolute -left-24 -top-24 h-[40vh] w-screen rounded-full blur-[120px]' />
+    <main className='relative inset-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#F9FAFB]'>
       <div className='pointer-events-none absolute -bottom-24 -right-24 h-[500px] w-screen rounded-full bg-orange-100 blur-[120px]' />
 
       {/* 좌측 상단 뒤로가기 버튼 */}

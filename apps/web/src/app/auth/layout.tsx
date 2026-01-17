@@ -29,7 +29,7 @@ export default function EntryLayout({ children }: { children: ReactNode }) {
       <body className='antialiased' suppressHydrationWarning>
         <GoogleAnalytics />
         <VercelAnalytics />
-        {children}
+        <main className='h-screen overflow-hidden w-screen relative'>{children}</main>
       </body>
     </html>
   );
