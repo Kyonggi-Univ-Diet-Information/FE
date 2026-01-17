@@ -21,6 +21,7 @@ export default function DormMenuAnimatedWrapper({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         className='h-fit overflow-hidden'
+        style={{ willChange: 'opacity' }}
       >
         {children}
       </motion.div>

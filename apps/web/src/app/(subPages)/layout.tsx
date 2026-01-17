@@ -29,10 +29,8 @@ export default function SubPagesLayout({ children }: Props) {
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
         <link rel='preconnect' href='https://www.googletagmanager.com' />
         <link
-          rel='preload'
-          href='/fonts/WantedSans-Regular.ttf'
-          as='font'
-          type='font/ttf'
+          rel='preconnect'
+          href='https://res.cloudinary.com'
           crossOrigin='anonymous'
         />
 

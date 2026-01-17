@@ -24,17 +24,26 @@ export default function BottomNavBar() {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = (e: Event) => {
-      const target = e.target as HTMLElement;
-      const currentScrollY = target.scrollTop || window.scrollY;
+    let rafId: number | null = null;
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        setHidden(true);
-      } else if (currentScrollY < lastScrollY.current) {
-        setHidden(false);
+    const handleScroll = (e: Event) => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
       }
 
-      lastScrollY.current = currentScrollY;
+      rafId = requestAnimationFrame(() => {
+        const target = e.target as HTMLElement;
+        const currentScrollY = target.scrollTop || window.scrollY;
+
+        if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+          setHidden(true);
+        } else if (currentScrollY < lastScrollY.current) {
+          setHidden(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        rafId = null;
+      });
     };
 
     const scrollContainers = document.querySelectorAll(
@@ -50,6 +59,9 @@ export default function BottomNavBar() {
     }
 
     return () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
       if (scrollContainers.length > 0) {
         scrollContainers.forEach(container => {
           container.removeEventListener('scroll', handleScroll);
@@ -114,6 +126,7 @@ export default function BottomNavBar() {
       }}
       animate={hidden ? 'hidden' : 'visible'}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
+      style={{ willChange: 'transform' }}
     >
       {navItems.map(item => {
         const isActive =
