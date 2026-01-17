@@ -48,7 +48,7 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
   };
 
   return (
-    <Section.Content>
+    <Section.Content className='h-fit overflow-hidden'>
       <AnimatedCard index={0}>
         <Card className='min-h-70 h-fit'>
           <Card.Header>

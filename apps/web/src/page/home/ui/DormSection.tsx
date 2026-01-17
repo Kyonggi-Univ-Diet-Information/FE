@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import { DormMenuAll, DormMenuAnimatedWrapper } from '@/entities/dorm-menu';
 import {
@@ -27,9 +27,7 @@ const getWeekDateString = (date?: DormDay) => {
 
 export default function DormSection() {
   const today = getCurrentDate().getDay();
-  const [currentDay, setCurrentDay] = useState<DormDay>(
-    DORM_DAY_KEY[today],
-  );
+  const [currentDay, setCurrentDay] = useState<DormDay>(DORM_DAY_KEY[today]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { yesterday, tomorrow } = getAdjacentDates(currentDay);
@@ -73,28 +71,18 @@ export default function DormSection() {
           subtitle='이번 주 경기드림타워 식단을 확인해보세요.'
           action={
             <div className='flex gap-x-2'>
-              <button
+              <DormNavButton
                 onClick={handlePreviousDay}
                 disabled={isCurrentDaySunday}
-                className={
-                  isCurrentDaySunday
-                    ? 'cursor-not-allowed rounded-full border border-gray-200 bg-gray-100 p-1.5 text-sm font-medium text-gray-400'
-                    : 'rounded-full border border-gray-300 bg-white p-1.5 text-sm font-medium hover:bg-gray-50'
-                }
               >
                 <ChevronLeft className='size-5 text-gray-700' />
-              </button>
-              <button
+              </DormNavButton>
+              <DormNavButton
                 onClick={handleNextDay}
                 disabled={isCurrentDaySaturday}
-                className={
-                  isCurrentDaySaturday
-                    ? 'cursor-not-allowed rounded-full border border-gray-200 bg-gray-100 p-1.5 text-sm font-medium text-gray-400'
-                    : 'rounded-full border border-gray-300 bg-white p-1.5 text-sm font-medium hover:bg-gray-50'
-                }
               >
                 <ChevronRight className='size-5 text-gray-700' />
-              </button>
+              </DormNavButton>
             </div>
           }
         />
@@ -111,5 +99,29 @@ export default function DormSection() {
         />
       )}
     </>
+  );
+}
+
+function DormNavButton({
+  onClick,
+  disabled,
+  children,
+}: {
+  onClick: () => void;
+  disabled: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={
+        disabled
+          ? 'cursor-not-allowed rounded-full border border-gray-200 bg-gray-100 p-1.5 text-sm font-medium text-gray-400'
+          : 'rounded-full border border-gray-300 bg-white p-1.5 text-sm font-medium hover:bg-gray-50'
+      }
+    >
+      {children}
+    </button>
   );
 }
