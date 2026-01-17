@@ -1,7 +1,9 @@
-import { HomePage, HomeProps } from '@/page/home';
+import { HomePage } from '@/page/home';
 
-const Page = async (props: HomeProps) => {
-  return <HomePage {...props} />;
+export const dynamic = 'force-dynamic';
+
+const Page = () => {
+  return <HomePage />;
 };
 
 export default Page;

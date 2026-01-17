@@ -1,46 +1,15 @@
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { Suspense } from 'react';
 
 import { RESTAURANT_ID_BY_NAME } from '@/entities/campus-menu/model/campusRestaurant';
-import { DormMenuAll, DormMenuAnimatedWrapper } from '@/entities/dorm-menu';
-import {
-  getAdjacentDates,
-  isSaturday,
-  isSunday,
-} from '@/entities/dorm-menu/model';
-import {
-  DORM_DAY,
-  DORM_DAY_KEY,
-  type DormDay,
-} from '@/entities/dorm-menu/model/dormDay';
 
 import { FOOD_COURT_ID } from '@/shared/config';
-import { getCurrentDate } from '@/shared/lib/date';
 import { AnimatedCard, Section } from '@/shared/ui';
 
 import CarouselWrapper from './CarouselWrapper';
-import DaySelectModal from './DaySelectModal';
-import NavigationButton from './NavigationButton';
+import DormSection from './DormSection';
 
-export interface HomeProps {
-  searchParams: Promise<{ modal?: string; date?: string }>;
-}
-
-export default async function HomePage({ searchParams }: HomeProps) {
-  const { modal, date } = await searchParams;
-  const isModal = modal === 'open' ? true : false;
-
-  const getWeekDateString = (date?: DormDay) => {
-    if (!date) return '오늘';
-    return DORM_DAY[date];
-  };
-
-  const today = getCurrentDate().getDay();
-  const currentDay = (date as DormDay) || DORM_DAY_KEY[today];
-  const { yesterday, tomorrow } = getAdjacentDates(currentDay);
-  const isCurrentDaySunday = isSunday(currentDay);
-  const isCurrentDaySaturday = isSaturday(currentDay);
+export default function HomePage() {
 
   const CampusFoodCourts = [
     {
@@ -85,51 +54,9 @@ export default async function HomePage({ searchParams }: HomeProps) {
           <Section>
             <ReviewLinkButton />
           </Section>
-          <Suspense>
-            <Section>
-              <Section.Header
-                title={
-                  <>
-                    <span className='text-point'>경기드림타워</span>{' '}
-                    <Link
-                      replace
-                      href='?modal=open'
-                      className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
-                    >
-                      {getWeekDateString(currentDay)}
-                    </Link>
-                    의 메뉴
-                    <span className='font-tossFace'> 🍚</span>
-                  </>
-                }
-                subtitle="이번 주 경기드림타워 식단을 확인해보세요."
-                action={
-                  <div className='flex gap-x-2'>
-                    <NavigationButton
-                      href={`/?date=${yesterday}`}
-                      disabled={isCurrentDaySunday}
-                    >
-                      <ChevronLeft className='size-5 text-gray-700' />
-                    </NavigationButton>
-                    <NavigationButton
-                      href={`/?date=${tomorrow}`}
-                      disabled={isCurrentDaySaturday}
-                    >
-                      <ChevronRight className='size-5 text-gray-700' />
-                    </NavigationButton>
-                  </div>
-                }
-              />
-              <Section.Content>
-                <DormMenuAnimatedWrapper currentDay={currentDay}>
-                  <DormMenuAll date={currentDay} />
-                </DormMenuAnimatedWrapper>
-              </Section.Content>
-            </Section>
-          </Suspense>
+          <DormSection />
         </div>
       </div>
-      {isModal && <DaySelectModal />}
     </>
   );
 }
