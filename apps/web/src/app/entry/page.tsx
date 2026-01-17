@@ -14,10 +14,8 @@ export default function EntryPage() {
     <AuthPageWrapper showTopGradient showBottomGradient>
       <EntryLogoSection />
 
-      <AuthCard maxWidth={500} initialY={100} className='rounded-none p-0! ring-0! shadow-none!'>
-        <div className='z-20 w-full max-w-[500px]'>
-          <div className='rounded-t-[42px] bg-white/80 p-8 pt-4 shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-2xl'>
-            <div className='mx-auto mb-8 h-1.5 w-12 rounded-full bg-gray-200' />
+      <AuthCard maxWidth={500} initialY={100} className='p-0! ring-0! shadow-none!' roundedBottom={false}>
+       
 
             <p className='mb-6 text-center text-sm font-medium text-gray-400'>
               SNS 계정으로 3초만에 시작하기!
@@ -35,8 +33,8 @@ export default function EntryPage() {
             </motion.button>
 
             <EntryPolicySection />
-          </div>
-        </div>
+     
+    
       </AuthCard>
     </AuthPageWrapper>
   );
