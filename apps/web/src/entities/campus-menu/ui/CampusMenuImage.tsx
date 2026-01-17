@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { FOOD_COURT, type FoodCourt } from '@/shared/config';
+import { Skeleton } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
 interface CampusMenuImageProps {
@@ -27,17 +28,26 @@ export default function CampusMenuImage({
   const [imageFormat, setImageFormat] = useState<'jpg' | 'png' | 'fallback'>(
     'jpg',
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const imageSrc =
     imageFormat === 'fallback'
       ? '/images/no-image.png'
       : `https://res.cloudinary.com/dm77jlwuj/image/upload/v1761492742/${imageKey[foodCourt]}${menuId}.${imageFormat}`;
 
+  const handleLoad = () => {
+    setIsLoading(false);
+  };
+
   const handleError = () => {
     if (imageFormat === 'jpg') {
+      setIsLoading(true);
       setImageFormat('png');
     } else if (imageFormat === 'png') {
+      setIsLoading(true);
       setImageFormat('fallback');
+    } else {
+      setIsLoading(false);
     }
   };
 
@@ -48,15 +58,20 @@ export default function CampusMenuImage({
         className,
       )}
     >
+      {isLoading && (
+        <Skeleton className='absolute inset-0 size-full rounded-xl' />
+      )}
       <Image
         loading='lazy'
-        placeholder='blur'
-        blurDataURL='/images/no-image.png'
         src={imageSrc}
         alt={menuId.toString()}
         fill
+        onLoad={handleLoad}
         onError={handleError}
-        className='absolute inset-0 size-full object-cover'
+        className={cn(
+          'absolute inset-0 size-full object-cover transition-opacity duration-300',
+          isLoading ? 'opacity-0' : 'opacity-100',
+        )}
       />
     </div>
   );
