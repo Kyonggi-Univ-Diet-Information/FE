@@ -19,13 +19,15 @@ export async function POST(request: NextRequest) {
     if (state) params.append('state', state);
     if (user) params.append('user', user);
 
-    // /auth 페이지로 GET 리다이렉트
     const redirectUrl = `/auth?${params.toString()}`;
-    return NextResponse.redirect(new URL(redirectUrl, request.url));
+    return NextResponse.redirect(new URL(redirectUrl, request.url), {
+      status: 303,
+    });
   } catch (error) {
     console.error('Apple OAuth callback error:', error);
     return NextResponse.redirect(
       new URL('/auth?error=apple_callback_failed', request.url),
+      { status: 303 },
     );
   }
 }
