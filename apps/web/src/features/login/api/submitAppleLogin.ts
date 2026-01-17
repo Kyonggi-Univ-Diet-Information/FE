@@ -20,7 +20,7 @@ export async function submitAppleLogin(
   user?: AppleUser | null,
 ) {
   try {
-    const response = await Http.post<
+    const response = await Http.postDirect<
       { code: string; state?: string | null; user?: AppleUser | null },
       LoginResponse
     >({

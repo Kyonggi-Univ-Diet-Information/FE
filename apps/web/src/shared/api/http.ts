@@ -233,6 +233,29 @@ export class Http {
     );
   }
 
+  static async postDirect<TData, TResponse = unknown>(
+    config: Omit<PostRequestParams<TData>, 'authorize'>,
+    options: HttpOptions = {},
+  ): Promise<TResponse> {
+    const { request, data, headers } = config;
+
+    const urlString = this.buildDirectUrl(request);
+    const finalHeaders: HeadersInit = {
+      'Content-Type': 'application/json',
+      ...headers,
+    };
+
+    return this.request<TResponse>(
+      urlString,
+      {
+        method: 'POST',
+        headers: finalHeaders,
+        body: data ? JSON.stringify(data) : undefined,
+      },
+      options,
+    );
+  }
+
   static async del<TResponse, TData = unknown>(
     config: DelRequestParams<TData>,
     options: HttpOptions = {},
