@@ -14,3 +14,4 @@ export { default as Title } from './Title';
 export { default as Skeleton } from './Skeleton';
 export { default as Select } from './SelectComponent';
 export { default as LoginButton } from './LoginButton';
+export * from './AuthLayout';

@@ -8,13 +8,11 @@ import { Suspense } from 'react';
 import { LoginSection } from '@/features/login/ui';
 
 import { POLICY_URL } from '@/shared/config';
+import { AuthCard, AuthPageWrapper } from '@/shared/ui';
 
 function LoginContent() {
   return (
-    <main className='relative inset-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#F9FAFB]'>
-      <div className='pointer-events-none absolute -bottom-24 -right-24 h-[500px] w-screen rounded-full bg-orange-100 blur-[120px]' />
-
-      {/* 좌측 상단 뒤로가기 버튼 */}
+    <AuthPageWrapper showBottomGradient showTopGradient={false}>
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -25,57 +23,50 @@ function LoginContent() {
         <ChevronLeftIcon className='size-5 text-gray-700' />
       </motion.button>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className='z-20 w-full max-w-[400px] px-6'
-      >
-        <div className='rounded-[32px] bg-white/80 p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-2xl'>
-          <div className='mb-8 flex flex-col items-center text-center'>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className='bg-point mb-6 flex size-16 items-center justify-center rounded-2xl shadow-lg shadow-orange-200'
-            >
-              <span className='font-brBold text-xl text-white'>기밥</span>
-            </motion.div>
+      <AuthCard>
+        <div className='mb-8 flex flex-col items-center text-center'>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className='bg-point mb-6 flex size-16 items-center justify-center rounded-2xl shadow-lg shadow-orange-200'
+          >
+            <span className='font-brBold text-xl text-white'>기밥</span>
+          </motion.div>
 
-            <h1 className='font-brBold mb-2 text-2xl tracking-tight text-gray-900'>
-              반가워요!
-            </h1>
-            <p className='text-balance text-sm leading-relaxed text-gray-500'>
-              <span className='text-point font-semibold'>소셜 로그인</span>으로
-              3초만에 가입하고
-              <br />
-              메뉴 리뷰 기능을 이용해보세요!
-            </p>
-          </div>
-
-          <LoginSection />
-
-          <p className='mt-8 text-center text-[11px] leading-relaxed text-gray-400'>
-            로그인 시{' '}
-            <Link
-              href={POLICY_URL.TERMS_OF_SERVICE}
-              target='_blank'
-              className='underline underline-offset-4'
-            >
-              이용약관
-            </Link>{' '}
-            및{' '}
-            <Link
-              href={POLICY_URL.PRIVACY_POLICY}
-              target='_blank'
-              className='underline underline-offset-4'
-            >
-              개인정보처리방침
-            </Link>
-            에 동의하게 됩니다.
+          <h1 className='font-brBold mb-2 text-2xl tracking-tight text-gray-900'>
+            반가워요!
+          </h1>
+          <p className='text-balance text-sm leading-relaxed text-gray-500'>
+            <span className='text-point font-semibold'>소셜 로그인</span>으로
+            3초만에 가입하고
+            <br />
+            메뉴 리뷰 기능을 이용해보세요!
           </p>
         </div>
-      </motion.div>
-    </main>
+
+        <LoginSection />
+
+        <p className='mt-8 text-center text-[11px] leading-relaxed text-gray-400'>
+          로그인 시{' '}
+          <Link
+            href={POLICY_URL.TERMS_OF_SERVICE}
+            target='_blank'
+            className='underline underline-offset-4'
+          >
+            이용약관
+          </Link>{' '}
+          및{' '}
+          <Link
+            href={POLICY_URL.PRIVACY_POLICY}
+            target='_blank'
+            className='underline underline-offset-4'
+          >
+            개인정보처리방침
+          </Link>
+          에 동의하게 됩니다.
+        </p>
+      </AuthCard>
+    </AuthPageWrapper>
   );
 }
 
