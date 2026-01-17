@@ -21,15 +21,16 @@ export default function ReviewLikeButton({
   reviewId,
   initialIsLiked,
   likedCount,
-  isDisabled,
 }: ReviewLikeButtonProps) {
-  const [isPending, startTransition] = useTransition();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, startTransition] = useTransition();
   const [optimisticLiked, setOptimisticLiked] = useOptimistic(initialIsLiked);
+  const [optimisticLikedCount, setOptimisticLikedCount] = useOptimistic(likedCount);
 
   const handleLikeToggle = async () => {
     startTransition(async () => {
       setOptimisticLiked(!optimisticLiked);
-
+      setOptimisticLikedCount(optimisticLiked ? likedCount - 1 : likedCount + 1);
       if (optimisticLiked) {
         await removeReviewFav(reviewId, type);
       } else {
@@ -44,10 +45,9 @@ export default function ReviewLikeButton({
         variant={optimisticLiked ? 'default' : 'outline'}
         size='sm'
         onClick={handleLikeToggle}
-        disabled={isPending || isDisabled}
       >
         <span className='font-tossFace'>👍</span>
-        <span>{likedCount}</span>
+        <span>{optimisticLikedCount}</span>
       </Button>
     </div>
   );
