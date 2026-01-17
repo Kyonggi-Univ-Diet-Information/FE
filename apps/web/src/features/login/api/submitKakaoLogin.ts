@@ -6,7 +6,7 @@ interface LoginResponse {
   email: string;
 }
 
-export async function handleKakaoLogin(code: string) {
+export async function submitKakaoLogin(code: string) {
   try {
     const response = await Http.get<LoginResponse, { code: string }>({
       request: ENDPOINT.AUTH.KAKAO_LOGIN,

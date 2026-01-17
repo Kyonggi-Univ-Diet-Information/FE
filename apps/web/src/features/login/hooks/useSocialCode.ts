@@ -2,7 +2,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
-import { handleKakaoLogin } from '@/features/auth/action';
 import { setAuthCookies } from '@/features/login/api/setAuthCookies';
 
 import { KEY } from '@/shared/config';
@@ -10,6 +9,7 @@ import { getLoginState } from '@/shared/utils';
 
 import { submitAppleLogin } from '../api/submitAppleLogin';
 import { submitGoogleLogin } from '../api/submitGoogleLogin';
+import { submitKakaoLogin } from '../api/submitKakaoLogin';
 
 export const useSocialCode = () => {
   const router = useRouter();
@@ -40,7 +40,7 @@ export const useSocialCode = () => {
       let result;
       switch (provider) {
         case 'kakao':
-          result = await handleKakaoLogin(code);
+          result = await submitKakaoLogin(code);
           break;
         case 'google':
           result = await submitGoogleLogin(code);
