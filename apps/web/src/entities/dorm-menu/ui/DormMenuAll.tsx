@@ -1,9 +1,12 @@
+'use client';
+
 import React from 'react';
+import useSWR from 'swr';
 
 import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
 
-import { AnimatedCard, Section } from '@/shared/ui';
-import { Card } from '@/shared/ui';
+import { KEY } from '@/shared/config';
+import { AnimatedCard, Section, Card } from '@/shared/ui';
 
 import {
   type DormTime,
@@ -17,11 +20,14 @@ interface DormMenuSectionProps {
   date: DormDay;
 }
 
-export default async function DormMenuSection({ date }: DormMenuSectionProps) {
-  const dormMenu = await fetchDormMenu();
+export default function DormMenuSection({ date }: DormMenuSectionProps) {
+  const { data: dormMenu } = useSWR(KEY.DORM_MENU, fetchDormMenu, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   const currentDay = date;
-  const todayDormMenu = dormMenu && dormMenu[currentDay];
+  const todayDormMenu = dormMenu?.[currentDay];
 
   const dormMenuByTime = (time: DormTime) => {
     if (!dormMenu) return getFallbackMenu(false);
@@ -34,7 +40,7 @@ export default async function DormMenuSection({ date }: DormMenuSectionProps) {
       return getFallbackMenu(false);
     }
 
-    if (todayDormMenu[time] === undefined) {
+    if (!todayDormMenu || todayDormMenu[time] === undefined) {
       return getFallbackMenu(false);
     }
 
