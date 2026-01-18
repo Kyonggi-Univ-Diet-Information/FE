@@ -3,6 +3,7 @@
 import { SendIcon } from 'lucide-react';
 import { memo, useActionState, useEffect, useState } from 'react';
 import { useForm, UseFormRegisterReturn } from 'react-hook-form';
+import { useSWRConfig } from 'swr';
 
 import type { ReviewPost } from '@/entities/review/model/review';
 
@@ -49,6 +50,7 @@ export default function ReviewFormSection({
   foodCourt,
   foodId,
 }: ReviewFormSectionProps) {
+  const { mutate } = useSWRConfig();
   const { register, watch, reset } = useForm<ReviewPost>();
   const contentValue = watch('content') || '';
 
@@ -63,8 +65,9 @@ export default function ReviewFormSection({
     } else if (state?.success) {
       reset();
       setSelectedStars(3);
+      mutate((key) => Array.isArray(key) && key[0] === 'reviews');
     }
-  }, [state, reset]);
+  }, [state, reset, mutate]);
 
   return (
     <form

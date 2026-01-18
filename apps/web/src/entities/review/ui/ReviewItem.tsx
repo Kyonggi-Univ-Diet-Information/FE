@@ -16,7 +16,6 @@ interface ReviewItemProps extends Review {
   likedCount: number;
   isAuthenticated: boolean;
   isMyReview: boolean;
-  onLikeUpdate?: (reviewId: number, isLiked: boolean, count: number) => void;
 }
 
 export default function ReviewItem({
@@ -31,7 +30,6 @@ export default function ReviewItem({
   likedCount,
   isAuthenticated,
   isMyReview,
-  onLikeUpdate,
 }: ReviewItemProps) {
   const maskedMemberName =
     memberName.length === 1 ? '*' : memberName.charAt(0) + '**';
@@ -77,9 +75,6 @@ export default function ReviewItem({
           initialIsLiked={isLiked}
           likedCount={likedCount}
           isDisabled={!isAuthenticated}
-          onLikeUpdate={(nextLiked, nextCount) =>
-            onLikeUpdate?.(id, nextLiked, nextCount)
-          }
         />
       </div>
     </div>

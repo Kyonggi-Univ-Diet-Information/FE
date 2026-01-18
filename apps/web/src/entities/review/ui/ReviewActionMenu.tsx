@@ -2,6 +2,7 @@
 
 import { MoreVertical, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 
 import { type FoodCourt } from '@/shared/config';
 import {
@@ -26,6 +27,7 @@ export default function ReviewActionMenu({
   reviewId,
   isMyReview,
 }: ReviewActionMenuProps) {
+  const { mutate } = useSWRConfig();
   const [pending, setPending] = useState(false);
 
   const handleAction = async (value: string) => {
@@ -36,6 +38,7 @@ export default function ReviewActionMenu({
       setPending(true);
       try {
         await removeReview(reviewId, foodId, type);
+        mutate((key) => Array.isArray(key) && key[0] === 'reviews');
       } finally {
         setPending(false);
       }

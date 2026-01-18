@@ -11,10 +11,9 @@ export const fetchReviewPaged = async (
 ): Promise<BasePagedResponse<Review[]>> => {
   const data = await Http.get<BasePagedResponse<Review[]>>({
     request: `${ENDPOINT.REVIEW_R.PAGED(type, foodId)}?pageNo=${page}`,
-    cache: 'force-cache',
+    cache: 'no-store',
     next: {
       tags: [KEY.REVIEW(type, foodId), KEY.REVIEW_PAGED(type, foodId, page)],
-      revalidate: 60 * 5,
     },
   });
 
