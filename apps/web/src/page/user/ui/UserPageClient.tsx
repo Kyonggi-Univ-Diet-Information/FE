@@ -52,8 +52,7 @@ export default function UserPageClient({
       const provider = await fetchUserProvider();
       const result = await submitUserRevoke(provider);
       if (result.success) {
-        await refresh();
-        router.push('/');
+        await handleLogout();
       }
     } catch (error) {
       alert('회원 탈퇴에 실패했어요. 오류가 반복되면 관리자에게 문의해주세요.');
