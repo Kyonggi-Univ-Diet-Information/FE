@@ -1,3 +1,4 @@
+import { PencilIcon } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -16,7 +17,13 @@ import {
 
 import { FOOD_COURT, getFoodCourtById } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
-import { Loader, Modal, Button, Title } from '@/shared/ui';
+import {
+  Loader,
+  Modal,
+  Button,
+  AnimatedCard,
+  Section,
+} from '@/shared/ui';
 
 export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;
@@ -49,57 +56,95 @@ export default async function ReviewPage({
   const isReviewMode = reviewMode === 'true';
 
   return (
-    <div className='flex flex-col gap-4'>
-      <section className='flex items-start justify-between'>
-        <div className='flex flex-col gap-1'>
-          <Title>
+    <div className='flex flex-col gap-8 pb-10'>
+      <AnimatedCard index={0} className='px-1'>
+        <div className='flex flex-col gap-4'>
+          <div className='space-y-1.5'>
+            <p className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Menu Review</p>
             <CampusMenuName
               foodCourt={foodCourt}
               menuId={foodId}
-              className='text-point'
+              className='font-bold text-gray-900 text-xl leading-tight block'
             />
-            , 어땠나요?
-          </Title>
-          <p className='text-sm text-gray-600'>리뷰를 작성해주세요!</p>
+          </div>
+
+          <div className='flex items-start gap-6'>
+            <div className='relative size-20 shrink-0 overflow-hidden rounded-2xl bg-gray-50/50'>
+              <CampusMenuImage
+                foodCourt={foodCourt}
+                menuId={foodId}
+                className='h-full w-full object-cover'
+              />
+            </div>
+
+            <div className='flex flex-1 flex-col justify-center min-w-0'>
+              <div className='space-y-1'>
+                <p className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Price</p>
+                <div className='text-xl font-black text-point leading-none whitespace-nowrap'>
+                  <CampusMenuPrice foodCourt={foodCourt} menuId={foodId} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Suspense fallback={<div className='h-12 w-full animate-pulse bg-gray-50 rounded-xl' />}>
+            <ReviewRating type={foodCourt} foodId={foodId} />
+          </Suspense>
+
+          {foodCourt === FOOD_COURT.KYONGSUL && (
+            <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
+          )}
         </div>
-        <Link href={`/review/${foodCourtId}/${foodId}?reviewMode=true`}>
-          <Button variant='secondary' size='sm'>
-            리뷰 작성하기
-          </Button>
-        </Link>
-      </section>
-
-      <CampusMenuImage
-        foodCourt={foodCourt}
-        menuId={foodId}
-        className='aspect-square h-[180px] w-full border border-gray-200'
-      />
-      <p className='flex items-center justify-between px-4'>
-        <span className='text-gray-500'>가격</span>
-        <CampusMenuPrice foodCourt={foodCourt} menuId={foodId} />
-      </p>
-
-      {foodCourt === FOOD_COURT.KYONGSUL && (
-        <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
-      )}
+      </AnimatedCard>
 
       <Suspense fallback={<Loader />}>
         {isAuthenticated && isReviewMode && (
-          <ReviewFormSection foodCourt={foodCourt} foodId={foodId} />
+          <AnimatedCard index={1}>
+            <Section className='bg-white'>
+              <ReviewFormSection foodCourt={foodCourt} foodId={foodId} />
+            </Section>
+          </AnimatedCard>
         )}
         {!isAuthenticated && isReviewMode && (
           <LoginModal foodCourtId={foodCourtId} foodId={foodId} />
         )}
-        <ReviewRating type={foodCourt} foodId={foodId} />
-        <ReviewPagedView
-          type={foodCourt}
-          foodId={foodId}
-          pageNo={pageNo || 0}
-        />
+
+        <AnimatedCard index={2}>
+          <div className='flex flex-col gap-8'>
+            <div className='flex flex-col gap-4'>
+              <div className='flex items-center justify-between px-1'>
+                <h3 className='font-brBold text-lg text-gray-900'>리뷰 목록</h3>
+              </div>
+              <ReviewPagedView
+                type={foodCourt}
+                foodId={foodId}
+                pageNo={pageNo || 0}
+              />
+            </div>
+          </div>
+        </AnimatedCard>
       </Suspense>
+
+      {!isReviewMode && (
+        <div className='fixed bottom-12 left-1/2 z-50 -translate-x-1/2 w-full max-w-md px-6'>
+          <Link
+            href={`/review/${foodCourtId}/${foodId}?reviewMode=true`}
+            className='flex justify-center'
+          >
+            <Button
+              variant='primary'
+              className='flex h-12 items-center gap-2 rounded-full px-6! shadow-lg shadow-orange-200 active:scale-95 transition-all'
+            >
+              <PencilIcon size={18} />
+              <span className='font-semibold text-base'>리뷰 작성하기</span>
+            </Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
+
 
 function LoginModal({
   foodCourtId,

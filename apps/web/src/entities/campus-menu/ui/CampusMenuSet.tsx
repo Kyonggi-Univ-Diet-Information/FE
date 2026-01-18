@@ -20,19 +20,19 @@ export default async function CampusMenuSet({
       : '(단품 + 탄산음료)';
 
   return (
-    <section className='flex flex-col gap-2 border-b border-t border-gray-200 p-4'>
-      <h3 className='mb-2 font-semibold'>연관 메뉴</h3>
-      <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 rounded-2xl bg-gray-50 p-5'>
+      <h3 className='text-xs font-semibold text-gray-400'>연관 세트 메뉴</h3>
+      <div className='flex flex-col gap-4'>
         {setMenus.map(setMenu => (
-          <div className='flex items-center justify-between' key={setMenu.id}>
-            <div className='flex flex-col gap-1'>
-              <p>{setMenu.name}</p>
-              <p className='text-sm text-gray-500'>{description(setMenu)}</p>
+          <div className='flex items-start justify-between gap-4' key={setMenu.id}>
+            <div className='flex flex-col gap-1 min-w-0'>
+              <p className='text-sm font-bold text-gray-900 truncate'>{setMenu.name}</p>
+              <p className='text-xs leading-tight text-gray-500'>{description(setMenu)}</p>
             </div>
-            <p>{setMenu.price}원</p>
+            <p className='text-sm font-black text-gray-900 shrink-0 whitespace-nowrap'>{setMenu.price.toLocaleString()}원</p>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
