@@ -21,6 +21,7 @@ export default function ReviewLikeButton({
   reviewId,
   initialIsLiked,
   likedCount,
+  isDisabled,
 }: ReviewLikeButtonProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = useTransition();
@@ -42,6 +43,7 @@ export default function ReviewLikeButton({
   return (
     <div className='flex gap-1'>
       <Button
+        disabled={isDisabled}
         variant={optimisticLiked ? 'default' : 'outline'}
         size='sm'
         onClick={handleLikeToggle}
