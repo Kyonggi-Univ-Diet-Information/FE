@@ -3,6 +3,7 @@
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { useAuth } from '@/features/auth/hooks';
 import { logout } from '@/features/auth/lib/logout';
@@ -10,7 +11,9 @@ import { logout } from '@/features/auth/lib/logout';
 import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 import { Card, Section } from '@/shared/ui';
 
+import UserRevokeModal from './UserRevokeModal';
 import { fetchUserProvider } from '../api/fetchUserProvider';
+import { submitRevokeReason } from '../api/submitRevokeReason';
 import { submitUserRevoke } from '../api/submitUserRevoke';
 
 interface UserPageClientProps {
@@ -30,6 +33,9 @@ export default function UserPageClient({
 }: UserPageClientProps) {
   const { refresh } = useAuth();
   const router = useRouter();
+  const [isRevokeModalOpen, setIsRevokeModalOpen] = useState(false);
+  const [selectedReasonType, setSelectedReasonType] = useState<string>('');
+  const [isRevoking, setIsRevoking] = useState(false);
 
   const handleLogout = async () => {
     const result = await logout();
@@ -39,12 +45,21 @@ export default function UserPageClient({
     }
   };
 
-  const handleWithdrawal = async () => {
-    const provider = await fetchUserProvider();
-    const result = await submitUserRevoke(provider);
-    if (result.includes('success')) {
-      await refresh();
-      router.push('/');
+  const handleRevoke = async (reasonType: string) => {
+    try {
+      setIsRevoking(true);
+      await submitRevokeReason(reasonType);
+      const provider = await fetchUserProvider();
+      const result = await submitUserRevoke(provider);
+      if (result.includes('success')) {
+        await refresh();
+        router.push('/');
+      }
+    } catch (error) {
+      alert('회원 탈퇴에 실패했어요. 오류가 반복되면 관리자에게 문의해주세요.');
+      console.error(error);
+    } finally {
+      setIsRevoking(false);
     }
   };
 
@@ -89,10 +104,21 @@ export default function UserPageClient({
         <button onClick={handleLogout} className='text-start'>
           로그아웃
         </button>
-        <button onClick={handleWithdrawal} className='text-start'>
+        <button onClick={() => setIsRevokeModalOpen(true)} className='text-start text-red-500'>
           회원탈퇴
         </button>
       </Section>
+
+      <UserRevokeModal
+        isOpen={isRevokeModalOpen}
+        onClose={() => setIsRevokeModalOpen(false)}
+        onConfirm={handleRevoke}
+        isLoading={isRevoking}
+        refresh={refresh}
+        router={router}
+        selectedReasonType={selectedReasonType}
+        setSelectedReasonType={setSelectedReasonType}
+      />
     </>
   );
 }

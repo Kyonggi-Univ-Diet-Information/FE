@@ -130,5 +130,7 @@ export const ENDPOINT = {
     MEMBER_FAV_REVIEW: '/my-page/reviews/favorited',
     MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>
       `/review/favorite/${foodCourt}/each-member/all`,
+    MEMBER_REVOKE_REASON: '/withdraw/reasons',
+    MEMBER_REVOKE_REASON_SUBMIT: (reasonType: string) => `/withdraw/create/${reasonType}`,
   },
 };

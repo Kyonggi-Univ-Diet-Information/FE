@@ -9,7 +9,7 @@ export default function Modal({
   href?: string;
 }) {
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center'>
+    <div className='fixed inset-0 z-60 flex items-center justify-center'>
       <Link
         className='backdrop-blur-xs absolute inset-0 bg-black/30'
         href={href ?? '/'}
