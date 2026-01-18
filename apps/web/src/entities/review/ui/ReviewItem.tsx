@@ -1,8 +1,8 @@
-import { fetchReviewFavCount } from '@/entities/review/api/fetchReviewFavCount';
+'use client';
+
 import type { Review } from '@/entities/review/model/review';
 
 import { type FoodCourt } from '@/shared/config';
-import { AuthService } from '@/shared/lib/auth';
 import { getRelativeDate } from '@/shared/lib/date';
 import { Avatar, AvatarFallback } from '@/shared/ui';
 
@@ -13,9 +13,13 @@ interface ReviewItemProps extends Review {
   type: FoodCourt;
   foodId: number;
   isLiked: boolean;
+  likedCount: number;
+  isAuthenticated: boolean;
+  isMyReview: boolean;
+  onLikeUpdate?: (reviewId: number, isLiked: boolean, count: number) => void;
 }
 
-export default async function ReviewItem({
+export default function ReviewItem({
   type,
   foodId,
   rating,
@@ -24,16 +28,13 @@ export default async function ReviewItem({
   createdAt,
   id,
   isLiked,
+  likedCount,
+  isAuthenticated,
+  isMyReview,
+  onLikeUpdate,
 }: ReviewItemProps) {
-  const [likedCount, isAuthenticated, userInfo] = await Promise.all([
-    fetchReviewFavCount(type, id),
-    AuthService.isAuthenticated(),
-    AuthService.getUserInfo(),
-  ]);
   const maskedMemberName =
     memberName.length === 1 ? '*' : memberName.charAt(0) + '**';
-
-  const isMyReview = userInfo?.name === memberName;
 
   const relativeDate = getRelativeDate(new Date(createdAt));
 
@@ -76,6 +77,9 @@ export default async function ReviewItem({
           initialIsLiked={isLiked}
           likedCount={likedCount}
           isDisabled={!isAuthenticated}
+          onLikeUpdate={(nextLiked, nextCount) =>
+            onLikeUpdate?.(id, nextLiked, nextCount)
+          }
         />
       </div>
     </div>

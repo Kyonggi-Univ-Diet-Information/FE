@@ -17,6 +17,7 @@ interface ReviewLikeButtonProps {
   initialIsLiked: boolean;
   likedCount: number;
   isDisabled: boolean;
+  onLikeUpdate?: (isLiked: boolean, count: number) => void;
 }
 
 export default function ReviewLikeButton({
@@ -25,29 +26,37 @@ export default function ReviewLikeButton({
   initialIsLiked,
   likedCount,
   isDisabled,
+  onLikeUpdate,
 }: ReviewLikeButtonProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = useTransition();
-  const [optimisticLiked, setOptimisticLiked] = useOptimistic(initialIsLiked);
-  const [optimisticLikedCount, setOptimisticLikedCount] =
-    useOptimistic(likedCount);
+  const [optimisticState, addOptimistic] = useOptimistic(
+    { isLiked: initialIsLiked, likedCount },
+    (_, newState: { isLiked: boolean; likedCount: number }) => newState,
+  );
 
   const handleLikeToggle = async () => {
     if (isDisabled) return;
 
+    const { isLiked, likedCount: currentCount } = optimisticState;
+    const nextLiked = !isLiked;
+    const nextCount = nextLiked
+      ? currentCount + 1
+      : Math.max(0, currentCount - 1);
+
     startTransition(async () => {
-      const isCurrentlyLiked = optimisticLiked;
-      const currentCount = optimisticLikedCount;
+      addOptimistic({ isLiked: nextLiked, likedCount: nextCount });
 
-      setOptimisticLiked(!isCurrentlyLiked);
-      setOptimisticLikedCount(
-        isCurrentlyLiked ? Math.max(0, currentCount - 1) : currentCount + 1,
-      );
-
-      if (isCurrentlyLiked) {
-        await removeReviewFav(reviewId, type);
-      } else {
-        await submitReviewFav(reviewId, type);
+      try {
+        if (isLiked) {
+          await removeReviewFav(reviewId, type);
+        } else {
+          await submitReviewFav(reviewId, type);
+        }
+        onLikeUpdate?.(nextLiked, nextCount);
+      } catch (error) {
+        alert('좋아요 등록에 실패했어요! 계속 문제가 발생할 경우 관리자에게 문의해 주세요!')
+        console.error(error);
       }
     });
   };
@@ -60,24 +69,24 @@ export default function ReviewLikeButton({
       onClick={handleLikeToggle}
       className={cn(
         'group h-8 gap-1.5 rounded-full px-3 transition-all active:scale-95',
-        optimisticLiked
+        optimisticState.isLiked
           ? 'bg-point/10 text-point hover:bg-point/20'
           : 'bg-gray-50 text-gray-400 hover:bg-gray-100',
       )}
     >
       <motion.div
-        animate={optimisticLiked ? { scale: [1, 1.4, 1] } : { scale: 1 }}
+        animate={optimisticState.isLiked ? { scale: [1, 1.4, 1] } : { scale: 1 }}
         transition={{ duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] }}
       >
         <HeartIcon
           className={cn(
             'size-3.5 transition-colors',
-            optimisticLiked ? 'fill-current' : 'fill-none stroke-[2.5px]',
+            optimisticState.isLiked ? 'fill-current' : 'fill-none stroke-[2.5px]',
           )}
         />
       </motion.div>
       <span className='text-xs font-bold tabular-nums'>
-        {optimisticLikedCount}
+        {optimisticState.likedCount}
       </span>
     </Button>
   );
