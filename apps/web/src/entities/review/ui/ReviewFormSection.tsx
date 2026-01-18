@@ -1,13 +1,14 @@
 'use client';
 
 import { SendIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { memo, useActionState, useEffect, useState } from 'react';
 import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
 
 import type { ReviewPost } from '@/entities/review/model/review';
 
-import { type FoodCourt } from '@/shared/config';
+import { type FoodCourt, FOOD_COURT_ID } from '@/shared/config';
 import { Button } from '@/shared/ui/Button';
 import { cn } from '@/shared/utils';
 
@@ -50,6 +51,7 @@ export default function ReviewFormSection({
   foodCourt,
   foodId,
 }: ReviewFormSectionProps) {
+  const router = useRouter();
   const { mutate } = useSWRConfig();
   const { register, watch, reset } = useForm<ReviewPost>();
   const contentValue = watch('content') || '';
@@ -66,8 +68,11 @@ export default function ReviewFormSection({
       reset();
       setSelectedStars(3);
       mutate((key) => Array.isArray(key) && key[0] === 'reviews');
+      
+      const foodCourtId = FOOD_COURT_ID[foodCourt];
+      router.replace(`/review/${foodCourtId}/${foodId}`);
     }
-  }, [state, reset, mutate]);
+  }, [state, reset, mutate, router, foodCourt, foodId]);
 
   return (
     <form

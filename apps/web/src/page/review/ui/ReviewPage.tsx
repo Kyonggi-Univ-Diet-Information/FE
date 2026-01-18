@@ -22,7 +22,6 @@ import {
   Modal,
   Button,
   AnimatedCard,
-  Section,
 } from '@/shared/ui';
 
 export interface ReviewPageProps {
@@ -98,11 +97,9 @@ export default async function ReviewPage({
 
       <Suspense fallback={<Loader />}>
         {isAuthenticated && isReviewMode && (
-          <AnimatedCard index={1}>
-            <Section className='bg-white'>
-              <ReviewFormSection foodCourt={foodCourt} foodId={foodId} />
-            </Section>
-          </AnimatedCard>
+          <Modal href={`/review/${foodCourtId}/${foodId}`}>
+            <ReviewFormSection foodCourt={foodCourt} foodId={foodId} />
+          </Modal>
         )}
         {!isAuthenticated && isReviewMode && (
           <LoginModal foodCourtId={foodCourtId} foodId={foodId} />
