@@ -12,6 +12,15 @@ export { default as Section } from './Section';
 export { default as WeekSelector } from './WeekSelector';
 export { default as Title } from './Title';
 export { default as Skeleton } from './Skeleton';
-export { default as Select } from './SelectComponent';
+export {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+  SelectLabel,
+  SelectSeparator,
+} from './SelectComponent';
 export { default as LoginButton } from './LoginButton';
 export * from './AuthLayout';

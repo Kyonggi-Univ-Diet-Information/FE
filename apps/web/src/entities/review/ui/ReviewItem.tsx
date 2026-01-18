@@ -4,8 +4,9 @@ import type { Review } from '@/entities/review/model/review';
 import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { getRelativeDate } from '@/shared/lib/date';
+import { Avatar, AvatarFallback } from '@/shared/ui';
 
-import ReviewDelButton from './ReviewDelButton';
+import ReviewActionMenu from './ReviewActionMenu';
 import ReviewFavButton from './ReviewFavButton';
 
 interface ReviewItemProps extends Review {
@@ -37,30 +38,45 @@ export default async function ReviewItem({
   const relativeDate = getRelativeDate(new Date(createdAt));
 
   return (
-    <div className='flex h-32 w-full rounded-2xl bg-gray-100/50 p-4'>
-      <div className='flex h-full w-40 shrink-0 flex-col items-start gap-0.5'>
-        <div className='flex flex-1 flex-col gap-0.5'>
-          <p className='font-semibold'>{maskedMemberName}</p>
-          <p className='text-sm text-gray-600'>{relativeDate}</p>
+    <div className='flex flex-col gap-2 w-full py-3 border-b border-gray-100 last:border-0'>
+      <div className='flex items-start justify-between'>
+        <div className='flex items-center gap-3'>
+          <Avatar className='size-9 border border-gray-100 bg-white'>
+            <AvatarFallback className='text-xs font-bold text-gray-400'>
+              {memberName.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <div className='flex flex-col gap-0.5'>
+            <p className='text-sm font-bold text-gray-900'>{maskedMemberName}</p>
+            <p className='text-[11px] font-medium text-gray-400'>{relativeDate}</p>
+          </div>
         </div>
-        <div className='flex gap-1'>
-          <ReviewFavButton
-            type={type}
-            reviewId={id}
-            initialIsLiked={isLiked}
-            likedCount={likedCount}
-            isDisabled={!isAuthenticated}
-          />
-          {isMyReview && isAuthenticated && (
-            <ReviewDelButton type={type} foodId={foodId} reviewId={id} />
-          )}
-        </div>
+        
+        <ReviewActionMenu 
+          type={type} 
+          foodId={foodId} 
+          reviewId={id} 
+          isMyReview={isMyReview} 
+        />
       </div>
-      <div className='flex flex-col gap-1'>
-        <span className='font-tossFace'>{'⭐️'.repeat(rating)}</span>
-        <p className='scrollbar-hide h-full overflow-y-auto text-sm leading-relaxed text-gray-600'>
+
+      <div className='flex flex-col gap-2'>
+        <div className='flex items-center gap-0.5 text-xs font-tossFace'>
+          {'⭐️'.repeat(rating)}
+        </div>
+        <p className='text-sm leading-relaxed text-gray-700 whitespace-pre-wrap break-words'>
           {content}
         </p>
+      </div>
+
+      <div className='flex items-center gap-4 mt-1'>
+        <ReviewFavButton
+          type={type}
+          reviewId={id}
+          initialIsLiked={isLiked}
+          likedCount={likedCount}
+          isDisabled={!isAuthenticated}
+        />
       </div>
     </div>
   );
