@@ -41,6 +41,7 @@ export default function UserRevokeModal({
         setReasons(res.result);
       });
     }
+    setStep('reason');
   }, [isOpen]);
 
   if (!isOpen) return null;
