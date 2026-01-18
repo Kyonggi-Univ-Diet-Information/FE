@@ -55,7 +55,7 @@ export default async function ReviewPage({
 
   return (
     <div className='flex flex-col gap-8 pb-10'>
-      <AnimatedCard index={0} className='px-1'>
+      <AnimatedCard index={0}>
         <div className='flex flex-col gap-4'>
           <div className='space-y-1.5'>
             <p className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Menu Review</p>
@@ -85,13 +85,13 @@ export default async function ReviewPage({
             </div>
           </div>
 
-          <Suspense fallback={<div className='h-12 w-full animate-pulse bg-gray-50 rounded-xl' />}>
-            <ReviewRating type={foodCourt} foodId={foodId} />
-          </Suspense>
-
           {foodCourt === FOOD_COURT.KYONGSUL && (
             <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
           )}
+
+          <Suspense fallback={<div className='h-12 w-full animate-pulse bg-gray-50 rounded-xl' />}>
+            <ReviewRating type={foodCourt} foodId={foodId} />
+          </Suspense>
         </div>
       </AnimatedCard>
 
