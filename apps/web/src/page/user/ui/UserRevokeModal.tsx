@@ -42,6 +42,7 @@ export default function UserRevokeModal({
       });
     }
     setStep('reason');
+    setSelectedReasonType('');
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -61,7 +62,7 @@ export default function UserRevokeModal({
   };
 
   return (
-    <Modal href='#'>
+    <Modal href='/user'>
       <Modal.Header
         title={step === 'reason' ? '탈퇴 사유 선택' : '회원 탈퇴'}
       />
