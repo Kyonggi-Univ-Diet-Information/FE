@@ -119,7 +119,7 @@ export default function BottomNavBar() {
 
   return (
     <motion.div
-      className='shadow-t-md px-18 fixed bottom-0 z-50 grid w-full grid-cols-4 items-center rounded-t-2xl border-t border-gray-100 bg-white pb-6 pt-2 sm:px-14 md:hidden'
+      className='shadow-t-md px-10 fixed bottom-0 z-50 grid w-full grid-cols-4 items-center rounded-t-2xl border-t border-gray-100 bg-white pb-6 pt-2 md:hidden'
       variants={{
         visible: { y: 0 },
         hidden: { y: '100%' },
