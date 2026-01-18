@@ -41,7 +41,7 @@ export default function UserPageClient({
     const result = await logout();
     if (result.success) {
       await refresh();
-      router.push('/');
+      window.location.href = '/';
     }
   };
 
