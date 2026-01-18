@@ -51,7 +51,7 @@ export default function UserPageClient({
       await submitRevokeReason(reasonType);
       const provider = await fetchUserProvider();
       const result = await submitUserRevoke(provider);
-      if (result.includes('success')) {
+      if (result.success) {
         await refresh();
         router.push('/');
       }
