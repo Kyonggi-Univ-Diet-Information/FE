@@ -68,9 +68,12 @@ export const getFoodCourtById = (id: string): CampusFoodCourt | undefined => {
 export const ENDPOINT = {
   AUTH: {
     KAKAO_LOGIN: '/kakao-login',
+    KAKAO_REVOKE: '/kakao-revoke',
     GOOGLE_LOGIN: '/google-login',
+    GOOGLE_REVOKE: '/google-revoke',
     APPLE_LOGIN: '/apple-login',
     APPLE_LOGIN_URL: '/apple-form',
+    APPLE_REVOKE: '/apple-revoke',
   },
   DORM: {
     DORM_MENU: '/diet-content/dormitory',
@@ -122,6 +125,7 @@ export const ENDPOINT = {
   },
   MEMBER: {
     MEMBER_INFO: '/my-page/info',
+    MEMBER_PROVIDER: '/member/get-provider',
     MEMBER_REVIEW: '/my-page/reviews/written',
     MEMBER_FAV_REVIEW: '/my-page/reviews/favorited',
     MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>

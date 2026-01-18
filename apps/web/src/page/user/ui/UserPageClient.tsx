@@ -10,6 +10,9 @@ import { logout } from '@/features/auth/lib/logout';
 import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 import { Card, Section } from '@/shared/ui';
 
+import { fetchUserProvider } from '../api/fetchUserProvider';
+import { submitUserRevoke } from '../api/submitUserRevoke';
+
 interface UserPageClientProps {
   userInfo: {
     email: string;
@@ -31,6 +34,15 @@ export default function UserPageClient({
   const handleLogout = async () => {
     const result = await logout();
     if (result.success) {
+      await refresh();
+      router.push('/');
+    }
+  };
+
+  const handleWithdrawal = async () => {
+    const provider = await fetchUserProvider();
+    const result = await submitUserRevoke(provider);
+    if (result.includes('success')) {
       await refresh();
       router.push('/');
     }
@@ -76,6 +88,9 @@ export default function UserPageClient({
         </Link>
         <button onClick={handleLogout} className='text-start'>
           로그아웃
+        </button>
+        <button onClick={handleWithdrawal} className='text-start'>
+          회원탈퇴
         </button>
       </Section>
     </>
