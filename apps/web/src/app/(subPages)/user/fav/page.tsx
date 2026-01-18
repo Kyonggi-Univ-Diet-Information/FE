@@ -1,7 +1,9 @@
-import { UserFavReviewPage, UserFavReviewPageProps } from '@/page/user';
+import { UserFavReviewPage } from '@/page/user';
 
-const Page = (props: UserFavReviewPageProps) => {
-  return <UserFavReviewPage {...props} />;
+export const dynamic = 'force-dynamic';
+
+const Page = () => {
+  return <UserFavReviewPage />;
 };
 
 export default Page;

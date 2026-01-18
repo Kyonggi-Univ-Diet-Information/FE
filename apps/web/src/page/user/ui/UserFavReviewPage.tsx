@@ -1,27 +1,33 @@
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import React, { Suspense } from 'react';
 
+import { fetchReviewFavCount } from '@/entities/review/api/fetchReviewFavCount';
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
-import { Loader, Pagination, Title } from '@/shared/ui';
+import { AuthService } from '@/shared/lib/auth';
+import { Loader, Title } from '@/shared/ui';
 
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
-export interface UserFavReviewPageProps {
-  searchParams: Promise<{
-    reviewMode?: string;
-    pageNo?: number;
-  }>;
-}
+export default async function UserFavReviewPage() {
+  const [data, isAuthenticated, userInfo] = await Promise.all([
+    fetchUserFavReview(0),
+    AuthService.isAuthenticated(),
+    AuthService.getUserInfo(),
+  ]);
 
-export default async function UserFavReviewPage({
-  searchParams,
-}: UserFavReviewPageProps) {
-  const { pageNo = 0 } = await searchParams;
-  const data = await fetchUserFavReview(pageNo);
-  const totalPages = data?.totalPages;
-
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i);
+  const reviewsWithMetadata = data
+    ? await Promise.all(
+        data.content.map(async (review) => {
+          const likedCount = await fetchReviewFavCount('KYONGSUL', review.reviewId);
+          return {
+            ...review,
+            likedCount,
+            isLiked: true,
+            isMyReview: userInfo?.name === review.memberName,
+          };
+        }),
+      )
+    : [];
 
   return (
     <>
@@ -39,44 +45,18 @@ export default async function UserFavReviewPage({
           </div>
         )}
         <div className='flex flex-col gap-2'>
-          {data?.content.map(review => (
+          {reviewsWithMetadata.map((review) => (
             <ReviewItem
               key={review.reviewId}
               type='KYONGSUL'
-              isLiked={true}
               id={review.reviewId}
               updatedAt={review.createdAt}
+              isAuthenticated={isAuthenticated}
               {...review}
             />
           ))}
         </div>
       </Suspense>
-
-      {totalPages > 1 && (
-        <Pagination className='mt-2 gap-2'>
-          <Pagination.Link
-            disabled={pageNo === 0}
-            href={`/user/fav?pageNo=${pageNo - 1}`}
-          >
-            <ChevronLeftIcon />
-          </Pagination.Link>
-          {pageNumbers.map(pageNumber => (
-            <Pagination.Link
-              isActive={pageNumber === pageNo}
-              key={pageNumber}
-              href={`/user/fav?pageNo=${pageNumber}`}
-            >
-              {pageNumber + 1}
-            </Pagination.Link>
-          ))}
-          <Pagination.Link
-            disabled={pageNo === totalPages - 1}
-            href={`/user/fav?pageNo=${pageNo + 1}`}
-          >
-            <ChevronRightIcon />
-          </Pagination.Link>
-        </Pagination>
-      )}
     </>
   );
 }

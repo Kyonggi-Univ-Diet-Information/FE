@@ -1,28 +1,15 @@
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import React, { Suspense } from 'react';
 
 import { CampusMenuName } from '@/entities/campus-menu';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
 import { getRelativeDate } from '@/shared/lib/date';
-import { Card, Loader, Pagination, Title } from '@/shared/ui';
+import { Card, Loader, Title } from '@/shared/ui';
 
 import { fetchUserReview } from '../api/fetchUserReview';
 
-export interface UserReviewPageProps {
-  searchParams: Promise<{
-    reviewMode?: string;
-    pageNo?: number;
-  }>;
-}
-
-export default async function UserReviewPage({
-  searchParams,
-}: UserReviewPageProps) {
-  const { pageNo = 0 } = await searchParams;
-  const data = await fetchUserReview(pageNo);
-  const totalPages = data?.totalPages;
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i);
+export default async function UserReviewPage() {
+  const data = await fetchUserReview(0);
 
   return (
     <>
@@ -70,32 +57,6 @@ export default async function UserReviewPage({
           ))}
         </div>
       </Suspense>
-
-      {totalPages > 1 && (
-        <Pagination className='mt-2 gap-2'>
-          <Pagination.Link
-            disabled={pageNo === 0}
-            href={`/user/my?pageNo=${pageNo - 1}`}
-          >
-            <ChevronLeftIcon />
-          </Pagination.Link>
-          {pageNumbers.map(pageNumber => (
-            <Pagination.Link
-              isActive={pageNumber === pageNo}
-              key={pageNumber}
-              href={`/user/my?pageNo=${pageNumber}`}
-            >
-              {pageNumber + 1}
-            </Pagination.Link>
-          ))}
-          <Pagination.Link
-            disabled={pageNo === totalPages - 1}
-            href={`/user/my?pageNo=${pageNo + 1}`}
-          >
-            <ChevronRightIcon />
-          </Pagination.Link>
-        </Pagination>
-      )}
     </>
   );
 }

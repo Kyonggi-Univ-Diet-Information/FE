@@ -29,7 +29,6 @@ export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;
   searchParams: Promise<{
     reviewMode?: string;
-    pageNo?: number;
   }>;
 }
 
@@ -39,7 +38,7 @@ export default async function ReviewPage({
 }: ReviewPageProps) {
   const [
     { foodCourtId, foodId: foodIdParam },
-    { reviewMode, pageNo },
+    { reviewMode },
     isAuthenticated,
   ] = await Promise.all([params, searchParams, AuthService.isAuthenticated()]);
 
@@ -118,7 +117,6 @@ export default async function ReviewPage({
               <ReviewPagedView
                 type={foodCourt}
                 foodId={foodId}
-                pageNo={pageNo || 0}
               />
             </div>
           </div>
