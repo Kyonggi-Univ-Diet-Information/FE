@@ -123,6 +123,15 @@ export const ENDPOINT = {
     LIKED_COUNT: (foodCourt: FoodCourt, reviewId: number) =>
       `/review/favorite/${foodCourt}/count/${reviewId}`,
   },
+  REVIEW_BLOCK: {
+    BLOCK: (foodCourt: FoodCourt, reviewId: number) =>
+      `/review/${foodCourt}/block/${reviewId}`,
+  },
+  REVIEW_REPORT: {
+    REASONS: '/review/report/reasons',
+    REPORT: (foodCourt: FoodCourt, reviewId: number, reasonType: string) =>
+      `/review/${foodCourt}/report/${reviewId}/${reasonType}`,
+  },
   MEMBER: {
     MEMBER_INFO: '/my-page/info',
     MEMBER_PROVIDER: '/member/get-provider',
@@ -131,6 +140,7 @@ export const ENDPOINT = {
     MEMBER_REVIEW_LIKED: (foodCourt: FoodCourt) =>
       `/review/favorite/${foodCourt}/each-member/all`,
     MEMBER_REVOKE_REASON: '/withdraw/reasons',
-    MEMBER_REVOKE_REASON_SUBMIT: (reasonType: string) => `/withdraw/create/${reasonType}`,
+    MEMBER_REVOKE_REASON_SUBMIT: (reasonType: string) =>
+      `/withdraw/create/${reasonType}`,
   },
 };
