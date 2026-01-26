@@ -37,7 +37,7 @@ export default function ReviewItem({
   const relativeDate = getRelativeDate(new Date(createdAt));
 
   return (
-    <div className='flex flex-col gap-2 w-full py-3 border-b border-gray-100 last:border-0'>
+    <div className='flex w-full flex-col gap-2 border-b border-gray-100 py-3 last:border-0'>
       <div className='flex items-start justify-between'>
         <div className='flex items-center gap-3'>
           <Avatar className='size-9 border border-gray-100 bg-white'>
@@ -46,29 +46,35 @@ export default function ReviewItem({
             </AvatarFallback>
           </Avatar>
           <div className='flex flex-col gap-0.5'>
-            <p className='text-sm font-bold text-gray-900'>{maskedMemberName}</p>
-            <p className='text-[11px] font-medium text-gray-400'>{relativeDate}</p>
+            <p className='text-sm font-bold text-gray-900'>
+              {maskedMemberName}
+            </p>
+            <p className='text-[11px] font-medium text-gray-400'>
+              {relativeDate}
+            </p>
           </div>
         </div>
-        
-        <ReviewActionMenu 
-          type={type} 
-          foodId={foodId} 
-          reviewId={id} 
-          isMyReview={isMyReview} 
-        />
+
+        {isAuthenticated && (
+          <ReviewActionMenu
+            type={type}
+            foodId={foodId}
+            reviewId={id}
+            isMyReview={isMyReview}
+          />
+        )}
       </div>
 
       <div className='flex flex-col gap-2'>
-        <div className='flex items-center gap-0.5 text-xs font-tossFace'>
+        <div className='font-tossFace flex items-center gap-0.5 text-xs'>
           {'⭐️'.repeat(rating)}
         </div>
-        <p className='text-sm leading-relaxed text-gray-700 whitespace-pre-wrap break-words'>
+        <p className='text-sm leading-relaxed break-words whitespace-pre-wrap text-gray-700'>
           {content}
         </p>
       </div>
 
-      <div className='flex items-center gap-4 mt-1'>
+      <div className='mt-1 flex items-center gap-4'>
         <ReviewFavButton
           type={type}
           reviewId={id}
