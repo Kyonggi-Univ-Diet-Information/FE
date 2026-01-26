@@ -9,8 +9,8 @@ global.TextDecoder = TextDecoder;
 // Next.js의 이미지 최적화 모킹
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props) => {
-    // eslint-disable-next-line jsx-a11y/alt-text
+  default: props => {
+    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
     return <img {...props} />;
   },
 }));
@@ -40,7 +40,7 @@ jest.mock('next/navigation', () => ({
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),
   revalidatePath: jest.fn(),
-  unstable_cache: jest.fn((fn) => fn),
+  unstable_cache: jest.fn(fn => fn),
 }));
 
 // 환경 변수 설정
