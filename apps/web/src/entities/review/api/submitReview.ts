@@ -16,22 +16,25 @@ export const submitReview = async (
   const content = String(formData.get('content'));
   const type = formData.get('foodCourt') as FoodCourt;
 
-  return Http.post<ReviewPost>({
-    request: ENDPOINT.REVIEW_CUD.SUBMIT(type, foodId),
-    data: {
-      rating: rating,
-      title: title,
-      content: content,
-    },
-    authorize: true,
-  })
-    .catch(error => ({
-      success: false,
-      error: error.message || '리뷰 등록에 실패했습니다',
-    }))
-    .then(() => {
-      revalidateReviewCache({ type, foodId });
-
-      return { success: true };
+  try {
+    await Http.post<ReviewPost>({
+      request: ENDPOINT.REVIEW_CUD.SUBMIT(type, foodId),
+      data: {
+        rating: rating,
+        title: title,
+        content: content,
+      },
+      authorize: true,
     });
+
+    revalidateReviewCache({ type, foodId });
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : '리뷰 등록에 실패했습니다',
+    };
+  }
 };
