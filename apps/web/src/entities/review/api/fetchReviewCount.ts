@@ -1,6 +1,6 @@
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, type FoodCourt } from '@/shared/config';
-import { KEY } from '@/shared/config';
+import { reviewKeys } from '@/shared/lib/queryKey';
 
 export const fetchReviewCount = async (
   type: FoodCourt,
@@ -10,7 +10,7 @@ export const fetchReviewCount = async (
     request: ENDPOINT.REVIEW_R.COUNT(type, foodId),
     cache: 'force-cache',
     next: {
-      tags: [KEY.REVIEW_COUNT(type, foodId)],
+      tags: [reviewKeys.count.tag(type, foodId)],
       revalidate: 60 * 5,
     },
   });

@@ -1,5 +1,6 @@
 import { Http } from '@/shared/api/http';
-import { ENDPOINT, KEY } from '@/shared/config';
+import { ENDPOINT } from '@/shared/config';
+import { menuKeys } from '@/shared/lib/queryKey';
 
 import type { DormDay } from '../model/dormDay';
 import type { DormMenu } from '../model/dormMenu';
@@ -22,7 +23,7 @@ export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
   const data = await Http.get<FetchDormMenuRes>({
     request: ENDPOINT.DORM.DORM_MENU,
     cache: 'force-cache',
-    next: { tags: [KEY.DORM_MENU] },
+    next: { tags: [menuKeys.dorm.tag()] },
   });
   return data.result;
 };

@@ -2,7 +2,7 @@
 
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, type FoodCourt } from '@/shared/config';
-import { KEY } from '@/shared/config';
+import { reviewKeys } from '@/shared/lib/queryKey';
 
 type FetchReviewLikedRes = {
   id: number;
@@ -25,7 +25,7 @@ export const fetchReviewFaved = async (type: FoodCourt) => {
     authorize: true,
     cache: 'force-cache',
     next: {
-      tags: [KEY.REVIEW_FAVED(type)],
+      tags: [reviewKeys.faved.tag(type)],
     },
   });
 

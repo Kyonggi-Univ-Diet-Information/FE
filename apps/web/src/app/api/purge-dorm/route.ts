@@ -1,11 +1,11 @@
 import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
-import { KEY } from '@/shared/config';
+import { menuKeys } from '@/shared/lib/queryKey';
 
 export async function GET() {
   try {
-    revalidateTag(KEY.DORM_MENU);
+    revalidateTag(menuKeys.dorm.tag());
     return NextResponse.json(
       {
         revalidated: true,

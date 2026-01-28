@@ -1,6 +1,7 @@
 import type { BasePagedResponse } from '@/shared/api/baseResponse';
 import { Http } from '@/shared/api/http';
-import { KEY, ENDPOINT, type FoodCourt } from '@/shared/config';
+import { ENDPOINT, type FoodCourt } from '@/shared/config';
+import { reviewKeys } from '@/shared/lib/queryKey';
 
 import { Review } from '../model/review';
 
@@ -12,8 +13,12 @@ export const fetchReviewPaged = async (
   const data = await Http.get<BasePagedResponse<Review[]>>({
     request: `${ENDPOINT.REVIEW_R.PAGED(type, foodId)}?pageNo=${page}`,
     cache: 'no-store',
+    authorize: true,
     next: {
-      tags: [KEY.REVIEW(type, foodId), KEY.REVIEW_PAGED(type, foodId, page)],
+      tags: [
+        reviewKeys.byFood.tag(type, foodId),
+        reviewKeys.paged.tag(type, foodId, page),
+      ],
     },
   });
 

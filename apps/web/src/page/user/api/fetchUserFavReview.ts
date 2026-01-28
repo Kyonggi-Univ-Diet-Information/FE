@@ -2,7 +2,8 @@ import type { RecentReview } from '@/entities/review/model/review';
 
 import type { BasePagedResponse } from '@/shared/api/baseResponse';
 import { Http } from '@/shared/api/http';
-import { KEY, ENDPOINT } from '@/shared/config';
+import { ENDPOINT } from '@/shared/config';
+import { memberKeys } from '@/shared/lib/queryKey';
 
 export const fetchUserFavReview = async (
   page: number,
@@ -15,7 +16,7 @@ export const fetchUserFavReview = async (
     authorize: true,
     cache: 'force-cache',
     next: {
-      tags: [KEY.MEMBER_FAV_REVIEW(page)],
+      tags: [memberKeys.favReviews.tag(page)],
       revalidate: 60 * 5,
     },
   });

@@ -4,7 +4,7 @@ import { mutate } from 'swr';
 
 import { setAuthCookies } from '@/features/login/api/setAuthCookies';
 
-import { KEY } from '@/shared/config';
+import { authKeys } from '@/shared/lib/queryKey';
 import { getLoginState } from '@/shared/utils';
 
 import { submitAppleLogin } from '../api/submitAppleLogin';
@@ -66,7 +66,7 @@ export const useSocialCode = () => {
           accessToken: result.accessToken,
           refreshToken: result.refreshToken,
         });
-        await mutate(KEY.AUTH_STATUS);
+        await mutate(authKeys.status());
 
         router.replace(`${returnUrl}`);
       }

@@ -1,6 +1,6 @@
 import { Http } from '@/shared/api/http';
-import { KEY, type FoodCourt } from '@/shared/config';
-import { ENDPOINT } from '@/shared/config/endpoint';
+import { ENDPOINT, type FoodCourt } from '@/shared/config';
+import { reviewKeys } from '@/shared/lib/queryKey';
 
 export const fetchReviewRatingAverage = async (
   type: FoodCourt,
@@ -10,7 +10,7 @@ export const fetchReviewRatingAverage = async (
     request: ENDPOINT.REVIEW_R.AVERAGE_RATING(type, foodId),
     cache: 'force-cache',
     next: {
-      tags: [KEY.REVIEW_AVERAGE_RATING(type, foodId)],
+      tags: [reviewKeys.averageRating.tag(type, foodId)],
       revalidate: 60 * 5,
     },
   });

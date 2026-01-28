@@ -1,6 +1,11 @@
 import { revalidateTag, revalidatePath } from 'next/cache';
 
-import { ENDPOINT, KEY, type FoodCourt } from '@/shared/config';
+import { ENDPOINT, type FoodCourt } from '@/shared/config';
+import {
+  memberKeys,
+  menuKeys,
+  reviewKeys,
+} from '@/shared/lib/queryKey';
 
 interface RevalidateReviewOptions {
   type: FoodCourt;
@@ -13,27 +18,27 @@ export function revalidateReviewCache({
   foodId,
   specificPage,
 }: RevalidateReviewOptions): void {
-  revalidateTag(KEY.REVIEW(type, foodId));
-  revalidateTag(KEY.REVIEW_COUNT(type, foodId));
-  revalidateTag(KEY.REVIEW_AVERAGE_RATING(type, foodId));
-  revalidateTag(KEY.REVIEW_RATING_COUNT(type, foodId));
+  revalidateTag(reviewKeys.byFood.tag(type, foodId));
+  revalidateTag(reviewKeys.count.tag(type, foodId));
+  revalidateTag(reviewKeys.averageRating.tag(type, foodId));
+  revalidateTag(reviewKeys.ratingCount.tag(type, foodId));
 
   if (specificPage !== undefined) {
-    revalidateTag(KEY.REVIEW_PAGED(type, foodId, specificPage));
+    revalidateTag(reviewKeys.paged.tag(type, foodId, specificPage));
   } else {
     revalidatePath(ENDPOINT.REVIEW_R.PAGED(type, foodId));
   }
 
-  revalidateTag(KEY.MEMBER_REVIEW(0));
-  revalidateTag(KEY.TOP_MENU);
-  revalidateTag(KEY.RECENT_REVIEW);
+  revalidateTag(memberKeys.reviews.tag(0));
+  revalidateTag(menuKeys.top.tag());
+  revalidateTag(reviewKeys.recent.tag());
 }
 
 export function revalidateReviewFavCache(
   type: FoodCourt,
   reviewId: number,
 ): void {
-  revalidateTag(KEY.REVIEW_FAVED_COUNT(type, reviewId));
-  revalidateTag(KEY.REVIEW_FAVED(type));
-  revalidateTag(KEY.MEMBER_FAV_REVIEW(0));
+  revalidateTag(reviewKeys.favedCount.tag(type, reviewId));
+  revalidateTag(reviewKeys.faved.tag(type));
+  revalidateTag(memberKeys.favReviews.tag(0));
 }

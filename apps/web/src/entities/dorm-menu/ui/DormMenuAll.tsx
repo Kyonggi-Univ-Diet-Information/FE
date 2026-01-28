@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
 
-import { KEY } from '@/shared/config';
+import { menuKeys } from '@/shared/lib/queryKey';
 import { AnimatedCard, Section, Card } from '@/shared/ui';
 
 import {
@@ -21,7 +21,7 @@ interface DormMenuSectionProps {
 }
 
 export default function DormMenuSection({ date }: DormMenuSectionProps) {
-  const { data: dormMenu } = useSWR(KEY.DORM_MENU, fetchDormMenu, {
+  const { data: dormMenu } = useSWR(menuKeys.dorm(), fetchDormMenu, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
