@@ -4,10 +4,11 @@ import { useCallback, useEffect, useRef } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
 import { type FoodCourt } from '@/shared/config';
+import { reviewKeys } from '@/shared/lib/queryKey';
 import { Loader } from '@/shared/ui';
 
 import ReviewItem from './ReviewItem';
-import { reviewsFetcher, REVIEW_SWR_KEYS, PagedReviewResponse } from '../api/reviewSWR';
+import { reviewsFetcher, PagedReviewResponse } from '../api/reviewSWR';
 
 interface ReviewInfiniteListProps {
   type: FoodCourt;
@@ -20,28 +21,28 @@ export default function ReviewInfiniteList({
   foodId,
   initialData,
 }: ReviewInfiniteListProps) {
-  const getKey = (pageIndex: number, previousPageData: PagedReviewResponse | null) => {
+  const getKey = (
+    pageIndex: number,
+    previousPageData: PagedReviewResponse | null,
+  ) => {
     if (previousPageData && previousPageData.last) return null;
-    return [...REVIEW_SWR_KEYS.PAGED_REVIEWS(type, foodId), pageIndex];
+    return reviewKeys.paged(type, foodId, pageIndex);
   };
 
-  const { data, size, setSize, isValidating, mutate } = useSWRInfinite<PagedReviewResponse>(
-    getKey,
-    reviewsFetcher,
-    {
+  const { data, size, setSize, isValidating, mutate } =
+    useSWRInfinite<PagedReviewResponse>(getKey, reviewsFetcher, {
       fallbackData: [initialData],
       revalidateFirstPage: true,
       revalidateOnMount: true,
       revalidateOnFocus: false,
       dedupingInterval: 0,
-    }
-  );
+    });
 
   useEffect(() => {
     mutate([initialData], { revalidate: false });
   }, [initialData, mutate]);
 
-  const reviews = data ? data.flatMap((page) => page.content) : [];
+  const reviews = data ? data.flatMap(page => page.content) : [];
   const isEmpty = data?.[0]?.content.length === 0;
   const isLast = data ? data[data.length - 1].last : false;
   const isLoadingMore = isValidating && size > 1;
@@ -55,7 +56,7 @@ export default function ReviewInfiniteList({
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting && !isLast && !isValidating) {
           fetchMoreReviews();
         }
@@ -73,7 +74,7 @@ export default function ReviewInfiniteList({
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col'>
-        {reviews.map((review) => (
+        {reviews.map(review => (
           <ReviewItem
             key={review.id}
             type={type}
@@ -83,9 +84,9 @@ export default function ReviewInfiniteList({
           />
         ))}
       </div>
-      
+
       {!isLast && !isEmpty && (
-        <div ref={observerRef} className='flex justify-center py-8 h-20'>
+        <div ref={observerRef} className='flex h-20 justify-center py-8'>
           {isLoadingMore && <Loader />}
         </div>
       )}

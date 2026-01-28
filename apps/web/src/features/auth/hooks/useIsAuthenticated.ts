@@ -2,11 +2,13 @@
 
 import useSWR from 'swr';
 
+import { authKeys } from '@/shared/lib/queryKey';
+
 import { fetchIsAuthenticated } from '../action';
 
 export function useAuth() {
   const { data, error, isLoading, mutate } = useSWR(
-    'auth-status',
+    authKeys.status(),
     () => fetchIsAuthenticated(),
     {
       revalidateOnFocus: false,

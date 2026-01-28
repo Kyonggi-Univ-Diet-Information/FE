@@ -6,6 +6,7 @@ import { useOptimistic, useTransition } from 'react';
 import { useSWRConfig } from 'swr';
 
 import { type FoodCourt } from '@/shared/config';
+import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
 import { Button } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
@@ -28,7 +29,7 @@ export default function ReviewLikeButton({
   isDisabled,
 }: ReviewLikeButtonProps) {
   const { mutate } = useSWRConfig();
-  const [_, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const [optimisticState, addOptimistic] = useOptimistic(
     { isLiked: initialIsLiked, likedCount },
     (_, newState: { isLiked: boolean; likedCount: number }) => newState,
@@ -52,13 +53,11 @@ export default function ReviewLikeButton({
         } else {
           await submitReviewFav(reviewId, type);
         }
-        /* 좋아요는 목록 전체를 무효화하기보다 낙관적 업데이트로 유지 
-        * 필요한 경우에만 전역 mutate를 호출한다
-        * 부모의 무효화를 위해 키 패턴 매칭을 사용함
-        * */
-        mutate(key => Array.isArray(key) && key[0] === 'reviews');
+        mutate(createMutateMatcher(reviewKeys.all()));
       } catch (error) {
-        alert('좋아요 등록에 실패했어요! 계속 문제가 발생할 경우 관리자에게 문의해 주세요!');
+        alert(
+          '좋아요 등록에 실패했어요! 계속 문제가 발생할 경우 관리자에게 문의해 주세요!',
+        );
         console.error(error);
       }
     });
@@ -78,13 +77,17 @@ export default function ReviewLikeButton({
       )}
     >
       <motion.div
-        animate={optimisticState.isLiked ? { scale: [1, 1.4, 1] } : { scale: 1 }}
+        animate={
+          optimisticState.isLiked ? { scale: [1, 1.4, 1] } : { scale: 1 }
+        }
         transition={{ duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] }}
       >
         <HeartIcon
           className={cn(
             'size-3.5 transition-colors',
-            optimisticState.isLiked ? 'fill-current' : 'fill-none stroke-[2.5px]',
+            optimisticState.isLiked
+              ? 'fill-current'
+              : 'fill-none stroke-[2.5px]',
           )}
         />
       </motion.div>

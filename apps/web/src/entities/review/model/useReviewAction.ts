@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 
 import { type FoodCourt } from '@/shared/config';
+import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
 
 import {
   fetchReportReasons,
@@ -46,7 +47,13 @@ export function useReviewAction({
     setPending(true);
     try {
       await removeReview(reviewId, foodId, type);
-      mutate(key => Array.isArray(key) && key[0] === 'reviews');
+      // 리뷰 목록 캐시 무효화 (해당 음식점의 모든 페이지)
+      mutate(
+        createMutateMatcher(
+          reviewKeys.byFood(type, foodId),
+          reviewKeys.paged(type, foodId),
+        ),
+      );
     } finally {
       setPending(false);
     }
@@ -62,7 +69,14 @@ export function useReviewAction({
     try {
       const result = await submitReviewBlock(reviewId, foodId, type);
       if (result.success) {
-        mutate(key => Array.isArray(key) && key[0] === 'reviews');
+        // 리뷰 목록 캐시 무효화 (해당 음식점의 모든 페이지)
+        // 서버에서 revalidateReviewCache가 호출되지만, 클라이언트 캐시도 무효화 필요
+        mutate(
+          createMutateMatcher(
+            reviewKeys.byFood(type, foodId),
+            reviewKeys.paged(type, foodId),
+          ),
+        );
         alert('사용자를 차단했습니다.');
       } else {
         alert(result.error || '차단에 실패했습니다.');
