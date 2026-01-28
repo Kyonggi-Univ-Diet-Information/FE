@@ -9,21 +9,23 @@ import { Loader, Title } from '@/shared/ui';
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
 export default async function UserFavReviewPage() {
-  const [data, isAuthenticated, userInfo] = await Promise.all([
+  const [data, isAuthenticated] = await Promise.all([
     fetchUserFavReview(0),
     AuthService.isAuthenticated(),
-    AuthService.getUserInfo(),
   ]);
 
   const reviewsWithMetadata = data
     ? await Promise.all(
-        data.content.map(async (review) => {
-          const likedCount = await fetchReviewFavCount('KYONGSUL', review.reviewId);
+        data.content.map(async review => {
+          const likedCount = await fetchReviewFavCount(
+            'KYONGSUL',
+            review.reviewId,
+          );
           return {
             ...review,
             likedCount,
             isLiked: true,
-            isMyReview: userInfo?.name === review.memberName,
+            myReview: review.myReview || false,
           };
         }),
       )
@@ -45,13 +47,14 @@ export default async function UserFavReviewPage() {
           </div>
         )}
         <div className='flex flex-col gap-2'>
-          {reviewsWithMetadata.map((review) => (
+          {reviewsWithMetadata.map(review => (
             <ReviewItem
               key={review.reviewId}
               type='KYONGSUL'
               id={review.reviewId}
               updatedAt={review.createdAt}
               isAuthenticated={isAuthenticated}
+              isMyReview={review.myReview}
               {...review}
             />
           ))}

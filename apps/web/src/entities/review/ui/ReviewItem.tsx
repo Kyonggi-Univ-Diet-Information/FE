@@ -29,7 +29,7 @@ export default function ReviewItem({
   isLiked,
   likedCount,
   isAuthenticated,
-  isMyReview,
+  myReview,
 }: ReviewItemProps) {
   const maskedMemberName =
     memberName.length === 1 ? '*' : memberName.charAt(0) + '**';
@@ -60,7 +60,7 @@ export default function ReviewItem({
             type={type}
             foodId={foodId}
             reviewId={id}
-            isMyReview={isMyReview}
+            isMyReview={myReview}
           />
         )}
       </div>

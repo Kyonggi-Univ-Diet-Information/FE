@@ -8,11 +8,12 @@ export type Review = {
   memberName: string;
   createdAt: string;
   updatedAt: string;
+  myReview: boolean;
 };
 
 export type RecentReview = Pick<
   Review,
-  'memberName' | 'rating' | 'title' | 'content' | 'createdAt'
+  'memberName' | 'rating' | 'title' | 'content' | 'createdAt' | 'myReview'
 > & {
   foodId: number;
   reviewId: number;
