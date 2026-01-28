@@ -4,26 +4,54 @@ import type { ReactNode } from 'react';
 export default function Modal({
   children,
   href,
+  onClose,
+  closeDisabled,
 }: {
   children: ReactNode;
   href?: string;
+  onClose?: () => void;
+  closeDisabled?: boolean;
 }) {
+  const useCallbackClose = typeof onClose === 'function';
+
   return (
     <div className='fixed inset-0 z-60 flex items-center justify-center'>
-      <Link
-        className='backdrop-blur-xs absolute inset-0 bg-black/30'
-        href={href ?? '/'}
-        replace
-      />
-
-      <div className='relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl'>
+      {useCallbackClose ? (
+        <button
+          type='button'
+          onClick={onClose}
+          disabled={closeDisabled}
+          className='absolute inset-0 bg-black/30 backdrop-blur-xs disabled:pointer-events-none disabled:opacity-50'
+          aria-label='닫기'
+        />
+      ) : (
         <Link
+          className='absolute inset-0 bg-black/30 backdrop-blur-xs'
           href={href ?? '/'}
           replace
-          className='absolute right-4 top-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200'
-        >
-          ✕
-        </Link>
+        />
+      )}
+
+      <div className='relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl'>
+        {useCallbackClose ? (
+          <button
+            type='button'
+            onClick={onClose}
+            disabled={closeDisabled}
+            className='absolute top-4 right-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 disabled:opacity-50'
+            aria-label='닫기'
+          >
+            ✕
+          </button>
+        ) : (
+          <Link
+            href={href ?? '/'}
+            replace
+            className='absolute top-4 right-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200'
+          >
+            ✕
+          </Link>
+        )}
 
         <div className='flex flex-col gap-4'>{children}</div>
       </div>

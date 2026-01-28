@@ -3,7 +3,13 @@
 import { AlertCircle, Ban, MoreVertical, Trash2Icon } from 'lucide-react';
 
 import { type FoodCourt } from '@/shared/config';
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/shared/ui';
+import {
+  Modal,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
 import { type ReportReason } from '../api/fetchReportReasons';
@@ -131,46 +137,23 @@ function ReviewReportDialog({
   onConfirm,
 }: ReviewReportDialogProps) {
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center'>
-      <div
-        className='absolute inset-0 bg-black/30 backdrop-blur-sm'
-        onClick={onClose}
+    <Modal onClose={onClose} closeDisabled={pending}>
+      <Modal.Header title='리뷰 신고' subtitle='신고 사유를 선택해주세요' />
+      <ReviewReportReasonList
+        reasons={reportReasons}
+        selectedReason={selectedReason}
+        pending={pending}
+        onSelectReason={onSelectReason}
       />
-      <div className='relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl'>
-        <button
-          onClick={onClose}
-          className='absolute top-4 right-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 disabled:opacity-50'
-          disabled={pending}
-        >
-          ✕
-        </button>
-
-        <div className='flex flex-col gap-4'>
-          <ReviewReportDialogHeader />
-          <ReviewReportReasonList
-            reasons={reportReasons}
-            selectedReason={selectedReason}
-            pending={pending}
-            onSelectReason={onSelectReason}
-          />
-          <ReviewReportDialogFooter
-            pending={pending}
-            disabled={!selectedReason}
-            onClose={onClose}
-            onConfirm={onConfirm}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ReviewReportDialogHeader() {
-  return (
-    <div>
-      <h3 className='text-lg font-semibold'>리뷰 신고</h3>
-      <p className='mt-1 text-sm text-gray-600'>신고 사유를 선택해주세요</p>
-    </div>
+      <Modal.Footer>
+        <ReviewReportDialogFooter
+          pending={pending}
+          disabled={!selectedReason}
+          onClose={onClose}
+          onConfirm={onConfirm}
+        />
+      </Modal.Footer>
+    </Modal>
   );
 }
 
@@ -196,7 +179,7 @@ function ReviewReportReasonList({
   }
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex max-h-[300px] flex-col gap-2 overflow-y-auto'>
       {reasons
         .filter(reason => reason.type !== 'ETC')
         .map(reason => (

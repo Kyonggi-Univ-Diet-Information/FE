@@ -17,12 +17,7 @@ import {
 
 import { FOOD_COURT, getFoodCourtById } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
-import {
-  Loader,
-  Modal,
-  Button,
-  AnimatedCard,
-} from '@/shared/ui';
+import { Loader, Modal, Button, AnimatedCard } from '@/shared/ui';
 
 export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;
@@ -58,11 +53,13 @@ export default async function ReviewPage({
       <AnimatedCard index={0}>
         <div className='flex flex-col gap-4'>
           <div className='space-y-1.5'>
-            <p className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Menu Review</p>
+            <p className='text-[10px] font-bold tracking-widest text-gray-400 uppercase'>
+              Menu Review
+            </p>
             <CampusMenuName
               foodCourt={foodCourt}
               menuId={foodId}
-              className='font-bold text-gray-900 text-xl leading-tight block'
+              className='block text-xl leading-tight font-bold text-gray-900'
             />
           </div>
 
@@ -75,10 +72,12 @@ export default async function ReviewPage({
               />
             </div>
 
-            <div className='flex flex-1 flex-col justify-center min-w-0'>
+            <div className='flex min-w-0 flex-1 flex-col justify-center'>
               <div className='space-y-1'>
-                <p className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Price</p>
-                <div className='text-xl font-black text-point leading-none whitespace-nowrap'>
+                <p className='text-[10px] font-bold tracking-widest text-gray-400 uppercase'>
+                  Price
+                </p>
+                <div className='text-point text-xl leading-none font-black whitespace-nowrap'>
                   <CampusMenuPrice foodCourt={foodCourt} menuId={foodId} />
                 </div>
               </div>
@@ -89,7 +88,11 @@ export default async function ReviewPage({
             <CampusMenuSet type={foodCourt} baseFoodId={foodId} />
           )}
 
-          <Suspense fallback={<div className='h-12 w-full animate-pulse bg-gray-50 rounded-xl' />}>
+          <Suspense
+            fallback={
+              <div className='h-12 w-full animate-pulse rounded-xl bg-gray-50' />
+            }
+          >
             <ReviewRating type={foodCourt} foodId={foodId} />
           </Suspense>
         </div>
@@ -111,27 +114,24 @@ export default async function ReviewPage({
               <div className='flex items-center justify-between px-1'>
                 <h3 className='font-brBold text-lg text-gray-900'>리뷰 목록</h3>
               </div>
-              <ReviewPagedView
-                type={foodCourt}
-                foodId={foodId}
-              />
+              <ReviewPagedView type={foodCourt} foodId={foodId} />
             </div>
           </div>
         </AnimatedCard>
       </Suspense>
 
       {!isReviewMode && (
-        <div className='fixed bottom-12 left-1/2 z-50 -translate-x-1/2 w-full max-w-md px-6'>
+        <div className='fixed bottom-12 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-6'>
           <Link
             href={`/review/${foodCourtId}/${foodId}?reviewMode=true`}
             className='flex justify-center'
           >
             <Button
               variant='primary'
-              className='flex h-12 items-center gap-2 rounded-full px-6! shadow-lg shadow-orange-200 active:scale-95 transition-all'
+              className='flex h-12 items-center gap-2 rounded-full px-6! shadow-lg shadow-orange-200 transition-all active:scale-95'
             >
               <PencilIcon size={18} />
-              <span className='font-semibold text-base'>리뷰 작성하기</span>
+              <span className='text-base font-semibold'>리뷰 작성하기</span>
             </Button>
           </Link>
         </div>
@@ -139,7 +139,6 @@ export default async function ReviewPage({
     </div>
   );
 }
-
 
 function LoginModal({
   foodCourtId,
@@ -152,7 +151,7 @@ function LoginModal({
 
   return (
     <Modal href={`/review/${foodCourtId}/${foodId}`}>
-      <Modal.Header title="로그인이 필요해요!" />
+      <Modal.Header title='로그인이 필요해요!' />
       <p>로그인 후 리뷰를 작성할 수 있어요.</p>
       <Link
         href={{
