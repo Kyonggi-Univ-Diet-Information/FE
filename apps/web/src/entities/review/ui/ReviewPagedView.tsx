@@ -16,17 +16,13 @@ export default async function ReviewPagedView({
 
   if (initialData.content.length === 0) {
     return (
-      <div className='mt-10 text-center text-gray-500 font-medium'>
+      <div className='mt-10 text-center font-medium text-gray-500'>
         아직 작성된 리뷰가 없어요.
       </div>
     );
   }
 
   return (
-    <ReviewInfiniteList
-      type={type}
-      foodId={foodId}
-      initialData={initialData}
-    />
+    <ReviewInfiniteList type={type} foodId={foodId} initialData={initialData} />
   );
 }

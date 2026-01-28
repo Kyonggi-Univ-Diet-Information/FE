@@ -1,7 +1,10 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 import { Http } from '@/shared/api/http';
 import { ENDPOINT, type FoodCourt } from '@/shared/config';
+import { reviewKeys } from '@/shared/lib/queryKey';
 
 import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 
@@ -17,6 +20,7 @@ export const submitReviewBlock = async (
     });
 
     revalidateReviewCache({ type, foodId });
+    revalidateTag(reviewKeys.recent.tag());
 
     return { success: true };
   } catch (error) {
