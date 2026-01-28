@@ -51,6 +51,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "baseline-browser-mapping": "^2.9.19",
     "critters": "^0.0.24",
     "cssnano": "^7.0.7",
     "cssnano-preset-default": "^7.0.7",
