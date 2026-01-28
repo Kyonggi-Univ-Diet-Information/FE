@@ -9,7 +9,7 @@ import {
   queryKeyToString,
   reviewKeys,
   toTag,
-} from '../queryKey';
+} from './queryKey';
 
 describe('Query Key Factory', () => {
   describe('reviewKeys', () => {
@@ -134,9 +134,9 @@ describe('Query Key Factory', () => {
 
   describe('matchDomain', () => {
     it('도메인이 일치하면 true를 반환한다', () => {
-      expect(matchDomain(['reviews', FOOD_COURT.KYONGSUL, 123], 'reviews')).toBe(
-        true,
-      );
+      expect(
+        matchDomain(['reviews', FOOD_COURT.KYONGSUL, 123], 'reviews'),
+      ).toBe(true);
     });
 
     it('도메인이 일치하지 않으면 false를 반환한다', () => {
