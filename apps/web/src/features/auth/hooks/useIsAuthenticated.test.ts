@@ -38,7 +38,7 @@ describe('useAuth Hook', () => {
     // Given: 인증된 상태 모킹
     global.__SWR_MOCK__ = {
       data: { isAuthenticated: true },
-      error: undefined,
+      error: null,
       isLoading: false,
       mutate: jest.fn(),
     };
