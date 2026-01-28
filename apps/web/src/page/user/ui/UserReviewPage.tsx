@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { CampusMenuName } from '@/entities/campus-menu';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
-import { getRelativeDate } from '@/shared/lib/date';
+import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
 import { Card, Loader, Title } from '@/shared/ui';
 
 import { fetchUserReview } from '../api/fetchUserReview';
@@ -38,7 +38,7 @@ export default async function UserReviewPage() {
                   {'⭐️'.repeat(review.rating)}
                 </span>
                 <p className='flex items-center gap-1 text-sm'>
-                  {getRelativeDate(new Date(review.createdAt))}
+                  {getRelativeDate(parseReviewDate(review.createdAt))}
                 </p>
               </div>
               <p className='flex items-center gap-1.5 text-sm font-semibold'>

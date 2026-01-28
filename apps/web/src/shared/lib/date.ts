@@ -100,6 +100,20 @@ export const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'] as con
 export type Weekday = (typeof WEEKDAYS)[number];
 
 /**
+ * API에서 오는 리뷰 날짜 문자열을 Date로 파싱
+ * - "YYYY.MM.DD HH:mm" (예: 2026.01.26 19:47) → 로컬(한국) 기준으로 파싱
+ * - ISO 8601 등 그 외 → new Date(value) 폴백
+ */
+export function parseReviewDate(value: string): Date {
+  const match = value.match(/^(\d{4})\.(\d{2})\.(\d{2})\s+(\d{1,2}):(\d{2})$/);
+  if (match) {
+    const [, y, m, d, h, min] = match;
+    return new Date(+y, +m - 1, +d, +h, +min, 0, 0);
+  }
+  return new Date(value);
+}
+
+/**
  * 상대 날짜를 반환하는 함수
  * 한국 시간대 기준으로 처리
  */

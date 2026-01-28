@@ -5,7 +5,7 @@ import {
   FOOD_COURT_NAME,
   type FoodCourt,
 } from '@/shared/config';
-import { getRelativeDate } from '@/shared/lib/date';
+import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
 import { Card, Section } from '@/shared/ui';
 
 import ReviewAnimatedCard from './ReviewAnimatedCard';
@@ -51,7 +51,7 @@ function ReviewCard({
   foodCourt: FoodCourt;
   foodCourtId: string;
 }) {
-  const relativeDate = getRelativeDate(new Date(review.createdAt));
+  const relativeDate = getRelativeDate(parseReviewDate(review.createdAt));
   return (
     <ReviewAnimatedCard index={index}>
       <Card

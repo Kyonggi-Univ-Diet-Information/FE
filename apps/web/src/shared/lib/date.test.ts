@@ -7,6 +7,7 @@ import {
   getWeekStart,
   isSameDay,
   isToday,
+  parseReviewDate,
   WEEKDAYS,
 } from './date';
 
@@ -104,6 +105,23 @@ describe('Date Utility Functions', () => {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
       expect(isToday(yesterday)).toBe(false);
+    });
+  });
+
+  describe('parseReviewDate', () => {
+    it('YYYY.MM.DD HH:mm 형식을 로컬 Date로 파싱한다', () => {
+      const d = parseReviewDate('2026.01.26 19:47');
+      expect(d.getFullYear()).toBe(2026);
+      expect(d.getMonth()).toBe(0);
+      expect(d.getDate()).toBe(26);
+      expect(d.getHours()).toBe(19);
+      expect(d.getMinutes()).toBe(47);
+    });
+
+    it('ISO 8601 형식은 new Date로 폴백한다', () => {
+      const iso = '2024-01-15T12:00:00Z';
+      const d = parseReviewDate(iso);
+      expect(d.getTime()).toBe(new Date(iso).getTime());
     });
   });
 

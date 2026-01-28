@@ -3,7 +3,7 @@
 import type { Review } from '@/entities/review/model/review';
 
 import { type FoodCourt } from '@/shared/config';
-import { getRelativeDate } from '@/shared/lib/date';
+import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
 import { Avatar, AvatarFallback } from '@/shared/ui';
 
 import ReviewActionMenu from './ReviewActionMenu';
@@ -34,7 +34,7 @@ export default function ReviewItem({
   const maskedMemberName =
     memberName.length === 1 ? '*' : memberName.charAt(0) + '**';
 
-  const relativeDate = getRelativeDate(new Date(createdAt));
+  const relativeDate = getRelativeDate(parseReviewDate(createdAt));
 
   return (
     <div className='flex w-full flex-col gap-2 border-b border-gray-100 py-3 last:border-0'>
