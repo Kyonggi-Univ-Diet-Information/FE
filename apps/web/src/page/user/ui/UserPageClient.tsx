@@ -103,7 +103,10 @@ export default function UserPageClient({
         <button onClick={handleLogout} className='text-start'>
           로그아웃
         </button>
-        <button onClick={() => setIsRevokeModalOpen(true)} className='text-start text-red-500'>
+        <button
+          onClick={() => setIsRevokeModalOpen(true)}
+          className='text-start text-red-500'
+        >
           회원탈퇴
         </button>
       </Section>

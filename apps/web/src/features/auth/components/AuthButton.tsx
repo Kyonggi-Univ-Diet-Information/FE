@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { Button } from '@/shared/ui';
 
@@ -10,13 +9,12 @@ import { logout } from '../lib/logout';
 
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();
-  const router = useRouter();
 
   const handleLogout = async () => {
     const result = await logout();
     if (result.success) {
       await refresh();
-      router.push('/');
+      window.location.href = '/';
     }
   };
 
