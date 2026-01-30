@@ -2,13 +2,12 @@
 
 import { ChevronLeftIcon } from 'lucide-react';
 import { motion } from 'motion/react';
-import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { LoginSection } from '@/features/login/ui';
 
 import { POLICY_URL } from '@/shared/config';
-import { AuthCard, AuthPageWrapper } from '@/shared/ui';
+import { AuthCard, AuthPageWrapper, ExternalLink } from '@/shared/ui';
 
 function LoginContent() {
   return (
@@ -17,7 +16,7 @@ function LoginContent() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => window.history.back()}
-        className='absolute left-6 top-6 z-30 flex size-10 items-center justify-center rounded-full bg-white/80 ring-1 ring-black/5 backdrop-blur-sm transition-colors hover:bg-white'
+        className='absolute top-6 left-6 z-30 flex size-10 items-center justify-center rounded-full bg-white/80 ring-1 ring-black/5 backdrop-blur-sm transition-colors hover:bg-white'
         aria-label='뒤로가기'
       >
         <ChevronLeftIcon className='size-5 text-gray-700' />
@@ -36,7 +35,7 @@ function LoginContent() {
           <h1 className='font-brBold mb-2 text-2xl tracking-tight text-gray-900'>
             반가워요!
           </h1>
-          <p className='text-balance text-sm leading-relaxed text-gray-500'>
+          <p className='text-sm leading-relaxed text-balance text-gray-500'>
             <span className='text-point font-semibold'>소셜 로그인</span>으로
             3초만에 가입하고
             <br />
@@ -48,21 +47,19 @@ function LoginContent() {
 
         <p className='mt-8 text-center text-[11px] leading-relaxed text-gray-400'>
           로그인 시{' '}
-          <Link
+          <ExternalLink
             href={POLICY_URL.TERMS_OF_SERVICE}
-            target='_blank'
             className='underline underline-offset-4'
           >
             이용약관
-          </Link>{' '}
+          </ExternalLink>{' '}
           및{' '}
-          <Link
+          <ExternalLink
             href={POLICY_URL.PRIVACY_POLICY}
-            target='_blank'
             className='underline underline-offset-4'
           >
             개인정보처리방침
-          </Link>
+          </ExternalLink>
           에 동의하게 됩니다.
         </p>
       </AuthCard>

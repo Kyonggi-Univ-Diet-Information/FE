@@ -1,4 +1,4 @@
-import { StyleSheet, BackHandler, Platform } from 'react-native';
+import { StyleSheet, BackHandler, Platform, Linking } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useEffect, useRef, useState } from 'react';
@@ -58,13 +58,21 @@ export default function Index() {
           onNavigationStateChange={navState => {
             setCurrentUrl(navState.url);
           }}
+          onMessage={event => {
+            try {
+              const { type, url } = JSON.parse(event.nativeEvent.data);
+              if (type === 'OPEN_EXTERNAL' && url) {
+                Linking.openURL(url);
+              }
+            } catch {}
+          }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           originWhitelist={['*']}
           onError={error => console.error('WebView 에러:', error)}
           injectedJavaScript={`
-            window.ReactNativeWebView = true;
-            true; 
+            window.IS_REACT_NATIVE_WEBVIEW = true;
+            true;
           `}
         />
       </SafeAreaView>

@@ -1,7 +1,6 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -9,7 +8,7 @@ import { useAuth } from '@/features/auth/hooks';
 import { logout } from '@/features/auth/lib/logout';
 
 import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
-import { Card, Section } from '@/shared/ui';
+import { Card, ExternalLink, Section } from '@/shared/ui';
 
 import UserRevokeModal from './UserRevokeModal';
 import { fetchUserProvider } from '../api/fetchUserProvider';
@@ -94,12 +93,8 @@ export default function UserPageClient({
         </div>
       </Section>
       <Section>
-        <Link target='_blank' rel='noopener noreferrer' href={PATCHNOTE_URL}>
-          패치노트
-        </Link>
-        <Link target='_blank' rel='noopener noreferrer' href={INQUIRY_URL}>
-          문의하기
-        </Link>
+        <ExternalLink href={PATCHNOTE_URL}>패치노트</ExternalLink>
+        <ExternalLink href={INQUIRY_URL}>문의하기</ExternalLink>
         <button onClick={handleLogout} className='text-start'>
           로그아웃
         </button>

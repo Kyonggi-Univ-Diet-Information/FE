@@ -23,4 +23,5 @@ export {
   SelectSeparator,
 } from './SelectComponent';
 export { default as LoginButton } from './LoginButton';
+export { ExternalLink } from './ExternalLink';
 export * from './AuthLayout';
