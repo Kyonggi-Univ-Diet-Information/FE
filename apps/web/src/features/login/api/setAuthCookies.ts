@@ -1,11 +1,9 @@
 interface SetAuthCookiesParams {
   accessToken: string;
-  refreshToken: string;
 }
 
 export async function setAuthCookies({
   accessToken,
-  refreshToken,
 }: SetAuthCookiesParams): Promise<void> {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
@@ -14,7 +12,6 @@ export async function setAuthCookies({
     },
     body: JSON.stringify({
       accessToken,
-      refreshToken,
     }),
   });
 

@@ -1,10 +1,7 @@
 import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config';
 
-interface LoginResponse {
-  token: string;
-  email: string;
-}
+import { LoginResponse } from '../model/login';
 
 interface AppleUser {
   name?: {
@@ -36,7 +33,6 @@ export async function submitAppleLogin(
       return {
         success: true,
         accessToken: response.token,
-        refreshToken: response.token,
       };
     }
 

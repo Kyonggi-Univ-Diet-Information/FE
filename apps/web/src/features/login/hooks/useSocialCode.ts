@@ -64,7 +64,6 @@ export const useSocialCode = () => {
       if (result.accessToken) {
         await setAuthCookies({
           accessToken: result.accessToken,
-          refreshToken: result.refreshToken,
         });
         await mutate(authKeys.status());
 

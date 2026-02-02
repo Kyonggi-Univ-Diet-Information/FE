@@ -1,10 +1,7 @@
 import { Http } from '@/shared/api/http';
 import { ENDPOINT } from '@/shared/config';
 
-interface LoginResponse {
-  token: string;
-  email: string;
-}
+import { LoginResponse } from '../model/login';
 
 export async function submitKakaoLogin(code: string) {
   try {
@@ -17,7 +14,6 @@ export async function submitKakaoLogin(code: string) {
       return {
         success: true,
         accessToken: response.token,
-        refreshToken: response.token,
       };
     }
 

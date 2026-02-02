@@ -6,9 +6,9 @@ import { COOKIE_KEYS } from '@/shared/config';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { accessToken, refreshToken } = body;
+    const { accessToken } = body;
 
-    if (!accessToken || !refreshToken) {
+    if (!accessToken) {
       return NextResponse.json(
         { error: '토큰이 제공되지 않았습니다.' },
         { status: 400 },
@@ -22,13 +22,6 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 15 * 60,
-    });
-
-    cookieStore.set(COOKIE_KEYS.REFRESH_TOKEN, refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60,
     });
 
     return NextResponse.json({ success: true });

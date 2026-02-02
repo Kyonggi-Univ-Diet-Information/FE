@@ -14,7 +14,6 @@ export async function fetchKakaoLogin(code: string) {
       return {
         success: true,
         accessToken: response.token,
-        refreshToken: response.token,
       };
     }
 

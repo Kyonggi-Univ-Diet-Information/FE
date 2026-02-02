@@ -14,7 +14,6 @@ export async function submitGoogleLogin(code: string) {
       return {
         success: true,
         accessToken: response.token,
-        refreshToken: response.token,
       };
     }
 
