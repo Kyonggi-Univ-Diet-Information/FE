@@ -1,6 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { mutate } from 'swr';
+
+import { submitRefresh } from '@/features/login/api/submitRefresh';
 
 import { COOKIE_KEYS } from '@/shared/config';
+
+import { setAuthCookies } from './features/login/api/setAuthCookies';
+import { authKeys } from './shared/lib/queryKey';
 
 function isReactNativeWebView(request: NextRequest): boolean {
   const userAgent = request.headers.get('user-agent') || '';
@@ -13,7 +19,7 @@ function isAuthenticated(request: NextRequest): boolean {
   return !!accessToken?.value;
 }
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.includes('/user')) {
@@ -23,16 +29,36 @@ export default function middleware(request: NextRequest) {
   }
 
   if (isReactNativeWebView(request)) {
+    // 웹뷰 환경에서 기존 로그인했던 사용자의 경우 리프레시 토큰이 존재, 해당 리프레시 토큰을 바탕으로 재검증하여 토큰 갱신
+    if (request.cookies.get(COOKIE_KEYS.REFRESH_TOKEN)) {
+      const refreshToken = request.cookies.get(
+        COOKIE_KEYS.REFRESH_TOKEN,
+      )?.value;
+      if (refreshToken) {
+        const response = await submitRefresh(refreshToken);
+        if (response.success) {
+          await setAuthCookies({ accessToken: response.accessToken! });
+          await mutate(authKeys.status());
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+      // 리프레시 토큰 재검증 실패 시 홈으로 리다이렉트
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+
+    // 기존 로그인하지 않고 둘러보기를 택한 사용자의 경우 홈으로 리다이렉트
+    if (localStorage.getItem('isFirstVisit') === 'false') {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+
+    // 이외 사용자의 경우 둘러보기 페이지로 리다이렉트
     if (pathname !== '/entry') {
       return NextResponse.redirect(new URL('/entry', request.url));
     }
     return NextResponse.next();
   }
 
-  if (pathname === '/entry') {
-    return NextResponse.next();
-  }
-
+  // 유지보수 모드 활성화 시 유지보수 페이지로 리다이렉트
   if (process.env.NEXT_MAINTENANCE_MODE === 'true') {
     if (pathname.startsWith('/maintenance')) {
       return NextResponse.next();

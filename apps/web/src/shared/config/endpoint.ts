@@ -74,6 +74,7 @@ export const ENDPOINT = {
     APPLE_LOGIN: '/apple-login',
     APPLE_LOGIN_URL: '/apple-form',
     APPLE_REVOKE: '/apple-revoke',
+    REFRESH: '/token/refresh',
   },
   DORM: {
     DORM_MENU: '/diet-content/dormitory',
