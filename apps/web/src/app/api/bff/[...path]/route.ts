@@ -70,18 +70,32 @@ async function handleRequest(
 
     const data = await response.json().catch(() => ({}));
 
+    const forwardSetCookie = (nextResponse: NextResponse) => {
+      const setCookieHeaders = response.headers.getSetCookie?.();
+      if (setCookieHeaders?.length) {
+        setCookieHeaders.forEach(cookie => {
+          nextResponse.headers.append('Set-Cookie', cookie);
+        });
+      }
+      return nextResponse;
+    };
+
     if (!response.ok) {
-      return NextResponse.json(
-        {
-          error: data.message || '요청에 실패했습니다.',
-          status: response.status,
-          data,
-        },
-        { status: response.status },
+      return forwardSetCookie(
+        NextResponse.json(
+          {
+            error: data.message || '요청에 실패했습니다.',
+            status: response.status,
+            data,
+          },
+          { status: response.status },
+        ),
       );
     }
 
-    return NextResponse.json(data, { status: response.status });
+    return forwardSetCookie(
+      NextResponse.json(data, { status: response.status }),
+    );
   } catch (error) {
     console.error('BFF Proxy Error:', error);
     return NextResponse.json(
