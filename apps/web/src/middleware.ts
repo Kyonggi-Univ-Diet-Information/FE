@@ -1,12 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { mutate } from 'swr';
 
 import { submitRefresh } from '@/features/login/api/submitRefresh';
 
 import { COOKIE_KEYS } from '@/shared/config';
-
-import { setAuthCookies } from './features/login/api/setAuthCookies';
-import { authKeys } from './shared/lib/queryKey';
 
 function isReactNativeWebView(request: NextRequest): boolean {
   const userAgent = request.headers.get('user-agent') || '';
@@ -36,10 +32,21 @@ export default async function middleware(request: NextRequest) {
       )?.value;
       if (refreshToken) {
         const response = await submitRefresh(refreshToken);
-        if (response.success) {
-          await setAuthCookies({ accessToken: response.accessToken! });
-          await mutate(authKeys.status());
-          return NextResponse.redirect(new URL('/', request.url));
+        if (response.success && response.accessToken) {
+          const redirectResponse = NextResponse.redirect(
+            new URL('/', request.url),
+          );
+          redirectResponse.cookies.set(
+            COOKIE_KEYS.ACCESS_TOKEN,
+            response.accessToken,
+            {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'strict',
+              maxAge: 15 * 60,
+            },
+          );
+          return redirectResponse;
         }
       }
       // 리프레시 토큰 재검증 실패 시 홈으로 리다이렉트
@@ -47,7 +54,7 @@ export default async function middleware(request: NextRequest) {
     }
 
     // 기존 로그인하지 않고 둘러보기를 택한 사용자의 경우 홈으로 리다이렉트
-    if (localStorage.getItem('isFirstVisit') === 'false') {
+    if (request.cookies.get(COOKIE_KEYS.ENTRY_VISITED)?.value === 'true') {
       return NextResponse.redirect(new URL('/', request.url));
     }
 

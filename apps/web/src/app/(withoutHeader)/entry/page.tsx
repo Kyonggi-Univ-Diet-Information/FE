@@ -7,11 +7,13 @@ import { EntryLogoSection, EntryPolicySection } from '@/page/entry/ui';
 
 import { LoginSection } from '@/features/login/ui';
 
+import { COOKIE_KEYS } from '@/shared/config';
 import { AuthCard, AuthPageWrapper } from '@/shared/ui';
 
 export default function EntryPage() {
-  const storeLocalStorage = () => {
+  const storeLookAroundChoice = () => {
     localStorage.setItem('isFirstVisit', 'false');
+    document.cookie = `${COOKIE_KEYS.ENTRY_VISITED}=true; path=/; max-age=31536000`;
   };
 
   return (
@@ -38,7 +40,7 @@ export default function EntryPage() {
             href='/'
             replace
             className='underline underline-offset-4'
-            onClick={storeLocalStorage}
+            onClick={storeLookAroundChoice}
           >
             로그인 없이 둘러보기
           </Link>
