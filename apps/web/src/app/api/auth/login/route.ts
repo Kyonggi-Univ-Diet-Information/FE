@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { COOKIE_KEYS } from '@/shared/config';
+import { getCookieOptions } from '@/shared/utils/cookie';
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,9 +19,7 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
 
     cookieStore.set(COOKIE_KEYS.ACCESS_TOKEN, accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      ...getCookieOptions(request),
       maxAge: 15 * 60,
     });
 

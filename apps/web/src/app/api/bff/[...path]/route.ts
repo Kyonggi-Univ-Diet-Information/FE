@@ -66,6 +66,7 @@ async function handleRequest(
           ? await request.text()
           : undefined,
       credentials: 'include',
+      redirect: 'follow',
     });
 
     const data = await response.json().catch(() => ({}));

@@ -123,7 +123,11 @@ export class Http {
     options: HttpOptions,
     authorize?: boolean,
   ): Promise<T> {
-    const res = await fetch(url, { ...init, credentials: 'include' });
+    const res = await fetch(url, {
+      ...init,
+      credentials: 'include',
+      redirect: 'follow',
+    });
 
     const data = await res.json().catch(() => ({}));
 
@@ -132,7 +136,10 @@ export class Http {
         typeof window !== 'undefined'
           ? '/api/auth/logout'
           : `${this.getBaseUrl()}/api/auth/logout`;
-      await fetch(logoutUrl, { method: 'POST' }).catch(() => {});
+      await fetch(logoutUrl, {
+        method: 'POST',
+        redirect: 'follow',
+      }).catch(() => {});
 
       if (typeof window !== 'undefined') {
         alert('로그인이 필요해요!');
