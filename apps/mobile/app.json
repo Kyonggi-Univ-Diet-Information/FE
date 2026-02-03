@@ -23,7 +23,8 @@
         "monochromeImage": "./assets/images/icon.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "apple.auth.diet.kyonggi.com"
     },
     "web": {
       "output": "static",
