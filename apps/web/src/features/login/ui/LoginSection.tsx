@@ -1,5 +1,5 @@
 import { LoginButton } from '@/shared/ui';
-import { isIos } from '@/shared/utils';
+import { isAndroid, isIos } from '@/shared/utils';
 
 import { useKakaoSDK, useSocialLogin } from '../hooks';
 
@@ -52,7 +52,7 @@ function AppleLoginButton() {
 function GoogleLoginButton() {
   const { login } = useSocialLogin({ provider: 'google' });
 
-  if (isIos()) return null;
+  if (!isAndroid()) return null;
 
   return (
     <LoginButton
