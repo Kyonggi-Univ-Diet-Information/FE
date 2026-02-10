@@ -96,53 +96,42 @@ export default function Index() {
   useEffect(() => {
     const getInitialUrl = async () => {
       const url = await Linking.getInitialURL();
-      if (url) {
-        console.log('🔗 Initial URL:', url);
+      if (!url) return;
 
-        // kiryong://kiryong-app.vercel.app/... 형식 직접 처리
-        if (url.startsWith('kiryong://kiryong-app.vercel.app')) {
-          const webUrl = url.replace('kiryong://', 'https://');
-          console.log('🌐 Direct conversion:', webUrl);
-          setInitialUrl(webUrl);
-          return;
-        }
-
-        const parsedUrl = Linking.parse(url);
-        console.log('📦 Parsed URL:', JSON.stringify(parsedUrl, null, 2));
-        const webUrl = buildWebUrl(parsedUrl);
-        console.log('🌐 Built Web URL:', webUrl);
+      // kiryong:// 로 시작하면 스킴만 https:// 로 교체 (나머지 그대로)
+      if (url.startsWith('kiryong://')) {
+        const webUrl = 'https://' + url.slice('kiryong://'.length);
         setInitialUrl(webUrl);
+        return;
       }
+
+      const parsedUrl = Linking.parse(url);
+      const webUrl = buildWebUrl(parsedUrl);
+      setInitialUrl(webUrl);
     };
 
     getInitialUrl();
 
     const subscription = Linking.addEventListener('url', ({ url }) => {
-      console.log('🔗 URL Event:', url);
-
-      // kiryong://kiryong-app.vercel.app/... 형식 직접 처리
-      if (url.startsWith('kiryong://kiryong-app.vercel.app')) {
-        const webUrl = url.replace('kiryong://', 'https://');
-        console.log('🌐 Direct conversion:', webUrl);
+      if (url.startsWith('kiryong://')) {
+        const webUrl = 'https://' + url.slice('kiryong://'.length);
         if (webViewRef.current) {
           webViewRef.current.injectJavaScript(`
-            window.location.href = '${webUrl}';
-            true;
-          `);
+          window.location.href = '${webUrl}';
+          true;
+        `);
         }
         return;
       }
 
       const parsedUrl = Linking.parse(url);
-      console.log('📦 Parsed URL:', JSON.stringify(parsedUrl, null, 2));
       const webUrl = buildWebUrl(parsedUrl);
-      console.log('🌐 Built Web URL:', webUrl);
 
       if (webViewRef.current) {
         webViewRef.current.injectJavaScript(`
-          window.location.href = '${webUrl}';
-          true;
-        `);
+        window.location.href = '${webUrl}';
+        true;
+      `);
       }
     });
 
