@@ -44,6 +44,8 @@ export const useSocialLogin = (params: SocialLoginParams) => {
       window.ReactNativeWebView.postMessage(
         JSON.stringify({ type: 'OPEN_EXTERNAL', url: href }),
       );
+    } else {
+      window.location.href = href;
     }
   };
 

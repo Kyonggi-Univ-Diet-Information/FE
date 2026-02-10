@@ -1,14 +1,19 @@
-import { StyleSheet, BackHandler, Platform, Linking } from 'react-native';
+import { StyleSheet, BackHandler, Platform, Alert } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useEffect, useRef, useState } from 'react';
+import * as Linking from 'expo-linking';
+
 import { WebView } from 'react-native-webview';
 
 import { router } from 'expo-router';
 
 export default function Index() {
   const webViewRef = useRef<WebView>(null);
+  const BASE_URL = process.env.EXPO_PUBLIC_WEB_URL || 'https://www.kiryong.kr';
+
   const [currentUrl, setCurrentUrl] = useState('');
+  const [initialUrl, setInitialUrl] = useState<string>(BASE_URL);
 
   const isTransparentPath =
     currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
@@ -35,6 +40,47 @@ export default function Index() {
     return () => backHandler.remove();
   }, []);
 
+  useEffect(() => {
+    const getInitialUrl = async () => {
+      const url = await Linking.getInitialURL();
+      if (url) {
+        const parsedUrl = Linking.parse(url);
+        const webUrl = buildWebUrl(parsedUrl);
+        setInitialUrl(webUrl);
+      }
+    };
+
+    getInitialUrl();
+
+    const subscription = Linking.addEventListener('url', ({ url }) => {
+      const parsedUrl = Linking.parse(url);
+      const webUrl = buildWebUrl(parsedUrl);
+
+      if (webViewRef.current) {
+        webViewRef.current.injectJavaScript(`
+          window.location.href = '${webUrl}';
+          true;
+        `);
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  const buildWebUrl = (parsedUrl: Linking.ParsedURL): string => {
+    let url = `${BASE_URL}`;
+    if (parsedUrl.path) {
+      url += `/${parsedUrl.path || ''}`;
+    }
+    if (parsedUrl.queryParams) {
+      url += `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`;
+    }
+
+    return url;
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView
@@ -49,8 +95,7 @@ export default function Index() {
         <WebView
           ref={webViewRef}
           source={{
-            uri:
-              process.env.EXPO_PUBLIC_WEB_URL || 'https://www.kiryong.kr/404',
+            uri: initialUrl,
             headers: {
               'X-React-Native-WebView': 'true',
             },
