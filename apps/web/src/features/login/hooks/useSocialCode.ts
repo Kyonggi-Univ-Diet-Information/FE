@@ -5,7 +5,12 @@ import { mutate } from 'swr';
 import { setAuthCookies } from '@/features/login/api/setAuthCookies';
 
 import { authKeys } from '@/shared/lib/queryKey';
-import { getLoginState } from '@/shared/utils';
+import { getLoginState, isAndroid } from '@/shared/utils';
+
+function getAppDeepLink(): string {
+  if (typeof window === 'undefined') return '';
+  return `kiryong://${window.location.host}${window.location.pathname}${window.location.search}`;
+}
 
 import { submitAppleLogin } from '../api/submitAppleLogin';
 import { submitGoogleLogin } from '../api/submitGoogleLogin';
@@ -43,6 +48,10 @@ export const useSocialCode = () => {
           result = await submitKakaoLogin(code);
           break;
         case 'google':
+          if (isAndroid() && !window.IS_REACT_NATIVE_WEBVIEW) {
+            window.location.href = getAppDeepLink();
+            return;
+          }
           result = await submitGoogleLogin(code);
           break;
         case 'apple': {

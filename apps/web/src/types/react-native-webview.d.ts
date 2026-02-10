@@ -5,6 +5,7 @@ interface ReactNativeWebViewBridge {
 declare global {
   interface Window {
     ReactNativeWebView?: ReactNativeWebViewBridge;
+    IS_REACT_NATIVE_WEBVIEW?: boolean;
   }
 }
 

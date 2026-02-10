@@ -1,7 +1,7 @@
-import { StyleSheet, BackHandler, Platform, Alert } from 'react-native';
+import { StyleSheet, BackHandler, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Linking from 'expo-linking';
 
 import { WebView } from 'react-native-webview';
@@ -17,6 +17,35 @@ export default function Index() {
 
   const isTransparentPath =
     currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
+
+  const buildWebUrl = useCallback(
+    (parsedUrl: Linking.ParsedURL): string => {
+      const allowedWebHosts = ['kiryong-app.vercel.app'];
+      const queryString =
+        parsedUrl.queryParams && Object.keys(parsedUrl.queryParams).length > 0
+          ? `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`
+          : '';
+
+      if (parsedUrl.hostname === 'auth') {
+        return `${BASE_URL}/auth${queryString}`;
+      }
+
+      if (parsedUrl.hostname && allowedWebHosts.includes(parsedUrl.hostname)) {
+        const path = parsedUrl.path
+          ? parsedUrl.path.startsWith('/')
+            ? parsedUrl.path
+            : `/${parsedUrl.path}`
+          : '';
+        return `https://${parsedUrl.hostname}${path || '/'}${queryString}`;
+      }
+
+      const path = parsedUrl.path
+        ? `/${parsedUrl.path.replace(/^\//, '')}`
+        : '/';
+      return `${BASE_URL.replace(/\/$/, '')}${path}${queryString}`;
+    },
+    [BASE_URL],
+  );
 
   useEffect(() => {
     const backAction = () => {
@@ -67,19 +96,7 @@ export default function Index() {
     return () => {
       subscription.remove();
     };
-  }, []);
-
-  const buildWebUrl = (parsedUrl: Linking.ParsedURL): string => {
-    let url = `${BASE_URL}`;
-    if (parsedUrl.path) {
-      url += `/${parsedUrl.path || ''}`;
-    }
-    if (parsedUrl.queryParams) {
-      url += `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`;
-    }
-
-    return url;
-  };
+  }, [buildWebUrl]);
 
   return (
     <SafeAreaProvider>
