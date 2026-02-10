@@ -10,7 +10,7 @@ import { router } from 'expo-router';
 
 export default function Index() {
   const webViewRef = useRef<WebView>(null);
-  const BASE_URL = process.env.EXPO_PUBLIC_WEB_URL || 'https://www.kiryong.kr';
+  const BASE_URL = '';
 
   const [currentUrl, setCurrentUrl] = useState('');
   const [initialUrl, setInitialUrl] = useState<string>(BASE_URL);
@@ -25,6 +25,30 @@ export default function Index() {
         parsedUrl.queryParams && Object.keys(parsedUrl.queryParams).length > 0
           ? `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`
           : '';
+
+      if (parsedUrl.path && parsedUrl.path.startsWith('kiryong://')) {
+        try {
+          const urlMatch = parsedUrl.path.match(
+            /kiryong:\/\/([^/?]+)(\/[^?]*)?(\?.*)?/,
+          );
+          if (urlMatch) {
+            const hostname = urlMatch[1];
+            const pathPart = urlMatch[2] || '';
+            const urlQueryPart = urlMatch[3] || '';
+
+            if (allowedWebHosts.includes(hostname)) {
+              const finalQuery = queryString
+                ? urlQueryPart
+                  ? urlQueryPart + '&' + queryString.slice(1)
+                  : queryString
+                : urlQueryPart;
+              return `https://${hostname}${pathPart || '/'}${finalQuery}`;
+            }
+          }
+        } catch (e) {
+          console.error('Failed to parse URL from path:', e);
+        }
+      }
 
       if (parsedUrl.hostname === 'auth') {
         return `${BASE_URL}/auth${queryString}`;
@@ -73,8 +97,20 @@ export default function Index() {
     const getInitialUrl = async () => {
       const url = await Linking.getInitialURL();
       if (url) {
+        console.log('🔗 Initial URL:', url);
+
+        // kiryong://kiryong-app.vercel.app/... 형식 직접 처리
+        if (url.startsWith('kiryong://kiryong-app.vercel.app')) {
+          const webUrl = url.replace('kiryong://', 'https://');
+          console.log('🌐 Direct conversion:', webUrl);
+          setInitialUrl(webUrl);
+          return;
+        }
+
         const parsedUrl = Linking.parse(url);
+        console.log('📦 Parsed URL:', JSON.stringify(parsedUrl, null, 2));
         const webUrl = buildWebUrl(parsedUrl);
+        console.log('🌐 Built Web URL:', webUrl);
         setInitialUrl(webUrl);
       }
     };
@@ -82,8 +118,25 @@ export default function Index() {
     getInitialUrl();
 
     const subscription = Linking.addEventListener('url', ({ url }) => {
+      console.log('🔗 URL Event:', url);
+
+      // kiryong://kiryong-app.vercel.app/... 형식 직접 처리
+      if (url.startsWith('kiryong://kiryong-app.vercel.app')) {
+        const webUrl = url.replace('kiryong://', 'https://');
+        console.log('🌐 Direct conversion:', webUrl);
+        if (webViewRef.current) {
+          webViewRef.current.injectJavaScript(`
+            window.location.href = '${webUrl}';
+            true;
+          `);
+        }
+        return;
+      }
+
       const parsedUrl = Linking.parse(url);
+      console.log('📦 Parsed URL:', JSON.stringify(parsedUrl, null, 2));
       const webUrl = buildWebUrl(parsedUrl);
+      console.log('🌐 Built Web URL:', webUrl);
 
       if (webViewRef.current) {
         webViewRef.current.injectJavaScript(`
