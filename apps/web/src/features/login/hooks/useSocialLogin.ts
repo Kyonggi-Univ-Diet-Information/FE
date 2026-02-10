@@ -1,4 +1,4 @@
-import { setLoginState } from '@/shared/utils';
+import { isAndroid, isIos, setLoginState } from '@/shared/utils';
 
 import { useKakaoLogin } from './useKakaoLogin';
 import { fetchAppleLoginUrl } from '../api/fetchAppleLoginUrl';
@@ -15,12 +15,24 @@ export const useSocialLogin = (params: SocialLoginParams) => {
     return (window.location.href = url);
   };
 
-  const { handleKakaoLogin } = useKakaoLogin({
+  const handleKakaoLogin = () => {
+    if (isAndroid()) {
+      handleKakaoLoginAndroid();
+    } else {
+      handleKakaoLoginIos();
+    }
+  };
+
+  const { handleKakaoLogin: handleKakaoLoginIos } = useKakaoLogin({
     onSuccess: () => {},
     onError: loginError => {
       console.error(`로그인 실패 ${loginError.message}`);
     },
   });
+
+  const handleKakaoLoginAndroid = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URL}`;
+  };
 
   const handleGoogleLogin = async () => {
     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URL}&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent&state=${setLoginState('google')}`;

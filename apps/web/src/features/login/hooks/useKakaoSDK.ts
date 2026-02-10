@@ -37,7 +37,7 @@ interface KakaoSDKReturn {
 }
 
 export const useKakaoSDK = (): KakaoSDKReturn => {
-  const appKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+  const appKey = process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY;
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
