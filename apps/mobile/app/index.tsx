@@ -6,11 +6,11 @@ import * as Linking from 'expo-linking';
 
 import { WebView } from 'react-native-webview';
 
-import { router } from 'expo-router';
+import { router, SplashScreen } from 'expo-router';
 
 export default function Index() {
   const webViewRef = useRef<WebView>(null);
-  const BASE_URL = '';
+  const BASE_URL = 'https://kiryong-app.vercel.app';
 
   const [currentUrl, setCurrentUrl] = useState('');
   const [initialUrl, setInitialUrl] = useState<string>(BASE_URL);
@@ -18,59 +18,7 @@ export default function Index() {
   const isTransparentPath =
     currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
 
-  const buildWebUrl = useCallback(
-    (parsedUrl: Linking.ParsedURL): string => {
-      const allowedWebHosts = ['kiryong-app.vercel.app'];
-      const queryString =
-        parsedUrl.queryParams && Object.keys(parsedUrl.queryParams).length > 0
-          ? `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`
-          : '';
-
-      if (parsedUrl.path && parsedUrl.path.startsWith('kiryong://')) {
-        try {
-          const urlMatch = parsedUrl.path.match(
-            /kiryong:\/\/([^/?]+)(\/[^?]*)?(\?.*)?/,
-          );
-          if (urlMatch) {
-            const hostname = urlMatch[1];
-            const pathPart = urlMatch[2] || '';
-            const urlQueryPart = urlMatch[3] || '';
-
-            if (allowedWebHosts.includes(hostname)) {
-              const finalQuery = queryString
-                ? urlQueryPart
-                  ? urlQueryPart + '&' + queryString.slice(1)
-                  : queryString
-                : urlQueryPart;
-              return `https://${hostname}${pathPart || '/'}${finalQuery}`;
-            }
-          }
-        } catch (e) {
-          console.error('Failed to parse URL from path:', e);
-        }
-      }
-
-      if (parsedUrl.hostname === 'auth') {
-        return `${BASE_URL}/auth${queryString}`;
-      }
-
-      if (parsedUrl.hostname && allowedWebHosts.includes(parsedUrl.hostname)) {
-        const path = parsedUrl.path
-          ? parsedUrl.path.startsWith('/')
-            ? parsedUrl.path
-            : `/${parsedUrl.path}`
-          : '';
-        return `https://${parsedUrl.hostname}${path || '/'}${queryString}`;
-      }
-
-      const path = parsedUrl.path
-        ? `/${parsedUrl.path.replace(/^\//, '')}`
-        : '/';
-      return `${BASE_URL.replace(/\/$/, '')}${path}${queryString}`;
-    },
-    [BASE_URL],
-  );
-
+  // 뒤로가기 처리
   useEffect(() => {
     const backAction = () => {
       if (router.canGoBack()) {
@@ -93,52 +41,66 @@ export default function Index() {
     return () => backHandler.remove();
   }, []);
 
+  // 스플래시 스크린 처리
+  const handleWebViewLoad = useCallback(() => {
+    console.log('WebView loaded');
+    SplashScreen.hideAsync();
+  }, []);
+
+  const handleWebViewError = useCallback((event: any) => {
+    console.log('WebView error:', event.nativeEvent);
+    SplashScreen.hideAsync();
+  }, []);
+
+  if (!initialUrl) {
+    throw new Error('webview url is not set');
+  }
+
   useEffect(() => {
+    // 앱이 종료된 상태에서 링크로 열릴 때의 초기 URL 처리
     const getInitialUrl = async () => {
       const url = await Linking.getInitialURL();
-      if (!url) return;
-
-      // kiryong:// 로 시작하면 스킴만 https:// 로 교체 (나머지 그대로)
-      if (url.startsWith('kiryong://')) {
-        const webUrl = 'https://' + url.slice('kiryong://'.length);
+      if (url) {
+        const parsedUrl = Linking.parse(url);
+        const webUrl = buildWebUrl(parsedUrl);
         setInitialUrl(webUrl);
-        return;
       }
-
-      const parsedUrl = Linking.parse(url);
-      const webUrl = buildWebUrl(parsedUrl);
-      setInitialUrl(webUrl);
     };
 
     getInitialUrl();
 
+    // 앱이 실행 중일 때 링크로 열릴 때의 URL 처리
     const subscription = Linking.addEventListener('url', ({ url }) => {
-      if (url.startsWith('kiryong://')) {
-        const webUrl = 'https://' + url.slice('kiryong://'.length);
-        if (webViewRef.current) {
-          webViewRef.current.injectJavaScript(`
-          window.location.href = '${webUrl}';
-          true;
-        `);
-        }
-        return;
-      }
-
       const parsedUrl = Linking.parse(url);
       const webUrl = buildWebUrl(parsedUrl);
 
+      // WebView의 URL을 변경
       if (webViewRef.current) {
         webViewRef.current.injectJavaScript(`
-        window.location.href = '${webUrl}';
-        true;
-      `);
+          window.location.href = '${webUrl}';
+          true;
+        `);
       }
     });
 
     return () => {
       subscription.remove();
     };
-  }, [buildWebUrl]);
+  }, []);
+
+  const buildWebUrl = (parsedUrl: Linking.ParsedURL): string => {
+    const baseUrl = BASE_URL;
+
+    let url = `${baseUrl}`;
+    if (parsedUrl.path) {
+      url += `/${parsedUrl.path || ''}`;
+    }
+    if (parsedUrl.queryParams) {
+      url += `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`;
+    }
+
+    return url;
+  };
 
   return (
     <SafeAreaProvider>
@@ -153,6 +115,8 @@ export default function Index() {
       >
         <WebView
           ref={webViewRef}
+          onLoad={handleWebViewLoad}
+          onError={handleWebViewError}
           source={{
             uri: initialUrl,
             headers: {
@@ -162,6 +126,13 @@ export default function Index() {
           onNavigationStateChange={navState => {
             setCurrentUrl(navState.url);
           }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          originWhitelist={['*']}
+          injectedJavaScript={`
+            window.IS_REACT_NATIVE_WEBVIEW = true;
+            true;
+          `}
           onMessage={event => {
             try {
               const { type, url } = JSON.parse(event.nativeEvent.data);
@@ -170,14 +141,6 @@ export default function Index() {
               }
             } catch {}
           }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          originWhitelist={['*']}
-          onError={error => console.error('WebView 에러:', error)}
-          injectedJavaScript={`
-            window.IS_REACT_NATIVE_WEBVIEW = true;
-            true;
-          `}
         />
       </SafeAreaView>
     </SafeAreaProvider>
