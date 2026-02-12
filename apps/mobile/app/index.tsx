@@ -6,14 +6,25 @@ import * as Linking from 'expo-linking';
 
 import { WebView } from 'react-native-webview';
 
-import { router, SplashScreen } from 'expo-router';
+import { router, SplashScreen, useLocalSearchParams } from 'expo-router';
+
+import { BASE_URL, buildWebUrl, WEB_URL_PARAM_KEY } from './lib/webUrl';
 
 export default function Index() {
   const webViewRef = useRef<WebView>(null);
-  const BASE_URL = 'https://kiryong-app.vercel.app';
+  const params = useLocalSearchParams();
+  const webUrlFromIntent = (params as Record<string, string | string[] | undefined>)[
+    WEB_URL_PARAM_KEY
+  ];
+  const resolvedFromIntent =
+    typeof webUrlFromIntent === 'string'
+      ? webUrlFromIntent
+      : Array.isArray(webUrlFromIntent)
+        ? webUrlFromIntent[0]
+        : undefined;
 
   const [currentUrl, setCurrentUrl] = useState('');
-  const [initialUrl, setInitialUrl] = useState<string>(BASE_URL);
+  const [initialUrl, setInitialUrl] = useState<string>(() => resolvedFromIntent ?? BASE_URL);
 
   const isTransparentPath =
     currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
@@ -56,28 +67,25 @@ export default function Index() {
     throw new Error('webview url is not set');
   }
 
+  // +native-intent에서 쿼리로 넘긴 __webUrl이 있으면 initialUrl에 반영 (라우터가 나중에 주입될 수 있음)
   useEffect(() => {
-    // 앱이 종료된 상태에서 링크로 열릴 때의 초기 URL 처리
-    const getInitialUrl = async () => {
-      const url = await Linking.getInitialURL();
-      if (url) {
-        const parsedUrl = Linking.parse(url);
-        const webUrl = buildWebUrl(parsedUrl);
-        setInitialUrl(webUrl);
-      }
-    };
+    if (resolvedFromIntent) setInitialUrl(resolvedFromIntent);
+  }, [resolvedFromIntent]);
 
-    getInitialUrl();
+  useEffect(() => {
+    // __webUrl이 없을 때만 getInitialURL로 초기 URL 보완
+    if (!resolvedFromIntent) {
+      Linking.getInitialURL().then(url => {
+        if (url) setInitialUrl(buildWebUrl(Linking.parse(url)));
+      });
+    }
 
-    // 앱이 실행 중일 때 링크로 열릴 때의 URL 처리
+    // 앱이 실행 중일 때 링크로 열릴 때의 URL 처리 (항상 https로 변환 후 주입)
     const subscription = Linking.addEventListener('url', ({ url }) => {
-      const parsedUrl = Linking.parse(url);
-      const webUrl = buildWebUrl(parsedUrl);
-
-      // WebView의 URL을 변경
+      const webUrl = buildWebUrl(Linking.parse(url));
       if (webViewRef.current) {
         webViewRef.current.injectJavaScript(`
-          window.location.href = '${webUrl}';
+          window.location.href = '${webUrl.replace(/'/g, "\\'")}';
           true;
         `);
       }
@@ -86,21 +94,7 @@ export default function Index() {
     return () => {
       subscription.remove();
     };
-  }, []);
-
-  const buildWebUrl = (parsedUrl: Linking.ParsedURL): string => {
-    const baseUrl = BASE_URL;
-
-    let url = `${baseUrl}`;
-    if (parsedUrl.path) {
-      url += `/${parsedUrl.path || ''}`;
-    }
-    if (parsedUrl.queryParams) {
-      url += `?${new URLSearchParams(parsedUrl.queryParams as Record<string, string>).toString()}`;
-    }
-
-    return url;
-  };
+  }, [resolvedFromIntent]);
 
   return (
     <SafeAreaProvider>
