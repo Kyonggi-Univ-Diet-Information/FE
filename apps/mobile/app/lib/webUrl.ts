@@ -14,10 +14,10 @@ export function buildWebUrlFromPath(path: string): string {
 }
 
 export function buildWebUrl(parsedUrl: ParsedURL): string {
-  const baseUrl = process.env.EXPO_PUBLIC_WEB_URL;
+  const baseUrl = BASE_URL;
 
   let url = `${baseUrl}`;
-  if (parsedUrl.path) {
+  if (parsedUrl.path && parsedUrl.path !== undefined) {
     url += `/${parsedUrl.path || ''}`;
   }
   if (parsedUrl.queryParams) {

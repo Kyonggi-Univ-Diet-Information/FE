@@ -1,4 +1,4 @@
-import { StyleSheet, BackHandler, Platform } from 'react-native';
+import { StyleSheet, BackHandler, Platform, Alert } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -16,30 +16,6 @@ import {
 } from './lib/webUrl';
 
 export default function Index() {
-  const webViewRef = useRef<WebView>(null);
-  const params = useLocalSearchParams();
-
-  const webUrlFromIntent = (
-    params as Record<string, string | string[] | undefined>
-  )[WEB_URL_PARAM_KEY];
-
-  const resolvedFromIntent =
-    typeof webUrlFromIntent === 'string'
-      ? webUrlFromIntent
-      : Array.isArray(webUrlFromIntent)
-        ? webUrlFromIntent[0]
-        : undefined;
-
-  const [currentUrl, setCurrentUrl] = useState('');
-  const [initialUrl, setInitialUrl] = useState<string>(() => {
-    if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
-      return resolvedFromIntent;
-    return BASE_URL;
-  });
-
-  const isTransparentPath =
-    currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
-
   // 뒤로가기 처리
   useEffect(() => {
     const backAction = () => {
@@ -74,9 +50,33 @@ export default function Index() {
     SplashScreen.hideAsync();
   }, []);
 
-  if (!initialUrl) {
-    throw new Error('webview url is not set');
-  }
+  // 배경색 UI 관련 처리
+  const [currentUrl, setCurrentUrl] = useState('');
+  const isTransparentPath =
+    currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
+
+  const webViewRef = useRef<WebView>(null);
+  const params = useLocalSearchParams();
+  const rawFromIntent = (
+    params as Record<string, string | string[] | undefined>
+  )[WEB_URL_PARAM_KEY];
+  const webUrlFromIntent =
+    typeof rawFromIntent === 'string'
+      ? rawFromIntent
+      : Array.isArray(rawFromIntent)
+        ? rawFromIntent[0]
+        : undefined;
+
+  const resolvedFromIntent =
+    webUrlFromIntent != null && webUrlFromIntent !== ''
+      ? decodeURIComponent(webUrlFromIntent).replace(/\/undefined/g, '')
+      : undefined;
+
+  const [initialUrl, setInitialUrl] = useState<string>(() => {
+    if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
+      return resolvedFromIntent;
+    return BASE_URL;
+  });
 
   useEffect(() => {
     if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
@@ -108,9 +108,9 @@ export default function Index() {
     };
   }, [resolvedFromIntent]);
 
-  useEffect(() => {
-    console.log('currentUrl', currentUrl);
-  }, [currentUrl]);
+  if (!initialUrl) {
+    throw new Error('webview url is not set');
+  }
 
   return (
     <SafeAreaProvider>
