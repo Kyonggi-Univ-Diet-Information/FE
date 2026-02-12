@@ -12,6 +12,7 @@ import {
   BASE_URL,
   buildWebUrl,
   isExpoDevClientUrl,
+  isValidWebViewUrl,
   WEB_URL_PARAM_KEY,
 } from './lib/webUrl';
 
@@ -88,7 +89,9 @@ export default function Index() {
       Linking.getInitialURL().then(url => {
         if (!url) return;
         const webUrl = buildWebUrl(Linking.parse(url));
-        setInitialUrl(isExpoDevClientUrl(webUrl) ? BASE_URL : webUrl);
+        if (isExpoDevClientUrl(webUrl)) return;
+        if (!isValidWebViewUrl(webUrl)) return;
+        setInitialUrl(webUrl);
       });
     }
 
@@ -107,6 +110,10 @@ export default function Index() {
       subscription.remove();
     };
   }, [resolvedFromIntent]);
+
+  useEffect(() => {
+    Alert.alert('currentUrl', currentUrl);
+  }, [currentUrl]);
 
   if (!initialUrl) {
     throw new Error('webview url is not set');
