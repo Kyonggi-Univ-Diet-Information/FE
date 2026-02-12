@@ -8,14 +8,21 @@ import { WebView } from 'react-native-webview';
 
 import { router, SplashScreen, useLocalSearchParams } from 'expo-router';
 
-import { BASE_URL, buildWebUrl, WEB_URL_PARAM_KEY } from './lib/webUrl';
+import {
+  BASE_URL,
+  buildWebUrl,
+  isExpoDevClientUrl,
+  WEB_URL_PARAM_KEY,
+} from './lib/webUrl';
 
 export default function Index() {
   const webViewRef = useRef<WebView>(null);
   const params = useLocalSearchParams();
-  const webUrlFromIntent = (params as Record<string, string | string[] | undefined>)[
-    WEB_URL_PARAM_KEY
-  ];
+
+  const webUrlFromIntent = (
+    params as Record<string, string | string[] | undefined>
+  )[WEB_URL_PARAM_KEY];
+
   const resolvedFromIntent =
     typeof webUrlFromIntent === 'string'
       ? webUrlFromIntent
@@ -24,7 +31,11 @@ export default function Index() {
         : undefined;
 
   const [currentUrl, setCurrentUrl] = useState('');
-  const [initialUrl, setInitialUrl] = useState<string>(() => resolvedFromIntent ?? BASE_URL);
+  const [initialUrl, setInitialUrl] = useState<string>(() => {
+    if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
+      return resolvedFromIntent;
+    return BASE_URL;
+  });
 
   const isTransparentPath =
     currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
@@ -67,22 +78,23 @@ export default function Index() {
     throw new Error('webview url is not set');
   }
 
-  // +native-intent에서 쿼리로 넘긴 __webUrl이 있으면 initialUrl에 반영 (라우터가 나중에 주입될 수 있음)
   useEffect(() => {
-    if (resolvedFromIntent) setInitialUrl(resolvedFromIntent);
+    if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
+      setInitialUrl(resolvedFromIntent);
   }, [resolvedFromIntent]);
 
   useEffect(() => {
-    // __webUrl이 없을 때만 getInitialURL로 초기 URL 보완
     if (!resolvedFromIntent) {
       Linking.getInitialURL().then(url => {
-        if (url) setInitialUrl(buildWebUrl(Linking.parse(url)));
+        if (!url) return;
+        const webUrl = buildWebUrl(Linking.parse(url));
+        setInitialUrl(isExpoDevClientUrl(webUrl) ? BASE_URL : webUrl);
       });
     }
 
-    // 앱이 실행 중일 때 링크로 열릴 때의 URL 처리 (항상 https로 변환 후 주입)
     const subscription = Linking.addEventListener('url', ({ url }) => {
       const webUrl = buildWebUrl(Linking.parse(url));
+      if (isExpoDevClientUrl(webUrl)) return;
       if (webViewRef.current) {
         webViewRef.current.injectJavaScript(`
           window.location.href = '${webUrl.replace(/'/g, "\\'")}';
@@ -95,6 +107,10 @@ export default function Index() {
       subscription.remove();
     };
   }, [resolvedFromIntent]);
+
+  useEffect(() => {
+    console.log('currentUrl', currentUrl);
+  }, [currentUrl]);
 
   return (
     <SafeAreaProvider>
