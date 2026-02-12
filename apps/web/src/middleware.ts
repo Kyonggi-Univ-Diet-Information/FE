@@ -13,6 +13,11 @@ function isAuthenticated(request: NextRequest): boolean {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // 앱 출시로 웹 브라우저 접속 차단 및 랜딩 페이지로 리다이렉트
+  if (!isReactNativeWebView(request) && !pathname.includes('/auth')) {
+    return NextResponse.redirect('https://www.kiryong.kr/');
+  }
+
   if (pathname.includes('/user')) {
     if (!isAuthenticated(request)) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
