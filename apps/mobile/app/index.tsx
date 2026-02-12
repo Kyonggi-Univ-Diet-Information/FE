@@ -1,4 +1,4 @@
-import { StyleSheet, BackHandler, Platform, Alert } from 'react-native';
+import { StyleSheet, BackHandler, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -110,10 +110,6 @@ export default function Index() {
       subscription.remove();
     };
   }, [resolvedFromIntent]);
-
-  useEffect(() => {
-    Alert.alert('currentUrl', currentUrl);
-  }, [currentUrl]);
 
   if (!initialUrl) {
     throw new Error('webview url is not set');
