@@ -7,16 +7,41 @@ import * as Linking from 'expo-linking';
 import { WebView } from 'react-native-webview';
 
 import { router, SplashScreen, useLocalSearchParams } from 'expo-router';
-
 import {
   BASE_URL,
   buildWebUrl,
   isExpoDevClientUrl,
   isValidWebViewUrl,
   WEB_URL_PARAM_KEY,
-} from './lib/webUrl';
+} from '@/lib/webUrl';
 
 export default function Index() {
+  // 웹뷰 내부에서 외부 링크 열기
+  function navigateTo(url: string) {
+    if (!isValidWebViewUrl(url)) return;
+    if (isExpoDevClientUrl(url)) return;
+
+    if (webViewRef.current) {
+      webViewRef.current.injectJavaScript(`
+        window.location.href = ${JSON.stringify(url)};
+        true;
+      `);
+    } else {
+      setInitialUrl(url);
+    }
+  }
+
+  // expo router에서 쿼리 파라미터 조회
+  function getQueryParam(
+    params: Record<string, string | string[] | undefined>,
+    key: string,
+  ): string | undefined {
+    const v = params[key];
+    if (typeof v === 'string') return v;
+    if (Array.isArray(v)) return v[0];
+    return undefined;
+  }
+
   // 뒤로가기 처리
   useEffect(() => {
     const backAction = () => {
@@ -42,12 +67,10 @@ export default function Index() {
 
   // 스플래시 스크린 처리
   const handleWebViewLoad = useCallback(() => {
-    console.log('WebView loaded');
     SplashScreen.hideAsync();
   }, []);
 
   const handleWebViewError = useCallback((event: any) => {
-    console.log('WebView error:', event.nativeEvent);
     SplashScreen.hideAsync();
   }, []);
 
@@ -58,62 +81,37 @@ export default function Index() {
 
   const webViewRef = useRef<WebView>(null);
   const params = useLocalSearchParams();
-  const rawFromIntent = (
-    params as Record<string, string | string[] | undefined>
-  )[WEB_URL_PARAM_KEY];
-  const webUrlFromIntent =
-    typeof rawFromIntent === 'string'
-      ? rawFromIntent
-      : Array.isArray(rawFromIntent)
-        ? rawFromIntent[0]
-        : undefined;
 
+  // 딥링크 처리
+
+  // 앱이 최초 실행될 때 전달된 링크 쿼리 파라미터
+  const webUrlFromIntent = getQueryParam(params, WEB_URL_PARAM_KEY);
+
+  // 전달된 링크 쿼리 파라미터 디코딩
   const resolvedFromIntent =
-    webUrlFromIntent != null && webUrlFromIntent !== ''
-      ? decodeURIComponent(webUrlFromIntent).replace(/\/undefined/g, '')
+    typeof webUrlFromIntent === 'string' && webUrlFromIntent.trim() !== ''
+      ? decodeURIComponent(webUrlFromIntent)
       : undefined;
 
-  const [initialUrl, setInitialUrl] = useState<string>(() => {
-    if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
-      return resolvedFromIntent;
-    return BASE_URL;
-  });
+  const [initialUrl, setInitialUrl] = useState(BASE_URL);
 
   useEffect(() => {
-    if (resolvedFromIntent && !isExpoDevClientUrl(resolvedFromIntent))
-      setInitialUrl(resolvedFromIntent);
-  }, [resolvedFromIntent]);
-
-  useEffect(() => {
-    if (!resolvedFromIntent) {
-      Linking.getInitialURL().then(url => {
-        if (!url) return;
-        const webUrl = buildWebUrl(Linking.parse(url));
-        if (isExpoDevClientUrl(webUrl)) return;
-        if (!isValidWebViewUrl(webUrl)) return;
-        setInitialUrl(webUrl);
-      });
+    // 앱이 최초 실행될 때 딥링크로 들어왔을 시 전달된 링크로 이동
+    if (resolvedFromIntent) {
+      navigateTo(resolvedFromIntent);
+      return;
     }
+  }, []);
 
+  useEffect(() => {
+    // 앱이 실행 중일 때 딥링크 수신 시 전달된 링크로 이동
     const subscription = Linking.addEventListener('url', ({ url }) => {
       const webUrl = buildWebUrl(Linking.parse(url));
-      if (isExpoDevClientUrl(webUrl)) return;
-      if (webViewRef.current) {
-        webViewRef.current.injectJavaScript(`
-          window.location.href = '${webUrl.replace(/'/g, "\\'")}';
-          true;
-        `);
-      }
+      navigateTo(webUrl);
     });
 
-    return () => {
-      subscription.remove();
-    };
-  }, [resolvedFromIntent]);
-
-  if (!initialUrl) {
-    throw new Error('webview url is not set');
-  }
+    return () => subscription.remove();
+  }, []);
 
   return (
     <SafeAreaProvider>

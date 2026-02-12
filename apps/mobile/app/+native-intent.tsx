@@ -2,7 +2,7 @@ import {
   buildWebUrlFromPath,
   isExpoDevClientUrl,
   WEB_URL_PARAM_KEY,
-} from './lib/webUrl';
+} from '@/lib/webUrl';
 
 export function redirectSystemPath({
   path,
@@ -11,13 +11,10 @@ export function redirectSystemPath({
   path: string;
   initial: boolean;
 }): string {
-  if (initial && path) {
+  if (initial && path && path.startsWith('/auth')) {
     const webUrl = buildWebUrlFromPath(path);
     if (isExpoDevClientUrl(webUrl)) return '/';
     return `/?${WEB_URL_PARAM_KEY}=${encodeURIComponent(webUrl)}`;
-  }
-  if (initial) {
-    return '/';
   }
   return '/';
 }

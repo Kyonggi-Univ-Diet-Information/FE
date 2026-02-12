@@ -18,10 +18,7 @@ export function isValidWebViewUrl(webUrl: string): boolean {
   }
 }
 
-/**
- * path만 있을 때(예: +native-intent) 웹 URL 생성.
- * path는 "entry", "entry/foo", "entry?foo=bar" 형태.
- */
+// native intent 페이지에서 path가 있을 경우 넘어옴.
 export function buildWebUrlFromPath(path: string): string {
   const normalized = path.replace(/^\//, '');
   return normalized ? `${BASE_URL}/${normalized}` : BASE_URL;
