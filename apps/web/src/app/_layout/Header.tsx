@@ -13,6 +13,7 @@ import {
 } from '@/entities/campus-menu/model/campusRestaurant';
 
 import { FOOD_COURT_ID, INQUIRY_URL } from '@/shared/config';
+import { ExternalLink } from '@/shared/ui';
 
 export default function Header() {
   const pathname = usePathname();
@@ -114,17 +115,15 @@ export default function Header() {
             </Link>
           )}
 
-          <Link
+          <ExternalLink
             href={INQUIRY_URL}
-            target='_blank'
-            rel='noopener noreferrer'
             className='cursor-pointer transition-transform hover:scale-110'
           >
             <MessageSquareWarning
               size={20}
               className='text-accent-foreground'
             />
-          </Link>
+          </ExternalLink>
           <AuthButton />
         </div>
       </div>
