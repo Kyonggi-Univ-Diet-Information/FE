@@ -6,6 +6,9 @@ export default function Land() {
       'https://abounding-mice-0a1.notion.site/2e7d8a0f1c3f8042aea7cd51f36ea27d',
   };
 
+  const APP_STORE_URL =
+    'https://apps.apple.com/kr/app/%EA%B8%B0%EB%A3%A1%EC%95%84-%EB%B0%A5%EB%A8%B9%EC%9E%90/id6758451053';
+
   const INQUIRY_URL = 'https://open.kakao.com/o/sgcUtX3g';
 
   const PATCHNOTE_URL =
@@ -71,12 +74,17 @@ export default function Land() {
               </p>
 
               <div class='flex w-full flex-col gap-4 sm:w-auto sm:flex-row'>
-                <button class='bg-point py-4.5 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-2xl px-8 font-bold text-white shadow-lg shadow-orange-100 transition-all hover:scale-105 hover:shadow-xl hover:shadow-orange-200 active:scale-95 sm:flex-none'>
+                <a
+                  href={APP_STORE_URL}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='bg-point py-4.5 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-2xl px-8 font-bold text-white shadow-lg shadow-orange-100 transition-all hover:scale-105 hover:shadow-xl hover:shadow-orange-200 active:scale-95 sm:flex-none'
+                >
                   <div class='flex flex-col items-start leading-none'>
                     <span class='text-[10px] opacity-80'>Download on the</span>
                     <span class='text-lg'>App Store</span>
                   </div>
-                </button>
+                </a>
                 <button class='py-4.5 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-2xl bg-gray-900 px-8 font-bold text-white shadow-lg shadow-gray-200 transition-all hover:scale-105 hover:shadow-xl hover:shadow-gray-300 active:scale-95 sm:flex-none'>
                   <div class='flex flex-col items-start leading-none'>
                     <span class='text-[10px] opacity-80'>Get it on</span>
@@ -85,7 +93,7 @@ export default function Land() {
                 </button>
               </div>
 
-              <div class='mt-12 flex items-center gap-4'>
+              {/* <div class='mt-12 flex items-center gap-4'>
                 <div class='flex -space-x-2'>
                   {[1, 2, 3, 4].map(() => (
                     <div class='h-9 w-9 rounded-full border-2 border-white bg-gray-200'></div>
@@ -97,7 +105,7 @@ export default function Land() {
                 <p class='text-sm font-semibold text-gray-500'>
                   1,200명 이상의 학우들이 사용 중
                 </p>
-              </div>
+              </div> */}
             </div>
 
             <div class='relative flex flex-1 items-center justify-center lg:justify-end'>
@@ -348,7 +356,7 @@ export default function Land() {
 
           <div class='flex flex-col items-center justify-between gap-6 border-t border-gray-50 pt-10 md:flex-row'>
             <p class='text-xs font-bold text-gray-400'>
-              © 2026 Kibap Team. All rights reserved.
+              © 2026 Let's eat Kiryong! All rights reserved.
             </p>
             <div class='flex gap-6'>
               <div class='h-5 w-5 rounded-md bg-gray-100'></div>

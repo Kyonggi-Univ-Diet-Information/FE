@@ -19,28 +19,17 @@ export default createHandler(() => (
             name='google-site-verification'
             content='V1odmpWgms6ZPdD3-m_eVSDwWliOCiVEehL6LawaKXs'
           />
-          <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
-          <link rel='preconnect' href='https://www.googletagmanager.com' />
-          <script
-            async
-            src='https://www.googletagmanager.com/gtag/js?id=G-NKEL4R473V'
-          ></script>
-          <script
-            innerHTML={`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-NKEL4R473V');
-              `}
+          <title>기룡아 밥먹자!</title>
+          <meta
+            name='description'
+            content='오늘의 학식, 더 이상 고민 말고 기밥하세요!'
           />
-          <title>기룡아 밥먹자는 잠시 쉬어가요!</title>
-          <meta name='description' content='기룡아 밥먹자는 잠시 쉬어가요!' />
           <link rel='icon' href='/favicon/favicon.ico' sizes='any' />
           <link rel='manifest' href='/config/manifest.json' />
-          <meta property='og:title' content='기룡아 밥먹자는 잠시 쉬어가요!' />
+          <meta property='og:title' content='기룡아 밥먹자!' />
           <meta
             property='og:description'
-            content='기룡아 밥먹자는 잠시 쉬어가요!'
+            content='오늘의 학식, 더 이상 고민 말고 기밥하세요!'
           />
           <meta property='og:image' content='/thumbnail/thumbnail.png' />
           <meta property='og:url' content='https://www.kiryong.kr/' />
