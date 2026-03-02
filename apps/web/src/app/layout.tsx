@@ -1,11 +1,13 @@
 import '@/app/_styles/globals.css';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import type { ReactNode } from 'react';
 
-import { GoogleAnalytics } from '@/app/_analytics';
 import { ErrorProvider, SWRProvider } from '@/app/_providers';
 import { brBold, brRegular, tossFace, wantedSans } from '@/app/_styles/font';
+
+import { GA4_MEASUREMENT_ID } from '@/shared/ga4';
 
 export const metadata: Metadata = {
   title: '기룡아 밥먹자',
@@ -51,12 +53,25 @@ export default function RootLayout({ children }: Props) {
         />
       </head>
       <body className='antialiased' suppressHydrationWarning>
-        <GoogleAnalytics />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}
+          strategy='afterInteractive'
+        />
+        <Script
+          id='google-analytics'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA4_MEASUREMENT_ID}');
+            `,
+          }}
+        />
         <ErrorProvider>
           <VercelAnalytics />
-          <SWRProvider>
-            {children}
-          </SWRProvider>
+          <SWRProvider>{children}</SWRProvider>
         </ErrorProvider>
       </body>
     </html>

@@ -1,9 +1,11 @@
+/** GA4 Measurement ID */
+export const GA4_MEASUREMENT_ID = 'G-NKEL4R473V';
+
 /**
  * Google Analytics 4 설정
  */
 export const GA4_CONFIG = {
-  // GA4 측정 ID (환경 변수에서 가져옴)
-  MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-NKEL4R473V',
+  MEASUREMENT_ID: GA4_MEASUREMENT_ID,
 
   // 개발 환경에서 추적 비활성화 여부
   DISABLE_IN_DEV: process.env.NODE_ENV === 'development',
@@ -24,16 +26,8 @@ export const shouldTrackGA4 = (): boolean => {
 };
 
 /**
- * Google Analytics 4 타입 정의
+ * Google Analytics 4 이벤트 타입 정의
  */
-
-export type GtagEvent = {
-  action: string;
-  category?: string;
-  label?: string;
-  value?: number;
-};
-
 export type MenuClickEvent = {
   menu_id: string;
   menu_name: string;
@@ -67,20 +61,7 @@ export type ErrorEvent = {
   page?: string;
 };
 
-export type GAEvent =
-  | { event_name: 'menu_click'; params: MenuClickEvent }
-  | { event_name: 'rating_select'; params: RatingSelectEvent }
-  | { event_name: 'review_submit_success'; params: ReviewSubmitEvent }
-  | { event_name: 'review_submit_error'; params: ErrorEvent }
-  | { event_name: 'review_like'; params: ReviewLikeEvent }
-  | {
-      event_name: 'review_unlike';
-      params: Omit<ReviewLikeEvent, 'content_length'>;
-    }
-  | { event_name: 'review_like_error'; params: ErrorEvent }
-  | { event_name: 'error'; params: ErrorEvent };
-
-// gtag 타입 확장
+/** gtag 전역 타입 확장 */
 declare global {
   interface Window {
     gtag: (

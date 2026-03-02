@@ -110,7 +110,7 @@ export const trackError = (params: ErrorEvent): void => {
 
 /**
  * 페이지뷰 추적 (수동)
- * - 일반적으로 GoogleAnalytics 컴포넌트가 자동으로 처리하지만,
+ * - layout에서 GA4 스크립트 로드 후 필요 시 수동 호출
  *   필요한 경우 수동으로 호출 가능
  */
 export const trackPageView = (url: string): void => {

@@ -3,7 +3,6 @@
 ```
 .
 ├── app (next.js app router files)/
-│   ├── _analytics
 │   ├── _layout (Header, BottomNavBar)
 │   ├── _providers
 │   └── _styles
