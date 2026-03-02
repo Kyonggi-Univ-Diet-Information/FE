@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { fetchReviewFavCount } from '@/entities/review/api/fetchReviewFavCount';
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
+import { FOOD_COURT } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Title } from '@/shared/ui';
 
@@ -14,22 +15,25 @@ export default async function UserFavReviewPage() {
     AuthService.isAuthenticated(),
   ]);
 
-  const reviewsWithMetadata = data
-    ? await Promise.all(
-        data.content.map(async review => {
-          const likedCount = await fetchReviewFavCount(
-            'KYONGSUL',
-            review.reviewId,
-          );
-          return {
-            ...review,
-            likedCount,
-            isLiked: true,
-            myReview: review.myReview || false,
-          };
-        }),
-      )
-    : [];
+  const allReviews = data?.content ?? [];
+  const filteredReviews = allReviews.filter(
+    review => review.restaurantType !== FOOD_COURT.DORMITORY,
+  );
+
+  const reviewsWithMetadata = await Promise.all(
+    filteredReviews.map(async review => {
+      const likedCount = await fetchReviewFavCount(
+        review.restaurantType,
+        review.reviewId,
+      );
+      return {
+        ...review,
+        likedCount,
+        isLiked: true,
+        myReview: review.myReview ?? false,
+      };
+    }),
+  );
 
   return (
     <>
@@ -41,7 +45,7 @@ export default async function UserFavReviewPage() {
       </div>
 
       <Suspense fallback={<Loader />}>
-        {data?.content.length === 0 && (
+        {reviewsWithMetadata.length === 0 && (
           <div className='mt-10 text-center text-gray-500'>
             좋아요한 리뷰가 없어요!
           </div>
@@ -49,13 +53,16 @@ export default async function UserFavReviewPage() {
         <div className='flex flex-col gap-2'>
           {reviewsWithMetadata.map(review => (
             <ReviewItem
-              key={review.reviewId}
-              type='KYONGSUL'
+              key={`${review.restaurantType}-${review.reviewId}`}
+              {...review}
+              type={review.restaurantType}
               id={review.reviewId}
+              foodId={review.foodId}
               updatedAt={review.createdAt}
               isAuthenticated={isAuthenticated}
               isMyReview={review.myReview}
-              {...review}
+              isLiked={true}
+              likedCount={review.likedCount}
             />
           ))}
         </div>
