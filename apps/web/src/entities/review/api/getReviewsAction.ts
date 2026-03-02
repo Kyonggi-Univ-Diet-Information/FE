@@ -4,7 +4,13 @@ import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 
 import { fetchReviewFavCount } from '../api/fetchReviewFavCount';
-import { fetchReviewFaved } from '../api/fetchReviewFaved';
+import {
+  type EsquareFoodReviewRes,
+  type FetchReviewLikedRes,
+  fetchReviewFaved,
+  type KyongsulFoodReviewRes,
+  type SallyBoxFoodReviewRes,
+} from '../api/fetchReviewFaved';
 import { fetchReviewPaged } from '../api/fetchReviewPaged';
 import { Review } from '../model/review';
 
@@ -13,6 +19,28 @@ export interface ReviewWithMetadata extends Review {
   isLiked: boolean;
   isMyReview: boolean;
 }
+
+const getReviewIdsFromFaved = (items: FetchReviewLikedRes[]): number[] => {
+  if (items.length === 0) return [];
+
+  const first = items[0];
+  if ('kyongsulFoodReviewId' in first) {
+    return (items as KyongsulFoodReviewRes[]).map(
+      item => item.kyongsulFoodReviewId,
+    );
+  }
+  if ('sallyBoxFoodReviewId' in first) {
+    return (items as SallyBoxFoodReviewRes[]).map(
+      item => item.sallyBoxFoodReviewId,
+    );
+  }
+  if ('esquareFoodReviewId' in first) {
+    return (items as EsquareFoodReviewRes[]).map(
+      item => item.esquareFoodReviewId,
+    );
+  }
+  return [];
+};
 
 export async function getReviewsAction(
   type: FoodCourt,
@@ -25,16 +53,11 @@ export async function getReviewsAction(
     fetchReviewPaged(type, foodId, pageNo),
   ]);
 
-  const likedReviewItems = isAuthenticated
-    ? await fetchReviewFaved(type)
-    : [];
-
-  const likedReviewIds = likedReviewItems.map(
-    (item: { kyongsulFoodReviewId: number }) => item.kyongsulFoodReviewId,
-  );
+  const likedReviewItems = isAuthenticated ? await fetchReviewFaved(type) : [];
+  const likedReviewIds = getReviewIdsFromFaved(likedReviewItems);
 
   const reviewsWithMetadata = await Promise.all(
-    reviews.content.map(async (review) => {
+    reviews.content.map(async review => {
       const likedCount = await fetchReviewFavCount(type, review.id);
       return {
         ...review,
