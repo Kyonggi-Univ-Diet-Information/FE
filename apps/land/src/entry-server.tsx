@@ -19,6 +19,20 @@ export default createHandler(() => (
             name='google-site-verification'
             content='V1odmpWgms6ZPdD3-m_eVSDwWliOCiVEehL6LawaKXs'
           />
+          <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+          <link rel='preconnect' href='https://www.googletagmanager.com' />
+          <script
+            async
+            src='https://www.googletagmanager.com/gtag/js?id=G-NKEL4R473V'
+          ></script>
+          <script
+            innerHTML={`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-NKEL4R473V');
+              `}
+          />
           <title>기룡아 밥먹자!</title>
           <meta
             name='description'

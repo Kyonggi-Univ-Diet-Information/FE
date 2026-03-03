@@ -6,6 +6,9 @@ export default function Intro() {
       'https://abounding-mice-0a1.notion.site/2e7d8a0f1c3f8042aea7cd51f36ea27d',
   };
 
+  const PLAY_STORE_URL =
+    'https://play.google.com/store/apps/details?id=apple.auth.diet.kyonggi.com';
+
   const APP_STORE_URL =
     'https://apps.apple.com/kr/app/%EA%B8%B0%EB%A3%A1%EC%95%84-%EB%B0%A5%EB%A8%B9%EC%9E%90/id6758451053';
 
@@ -90,7 +93,12 @@ export default function Intro() {
                     <span class='text-lg'>App Store</span>
                   </div>
                 </a>
-                <button class='py-4.5 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-2xl bg-gray-900 px-8 font-bold text-white shadow-lg shadow-gray-200 transition-all hover:scale-105 hover:shadow-xl hover:shadow-gray-300 active:scale-95 sm:flex-none'>
+                <a
+                  href={PLAY_STORE_URL}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='py-4.5 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-2xl bg-gray-900 px-8 font-bold text-white shadow-lg shadow-gray-200 transition-all hover:scale-105 hover:shadow-xl hover:shadow-gray-300 active:scale-95 sm:flex-none'
+                >
                   <img
                     src='/icons/google-play.png'
                     alt='Google Play'
@@ -100,7 +108,7 @@ export default function Intro() {
                     <span class='text-[10px] opacity-80'>Get it on</span>
                     <span class='text-lg'>Google Play</span>
                   </div>
-                </button>
+                </a>
               </div>
 
               {/* <div class='mt-12 flex items-center gap-4'>
