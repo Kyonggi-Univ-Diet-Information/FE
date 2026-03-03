@@ -9,6 +9,12 @@
 ![](https://img.shields.io/github/last-commit/Kyonggi-Univ-Diet-Information/FE)
 ![](https://img.shields.io/github/license/Kyonggi-Univ-Diet-Information/FE)
 
+[<img width="450" alt="image" src="https://github.com/user-attachments/assets/0c6850bd-e3f5-472f-a63d-fa37baad1fe4" />](https://play.google.com/store/apps/details?id=apple.auth.diet.kyonggi.com)
+
+[<img width="388" alt="image" src="https://github.com/user-attachments/assets/211f11cd-347a-4cd7-9f2b-97e82fe28a16" />](https://apps.apple.com/kr/app/%EA%B8%B0%EB%A3%A1%EC%95%84-%EB%B0%A5%EB%A8%B9%EC%9E%90/id6758451053)
+</div>
+
+<br/>
 <br/>
 
 </div>
