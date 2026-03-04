@@ -48,9 +48,9 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
   };
 
   return (
-    <Section.Content className='h-fit overflow-hidden'>
+    <Section.Content className='mb-10 h-fit overflow-x-scroll overflow-y-hidden'>
       <AnimatedCard index={0}>
-        <Card className='min-h-70 h-fit'>
+        <Card className='h-fit min-h-70'>
           <Card.Header>
             점심 <span className='font-tossFace'>🍽️</span>{' '}
           </Card.Header>
@@ -60,7 +60,7 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
         </Card>
       </AnimatedCard>
       <AnimatedCard index={1}>
-        <Card className='min-h-70 h-fit'>
+        <Card className='h-fit min-h-70'>
           <Card.Header>
             저녁 <span className='font-tossFace'>🌙</span>
           </Card.Header>
