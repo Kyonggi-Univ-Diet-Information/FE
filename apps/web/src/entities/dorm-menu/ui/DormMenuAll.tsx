@@ -52,6 +52,16 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
       <AnimatedCard index={0}>
         <Card className='h-fit min-h-70'>
           <Card.Header>
+            아침 <span className='font-tossFace'>☀️</span>{' '}
+          </Card.Header>
+          <Card.Content>
+            {renderMenuItems(dormMenuByTime('BREAKFAST'), 'ko')}
+          </Card.Content>
+        </Card>
+      </AnimatedCard>
+      <AnimatedCard index={1}>
+        <Card className='h-fit min-h-70'>
+          <Card.Header>
             점심 <span className='font-tossFace'>🍽️</span>{' '}
           </Card.Header>
           <Card.Content>
@@ -59,7 +69,7 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
           </Card.Content>
         </Card>
       </AnimatedCard>
-      <AnimatedCard index={1}>
+      <AnimatedCard index={2}>
         <Card className='h-fit min-h-70'>
           <Card.Header>
             저녁 <span className='font-tossFace'>🌙</span>
