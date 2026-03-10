@@ -16,6 +16,7 @@
       }
     },
     "android": {
+      "permissions": ["INTERNET"],
       "adaptiveIcon": {
         "backgroundColor": "#ffffff",
         "foregroundImage": "./assets/images/icon.png",
