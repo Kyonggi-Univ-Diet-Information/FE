@@ -24,7 +24,14 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "apple.auth.diet.kyonggi.com"
+      "package": "apple.auth.diet.kyonggi.com",
+      "manifest": {
+        "queries": [
+          {
+            "package": "com.kakao.talk"
+          }
+        ]
+      }
     },
     "web": {
       "output": "static",
