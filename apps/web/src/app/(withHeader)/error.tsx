@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { Button } from '@/shared/ui/Button';
+import { Button } from '@/components/common/Button';
 
 export default function Error({
   error,
@@ -27,7 +27,7 @@ export default function Error({
             에러 세부사항 보기
           </summary>
           <div className='rounded-lg bg-gray-100 p-4'>
-            <pre className='overflow-auto whitespace-pre-wrap text-xs text-gray-600'>
+            <pre className='overflow-auto text-xs whitespace-pre-wrap text-gray-600'>
               {error.message}
               {error.stack && `\n\nStack trace:\n${error.stack}`}
             </pre>

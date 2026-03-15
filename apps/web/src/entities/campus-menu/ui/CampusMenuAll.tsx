@@ -1,4 +1,3 @@
-import { AnimatedCard, Card } from '@/shared/ui';
 
 import { fetchCampusMenu } from '../api/fetchCampusMenu';
 import {
@@ -8,6 +7,7 @@ import {
 } from '../model/campusRestaurant';
 
 import { FOOD_COURT_ID } from '@/api/config';
+import { AnimatedCard, Card } from '@/components/common';
 
 export default async function CampusMenuAll() {
   const campusMenu = await fetchCampusMenu();

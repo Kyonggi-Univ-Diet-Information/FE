@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { Title } from '@/shared/ui';
-import { Button } from '@/shared/ui/Button';
+import { Title } from '@/components/common';
+import { Button } from '@/components/common/Button';
 
 export default function NotFound() {
   return (

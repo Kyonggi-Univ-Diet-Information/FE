@@ -6,7 +6,6 @@ import useSWR from 'swr';
 import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
 
 import { menuKeys } from '@/shared/lib/queryKey';
-import { AnimatedCard, Section, Card } from '@/shared/ui';
 
 import {
   type DormTime,
@@ -15,6 +14,9 @@ import {
   renderMenuItems,
   isWeekend,
 } from '../model';
+
+import { AnimatedCard, Section, Card } from '@/components/common';
+
 
 interface DormMenuSectionProps {
   date: DormDay;

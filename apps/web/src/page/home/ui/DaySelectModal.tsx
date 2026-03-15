@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { DORM_DAY_KEY, type DormDay } from '@/entities/dorm-menu/model/dormDay';
 
-import { WeekSelector, Button } from '@/shared/ui';
+import { WeekSelector, Button } from '@/components/common';
 
 interface DaySelectModalProps {
   onDateSelect: (day: DormDay) => void;
@@ -32,14 +32,14 @@ export default function DaySelectModal({
     <div className='fixed inset-0 z-50 flex items-center justify-center'>
       <button
         onClick={onClose}
-        className='backdrop-blur-xs absolute inset-0 bg-black/30'
+        className='absolute inset-0 bg-black/30 backdrop-blur-xs'
         aria-label='닫기'
       />
 
       <div className='relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl'>
         <button
           onClick={onClose}
-          className='absolute right-4 top-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200'
+          className='absolute top-4 right-4 flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200'
           aria-label='닫기'
         >
           ✕

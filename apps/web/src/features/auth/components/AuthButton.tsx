@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 
-import { Button } from '@/shared/ui';
 
 import { useAuth } from '../hooks';
 import { logout } from '../lib/logout';
+
+import { Button } from '@/components/common';
 
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();

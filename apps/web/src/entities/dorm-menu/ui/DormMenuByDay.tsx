@@ -7,7 +7,7 @@ import {
   type DormTime,
 } from '@/entities/dorm-menu/model';
 
-import { Section, Card } from '@/shared/ui';
+import { Section, Card } from '@/components/common';
 
 export default async function DormMenuByDay({ day }: { day: number }) {
   const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]);

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { Button } from './Button';
-import { cn } from '../utils';
+import { cn } from '../../shared/utils';
 
 interface LoginButtonProps {
   iconSrc: string;
