@@ -1,15 +1,15 @@
 'use server';
 
-import type { SubmitReviewFavResponse } from './api.model';
-import { revalidateReviewFavCache } from '../../model/review/revalidateReviewCache';
+import { revalidateReviewFavCache } from '../lib/revalidateReviewCache';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
+
 export const submitReviewFav = async (
   reviewId: number,
   type: FoodCourt,
-): Promise<SubmitReviewFavResponse> => {
+): Promise<{ success: boolean; error?: string }> => {
   try {
     await Http.post({
       request: ENDPOINT.REVIEW_LIKE.LIKE(type, reviewId),

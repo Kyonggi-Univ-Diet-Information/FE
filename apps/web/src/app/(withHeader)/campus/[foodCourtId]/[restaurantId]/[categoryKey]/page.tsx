@@ -1,12 +1,66 @@
 import { CampusRestaurantPage } from '@/page/campus';
 
-import { generateCategoryParams } from '@/api/campus/generateStaticParams';
+import type { CategoryMenuResponse } from '@/entities/campus-menu/model/campusMenu';
+import {
+  CAMPUS_FOOD_COURTS,
+  FOOD_COURT_RESTAURANTS,
+  RESTAURANT_ID_BY_NAME,
+  hasSubRestaurants,
+} from '@/entities/campus-menu/model/campusRestaurant';
+
+import { FOOD_COURT_ID } from '@/api/config';
+import type { BaseResponse } from '@/api/config/api-base-types';
+import { ENDPOINT } from '@/api/config/api-endpoints';
+import { Http } from '@/api/config/api-handlers';
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return await generateCategoryParams();
+  const params: Array<{
+    foodCourtId: string;
+    restaurantId: string;
+    categoryKey: string;
+  }> = [];
+
+  for (const foodCourt of CAMPUS_FOOD_COURTS) {
+    if (!hasSubRestaurants(foodCourt)) continue;
+
+    const foodCourtId = FOOD_COURT_ID[foodCourt];
+    const restaurants = FOOD_COURT_RESTAURANTS[foodCourt];
+
+    try {
+      const response = await Http.getDirect<BaseResponse<CategoryMenuResponse>>(
+        {
+          request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
+          cache: 'force-cache',
+        },
+      );
+
+      const data = response.result;
+
+      restaurants.forEach(restaurant => {
+        const restaurantId = RESTAURANT_ID_BY_NAME[restaurant];
+        const restaurantData = data[restaurant];
+
+        if (restaurantData && typeof restaurantData === 'object') {
+          const categories = Object.keys(restaurantData);
+
+          categories.forEach(category => {
+            params.push({
+              foodCourtId,
+              restaurantId,
+              categoryKey: category,
+            });
+          });
+        }
+      });
+    } catch (error) {
+      console.error(`Failed to fetch categories for ${foodCourt}:`, error);
+    }
+  }
+
+  return params;
 }
 
 const Page = async (props: {

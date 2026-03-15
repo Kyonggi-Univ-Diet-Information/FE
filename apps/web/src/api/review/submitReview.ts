@@ -1,16 +1,16 @@
 'use server';
 
-import type { SubmitReviewResponse } from './api.model';
-import type { ReviewPost } from './api.type';
-import { revalidateReviewCache } from '../../model/review/revalidateReviewCache';
+
+import { revalidateReviewCache } from '../lib/revalidateReviewCache';
+import { ReviewPost } from '../model/reviewPost';
 
 import { ENDPOINT, FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
 export const submitReview = async (
-  _prevState: SubmitReviewResponse | null,
+  _prevState: { success: boolean; error?: string } | null,
   formData: FormData,
-): Promise<SubmitReviewResponse> => {
+): Promise<{ success: boolean; error?: string }> => {
   const foodId = Number(formData.get('foodId'));
   const rating = Number(formData.get('rating'));
   const title = '';
