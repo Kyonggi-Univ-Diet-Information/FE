@@ -1,10 +1,8 @@
-
-import type { DormDay } from '../model/dormDay';
-import type { DormMenu } from '../model/dormMenu';
-import type { DormTime } from '../model/dormTime';
-
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import type { DormDay } from '@/model/dorm/dormDay';
+import type { DormMenu } from '@/model/dorm/dormMenu';
+import type { DormTime } from '@/model/dorm/dormTime';
 
 export interface FetchDormMenuByDayRes {
   result: {
