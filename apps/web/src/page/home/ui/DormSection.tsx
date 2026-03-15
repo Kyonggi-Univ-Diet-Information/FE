@@ -51,6 +51,12 @@ export default function DormSection() {
     setIsModalOpen(false);
   };
 
+  const handleModalOpen = () => {
+    if (!isCurrentDaySaturday && !isCurrentDaySunday) {
+      setIsModalOpen(true);
+    }
+  };
+
   return (
     <>
       <Section>
@@ -59,7 +65,7 @@ export default function DormSection() {
             <>
               <span className='text-point'>경기드림타워</span>{' '}
               <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={handleModalOpen}
                 className='cursor-pointer underline hover:text-gray-600 active:text-gray-600'
               >
                 {getWeekDateString(currentDay)}
@@ -79,7 +85,7 @@ export default function DormSection() {
               </DormNavButton>
               <DormNavButton
                 onClick={handleNextDay}
-                disabled={isCurrentDaySaturday}
+                disabled={isCurrentDaySaturday || isCurrentDaySunday}
               >
                 <ChevronRight className='size-5 text-gray-700' />
               </DormNavButton>

@@ -10,7 +10,6 @@ import CarouselWrapper from './CarouselWrapper';
 import DormSection from './DormSection';
 
 export default function HomePage() {
-
   const CampusFoodCourts = [
     {
       href: `/campus/${FOOD_COURT_ID.KYONGSUL}/${RESTAURANT_ID_BY_NAME.MANKWON}`,
@@ -34,7 +33,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className='scrollbar-hide pb-26 absolute inset-0 flex flex-col overflow-y-scroll focus:outline-none'>
+      <div className='scrollbar-hide absolute inset-0 flex flex-col overflow-y-scroll pb-26 focus:outline-none'>
         <Section className='relative z-0'>
           <CarouselWrapper>
             {CampusFoodCourts.map(campusFoodCourt => (
@@ -44,8 +43,8 @@ export default function HomePage() {
                 title={campusFoodCourt.title}
                 location={campusFoodCourt.location}
                 time={campusFoodCourt.time}
-                viewMenuText="메뉴 보러가기"
-                holidayClosedText="주말 및 공휴일 휴무"
+                viewMenuText='메뉴 보러가기'
+                holidayClosedText='주말 및 공휴일 휴무'
               />
             ))}
           </CarouselWrapper>
@@ -67,7 +66,7 @@ function ReviewLinkButton() {
   return (
     <Link
       href={defaultReviewHref}
-      className='group -mb-2 -mt-2 cursor-pointer rounded-2xl bg-gray-100/50 px-2.5 py-1.5 transition-all duration-300 active:bg-gray-100'
+      className='group -mt-2 -mb-2 cursor-pointer rounded-2xl bg-gray-100/50 px-2.5 py-1.5 transition-all duration-300 active:bg-gray-100'
     >
       <AnimatedCard index={0} animationType='spring'>
         <div className='flex items-center justify-between'>
@@ -103,7 +102,7 @@ function CampusFoodCourtCard({
   return (
     <Link
       href={href}
-      className='to-point/20 group flex w-screen min-w-0 flex-[0_0_100%] flex-shrink-0 flex-col bg-gradient-to-b from-white px-6 pb-20 pt-4'
+      className='to-point/20 group flex w-screen min-w-0 flex-[0_0_100%] flex-shrink-0 flex-col bg-gradient-to-b from-white px-6 pt-4 pb-20'
     >
       <div className='flex h-full flex-col justify-between'>
         <div className='flex justify-end'>
