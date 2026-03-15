@@ -2,16 +2,16 @@ import { cache } from 'react';
 
 
 import type {
-  CampusFoodCourt,
   CategoryMenuResponse,
   CampusMenuWithCategory,
-} from '../model/campusMenu';
-import type { SubRestaurant } from '../model/campusRestaurant';
-import { hasSubRestaurants } from '../model/campusRestaurant';
+  SubRestaurant,
+} from './api.model';
 
+import type { CampusFoodCourt } from '@/api/config';
 import type { BaseResponse } from '@/api/config/api-base-types';
 import { ENDPOINT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
+import { hasSubRestaurants } from '@/constants/campus/restaurant';
 
 type CategorizedMenuData = {
   categories: string[];

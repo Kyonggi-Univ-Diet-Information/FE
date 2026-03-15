@@ -1,6 +1,6 @@
 import { cache } from 'react';
 
-import type { CampusMenu } from '../model/campusMenu';
+import type { CampusMenu } from './api.model';
 
 import { ENDPOINT, FoodCourt } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';

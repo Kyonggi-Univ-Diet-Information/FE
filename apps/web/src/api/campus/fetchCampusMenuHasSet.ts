@@ -1,4 +1,4 @@
-import { type CampusSetMenu } from '../model/campusMenu';
+import type { CampusSetMenu } from './api.model';
 
 import { type CampusFoodCourt, ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
