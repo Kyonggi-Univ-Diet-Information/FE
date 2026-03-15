@@ -1,8 +1,8 @@
 
 import CampusAnimatedCard from './CampusAnimatedCard';
-import { fetchTopMenu } from '../api/fetchTopMenu';
-import type { CampusTopMenu } from '../model/campusMenu';
 
+import type { CampusTopMenu } from '@/api/campus/api.model';
+import { fetchTopMenu } from '@/api/campus/fetchTopMenu';
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
 import { Card, Section } from '@/components/common';
 

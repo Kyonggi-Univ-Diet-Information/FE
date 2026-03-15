@@ -1,7 +1,6 @@
 
-import { fetchCampusMenuHasSet } from '../api/fetchCampusMenuHasSet';
-import { CampusSetMenu } from '../model/campusMenu';
-
+import type { CampusSetMenu } from '@/api/campus/api.model';
+import { fetchCampusMenuHasSet } from '@/api/campus/fetchCampusMenuHasSet';
 import { CampusFoodCourt } from '@/api/config';
 
 export default async function CampusMenuSet({
