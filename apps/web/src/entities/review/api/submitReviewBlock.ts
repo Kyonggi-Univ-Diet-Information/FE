@@ -2,11 +2,12 @@
 
 import { revalidateTag } from 'next/cache';
 
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, type FoodCourt } from '@/shared/config';
 import { reviewKeys } from '@/shared/lib/queryKey';
 
 import { revalidateReviewCache } from '../lib/revalidateReviewCache';
+
+import { ENDPOINT, type FoodCourt } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 export const submitReviewBlock = async (
   reviewId: number,

@@ -2,11 +2,12 @@ import React, { Suspense } from 'react';
 
 import { CampusMenuName } from '@/entities/campus-menu';
 
-import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
 import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
 import { Card, Loader, Title } from '@/shared/ui';
 
 import { fetchUserReview } from '../api/fetchUserReview';
+
+import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
 
 export default async function UserReviewPage() {
   const data = await fetchUserReview(0);
@@ -31,7 +32,7 @@ export default async function UserReviewPage() {
             <Card
               key={`${review.reviewId}-${review.foodId}`}
               href={`/review/${FOOD_COURT_ID[review.restaurantType]}/${review.foodId}`}
-              className='min-h-30 max-h-34'
+              className='max-h-34 min-h-30'
             >
               <div className='flex items-center justify-between'>
                 <span className='font-tossFace'>

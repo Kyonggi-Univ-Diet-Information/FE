@@ -5,9 +5,10 @@ import {
   getRestaurantsByFoodCourt,
 } from '@/entities/campus-menu/model/campusRestaurant';
 
-import { getFoodCourtById } from '@/shared/config';
 import { getCampusMainTabs } from '@/shared/lib/campus';
 import { Section, StaticTabNavigation } from '@/shared/ui';
+
+import { getFoodCourtById } from '@/api/config';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,7 +51,7 @@ export default async function CampusRestaurantPage({
             variant='header'
           />
         }
-        subtitle="리뷰 버튼을 클릭해서 리뷰를 작성해보세요!"
+        subtitle='리뷰 버튼을 클릭해서 리뷰를 작성해보세요!'
       />
       {restaurantTabs.length > 0 && (
         <StaticTabNavigation

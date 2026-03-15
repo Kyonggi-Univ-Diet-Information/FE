@@ -5,10 +5,11 @@ import { CATEGORY_TO_TEXT } from '@/entities/campus-menu/model/campusMenu';
 import { CAMPUS_RESTAURANT } from '@/entities/campus-menu/model/campusRestaurant';
 import CampusMenuImage from '@/entities/campus-menu/ui/CampusMenuImage';
 
-import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
 
 import type { SearchResult } from '../api/fetchSearch';
 import { FOOD_TYPE_NAME } from '../model/search';
+
+import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
 
 export default function SearchMenuCard({
   menuId,
@@ -39,7 +40,8 @@ export default function SearchMenuCard({
             </>
           )}
           <span>
-            리뷰 <b className='font-semibold'>{reviewCount.toLocaleString()}</b>개
+            리뷰 <b className='font-semibold'>{reviewCount.toLocaleString()}</b>
+            개
           </span>
         </span>
         <div className='flex items-center gap-1'>

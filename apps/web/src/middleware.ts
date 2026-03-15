@@ -2,8 +2,9 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 import { submitRefresh } from '@/features/login/api/submitRefresh';
 
-import { COOKIE_KEYS } from '@/shared/config';
 import { isReactNativeWebView, getCookieOptions } from '@/shared/utils/cookie';
+
+import { COOKIE_KEYS } from '@/api/config';
 
 function isAuthenticated(request: NextRequest): boolean {
   const accessToken = request.cookies.get(COOKIE_KEYS.ACCESS_TOKEN);

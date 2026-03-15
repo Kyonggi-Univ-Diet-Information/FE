@@ -1,11 +1,8 @@
 import { revalidateTag, revalidatePath } from 'next/cache';
 
-import { ENDPOINT, type FoodCourt } from '@/shared/config';
-import {
-  memberKeys,
-  menuKeys,
-  reviewKeys,
-} from '@/shared/lib/queryKey';
+import { memberKeys, menuKeys, reviewKeys } from '@/shared/lib/queryKey';
+
+import { ENDPOINT, type FoodCourt } from '@/api/config';
 
 interface RevalidateReviewOptions {
   type: FoodCourt;

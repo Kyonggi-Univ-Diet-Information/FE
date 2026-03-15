@@ -1,7 +1,7 @@
 'use server';
 
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 export interface ReportReason {
   type: string;

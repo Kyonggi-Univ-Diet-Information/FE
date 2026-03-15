@@ -2,11 +2,6 @@ import { RotateCw, SortDescIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 
-import {
-  FOOD_COURT,
-  FOOD_COURT_NAME,
-  type FoodCourt,
-} from '@/shared/config/endpoint';
 import { Select } from '@/shared/ui';
 import {
   SelectContent,
@@ -17,6 +12,12 @@ import {
 } from '@/shared/ui/SelectComponent';
 
 import { SORTING_TYPE, SORTING_TYPE_NAME, SortingType } from '../model/search';
+
+import {
+  FOOD_COURT,
+  FOOD_COURT_NAME,
+  type FoodCourt,
+} from '@/api/config/api-endpoints';
 
 interface SearchFilterProps {
   restaurantType: FoodCourt;

@@ -3,10 +3,11 @@ import Link from 'next/link';
 
 import { fetchReviewCount } from '@/entities/review/api/fetchReviewCount';
 
-import { type FoodCourt, FOOD_COURT_ID } from '@/shared/config';
 
 import CampusMenuImage from './CampusMenuImage';
 import type { CampusMenu } from '../model/campusMenu';
+
+import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
 
 interface CampusMenuCardProps extends CampusMenu {
   foodCourt: FoodCourt;

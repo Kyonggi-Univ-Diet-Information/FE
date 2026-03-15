@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { COOKIE_KEYS } from '@/shared/config';
+import { COOKIE_KEYS } from '@/api/config';
 
 export async function POST() {
   try {

@@ -1,6 +1,5 @@
 'use server';
 
-import { type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 
 import { fetchReviewFavCount } from '../api/fetchReviewFavCount';
@@ -13,6 +12,8 @@ import {
 } from '../api/fetchReviewFaved';
 import { fetchReviewPaged } from '../api/fetchReviewPaged';
 import { Review } from '../model/review';
+
+import { type FoodCourt } from '@/api/config';
 
 export interface ReviewWithMetadata extends Review {
   likedCount: number;

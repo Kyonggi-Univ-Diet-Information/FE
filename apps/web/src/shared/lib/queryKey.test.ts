@@ -1,5 +1,3 @@
-import { FOOD_COURT } from '@/shared/config';
-
 import {
   authKeys,
   createMutateMatcher,
@@ -10,6 +8,9 @@ import {
   reviewKeys,
   toTag,
 } from './queryKey';
+
+import { FOOD_COURT } from '@/api/config';
+
 
 describe('Query Key Factory', () => {
   describe('reviewKeys', () => {

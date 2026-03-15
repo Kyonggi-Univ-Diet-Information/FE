@@ -1,9 +1,10 @@
 'use server';
 
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, type FoodCourt } from '@/shared/config';
-
 import { revalidateReviewCache } from '../lib/revalidateReviewCache';
+
+import { ENDPOINT, type FoodCourt } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 
 export const removeReview = async (
   reviewId: number,

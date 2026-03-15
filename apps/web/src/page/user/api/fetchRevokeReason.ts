@@ -1,9 +1,9 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 interface RevokeReasonResponse {
-    result: {type: string, description: string}[];
-  }
+  result: { type: string; description: string }[];
+}
 
 export const fetchRevokeReason = async (): Promise<RevokeReasonResponse> => {
   const data = await Http.getDirect<RevokeReasonResponse>({

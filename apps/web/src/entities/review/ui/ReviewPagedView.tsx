@@ -1,7 +1,8 @@
-import { type FoodCourt } from '@/shared/config';
 
 import ReviewInfiniteList from './ReviewInfiniteList';
 import { getReviewsAction } from '../api/getReviewsAction';
+
+import { type FoodCourt } from '@/api/config';
 
 interface ReviewPagedViewProps {
   type: FoodCourt;

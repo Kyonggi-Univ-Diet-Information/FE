@@ -2,12 +2,13 @@
 
 import type { Review } from '@/entities/review/model/review';
 
-import { type FoodCourt } from '@/shared/config';
 import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
 import { Avatar, AvatarFallback } from '@/shared/ui';
 
 import ReviewActionMenu from './ReviewActionMenu';
 import ReviewFavButton from './ReviewFavButton';
+
+import { type FoodCourt } from '@/api/config';
 
 interface ReviewItemProps extends Review {
   type: FoodCourt;

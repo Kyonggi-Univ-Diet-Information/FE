@@ -1,4 +1,4 @@
-import type { FoodCourt } from '@/shared/config';
+import type { FoodCourt } from '@/api/config';
 
 export type SubRestaurant = keyof typeof CAMPUS_RESTAURANT;
 

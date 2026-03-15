@@ -1,7 +1,8 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, FoodCourt } from '@/shared/config';
-
 import { CampusTopMenu } from '../model/campusMenu';
+
+import { ENDPOINT, FoodCourt } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 
 export const fetchCampusMenuDetail = async (
   type: FoodCourt,

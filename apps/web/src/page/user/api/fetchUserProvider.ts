@@ -1,5 +1,5 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 export type UserProvider = 'KAKAO' | 'GOOGLE' | 'APPLE';
 

@@ -8,13 +8,14 @@ import { useSWRConfig } from 'swr';
 
 import type { ReviewPost } from '@/entities/review/model/review';
 
-import { type FoodCourt, FOOD_COURT_ID } from '@/shared/config';
 import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
 import { Button } from '@/shared/ui/Button';
 import { cn } from '@/shared/utils';
 
 import ReviewStarSelector from './ReviewStarSelector';
 import { submitReview } from '../api/submitReview';
+
+import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
 
 interface ReviewTextAreaProps {
   register: UseFormRegisterReturn<'content'>;

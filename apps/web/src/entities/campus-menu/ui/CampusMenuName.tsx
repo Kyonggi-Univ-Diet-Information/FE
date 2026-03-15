@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
 
-import { type FoodCourt } from '@/shared/config';
-
 import { fetchCampusMenuName } from '../api/fetchCampusMenuName';
+
+import { type FoodCourt } from '@/api/config';
+
 
 export default async function CampusMenuName({
   foodCourt,

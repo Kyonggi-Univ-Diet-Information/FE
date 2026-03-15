@@ -1,9 +1,10 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { reviewKeys } from '@/shared/lib/queryKey';
 
 import type { RecentReview } from '../model/review';
+
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 export const fetchRecentReview = async (): Promise<RecentReview[]> => {
   const isAuthenticated = await AuthService.isAuthenticated();

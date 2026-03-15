@@ -7,13 +7,14 @@ import { useState } from 'react';
 import { useAuth } from '@/features/auth/hooks';
 import { logout } from '@/features/auth/lib/logout';
 
-import { PATCHNOTE_URL, INQUIRY_URL } from '@/shared/config';
 import { Card, ExternalLink, Section } from '@/shared/ui';
 
 import UserRevokeModal from './UserRevokeModal';
 import { fetchUserProvider } from '../api/fetchUserProvider';
 import { submitRevokeReason } from '../api/submitRevokeReason';
 import { submitUserRevoke } from '../api/submitUserRevoke';
+
+import { PATCHNOTE_URL, INQUIRY_URL } from '@/api/config';
 
 interface UserPageClientProps {
   userInfo: {

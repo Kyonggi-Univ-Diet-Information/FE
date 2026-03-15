@@ -7,8 +7,9 @@ import { EntryLogoSection, EntryPolicySection } from '@/page/entry/ui';
 
 import { LoginSection } from '@/features/login/ui';
 
-import { COOKIE_KEYS } from '@/shared/config';
 import { AuthCard, AuthPageWrapper } from '@/shared/ui';
+
+import { COOKIE_KEYS } from '@/api/config';
 
 export default function EntryPage() {
   const storeLookAroundChoice = () => {

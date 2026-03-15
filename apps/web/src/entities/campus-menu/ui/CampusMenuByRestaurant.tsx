@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import { getFoodCourtById } from '@/shared/config';
 import { cn } from '@/shared/utils';
 
 import CampusMenuCard from './CampusMenuCard';
@@ -13,6 +12,8 @@ import {
   CAMPUS_RESTAURANT_ID,
   hasSubRestaurants,
 } from '../model/campusRestaurant';
+
+import { getFoodCourtById } from '@/api/config';
 
 interface CampusMenuByRestaurantProps {
   foodCourtId: string;
@@ -61,7 +62,7 @@ export default async function CampusMenuByRestaurant({
             href={`/campus/${foodCourtId}/${restaurantId}`}
             className={cn(
               !categoryKey ? 'text-point font-bold' : '',
-              'cursor-pointer text-nowrap pr-2',
+              'cursor-pointer pr-2 text-nowrap',
             )}
           >
             전체
@@ -73,14 +74,14 @@ export default async function CampusMenuByRestaurant({
               href={`/campus/${foodCourtId}/${restaurantId}/${key}`}
               className={cn(
                 categoryKey === key ? 'text-point font-bold' : '',
-                'cursor-pointer text-nowrap px-2',
+                'cursor-pointer px-2 text-nowrap',
               )}
             >
               {categoryTexts[key] || key}
             </Link>
           ))}
         </div>
-        <span className='whitespace-nowrap rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-600'>
+        <span className='rounded-full bg-gray-100 px-3 py-1.5 text-sm whitespace-nowrap text-gray-600'>
           총 {totalCount}개
         </span>
       </div>

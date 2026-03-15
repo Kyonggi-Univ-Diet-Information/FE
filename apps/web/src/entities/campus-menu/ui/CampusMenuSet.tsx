@@ -1,7 +1,8 @@
-import { CampusFoodCourt } from '@/shared/config';
 
 import { fetchCampusMenuHasSet } from '../api/fetchCampusMenuHasSet';
 import { CampusSetMenu } from '../model/campusMenu';
+
+import { CampusFoodCourt } from '@/api/config';
 
 export default async function CampusMenuSet({
   type,
@@ -24,12 +25,21 @@ export default async function CampusMenuSet({
       <h3 className='text-xs font-semibold text-gray-400'>연관 세트 메뉴</h3>
       <div className='flex flex-col gap-4'>
         {setMenus.map(setMenu => (
-          <div className='flex items-start justify-between gap-4' key={setMenu.id}>
-            <div className='flex flex-col gap-1 min-w-0'>
-              <p className='text-sm font-bold text-gray-900 truncate'>{setMenu.name}</p>
-              <p className='text-xs leading-tight text-gray-500'>{description(setMenu)}</p>
+          <div
+            className='flex items-start justify-between gap-4'
+            key={setMenu.id}
+          >
+            <div className='flex min-w-0 flex-col gap-1'>
+              <p className='truncate text-sm font-bold text-gray-900'>
+                {setMenu.name}
+              </p>
+              <p className='text-xs leading-tight text-gray-500'>
+                {description(setMenu)}
+              </p>
             </div>
-            <p className='text-sm font-black text-gray-900 shrink-0 whitespace-nowrap'>{setMenu.price.toLocaleString()}원</p>
+            <p className='shrink-0 text-sm font-black whitespace-nowrap text-gray-900'>
+              {setMenu.price.toLocaleString()}원
+            </p>
           </div>
         ))}
       </div>

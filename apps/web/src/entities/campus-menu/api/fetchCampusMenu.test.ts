@@ -1,8 +1,9 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, FOOD_COURT } from '@/shared/config/endpoint';
 
 import { fetchCampusMenu } from './fetchCampusMenu';
 import type { CampusMenu } from '../model/campusMenu';
+
+import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';
+import { Http } from '@/api/config/api-handlers';
 
 // Http 모듈 모킹
 jest.mock('@/shared/api/http');

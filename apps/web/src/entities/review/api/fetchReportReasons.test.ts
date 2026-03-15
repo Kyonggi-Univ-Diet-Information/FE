@@ -1,7 +1,8 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
-
 import { fetchReportReasons, type ReportReason } from './fetchReportReasons';
+
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 
 // 모듈 모킹
 jest.mock('@/shared/api/http');
@@ -106,7 +107,7 @@ describe('fetchReportReasons', () => {
     const result = await fetchReportReasons();
 
     // Then: 각 항목이 type과 description을 가짐
-    result.forEach((reason) => {
+    result.forEach(reason => {
       expect(reason).toHaveProperty('type');
       expect(reason).toHaveProperty('description');
       expect(typeof reason.type).toBe('string');
@@ -116,9 +117,7 @@ describe('fetchReportReasons', () => {
 
   it('여러 번 호출해도 정상 작동한다 (캐싱 테스트)', async () => {
     // Given: Http.getDirect가 성공적으로 응답
-    const mockReasons: ReportReason[] = [
-      { type: 'SPAM', description: '스팸' },
-    ];
+    const mockReasons: ReportReason[] = [{ type: 'SPAM', description: '스팸' }];
 
     (Http.getDirect as jest.Mock).mockResolvedValue({
       result: mockReasons,

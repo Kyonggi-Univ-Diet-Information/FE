@@ -1,16 +1,13 @@
 import { CampusMenuName } from '@/entities/campus-menu';
 
-import {
-  FOOD_COURT_ID,
-  FOOD_COURT_NAME,
-  type FoodCourt,
-} from '@/shared/config';
 import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
 import { Card, Section } from '@/shared/ui';
 
 import ReviewAnimatedCard from './ReviewAnimatedCard';
 import { fetchRecentReview } from '../api/fetchRecentReview';
 import type { RecentReview } from '../model/review';
+
+import { FOOD_COURT_ID, FOOD_COURT_NAME, type FoodCourt } from '@/api/config';
 
 export default async function RecentReviewView() {
   const recentReviews = await fetchRecentReview();
@@ -23,7 +20,7 @@ export default async function RecentReviewView() {
             <span className='font-tossFace'>✨</span> 최근 리뷰
           </>
         }
-        subtitle="최근에 작성된 리뷰들이에요!"
+        subtitle='최근에 작성된 리뷰들이에요!'
       />
       <div className='flex flex-col gap-2'>
         {recentReviews.map((review, index) => (
@@ -56,7 +53,7 @@ function ReviewCard({
     <ReviewAnimatedCard index={index}>
       <Card
         href={`/review/${foodCourtId}/${review.foodId}`}
-        className='min-h-30 max-h-34'
+        className='max-h-34 min-h-30'
       >
         <div className='flex items-center justify-between'>
           <span className='font-tossFace'>{'⭐️'.repeat(review.rating)}</span>
