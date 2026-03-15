@@ -16,12 +16,19 @@ export default async function SearchPage() {
 }
 
 function SearchInputSkeleton() {
-  return <div className='relative'>
-  <button type='submit' className='cursor-not-allowed'>
-    <SearchIcon className='size-4.5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 active:text-gray-300' />
-  </button>
-  <div
-    className='w-full rounded-2xl border p-2.5 pl-3 pr-10 text-base focus:outline-none'
-  >검색어를 입력해주세요.</div>
-</div>
+  return (
+    <div className='flex flex-col gap-4'>
+      <form className='relative cursor-not-allowed'>
+        <button type='submit' className='cursor-not-allowed'>
+          <SearchIcon className='absolute top-1/2 right-3 size-4.5 -translate-y-1/2 text-gray-700 active:text-gray-300' />
+        </button>
+        <input
+          className='w-full rounded-2xl border p-2.5 pr-10 pl-3 text-base focus:outline-none'
+          type='text'
+          placeholder='검색어를 입력해주세요.'
+          disabled
+        />
+      </form>
+    </div>
+  );
 }
