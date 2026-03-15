@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import type { DormMenu } from '@/entities/dorm-menu/model/dormMenu';
+import type { DormMenu } from './dormMenu';
 
 /**
  * 메뉴 데이터가 없을 때 표시할 기본 메시지

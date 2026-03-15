@@ -1,14 +1,8 @@
-import { DormMenuByDay } from '@/entities/dorm-menu';
-import {
-  DORM_DAY,
-  DORM_DAY_KEY,
-  DORM_DAY_SHORT,
-} from '@/entities/dorm-menu/model';
-
-import { getCampusMainTabs } from '@/shared/lib/campus';
-import { getWeekDates, getWeekStart } from '@/shared/lib/date';
-
 import { Section, StaticTabNavigation } from '@/components/common';
+import DormMenuByDay from '@/components/dorm/DormMenuByDay';
+import { getCampusMainTabs } from '@/model/common/campus';
+import { getWeekDates, getWeekStart } from '@/model/common/date';
+import { DORM_DAY, DORM_DAY_KEY, DORM_DAY_SHORT } from '@/model/dorm/dormDay';
 
 export interface DormMenuPageProps {
   params: Promise<{ day: number }>;
