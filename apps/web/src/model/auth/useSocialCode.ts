@@ -2,14 +2,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
-import { authKeys } from '@/shared/lib/queryKey';
-import { getLoginState, isAndroid } from '@/shared/utils';
-
-import { setAuthCookies } from '../api/setAuthCookies';
+import { setAuthCookies } from './setAuthCookies';
 
 import { submitAppleLogin } from '@/api/auth/submitAppleLogin';
 import { submitGoogleLogin } from '@/api/auth/submitGoogleLogin';
 import { submitKakaoLogin } from '@/api/auth/submitKakaoLogin';
+import { getLoginState, isAndroid } from '@/model/common';
+import { authKeys } from '@/model/common/queryKey';
 
 function getAppDeepLink(): string {
   if (typeof window === 'undefined') return '';

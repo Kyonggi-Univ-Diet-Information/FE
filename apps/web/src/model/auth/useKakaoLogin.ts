@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { setLoginState } from '@/shared/utils';
+import { setLoginState } from '../common';
 
 interface KakaoLoginOptions {
   redirectUri?: string;
