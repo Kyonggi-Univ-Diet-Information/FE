@@ -3,10 +3,11 @@
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useEffect, useState } from 'react';
 
-import { Button, Modal } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
 import { fetchRevokeReason } from '../api/fetchRevokeReason';
+
+import { Button, Modal } from '@/components/common';
 
 interface UserRevokeModalProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ interface UserRevokeModalProps {
   onConfirm: (reasonType: string) => void;
   isLoading?: boolean;
   refresh: () => void;
-  router: AppRouterInstance;  
+  router: AppRouterInstance;
   selectedReasonType: string;
   setSelectedReasonType: (type: string) => void;
 }
@@ -73,9 +74,9 @@ export default function UserRevokeModal({
             selectedReasonType={selectedReasonType}
             setSelectedReasonType={setSelectedReasonType}
           />
-        ) :
+        ) : (
           <UserRevokeConfirmStep />
-        }
+        )}
       </div>
       <Modal.Footer>
         <div className='flex w-full gap-2'>
@@ -130,20 +131,22 @@ function UserRevokeReasonStep({
       </p>
       <div className='flex flex-col gap-2'>
         {reasons.length > 0 ? (
-          reasons.filter(reason => reason.type !== 'ETC').map(reason => (
-            <button
-              key={reason.type}
-              onClick={() => setSelectedReasonType(reason.type)}
-              className={cn(
-                'w-full rounded-xl border p-4 text-left text-sm transition-all active:scale-[0.98]',
-                selectedReasonType === reason.type
-                  ? 'border-point bg-point/5 text-point font-semibold'
-                  : 'border-gray-100 bg-gray-50 text-gray-600 hover:bg-gray-100',
-              )}
-            >
-              {reason.description}
-            </button>
-          ))
+          reasons
+            .filter(reason => reason.type !== 'ETC')
+            .map(reason => (
+              <button
+                key={reason.type}
+                onClick={() => setSelectedReasonType(reason.type)}
+                className={cn(
+                  'w-full rounded-xl border p-4 text-left text-sm transition-all active:scale-[0.98]',
+                  selectedReasonType === reason.type
+                    ? 'border-point bg-point/5 text-point font-semibold'
+                    : 'border-gray-100 bg-gray-50 text-gray-600 hover:bg-gray-100',
+                )}
+              >
+                {reason.description}
+              </button>
+            ))
         ) : (
           <div className='flex h-40 items-center justify-center'>
             <div className='border-t-point size-6 animate-spin rounded-full border-2 border-gray-200' />
@@ -161,15 +164,13 @@ function UserRevokeConfirmStep() {
         <p className='mb-2 text-base font-semibold text-red-500'>
           잠깐만요! 탈퇴하면 정보가 사라져요
         </p>
-        <ul className='list-inside font-medium space-y-1 text-sm text-red-500/80'>
+        <ul className='list-inside space-y-1 text-sm font-medium text-red-500/80'>
           <li>작성하신 모든 리뷰가 삭제됩니다.</li>
           <li>좋아요한 리뷰 목록이 초기화됩니다.</li>
           <li>계정 정보는 즉시 파기되며 복구할 수 없습니다.</li>
         </ul>
       </div>
-      <p className='px-1 text-[15px] text-gray-600'>
-        정말로 탈퇴하시겠습니까?
-      </p>
-  </div>
+      <p className='px-1 text-[15px] text-gray-600'>정말로 탈퇴하시겠습니까?</p>
+    </div>
   );
 }

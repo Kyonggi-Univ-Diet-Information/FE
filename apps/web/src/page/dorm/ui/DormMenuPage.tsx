@@ -7,7 +7,8 @@ import {
 
 import { getCampusMainTabs } from '@/shared/lib/campus';
 import { getWeekDates, getWeekStart } from '@/shared/lib/date';
-import { Section, StaticTabNavigation } from '@/shared/ui';
+
+import { Section, StaticTabNavigation } from '@/components/common';
 
 export interface DormMenuPageProps {
   params: Promise<{ day: number }>;
@@ -48,7 +49,7 @@ export default async function DormMenuPage({ params }: DormMenuPageProps) {
             variant='header'
           />
         }
-        subtitle="이번 주 경기드림타워 메뉴를 확인하세요!"
+        subtitle='이번 주 경기드림타워 메뉴를 확인하세요!'
       />
       <Section>
         <Section.Content className='flex flex-col gap-4'>

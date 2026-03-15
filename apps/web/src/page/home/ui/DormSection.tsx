@@ -16,9 +16,11 @@ import {
 } from '@/entities/dorm-menu/model/dormDay';
 
 import { getCurrentDate } from '@/shared/lib/date';
-import { Section } from '@/shared/ui';
 
 import DaySelectModal from './DaySelectModal';
+
+import { Section } from '@/components/common';
+
 
 const getWeekDateString = (date?: DormDay) => {
   if (!date) return '오늘';

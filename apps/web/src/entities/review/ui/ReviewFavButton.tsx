@@ -6,13 +6,13 @@ import { useOptimistic, useTransition } from 'react';
 import { useSWRConfig } from 'swr';
 
 import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
-import { Button } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
 import { removeReviewFav } from '../api/removeReviewFav';
 import { submitReviewFav } from '../api/submitReviewFav';
 
 import { type FoodCourt } from '@/api/config';
+import { Button } from '@/components/common';
 
 interface ReviewLikeButtonProps {
   type: FoodCourt;

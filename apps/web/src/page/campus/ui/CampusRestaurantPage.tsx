@@ -6,9 +6,10 @@ import {
 } from '@/entities/campus-menu/model/campusRestaurant';
 
 import { getCampusMainTabs } from '@/shared/lib/campus';
-import { Section, StaticTabNavigation } from '@/shared/ui';
 
 import { getFoodCourtById } from '@/api/config';
+import { Section, StaticTabNavigation } from '@/components/common';
+
 
 export const dynamic = 'force-dynamic';
 

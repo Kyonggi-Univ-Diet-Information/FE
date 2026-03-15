@@ -1,13 +1,14 @@
 import { CampusMenuName } from '@/entities/campus-menu';
 
 import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
-import { Card, Section } from '@/shared/ui';
+
 
 import ReviewAnimatedCard from './ReviewAnimatedCard';
 import { fetchRecentReview } from '../api/fetchRecentReview';
 import type { RecentReview } from '../model/review';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME, type FoodCourt } from '@/api/config';
+import { Card, Section } from '@/components/common';
 
 export default async function RecentReviewView() {
   const recentReviews = await fetchRecentReview();

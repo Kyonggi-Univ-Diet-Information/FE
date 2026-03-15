@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 import { useSocialCode } from '@/features/login/hooks';
 
-import { AuthCard, AuthPageWrapper, Button, Loader } from '@/shared/ui';
+import { AuthCard, AuthPageWrapper, Button, Loader } from '@/components/common';
 
 export default function AuthPage() {
   return (
@@ -53,7 +53,7 @@ function InvalidAccessView() {
         <h1 className='font-brBold mb-2 text-2xl tracking-tight text-gray-900'>
           잘못된 접근
         </h1>
-        <p className='text-balance text-sm leading-relaxed text-gray-500'>
+        <p className='text-sm leading-relaxed text-balance text-gray-500'>
           요청하신 페이지를 찾을 수 없거나
           <br />
           잘못된 접근입니다.
@@ -79,7 +79,7 @@ function LoginErrorView() {
         <h1 className='font-brBold mb-2 text-2xl tracking-tight text-gray-900'>
           로그인 실패
         </h1>
-        <p className='text-balance text-sm leading-relaxed text-gray-500'>
+        <p className='text-sm leading-relaxed text-balance text-gray-500'>
           로그인 처리 중 문제가 발생했습니다.
           <br />
           잠시 후 다시 시도해 주세요.

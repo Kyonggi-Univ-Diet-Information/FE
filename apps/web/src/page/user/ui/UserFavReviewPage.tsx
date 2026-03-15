@@ -4,11 +4,12 @@ import { fetchReviewFavCount } from '@/entities/review/api/fetchReviewFavCount';
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
 import { AuthService } from '@/shared/lib/auth';
-import { Loader, Title } from '@/shared/ui';
+
 
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
 import { FOOD_COURT } from '@/api/config';
+import { Loader, Title } from '@/components/common';
 
 export default async function UserFavReviewPage() {
   const [data, isAuthenticated] = await Promise.all([
