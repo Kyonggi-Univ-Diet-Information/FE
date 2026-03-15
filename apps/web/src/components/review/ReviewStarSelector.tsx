@@ -2,7 +2,7 @@
 
 import type { Dispatch, SetStateAction } from 'react';
 
-import { cn } from '@/shared/utils';
+import { cn } from '@/model/common';
 
 export default function StarSelector({
   selectedStars,
