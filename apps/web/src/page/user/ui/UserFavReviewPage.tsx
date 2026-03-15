@@ -3,11 +3,12 @@ import React, { Suspense } from 'react';
 import { fetchReviewFavCount } from '@/entities/review/api/fetchReviewFavCount';
 import ReviewItem from '@/entities/review/ui/ReviewItem';
 
-import { FOOD_COURT } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Title } from '@/shared/ui';
 
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
+
+import { FOOD_COURT } from '@/api/config';
 
 export default async function UserFavReviewPage() {
   const [data, isAuthenticated] = await Promise.all([

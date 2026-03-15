@@ -3,11 +3,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SWRConfig } from 'swr';
 
-import { FOOD_COURT, type FoodCourt } from '@/shared/config';
 
 import ReviewItem from './ReviewItem';
 import { submitReviewBlock } from '../api/submitReviewBlock';
 import { revalidateReviewCache } from '../lib/revalidateReviewCache';
+
+import { FOOD_COURT, type FoodCourt } from '@/api/config';
 
 interface ReviewActionMenuProps {
   type: FoodCourt;

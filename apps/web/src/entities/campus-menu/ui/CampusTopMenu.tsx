@@ -1,12 +1,10 @@
-import {
-  FOOD_COURT_ID,
-  FOOD_COURT_NAME,
-} from '@/shared/config';
 import { Card, Section } from '@/shared/ui';
 
 import CampusAnimatedCard from './CampusAnimatedCard';
 import { fetchTopMenu } from '../api/fetchTopMenu';
 import type { CampusTopMenu } from '../model/campusMenu';
+
+import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
 
 export default async function CampusTopMenu() {
   const topMenus = await fetchTopMenu();
@@ -19,7 +17,7 @@ export default async function CampusTopMenu() {
             <span className='font-tossFace'>💬</span> 리뷰 많은 메뉴
           </>
         }
-        subtitle="실시간으로 가장 많은 리뷰를 받은 메뉴들이에요!"
+        subtitle='실시간으로 가장 많은 리뷰를 받은 메뉴들이에요!'
       />
       <div className='w-full space-y-2'>
         {topMenus.map((menu, index) => (
@@ -50,7 +48,7 @@ function MenuCard({ menu, index }: { menu: CampusTopMenu; index: number }) {
       <Card href={`/review/${FOOD_COURT_ID[menu.restaurantType]}/${menu.id}`}>
         <div className='grid grid-cols-[0.5fr_6fr_1fr] items-center gap-1.5'>
           {getMedal(index + 1)}
-          <div className='flex items-center gap-1.5 truncate text-nowrap text-sm font-semibold'>
+          <div className='flex items-center gap-1.5 truncate text-sm font-semibold text-nowrap'>
             <span className='rounded-full border px-1.5 py-0.5 text-xs font-medium'>
               {foodCourtName}
             </span>

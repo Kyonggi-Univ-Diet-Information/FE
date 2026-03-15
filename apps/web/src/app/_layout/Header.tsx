@@ -12,8 +12,9 @@ import {
   RESTAURANT_ID_BY_NAME,
 } from '@/entities/campus-menu/model/campusRestaurant';
 
-import { FOOD_COURT_ID, INQUIRY_URL } from '@/shared/config';
 import { ExternalLink } from '@/shared/ui';
+
+import { FOOD_COURT_ID, INQUIRY_URL } from '@/api/config';
 
 export default function Header() {
   const pathname = usePathname();

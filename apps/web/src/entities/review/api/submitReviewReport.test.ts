@@ -1,7 +1,8 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, FOOD_COURT } from '@/shared/config';
-
 import { submitReviewReport } from './submitReviewReport';
+
+import { ENDPOINT, FOOD_COURT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 
 // 모듈 모킹
 jest.mock('@/shared/api/http');

@@ -1,14 +1,17 @@
-import { Http } from "@/shared/api/http";
-import { ENDPOINT } from "@/shared/config";
+import { UserProvider } from './fetchUserProvider';
 
-import { UserProvider } from "./fetchUserProvider";
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 
 interface RevokeResult {
   success: boolean;
   error?: string;
 }
 
-export const submitUserRevoke = async (provider: UserProvider): Promise<RevokeResult> => {
+export const submitUserRevoke = async (
+  provider: UserProvider,
+): Promise<RevokeResult> => {
   try {
     switch (provider) {
       case 'KAKAO':
@@ -31,9 +34,12 @@ export const submitUserRevoke = async (provider: UserProvider): Promise<RevokeRe
         return { success: true };
     }
   } catch (error) {
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : '회원 탈퇴 처리에 실패했습니다.' 
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : '회원 탈퇴 처리에 실패했습니다.',
     };
   }
 };

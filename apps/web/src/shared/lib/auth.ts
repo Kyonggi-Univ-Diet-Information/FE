@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
-import { Http } from '../api/http';
-import { COOKIE_KEYS, ENDPOINT } from '../config';
+import { COOKIE_KEYS, ENDPOINT } from '../../api/config';
+import { Http } from '../../api/config/api-handlers';
 
 export class AuthService {
   private static async getAccessToken(): Promise<string | null> {

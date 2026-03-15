@@ -6,8 +6,9 @@ import { Suspense } from 'react';
 
 import { LoginSection } from '@/features/login/ui';
 
-import { POLICY_URL } from '@/shared/config';
 import { AuthCard, AuthPageWrapper, ExternalLink } from '@/shared/ui';
+
+import { POLICY_URL } from '@/api/config';
 
 function LoginContent() {
   return (

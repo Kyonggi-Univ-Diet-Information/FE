@@ -1,7 +1,7 @@
 import { isAndroid, setLoginState } from '@/shared/utils';
 
 import { useKakaoLogin } from './useKakaoLogin';
-import { fetchAppleLoginUrl } from '../api/fetchAppleLoginUrl';
+import { fetchAppleLoginUrl } from '../../../api/auth/fetchAppleLoginUrl';
 
 interface SocialLoginParams {
   provider: 'kakao' | 'apple' | 'google';

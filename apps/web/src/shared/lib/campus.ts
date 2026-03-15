@@ -1,6 +1,6 @@
 import { CAMPUS_FOOD_COURTS } from '@/entities/campus-menu/model/campusRestaurant';
 
-import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/shared/config';
+import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
 
 interface MainTab {
   key: string;

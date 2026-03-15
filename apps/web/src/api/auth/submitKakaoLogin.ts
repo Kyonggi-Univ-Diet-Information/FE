@@ -1,13 +1,14 @@
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
-
 import { LoginResponse } from '../model/login';
 
-export async function submitGoogleLogin(code: string) {
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
+
+export async function submitKakaoLogin(code: string) {
   try {
-    const response = await Http.post<{ code: string }, LoginResponse>({
-      request: ENDPOINT.AUTH.GOOGLE_LOGIN,
-      data: { code },
+    const response = await Http.get<LoginResponse, { code: string }>({
+      request: ENDPOINT.AUTH.KAKAO_LOGIN,
+      params: { code },
     });
 
     if (response.token) {
@@ -19,7 +20,7 @@ export async function submitGoogleLogin(code: string) {
 
     return { success: false, error: '토큰을 받지 못했습니다.' };
   } catch (error) {
-    console.error('Google login error:', error);
+    console.error('Kakao login error:', error);
     return { success: false, error: '로그인에 실패했습니다.' };
   }
 }

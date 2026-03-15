@@ -10,13 +10,14 @@ import {
   RESTAURANT_ID_BY_NAME,
 } from '@/entities/campus-menu/model/campusRestaurant';
 
-import { FOOD_COURT_ID } from '@/shared/config';
 import { cn } from '@/shared/utils';
 
 import Home from '../../../public/icons/icon-home.svg';
 import Restaurant2 from '../../../public/icons/icon-restaurant2.svg';
 import Review from '../../../public/icons/icon-review.svg';
 import User from '../../../public/icons/icon-user.svg';
+
+import { FOOD_COURT_ID } from '@/api/config';
 
 export default function BottomNavBar() {
   const pathname = usePathname();
@@ -106,10 +107,7 @@ export default function BottomNavBar() {
   if (pathname.startsWith('/search')) {
     return null;
   }
-  if (
-    pathname.split('/').length > 2 &&
-    !pathname.startsWith('/campus')
-  ) {
+  if (pathname.split('/').length > 2 && !pathname.startsWith('/campus')) {
     return null;
   }
 
@@ -119,7 +117,7 @@ export default function BottomNavBar() {
 
   return (
     <motion.div
-      className='shadow-t-md px-10 fixed bottom-0 z-50 grid w-full grid-cols-4 items-center rounded-t-2xl border-t border-gray-100 bg-white pb-6 pt-2 md:hidden'
+      className='shadow-t-md fixed bottom-0 z-50 grid w-full grid-cols-4 items-center rounded-t-2xl border-t border-gray-100 bg-white px-10 pt-2 pb-6 md:hidden'
       variants={{
         visible: { y: 0 },
         hidden: { y: '100%' },

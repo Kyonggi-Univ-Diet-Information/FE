@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
 
-import { type FoodCourt } from '@/shared/config';
-
 import { fetchCampusMenuDetail } from '../api/fetchCampusMenuDetail';
+
+import { type FoodCourt } from '@/api/config';
+
 
 export default async function CampusMenuPrice({
   foodCourt,
@@ -17,9 +18,7 @@ export default async function CampusMenuPrice({
 
   return (
     <Suspense>
-      <span className={className}>
-        {menuDetail.price}원
-      </span>
+      <span className={className}>{menuDetail.price}원</span>
     </Suspense>
   );
 }

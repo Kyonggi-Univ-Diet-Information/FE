@@ -1,8 +1,9 @@
-import type { FoodCourt } from '@/shared/config';
-
 import type { SubRestaurant } from './campusRestaurant';
 
-export type { CampusFoodCourt } from '@/shared/config/endpoint';
+import type { FoodCourt } from '@/api/config';
+
+
+export type { CampusFoodCourt } from '@/api/config/api-endpoints';
 
 export const SET = {
   SET: 'SET',

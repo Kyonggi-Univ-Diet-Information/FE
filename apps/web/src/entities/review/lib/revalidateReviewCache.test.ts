@@ -1,16 +1,13 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-import { ENDPOINT, FOOD_COURT } from '@/shared/config';
-import {
-  memberKeys,
-  menuKeys,
-  reviewKeys,
-} from '@/shared/lib/queryKey';
+import { memberKeys, menuKeys, reviewKeys } from '@/shared/lib/queryKey';
 
 import {
   revalidateReviewCache,
   revalidateReviewFavCache,
 } from './revalidateReviewCache';
+
+import { ENDPOINT, FOOD_COURT } from '@/api/config';
 
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),
@@ -111,12 +108,8 @@ describe('revalidateReviewFavCache', () => {
     expect(revalidateTag).toHaveBeenCalledWith(
       reviewKeys.favedCount.tag(mockType, mockReviewId),
     );
-    expect(revalidateTag).toHaveBeenCalledWith(
-      reviewKeys.faved.tag(mockType),
-    );
-    expect(revalidateTag).toHaveBeenCalledWith(
-      memberKeys.favReviews.tag(0),
-    );
+    expect(revalidateTag).toHaveBeenCalledWith(reviewKeys.faved.tag(mockType));
+    expect(revalidateTag).toHaveBeenCalledWith(memberKeys.favReviews.tag(0));
     expect(revalidateTag).toHaveBeenCalledTimes(3);
   });
 
@@ -129,9 +122,7 @@ describe('revalidateReviewFavCache', () => {
     expect(revalidateTag).toHaveBeenCalledWith(
       reviewKeys.favedCount.tag(dormType, dormReviewId),
     );
-    expect(revalidateTag).toHaveBeenCalledWith(
-      reviewKeys.faved.tag(dormType),
-    );
+    expect(revalidateTag).toHaveBeenCalledWith(reviewKeys.faved.tag(dormType));
   });
 
   it('다른 reviewId에서도 정상 작동한다', () => {

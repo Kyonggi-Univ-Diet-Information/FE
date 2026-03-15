@@ -8,10 +8,10 @@ import {
   hasSubRestaurants,
 } from '@/entities/campus-menu/model/campusRestaurant';
 
-import type { BaseResponse } from '@/shared/api/baseResponse';
-import { Http } from '@/shared/api/http';
-import { FOOD_COURT_ID, getFoodCourtById } from '@/shared/config';
-import { ENDPOINT } from '@/shared/config/endpoint';
+import { FOOD_COURT_ID, getFoodCourtById } from '@/api/config';
+import type { BaseResponse } from '@/api/config/api-base-types';
+import { ENDPOINT } from '@/api/config/api-endpoints';
+import { Http } from '@/api/config/api-handlers';
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
@@ -41,7 +41,9 @@ export async function generateStaticParams() {
       const foodCourtId = FOOD_COURT_ID[foodCourt];
 
       try {
-        const response = await Http.getDirect<BaseResponse<CategoryMenuResponse>>({
+        const response = await Http.getDirect<
+          BaseResponse<CategoryMenuResponse>
+        >({
           request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
           cache: 'force-cache',
         });

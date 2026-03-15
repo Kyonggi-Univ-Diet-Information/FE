@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 
-import { type FoodCourt } from '@/shared/config';
 import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
 
 import {
@@ -11,6 +10,8 @@ import {
 import { removeReview } from '../api/removeReview';
 import { submitReviewBlock } from '../api/submitReviewBlock';
 import { submitReviewReport } from '../api/submitReviewReport';
+
+import { type FoodCourt } from '@/api/config';
 
 interface UseReviewActionProps {
   type: FoodCourt;

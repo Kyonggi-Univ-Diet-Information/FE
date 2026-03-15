@@ -1,7 +1,7 @@
 'use server';
 
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, type FoodCourt } from '@/shared/config';
+import { ENDPOINT, type FoodCourt } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 export const submitReviewReport = async (
   reviewId: number,

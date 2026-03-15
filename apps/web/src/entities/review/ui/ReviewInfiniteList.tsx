@@ -3,12 +3,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
-import { type FoodCourt } from '@/shared/config';
 import { reviewKeys } from '@/shared/lib/queryKey';
 import { Loader } from '@/shared/ui';
 
 import ReviewItem from './ReviewItem';
 import { reviewsFetcher, PagedReviewResponse } from '../api/reviewSWR';
+
+import { type FoodCourt } from '@/api/config';
 
 interface ReviewInfiniteListProps {
   type: FoodCourt;

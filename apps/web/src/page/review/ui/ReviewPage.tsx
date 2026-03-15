@@ -15,9 +15,10 @@ import {
   ReviewRating,
 } from '@/entities/review';
 
-import { FOOD_COURT, getFoodCourtById } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { Loader, Modal, Button, AnimatedCard } from '@/shared/ui';
+
+import { FOOD_COURT, getFoodCourtById } from '@/api/config';
 
 export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;

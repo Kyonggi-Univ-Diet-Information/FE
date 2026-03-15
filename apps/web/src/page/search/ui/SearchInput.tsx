@@ -4,10 +4,11 @@ import { SearchIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-import { FoodCourt } from '@/shared/config/endpoint';
 
 import SearchFilter from './SearchFilter';
 import { SORTING_TYPE, SortingType } from '../model/search';
+
+import { FoodCourt } from '@/api/config/api-endpoints';
 
 interface SearchInputProps {
   showFilter?: boolean;
@@ -62,15 +63,15 @@ export default function SearchInput({ showFilter = false }: SearchInputProps) {
     <div className='flex flex-col gap-4'>
       <form className='relative' onSubmit={handleSubmit}>
         <button type='submit' onClick={onSubmit}>
-          <SearchIcon className='size-4.5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 active:text-gray-300' />
+          <SearchIcon className='absolute top-1/2 right-3 size-4.5 -translate-y-1/2 text-gray-700 active:text-gray-300' />
         </button>
         <input
           value={search}
           onChange={onChangeSearch}
           onKeyDown={onKeyDown}
-          className='w-full rounded-2xl border p-2.5 pl-3 pr-10 text-base focus:outline-none'
+          className='w-full rounded-2xl border p-2.5 pr-10 pl-3 text-base focus:outline-none'
           type='text'
-          placeholder="검색어를 입력해주세요."
+          placeholder='검색어를 입력해주세요.'
         />
       </form>
       {showFilter && (

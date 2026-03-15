@@ -1,8 +1,5 @@
 import { cache } from 'react';
 
-import type { BaseResponse } from '@/shared/api/baseResponse';
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config/endpoint';
 
 import type {
   CampusFoodCourt,
@@ -11,6 +8,10 @@ import type {
 } from '../model/campusMenu';
 import type { SubRestaurant } from '../model/campusRestaurant';
 import { hasSubRestaurants } from '../model/campusRestaurant';
+
+import type { BaseResponse } from '@/api/config/api-base-types';
+import { ENDPOINT } from '@/api/config/api-endpoints';
+import { Http } from '@/api/config/api-handlers';
 
 type CategorizedMenuData = {
   categories: string[];

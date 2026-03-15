@@ -1,10 +1,11 @@
-import type { BasePagedResponse } from '@/shared/api/baseResponse';
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, type FoodCourt } from '@/shared/config';
 import { AuthService } from '@/shared/lib/auth';
 import { reviewKeys } from '@/shared/lib/queryKey';
 
 import { Review } from '../model/review';
+
+import { ENDPOINT, type FoodCourt } from '@/api/config';
+import type { BasePagedResponse } from '@/api/config/api-base-types';
+import { Http } from '@/api/config/api-handlers';
 
 export const fetchReviewPaged = async (
   type: FoodCourt,

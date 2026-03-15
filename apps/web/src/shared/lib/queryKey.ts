@@ -7,7 +7,7 @@
  * 하나의 팩토리에서 키를 관리하며, 두 캐시 계층 모두에 대응합니다.
  */
 
-import type { FoodCourt } from '@/shared/config';
+import type { FoodCourt } from '@/api/config';
 
 export type QueryKey = readonly unknown[];
 
@@ -70,8 +70,8 @@ export const reviewKeys = {
     (type: FoodCourt, foodId: number) =>
       ['reviews', 'rating-count', type, foodId] as const,
   ),
-  faved: createQueryKeyFactory((type: FoodCourt) =>
-    ['reviews', 'faved', type] as const,
+  faved: createQueryKeyFactory(
+    (type: FoodCourt) => ['reviews', 'faved', type] as const,
   ),
   favedCount: createQueryKeyFactory(
     (type: FoodCourt, reviewId: number) =>
@@ -101,8 +101,8 @@ export const memberKeys = {
 export const menuKeys = {
   /** 기숙사 메뉴 전체 (fetchDormMenu) */
   dorm: createQueryKeyFactory(() => ['menu', 'dorm'] as const),
-  dormByDay: createQueryKeyFactory((day: string) =>
-    ['menu', 'dorm', day] as const,
+  dormByDay: createQueryKeyFactory(
+    (day: string) => ['menu', 'dorm', day] as const,
   ),
   campus: createQueryKeyFactory(
     (foodCourt: FoodCourt) => ['menu', 'campus', foodCourt] as const,
@@ -123,7 +123,7 @@ export function createMutateMatcher(
 ): (key: unknown) => boolean {
   return (key: unknown): boolean => {
     if (!Array.isArray(key)) return false;
-    return keys.some((k) => startsWith(key, k));
+    return keys.some(k => startsWith(key, k));
   };
 }
 

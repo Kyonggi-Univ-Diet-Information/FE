@@ -1,9 +1,10 @@
 import type { RecentReview } from '@/entities/review/model/review';
 
-import type { BasePagedResponse } from '@/shared/api/baseResponse';
-import { Http } from '@/shared/api/http';
-import { ENDPOINT } from '@/shared/config';
 import { memberKeys } from '@/shared/lib/queryKey';
+
+import { ENDPOINT } from '@/api/config';
+import type { BasePagedResponse } from '@/api/config/api-base-types';
+import { Http } from '@/api/config/api-handlers';
 
 export const fetchUserReview = async (
   page: number,

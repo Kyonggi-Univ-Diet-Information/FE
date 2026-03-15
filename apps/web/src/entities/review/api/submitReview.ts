@@ -1,10 +1,11 @@
 'use server';
 
-import { Http } from '@/shared/api/http';
-import { ENDPOINT, FoodCourt } from '@/shared/config';
 
 import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 import { ReviewPost } from '../model/reviewPost';
+
+import { ENDPOINT, FoodCourt } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
 
 export const submitReview = async (
   _prevState: { success: boolean; error?: string } | null,

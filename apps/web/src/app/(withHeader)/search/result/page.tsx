@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { SearchResult, SearchSkeleton } from '@/page/search';
 import { SORTING_TYPE, SortingType } from '@/page/search/model/search';
 
-import { FoodCourt } from '@/shared/config';
+import { FoodCourt } from '@/api/config';
 
 export default async function SearchPage({
   searchParams,

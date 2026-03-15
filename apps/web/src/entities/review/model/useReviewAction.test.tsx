@@ -1,11 +1,12 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 
-import { FOOD_COURT } from '@/shared/config';
 
 import { useReviewAction } from './useReviewAction';
 import { removeReview } from '../api/removeReview';
 import { submitReviewBlock } from '../api/submitReviewBlock';
+
+import { FOOD_COURT } from '@/api/config';
 
 // API 모듈 모킹
 jest.mock('../api/removeReview');
@@ -55,7 +56,12 @@ describe('useReviewAction', () => {
       (submitReviewBlock as jest.Mock).mockResolvedValue({ success: true });
 
       const { result } = renderHook(
-        () => useReviewAction({ type: mockType, foodId: mockFoodId, reviewId: mockReviewId }),
+        () =>
+          useReviewAction({
+            type: mockType,
+            foodId: mockFoodId,
+            reviewId: mockReviewId,
+          }),
         { wrapper },
       );
 
@@ -81,7 +87,12 @@ describe('useReviewAction', () => {
       });
 
       const { result } = renderHook(
-        () => useReviewAction({ type: mockType, foodId: mockFoodId, reviewId: mockReviewId }),
+        () =>
+          useReviewAction({
+            type: mockType,
+            foodId: mockFoodId,
+            reviewId: mockReviewId,
+          }),
         { wrapper },
       );
 
@@ -98,7 +109,12 @@ describe('useReviewAction', () => {
       mockConfirm.mockReturnValue(false);
 
       const { result } = renderHook(
-        () => useReviewAction({ type: mockType, foodId: mockFoodId, reviewId: mockReviewId }),
+        () =>
+          useReviewAction({
+            type: mockType,
+            foodId: mockFoodId,
+            reviewId: mockReviewId,
+          }),
         { wrapper },
       );
 
@@ -111,11 +127,19 @@ describe('useReviewAction', () => {
 
     it('차단 후 pending 상태가 올바르게 관리된다', async () => {
       (submitReviewBlock as jest.Mock).mockImplementation(
-        () => new Promise(resolve => setTimeout(() => resolve({ success: true }), 100)),
+        () =>
+          new Promise(resolve =>
+            setTimeout(() => resolve({ success: true }), 100),
+          ),
       );
 
       const { result } = renderHook(
-        () => useReviewAction({ type: mockType, foodId: mockFoodId, reviewId: mockReviewId }),
+        () =>
+          useReviewAction({
+            type: mockType,
+            foodId: mockFoodId,
+            reviewId: mockReviewId,
+          }),
         { wrapper },
       );
 
@@ -142,7 +166,12 @@ describe('useReviewAction', () => {
       (removeReview as jest.Mock).mockResolvedValue({ success: true });
 
       const { result } = renderHook(
-        () => useReviewAction({ type: mockType, foodId: mockFoodId, reviewId: mockReviewId }),
+        () =>
+          useReviewAction({
+            type: mockType,
+            foodId: mockFoodId,
+            reviewId: mockReviewId,
+          }),
         { wrapper },
       );
 
@@ -151,7 +180,11 @@ describe('useReviewAction', () => {
       });
 
       await waitFor(() => {
-        expect(removeReview).toHaveBeenCalledWith(mockReviewId, mockFoodId, mockType);
+        expect(removeReview).toHaveBeenCalledWith(
+          mockReviewId,
+          mockFoodId,
+          mockType,
+        );
       });
     });
   });
@@ -159,7 +192,12 @@ describe('useReviewAction', () => {
   describe('리뷰 신고 (report)', () => {
     it('신고 다이얼로그를 표시한다', async () => {
       const { result } = renderHook(
-        () => useReviewAction({ type: mockType, foodId: mockFoodId, reviewId: mockReviewId }),
+        () =>
+          useReviewAction({
+            type: mockType,
+            foodId: mockFoodId,
+            reviewId: mockReviewId,
+          }),
         { wrapper },
       );
 
