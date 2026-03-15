@@ -2,6 +2,9 @@
 
 import React from 'react';
 
+import { Button } from './Button';
+
+import { cn } from '@/model/common';
 import {
   WEEKDAYS,
   getCurrentDate,
@@ -9,10 +12,7 @@ import {
   getWeekDates,
   formatKoreanDate,
   isSameDay,
-} from '@/shared/lib/date';
-import { cn } from '@/shared/utils';
-
-import { Button } from './Button';
+} from '@/model/common/date';
 
 interface WeekSelectorProps {
   selectedDate?: Date;

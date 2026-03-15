@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import React from 'react';
 
-import { cn } from '@/shared/utils';
+import { cn } from '@/model/common';
 
 interface AuthPageWrapperProps {
   children: React.ReactNode;
@@ -26,10 +26,10 @@ export function AuthPageWrapper({
       )}
     >
       {showTopGradient && (
-        <div className='bg-point/10 pointer-events-none absolute -left-24 -top-24 h-[40vh] w-screen rounded-full blur-[120px]' />
+        <div className='bg-point/10 pointer-events-none absolute -top-24 -left-24 h-[40vh] w-screen rounded-full blur-[120px]' />
       )}
       {showBottomGradient && (
-        <div className='pointer-events-none absolute -bottom-24 -right-24 h-[500px] w-screen rounded-full bg-orange-100 blur-[120px]' />
+        <div className='pointer-events-none absolute -right-24 -bottom-24 h-[500px] w-screen rounded-full bg-orange-100 blur-[120px]' />
       )}
       {children}
     </main>
@@ -59,7 +59,12 @@ export function AuthCard({
       className={cn('z-20 w-full px-6', className)}
       style={{ maxWidth }}
     >
-      <div className={cn('rounded-t-[32px] bg-white/80 p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-2xl', roundedBottom && 'rounded-b-[32px]')}>
+      <div
+        className={cn(
+          'rounded-t-[32px] bg-white/80 p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-2xl',
+          roundedBottom && 'rounded-b-[32px]',
+        )}
+      >
         {children}
       </div>
     </motion.div>

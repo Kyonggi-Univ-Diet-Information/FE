@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { cn } from '@/shared/utils';
+import { cn } from '@/model/common';
 
 interface StaticTabNavigationProps {
   tabs: Array<{
@@ -53,7 +53,7 @@ export default function StaticTabNavigation({
           href={tab.href}
           replace
           className={cn(
-            'cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
+            'cursor-pointer rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-200',
             currentTabKey === tab.key
               ? 'bg-point text-white'
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
