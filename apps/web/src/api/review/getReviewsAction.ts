@@ -1,17 +1,25 @@
 'use server';
 
-import type {
-  EsquareFoodReviewRes,
-  FetchReviewLikedRes,
-  KyongsulFoodReviewRes,
-  SallyBoxFoodReviewRes,
-} from './api.type';
-import { fetchReviewFavCount } from './fetchReviewFavCount';
-import { fetchReviewFaved } from './fetchReviewFaved';
-import { fetchReviewPaged } from './fetchReviewPaged';
+import { AuthService } from '@/shared/lib/auth';
+
+import { fetchReviewFavCount } from '../api/fetchReviewFavCount';
+import {
+  type EsquareFoodReviewRes,
+  type FetchReviewLikedRes,
+  fetchReviewFaved,
+  type KyongsulFoodReviewRes,
+  type SallyBoxFoodReviewRes,
+} from '../api/fetchReviewFaved';
+import { fetchReviewPaged } from '../api/fetchReviewPaged';
+import { Review } from '../model/review';
 
 import { type FoodCourt } from '@/api/config';
-import { AuthService } from '@/model/common/auth';
+
+export interface ReviewWithMetadata extends Review {
+  likedCount: number;
+  isLiked: boolean;
+  isMyReview: boolean;
+}
 
 const getReviewIdsFromFaved = (items: FetchReviewLikedRes[]): number[] => {
   if (items.length === 0) return [];

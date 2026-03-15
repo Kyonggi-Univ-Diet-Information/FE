@@ -1,16 +1,16 @@
 'use server';
 
-import type { RemoveReviewResponse } from './api.model';
-import { revalidateReviewCache } from '../../model/review/revalidateReviewCache';
+import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 
 export const removeReview = async (
   reviewId: number,
   foodId: number,
   type: FoodCourt,
-): Promise<RemoveReviewResponse> => {
+): Promise<{ success: boolean; error?: string }> => {
   try {
     await Http.del({
       request: ENDPOINT.REVIEW_CUD.DELETE(type, reviewId),

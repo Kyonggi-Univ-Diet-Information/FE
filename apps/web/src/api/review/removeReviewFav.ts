@@ -1,15 +1,15 @@
 'use server';
 
-import type { RemoveReviewFavResponse } from './api.model';
-import { revalidateReviewFavCache } from '../../model/review/revalidateReviewCache';
+import { revalidateReviewFavCache } from '../lib/revalidateReviewCache';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
+
 export const removeReviewFav = async (
   reviewId: number,
   type: FoodCourt,
-): Promise<RemoveReviewFavResponse> => {
+): Promise<{ success: boolean; error?: string }> => {
   try {
     await Http.del({
       request: ENDPOINT.REVIEW_LIKE.UNLIKE(type, reviewId),

@@ -5,13 +5,16 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
-import { FOOD_COURT_ID, INQUIRY_URL } from '@/api/config';
-import { AuthButton } from '@/components/auth/AuthButton';
-import { ExternalLink } from '@/components/common';
+import { AuthButton } from '@/features/auth/components';
+
 import {
   FOOD_COURT_RESTAURANTS,
   RESTAURANT_ID_BY_NAME,
-} from '@/constants/campus/restaurant';
+} from '@/entities/campus-menu/model/campusRestaurant';
+
+import { ExternalLink } from '@/shared/ui';
+
+import { FOOD_COURT_ID, INQUIRY_URL } from '@/api/config';
 
 export default function Header() {
   const pathname = usePathname();

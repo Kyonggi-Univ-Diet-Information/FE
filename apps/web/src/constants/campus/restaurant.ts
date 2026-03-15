@@ -1,14 +1,14 @@
 import type { FoodCourt } from '@/api/config';
 
+export type SubRestaurant = keyof typeof CAMPUS_RESTAURANT;
+
 export const CAMPUS_RESTAURANT = {
   MANKWON: '만권화밥',
   SYONG: '숑숑돈까스',
   BURGER_TACO: '버거&타코',
   WIDELGA: '위델가',
   SINMEOI: '신머이쌀국수',
-} as const;
-
-export type SubRestaurant = keyof typeof CAMPUS_RESTAURANT;
+};
 
 export const CAMPUS_RESTAURANT_ID: Record<string, SubRestaurant> = {
   '1': 'MANKWON',
@@ -50,6 +50,10 @@ export const CAMPUS_FOOD_COURTS = [
   'E_SQUARE',
   'SALLY_BOX',
 ] as const;
+export type CampusFoodCourt = (typeof CAMPUS_FOOD_COURTS)[number];
+
+export type RestaurantsOfFoodCourt<T extends FoodCourt> =
+  (typeof FOOD_COURT_RESTAURANTS)[T][number];
 
 export const hasSubRestaurants = (foodCourt: FoodCourt): boolean => {
   return FOOD_COURT_RESTAURANTS[foodCourt].length > 0;

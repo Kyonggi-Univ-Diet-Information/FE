@@ -10,6 +10,8 @@ import { FOOD_COURT, type FoodCourt } from '@/api/config';
 import { submitReviewBlock } from '@/api/review/submitReviewBlock';
 import { revalidateReviewCache } from '@/model/review/revalidateReviewCache';
 
+import { FOOD_COURT, type FoodCourt } from '@/api/config';
+
 interface ReviewActionMenuProps {
   type: FoodCourt;
   foodId: number;

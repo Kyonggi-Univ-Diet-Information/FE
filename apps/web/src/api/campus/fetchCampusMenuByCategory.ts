@@ -1,23 +1,28 @@
 import { cache } from 'react';
 
-import type { FetchCampusMenuByCategoryResponse } from './api.model';
+
 import type {
+  CampusFoodCourt,
   CategoryMenuResponse,
   CampusMenuWithCategory,
-  SubRestaurant,
-} from './api.type';
+} from '../model/campusMenu';
+import type { SubRestaurant } from '../model/campusRestaurant';
+import { hasSubRestaurants } from '../model/campusRestaurant';
 
-import type { CampusFoodCourt } from '@/api/config';
 import type { BaseResponse } from '@/api/config/api-base-types';
 import { ENDPOINT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
-import { hasSubRestaurants } from '@/constants/campus/restaurant';
+
+type CategorizedMenuData = {
+  categories: string[];
+  menusByCategory: Record<string, CampusMenuWithCategory[]>;
+};
 
 export const fetchCampusMenuByCategory = cache(
   async (
     foodCourt: CampusFoodCourt,
     restaurant?: SubRestaurant,
-  ): Promise<FetchCampusMenuByCategoryResponse> => {
+  ): Promise<CategorizedMenuData> => {
     const response = await Http.get<BaseResponse<CategoryMenuResponse>>({
       request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
       cache: 'force-cache',

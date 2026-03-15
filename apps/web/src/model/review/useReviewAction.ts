@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 
+import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
+
+import {
+  fetchReportReasons,
+  type ReportReason,
+} from '../api/fetchReportReasons';
+import { removeReview } from '../api/removeReview';
+import { submitReviewBlock } from '../api/submitReviewBlock';
+import { submitReviewReport } from '../api/submitReviewReport';
+
 import { type FoodCourt } from '@/api/config';
-import type { ReportReason } from '@/api/review/api.type';
-import { fetchReportReasons } from '@/api/review/fetchReportReasons';
-import { removeReview } from '@/api/review/removeReview';
-import { submitReviewBlock } from '@/api/review/submitReviewBlock';
-import { submitReviewReport } from '@/api/review/submitReviewReport';
-import { createMutateMatcher, reviewKeys } from '@/model/common/queryKey';
 
 interface UseReviewActionProps {
   type: FoodCourt;

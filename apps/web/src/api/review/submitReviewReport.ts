@@ -1,7 +1,5 @@
 'use server';
 
-import type { SubmitReviewReportResponse } from './api.model';
-
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
@@ -9,7 +7,7 @@ export const submitReviewReport = async (
   reviewId: number,
   type: FoodCourt,
   reasonType: string,
-): Promise<SubmitReviewReportResponse> => {
+): Promise<{ success: boolean; error?: string }> => {
   try {
     await Http.post({
       request: ENDPOINT.REVIEW_REPORT.REPORT(type, reviewId, reasonType),

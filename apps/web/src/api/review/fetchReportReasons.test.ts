@@ -3,8 +3,9 @@ import { fetchReportReasons, type ReportReason } from './fetchReportReasons';
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
+
 // 모듈 모킹
-jest.mock('@/api/config/api-handlers');
+jest.mock('@/shared/api/http');
 
 describe('fetchReportReasons', () => {
   beforeEach(() => {

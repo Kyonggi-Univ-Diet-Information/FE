@@ -1,13 +1,14 @@
 import { cache } from 'react';
 
-import type { FetchCampusMenuResponse } from './api.model';
-import type { CampusMenu, SubRestaurant } from './api.type';
+
+import type { CampusMenu } from '../model/campusMenu';
+import type { SubRestaurant } from '../model/campusRestaurant';
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
 
 export const fetchCampusMenu = cache(
-  async (): Promise<FetchCampusMenuResponse> => {
+  async (): Promise<Record<SubRestaurant, CampusMenu[]>> => {
     const response = await Http.get<CampusMenu[]>({
       request: ENDPOINT.MENU.MENU_ALL(FOOD_COURT.KYONGSUL),
       cache: 'force-cache',

@@ -1,12 +1,13 @@
+
 import { submitReview } from './submitReview';
-import { revalidateReviewCache } from '../../model/review/revalidateReviewCache';
+import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
 // 모듈 모킹
-jest.mock('@/api/config/api-handlers');
-jest.mock('@/model/review/revalidateReviewCache');
+jest.mock('@/shared/api/http');
+jest.mock('../lib/revalidateReviewCache');
 
 describe('submitReview', () => {
   const mockFormData = new FormData();

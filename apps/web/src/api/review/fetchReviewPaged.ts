@@ -1,10 +1,11 @@
-import type { Review } from './api.type';
+import { AuthService } from '@/shared/lib/auth';
+import { reviewKeys } from '@/shared/lib/queryKey';
+
+import { Review } from '../model/review';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import type { BasePagedResponse } from '@/api/config/api-base-types';
 import { Http } from '@/api/config/api-handlers';
-import { AuthService } from '@/model/common/auth';
-import { reviewKeys } from '@/model/common/queryKey';
 
 export const fetchReviewPaged = async (
   type: FoodCourt,
