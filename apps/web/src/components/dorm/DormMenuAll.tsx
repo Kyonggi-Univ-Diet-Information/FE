@@ -3,20 +3,16 @@
 import React from 'react';
 import useSWR from 'swr';
 
-import { fetchDormMenu } from '@/entities/dorm-menu/api/fetchDormMenu';
-
-import { menuKeys } from '@/shared/lib/queryKey';
-
-import {
-  type DormTime,
-  type DormDay,
-  getFallbackMenu,
-  renderMenuItems,
-  isWeekend,
-} from '../model';
-
+import { fetchDormMenu } from '@/api/dorm/fetchDormMenu';
 import { AnimatedCard, Section, Card } from '@/components/common';
-
+import { menuKeys } from '@/model/common/queryKey';
+import {
+  DormDay,
+  DormTime,
+  getFallbackMenu,
+  isWeekend,
+  renderMenuItems,
+} from '@/model/dorm';
 
 interface DormMenuSectionProps {
   date: DormDay;

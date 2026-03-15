@@ -1,13 +1,12 @@
-import { fetchDormMenuByDay } from '@/entities/dorm-menu/api/fetchDormMenuByDay';
+import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
+import { Section, Card } from '@/components/common';
 import {
   getFallbackMenu,
   isWeekend,
   renderMenuItems,
   DORM_DAY_KEY,
   type DormTime,
-} from '@/entities/dorm-menu/model';
-
-import { Section, Card } from '@/components/common';
+} from '@/model/dorm';
 
 export default async function DormMenuByDay({ day }: { day: number }) {
   const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]);
