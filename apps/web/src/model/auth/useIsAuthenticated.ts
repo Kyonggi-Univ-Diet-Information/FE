@@ -2,9 +2,9 @@
 
 import useSWR from 'swr';
 
-import { authKeys } from '@/shared/lib/queryKey';
+import { fetchIsAuthenticated } from './fetchIsAuthenticated';
 
-import { fetchIsAuthenticated } from '../action';
+import { authKeys } from '@/model/common/queryKey';
 
 export function useAuth() {
   const { data, error, isLoading, mutate } = useSWR(

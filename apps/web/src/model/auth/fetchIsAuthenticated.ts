@@ -1,6 +1,6 @@
 'use server';
 
-import { AuthService } from '@/shared/lib/auth';
+import { AuthService } from '@/model/common/auth';
 
 export async function fetchIsAuthenticated() {
   try {
