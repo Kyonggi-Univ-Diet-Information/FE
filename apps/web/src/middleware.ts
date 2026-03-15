@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-import { submitRefresh } from '@/features/login/api/submitRefresh';
-
 import { isReactNativeWebView, getCookieOptions } from '@/shared/utils/cookie';
+
+import { submitRefresh } from './api/auth/submitRefresh';
 
 import { COOKIE_KEYS } from '@/api/config';
 

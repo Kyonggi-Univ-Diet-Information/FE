@@ -2,19 +2,19 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
-import { setAuthCookies } from '@/features/login/api/setAuthCookies';
-
 import { authKeys } from '@/shared/lib/queryKey';
 import { getLoginState, isAndroid } from '@/shared/utils';
+
+import { setAuthCookies } from '../api/setAuthCookies';
+
+import { submitAppleLogin } from '@/api/auth/submitAppleLogin';
+import { submitGoogleLogin } from '@/api/auth/submitGoogleLogin';
+import { submitKakaoLogin } from '@/api/auth/submitKakaoLogin';
 
 function getAppDeepLink(): string {
   if (typeof window === 'undefined') return '';
   return `kiryong://${window.location.host}${window.location.pathname}${window.location.search}`;
 }
-
-import { submitAppleLogin } from '../api/submitAppleLogin';
-import { submitGoogleLogin } from '../api/submitGoogleLogin';
-import { submitKakaoLogin } from '../api/submitKakaoLogin';
 
 export const useSocialCode = () => {
   const router = useRouter();
