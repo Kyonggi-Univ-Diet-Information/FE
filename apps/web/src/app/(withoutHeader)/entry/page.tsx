@@ -5,11 +5,9 @@ import Link from 'next/link';
 
 import { EntryLogoSection, EntryPolicySection } from '@/page/entry/ui';
 
-import { LoginSection } from '@/features/login/ui';
-
 import { COOKIE_KEYS } from '@/api/config';
+import LoginSection from '@/components/auth/LoginSection';
 import { AuthCard, AuthPageWrapper } from '@/components/common';
-
 
 export default function EntryPage() {
   const storeLookAroundChoice = () => {

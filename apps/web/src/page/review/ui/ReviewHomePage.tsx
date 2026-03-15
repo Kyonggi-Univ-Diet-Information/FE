@@ -1,5 +1,5 @@
-import { CampusTopMenu } from '@/entities/campus-menu';
-import { RecentReviewView } from '@/entities/review';
+import { CampusTopMenu } from '@/components/campus';
+import RecentReviewView from '@/components/review/RecentReviewView';
 
 export default async function ReviewHomePage() {
   return (

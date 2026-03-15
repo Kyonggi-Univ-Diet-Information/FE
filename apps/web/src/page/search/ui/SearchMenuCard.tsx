@@ -1,15 +1,13 @@
 import { MessageSquareText } from 'lucide-react';
 import Link from 'next/link';
 
-import { CATEGORY_TO_TEXT } from '@/entities/campus-menu/model/campusMenu';
-import { CAMPUS_RESTAURANT } from '@/entities/campus-menu/model/campusRestaurant';
-import CampusMenuImage from '@/entities/campus-menu/ui/CampusMenuImage';
-
-
 import type { SearchResult } from '../api/fetchSearch';
 import { FOOD_TYPE_NAME } from '../model/search';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
+import { CampusMenuImage } from '@/components/campus';
+import { CATEGORY_TO_TEXT } from '@/constants/campus/menu';
+import { CAMPUS_RESTAURANT } from '@/constants/campus/restaurant';
 
 export default function SearchMenuCard({
   menuId,

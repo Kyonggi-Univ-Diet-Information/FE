@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 import { ErrorProvider, SWRProvider } from '@/app/_providers';
 import { brBold, brRegular, tossFace, wantedSans } from '@/app/_styles/font';
 
-import { GA4_MEASUREMENT_ID } from '@/shared/ga4';
+import { GA4_MEASUREMENT_ID } from '@/model/common/ga4';
 
 export const metadata: Metadata = {
   title: '기룡아 밥먹자',

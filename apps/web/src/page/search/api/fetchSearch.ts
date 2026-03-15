@@ -1,7 +1,6 @@
-import type { SubRestaurant } from '@/entities/campus-menu/model/campusRestaurant';
-
 import type { FoodType, SortingType } from '../model/search';
 
+import type { SubRestaurant } from '@/api/campus/api.model';
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 

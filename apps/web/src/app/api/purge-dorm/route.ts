@@ -1,7 +1,7 @@
 import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
-import { menuKeys } from '@/shared/lib/queryKey';
+import { menuKeys } from '@/model/common/queryKey';
 
 export async function GET() {
   try {

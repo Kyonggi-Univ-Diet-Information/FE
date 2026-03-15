@@ -1,14 +1,11 @@
 import React, { Suspense } from 'react';
 
-import { CampusMenuName } from '@/entities/campus-menu';
-
-import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
-
-
 import { fetchUserReview } from '../api/fetchUserReview';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
+import { CampusMenuName } from '@/components/campus';
 import { Card, Loader, Title } from '@/components/common';
+import { getRelativeDate, parseReviewDate } from '@/model/common/date';
 
 export default async function UserReviewPage() {
   const data = await fetchUserReview(0);

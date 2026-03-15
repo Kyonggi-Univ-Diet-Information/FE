@@ -1,6 +1,6 @@
 import { DormMenuPage, DormMenuPageProps } from '@/page/dorm';
 
-import { DORM_DAY_KEY } from '@/entities/dorm-menu/model/dormDay';
+import { DORM_DAY_KEY } from '@/model/dorm/dormDay';
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
