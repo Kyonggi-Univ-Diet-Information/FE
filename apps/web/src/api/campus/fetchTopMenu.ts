@@ -1,9 +1,8 @@
-import { menuKeys } from '@/shared/lib/queryKey';
-
-import type { CampusTopMenu } from '../model/campusMenu';
+import type { CampusTopMenu } from './api.model';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import { menuKeys } from '@/model/common/queryKey';
 
 export const fetchTopMenu = async (): Promise<CampusTopMenu[]> => {
   const data = await Http.get<{ result: CampusTopMenu[] }>({

@@ -1,4 +1,4 @@
-import { CampusMenuName } from '../model/campusMenuName';
+import type { CampusMenuName } from './api.model';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
