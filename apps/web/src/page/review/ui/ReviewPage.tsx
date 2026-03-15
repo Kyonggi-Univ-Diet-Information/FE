@@ -3,23 +3,18 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { FOOD_COURT, getFoodCourtById } from '@/api/config';
 import {
   CampusMenuName,
   CampusMenuPrice,
   CampusMenuSet,
-} from '@/entities/campus-menu';
-import CampusMenuImage from '@/entities/campus-menu/ui/CampusMenuImage';
-import {
-  ReviewFormSection,
-  ReviewPagedView,
-  ReviewRating,
-} from '@/entities/review';
-
-import { AuthService } from '@/shared/lib/auth';
-
-import { FOOD_COURT, getFoodCourtById } from '@/api/config';
+} from '@/components/campus';
+import CampusMenuImage from '@/components/campus/CampusMenuImage';
 import { Loader, Modal, Button, AnimatedCard } from '@/components/common';
-
+import ReviewFormSection from '@/components/review/ReviewFormSection';
+import ReviewPagedView from '@/components/review/ReviewPagedView';
+import ReviewRating from '@/components/review/ReviewRating';
+import { AuthService } from '@/model/common/auth';
 
 export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;

@@ -1,8 +1,8 @@
 import { CampusFoodCourtPage, CampusFoodCourtPageProps } from '@/page/campus';
 
-import { CAMPUS_FOOD_COURTS } from '@/entities/campus-menu/model/campusRestaurant';
-
 import { FOOD_COURT_ID } from '@/api/config';
+import { CAMPUS_FOOD_COURTS } from '@/constants/campus/restaurant';
+
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;

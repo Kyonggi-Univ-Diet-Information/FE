@@ -14,7 +14,7 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@/shared/utils",
+    "utils": "@/model/common",
     "ui": "@/components/common"
   }
 }

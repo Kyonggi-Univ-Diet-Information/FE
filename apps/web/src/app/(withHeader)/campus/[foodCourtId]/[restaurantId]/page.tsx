@@ -1,17 +1,16 @@
 import { CampusRestaurantPage, CampusFoodCourtPage } from '@/page/campus';
 
-import type { CategoryMenuResponse } from '@/entities/campus-menu/model/campusMenu';
+import type { CategoryMenuResponse } from '@/api/campus/api.model';
+import { FOOD_COURT_ID, getFoodCourtById } from '@/api/config';
+import type { BaseResponse } from '@/api/config/api-base-types';
+import { ENDPOINT } from '@/api/config/api-endpoints';
+import { Http } from '@/api/config/api-handlers';
 import {
   CAMPUS_FOOD_COURTS,
   FOOD_COURT_RESTAURANTS,
   RESTAURANT_ID_BY_NAME,
   hasSubRestaurants,
-} from '@/entities/campus-menu/model/campusRestaurant';
-
-import { FOOD_COURT_ID, getFoodCourtById } from '@/api/config';
-import type { BaseResponse } from '@/api/config/api-base-types';
-import { ENDPOINT } from '@/api/config/api-endpoints';
-import { Http } from '@/api/config/api-handlers';
+} from '@/constants/campus/restaurant';
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
