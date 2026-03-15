@@ -1,9 +1,8 @@
 'use server';
 
-import { reviewKeys } from '@/shared/lib/queryKey';
-
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import { reviewKeys } from '@/model/common/queryKey';
 
 type FetchReviewBaseRes = {
   id: number;

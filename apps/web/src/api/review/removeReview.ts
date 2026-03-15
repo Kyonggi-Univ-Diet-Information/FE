@@ -1,10 +1,9 @@
 'use server';
 
-import { revalidateReviewCache } from '../lib/revalidateReviewCache';
+import { revalidateReviewCache } from '../../model/review/revalidateReviewCache';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
-
 
 export const removeReview = async (
   reviewId: number,

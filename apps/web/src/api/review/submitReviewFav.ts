@@ -1,18 +1,17 @@
 'use server';
 
-import { revalidateReviewFavCache } from '../lib/revalidateReviewCache';
+import { revalidateReviewFavCache } from '../../model/review/revalidateReviewCache';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
-
-export const removeReviewFav = async (
+export const submitReviewFav = async (
   reviewId: number,
   type: FoodCourt,
 ): Promise<{ success: boolean; error?: string }> => {
   try {
-    await Http.del({
-      request: ENDPOINT.REVIEW_LIKE.UNLIKE(type, reviewId),
+    await Http.post({
+      request: ENDPOINT.REVIEW_LIKE.LIKE(type, reviewId),
       authorize: true,
     });
 
@@ -25,7 +24,7 @@ export const removeReviewFav = async (
       error:
         error instanceof Error
           ? error.message
-          : '리뷰 좋아요 삭제에 실패했습니다',
+          : '리뷰 좋아요 등록에 실패했습니다',
     };
   }
 };
