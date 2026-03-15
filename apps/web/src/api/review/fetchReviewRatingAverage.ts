@@ -1,17 +1,16 @@
-import { reviewKeys } from '@/shared/lib/queryKey';
-
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import { reviewKeys } from '@/model/common/queryKey';
 
-export const fetchReviewFavCount = async (
+export const fetchReviewRatingAverage = async (
   type: FoodCourt,
-  reviewId: number,
-) => {
+  foodId: number,
+): Promise<number> => {
   const data = await Http.get<number>({
-    request: ENDPOINT.REVIEW_LIKE.LIKED_COUNT(type, reviewId),
+    request: ENDPOINT.REVIEW_R.AVERAGE_RATING(type, foodId),
     cache: 'force-cache',
     next: {
-      tags: [reviewKeys.favedCount.tag(type, reviewId)],
+      tags: [reviewKeys.averageRating.tag(type, foodId)],
       revalidate: 60 * 5,
     },
   });

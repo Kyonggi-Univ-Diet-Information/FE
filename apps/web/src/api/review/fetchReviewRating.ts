@@ -1,9 +1,8 @@
-import { reviewKeys } from '@/shared/lib/queryKey';
-
-import { type Rating } from '../model/review';
+import { Rating } from './api.type';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import { reviewKeys } from '@/model/common/queryKey';
 
 export const fetchReviewRating = async (
   type: FoodCourt,

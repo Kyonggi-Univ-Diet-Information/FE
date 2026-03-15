@@ -1,12 +1,11 @@
-
 import { submitReviewFav } from './submitReviewFav';
-import { revalidateReviewFavCache } from '../lib/revalidateReviewCache';
+import { revalidateReviewFavCache } from '../../model/review/revalidateReviewCache';
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
 // 모듈 모킹
-jest.mock('@/shared/api/http');
+jest.mock('@/api/config/api-handler.ts');
 jest.mock('../lib/revalidateReviewCache');
 
 describe('submitReviewFav', () => {

@@ -1,8 +1,7 @@
 'use server';
 
-
-import { revalidateReviewCache } from '../lib/revalidateReviewCache';
-import { ReviewPost } from '../model/reviewPost';
+import { ReviewPost } from './api.type';
+import { revalidateReviewCache } from '../../model/review/revalidateReviewCache';
 
 import { ENDPOINT, FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';

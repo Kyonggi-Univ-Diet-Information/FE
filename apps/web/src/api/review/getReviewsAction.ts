@@ -1,19 +1,18 @@
 'use server';
 
-import { AuthService } from '@/shared/lib/auth';
-
-import { fetchReviewFavCount } from '../api/fetchReviewFavCount';
+import { Review } from './api.type';
+import { fetchReviewFavCount } from './fetchReviewFavCount';
 import {
   type EsquareFoodReviewRes,
   type FetchReviewLikedRes,
   fetchReviewFaved,
   type KyongsulFoodReviewRes,
   type SallyBoxFoodReviewRes,
-} from '../api/fetchReviewFaved';
-import { fetchReviewPaged } from '../api/fetchReviewPaged';
-import { Review } from '../model/review';
+} from './fetchReviewFaved';
+import { fetchReviewPaged } from './fetchReviewPaged';
 
 import { type FoodCourt } from '@/api/config';
+import { AuthService } from '@/model/common/auth';
 
 export interface ReviewWithMetadata extends Review {
   likedCount: number;
