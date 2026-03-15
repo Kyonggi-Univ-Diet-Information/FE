@@ -2,12 +2,8 @@
 
 import { AlertCircle, Ban, MoreVertical, Trash2Icon } from 'lucide-react';
 
-import { cn } from '@/shared/utils';
-
-import { type ReportReason } from '../api/fetchReportReasons';
-import { useReviewAction } from '../model/useReviewAction';
-
 import { type FoodCourt } from '@/api/config';
+import { type ReportReason } from '@/api/review/fetchReportReasons';
 import {
   Modal,
   Select,
@@ -15,6 +11,8 @@ import {
   SelectItem,
   SelectTrigger,
 } from '@/components/common';
+import { cn } from '@/model/common';
+import { useReviewAction } from '@/model/review/useReviewAction';
 
 interface ReviewActionMenuProps {
   type: FoodCourt;

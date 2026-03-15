@@ -1,15 +1,12 @@
 'use client';
 
-import type { Review } from '@/entities/review/model/review';
-
-import { getRelativeDate, parseReviewDate } from '@/shared/lib/date';
-
-
 import ReviewActionMenu from './ReviewActionMenu';
 import ReviewFavButton from './ReviewFavButton';
 
 import { type FoodCourt } from '@/api/config';
+import type { Review } from '@/api/review/api.type';
 import { Avatar, AvatarFallback } from '@/components/common';
+import { getRelativeDate, parseReviewDate } from '@/model/common/date';
 
 interface ReviewItemProps extends Review {
   type: FoodCourt;
