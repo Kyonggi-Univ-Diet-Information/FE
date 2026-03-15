@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { cn } from '@/shared/utils';
+import { cn } from '@/model/common';
 
 export default function Card({
   href,

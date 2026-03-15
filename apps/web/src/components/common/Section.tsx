@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { cn } from '@/shared/utils';
+import { cn } from '@/model/common';
 
 export default function Section({
   children,
