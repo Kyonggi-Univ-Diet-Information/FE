@@ -12,7 +12,7 @@ export default function Intro() {
   const APP_STORE_URL =
     'https://apps.apple.com/kr/app/%EA%B8%B0%EB%A3%A1%EC%95%84-%EB%B0%A5%EB%A8%B9%EC%9E%90/id6758451053';
 
-  const INQUIRY_URL = 'https://open.kakao.com/o/sgcUtX3g';
+  const INQUIRY_URL = 'https://pf.kakao.com/_LxmSxhX/chat';
 
   const PATCHNOTE_URL =
     'https://abounding-mice-0a1.notion.site/26ad8a0f1c3f804398f1d2baa67d3457';
