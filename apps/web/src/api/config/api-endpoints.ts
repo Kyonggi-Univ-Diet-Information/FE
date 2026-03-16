@@ -11,7 +11,7 @@ export const POLICY_URL = {
     'https://abounding-mice-0a1.notion.site/2e7d8a0f1c3f8042aea7cd51f36ea27d',
 };
 
-export const INQUIRY_URL = 'https://open.kakao.com/o/sgcUtX3g';
+export const INQUIRY_URL = 'https://pf.kakao.com/_LxmSxhX/chat';
 
 export const PATCHNOTE_URL =
   'https://abounding-mice-0a1.notion.site/26ad8a0f1c3f804398f1d2baa67d3457';
