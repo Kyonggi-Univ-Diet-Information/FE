@@ -30,8 +30,11 @@ export default function ReviewItem({
   isAuthenticated,
   myReview,
 }: ReviewItemProps) {
-  const maskedMemberName =
-    memberName.length === 1 ? '*' : memberName.charAt(0) + '**';
+  const maskedMemberName = memberName
+    ? memberName.length > 1
+      ? memberName.charAt(0) + '**'
+      : '기**'
+    : '기**';
 
   const relativeDate = getRelativeDate(parseReviewDate(createdAt));
 
@@ -41,7 +44,7 @@ export default function ReviewItem({
         <div className='flex items-center gap-3'>
           <Avatar className='size-9 border border-gray-100 bg-white'>
             <AvatarFallback className='text-xs font-bold text-gray-400'>
-              {memberName.charAt(0)}
+              {memberName ? memberName.charAt(0) : '기'}
             </AvatarFallback>
           </Avatar>
           <div className='flex flex-col gap-0.5'>
