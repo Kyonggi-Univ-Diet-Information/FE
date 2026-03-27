@@ -1,9 +1,8 @@
 import type { FoodType, SortingType } from '../model/search';
 
-import type { SubRestaurant } from '@/api/campus/api.model';
+import type { SubRestaurant } from '@/api/campus/api.type';
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
-
 
 export type SearchResult = {
   menuId: number;

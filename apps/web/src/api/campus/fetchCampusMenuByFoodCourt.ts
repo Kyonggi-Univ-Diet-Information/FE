@@ -1,14 +1,13 @@
 import { cache } from 'react';
 
-import type { CampusMenu } from './api.model';
+import type { FetchCampusMenuByFoodCourtResponse } from './api.model';
 
 import { ENDPOINT, FoodCourt } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
 
-
 export const fetchCampusMenuByFoodCourt = cache(
-  async (foodCourt: FoodCourt): Promise<CampusMenu[]> => {
-    const data = await Http.get<CampusMenu[]>({
+  async (foodCourt: FoodCourt): Promise<FetchCampusMenuByFoodCourtResponse> => {
+    const data = await Http.get<FetchCampusMenuByFoodCourtResponse>({
       request: ENDPOINT.MENU.MENU_ALL(foodCourt),
       cache: 'force-cache',
     });
