@@ -29,3 +29,45 @@ export type Rating = {
   '4': number;
   '5': number;
 };
+
+export interface ReviewWithMetadata extends Review {
+  likedCount: number;
+  isLiked: boolean;
+  isMyReview: boolean;
+}
+
+export type FetchReviewBaseRes = {
+  id: number;
+  memberDTO: {
+    profileId: null;
+    email: string;
+    password: null;
+    name: string;
+    profileUrl: null;
+    createdAt: string;
+    updatedAt: null;
+  };
+  createdAt: string;
+};
+
+export type KyongsulFoodReviewRes = FetchReviewBaseRes & {
+  kyongsulFoodReviewId: number;
+};
+
+export type SallyBoxFoodReviewRes = FetchReviewBaseRes & {
+  sallyBoxFoodReviewId: number;
+};
+
+export type EsquareFoodReviewRes = FetchReviewBaseRes & {
+  esquareFoodReviewId: number;
+};
+
+export type FetchReviewLikedRes =
+  | KyongsulFoodReviewRes
+  | SallyBoxFoodReviewRes
+  | EsquareFoodReviewRes;
+
+export interface ReportReason {
+  type: string;
+  description: string;
+}

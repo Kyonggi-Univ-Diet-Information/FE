@@ -1,20 +1,18 @@
 'use server';
 
+import type { FetchReportReasonsResponse } from './api.model';
+import type { ReportReason } from './api.type';
+
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
-export interface ReportReason {
-  type: string;
-  description: string;
+interface ReportReasonApiResponse {
+  result: ReportReason[];
 }
 
-interface ReportReasonResponse {
-  result: { type: string; description: string }[];
-}
-
-export const fetchReportReasons = async (): Promise<ReportReason[]> => {
+export const fetchReportReasons = async (): Promise<FetchReportReasonsResponse> => {
   try {
-    const response = await Http.getDirect<ReportReasonResponse>({
+    const response = await Http.getDirect<ReportReasonApiResponse>({
       request: ENDPOINT.REVIEW_REPORT.REASONS,
       cache: 'force-cache',
     });

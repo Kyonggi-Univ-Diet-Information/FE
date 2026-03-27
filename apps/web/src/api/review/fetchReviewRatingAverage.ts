@@ -1,3 +1,5 @@
+import type { FetchReviewRatingAverageResponse } from './api.model';
+
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 import { reviewKeys } from '@/model/common/queryKey';
@@ -5,8 +7,8 @@ import { reviewKeys } from '@/model/common/queryKey';
 export const fetchReviewRatingAverage = async (
   type: FoodCourt,
   foodId: number,
-): Promise<number> => {
-  const data = await Http.get<number>({
+): Promise<FetchReviewRatingAverageResponse> => {
+  const data = await Http.get<FetchReviewRatingAverageResponse>({
     request: ENDPOINT.REVIEW_R.AVERAGE_RATING(type, foodId),
     cache: 'force-cache',
     next: {
