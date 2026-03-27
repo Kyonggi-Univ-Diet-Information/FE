@@ -1,25 +1,20 @@
+import type { FetchDormMenuResponse } from './api.model';
+import type { DormDay, DormTime, DormTimeMenu } from './api.type';
+
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 import { menuKeys } from '@/model/common/queryKey';
-import type { DormDay } from '@/model/dorm/dormDay';
-import type { DormMenu } from '@/model/dorm/dormMenu';
-import type { DormTime } from '@/model/dorm/dormTime';
 
-export interface FetchDormMenuRes {
+interface FetchDormMenuApiResponse {
   result: {
     [key in DormDay]: {
-      [key in DormTime]: {
-        id: number;
-        date: string;
-        time: DormTime;
-        contents: DormMenu[];
-      };
+      [key in DormTime]: DormTimeMenu;
     };
   };
 }
 
-export const fetchDormMenu = async (): Promise<FetchDormMenuRes['result']> => {
-  const data = await Http.get<FetchDormMenuRes>({
+export const fetchDormMenu = async (): Promise<FetchDormMenuResponse> => {
+  const data = await Http.get<FetchDormMenuApiResponse>({
     request: ENDPOINT.DORM.DORM_MENU,
     cache: 'force-cache',
     next: { tags: [menuKeys.dorm.tag()] },
