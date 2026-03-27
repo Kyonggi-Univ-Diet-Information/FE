@@ -2,6 +2,8 @@
 
 import { revalidateTag } from 'next/cache';
 
+import type { SubmitReviewBlockResponse } from './api.model';
+
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 import { reviewKeys } from '@/model/common/queryKey';
@@ -11,7 +13,7 @@ export const submitReviewBlock = async (
   reviewId: number,
   foodId: number,
   type: FoodCourt,
-): Promise<{ success: boolean; error?: string }> => {
+): Promise<SubmitReviewBlockResponse> => {
   try {
     await Http.post({
       request: ENDPOINT.REVIEW_BLOCK.BLOCK(type, reviewId),

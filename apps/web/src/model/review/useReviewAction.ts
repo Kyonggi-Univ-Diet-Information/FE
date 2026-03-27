@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 
 import { type FoodCourt } from '@/api/config';
-import {
-  fetchReportReasons,
-  type ReportReason,
-} from '@/api/review/fetchReportReasons';
+import type { ReportReason } from '@/api/review/api.type';
+import { fetchReportReasons } from '@/api/review/fetchReportReasons';
 import { removeReview } from '@/api/review/removeReview';
 import { submitReviewBlock } from '@/api/review/submitReviewBlock';
 import { submitReviewReport } from '@/api/review/submitReviewReport';

@@ -1,7 +1,7 @@
-import { getReviewsAction, ReviewWithMetadata } from './getReviewsAction';
+import type { ReviewWithMetadata } from './api.type';
+import { getReviewsAction } from './getReviewsAction';
 
 import { type FoodCourt } from '@/api/config';
-
 
 /** SWR infinite 사용 시 키는 reviewKeys.paged(type, foodId, pageIndex) */
 export const reviewsFetcher = async ([, type, foodId, page]: [

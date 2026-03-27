@@ -1,4 +1,4 @@
-import { Review } from './api.type';
+import type { Review } from './api.type';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import type { BasePagedResponse } from '@/api/config/api-base-types';
