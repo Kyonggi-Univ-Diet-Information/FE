@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import CampusMenuImage from './CampusMenuImage';
 
-import type { CampusMenu } from '@/api/campus/api.model';
+import type { CampusMenu } from '@/api/campus/api.type';
 import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
 import { fetchReviewCount } from '@/api/review/fetchReviewCount';
 

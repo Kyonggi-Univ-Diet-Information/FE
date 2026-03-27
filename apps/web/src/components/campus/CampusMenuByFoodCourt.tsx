@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import CampusMenuCard from './CampusMenuCard';
 
-import type { CampusMenuWithCategory } from '@/api/campus/api.model';
+import type { CampusMenuWithCategory } from '@/api/campus/api.type';
 import { fetchCampusMenuByCategory } from '@/api/campus/fetchCampusMenuByCategory';
 import type { CampusFoodCourt } from '@/api/config';
 import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';

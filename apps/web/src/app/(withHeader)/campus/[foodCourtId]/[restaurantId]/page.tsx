@@ -1,6 +1,6 @@
 import { CampusRestaurantPage, CampusFoodCourtPage } from '@/page/campus';
 
-import type { CategoryMenuResponse } from '@/api/campus/api.model';
+import type { CategoryMenuResponse } from '@/api/campus/api.type';
 import { FOOD_COURT_ID, getFoodCourtById } from '@/api/config';
 import type { BaseResponse } from '@/api/config/api-base-types';
 import { ENDPOINT } from '@/api/config/api-endpoints';
