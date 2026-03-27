@@ -1,4 +1,4 @@
-import type { CampusMenu } from './api.model';
+import type { CampusMenu } from './api.type';
 import { fetchCampusMenu } from './fetchCampusMenu';
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';

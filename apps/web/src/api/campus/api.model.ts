@@ -1,59 +1,64 @@
+import type {
+  CampusMenu,
+  CampusMenuName,
+  CampusMenuWithCategory,
+  CampusSetMenu,
+  CampusTopMenu,
+  SubRestaurant,
+} from './api.type';
+
 import type { FoodCourt } from '@/api/config';
-import { SET } from '@/constants/campus/menu';
-import type { SubRestaurant } from '@/constants/campus/restaurant';
-import { FOOD_COURT_RESTAURANTS } from '@/constants/campus/restaurant';
 
-export type { SubRestaurant } from '@/constants/campus/restaurant';
+export interface FetchCampusMenuByRestaurantRequest {
+  restaurantId: SubRestaurant;
+}
 
-export type RestaurantsOfFoodCourt<T extends FoodCourt> =
-  (typeof FOOD_COURT_RESTAURANTS)[T][number];
+export type FetchCampusMenuByRestaurantResponse = CampusMenu[];
 
-export type CampusMenuName = {
-  id: number;
-  name: string;
-  nameEn: string;
-};
+export interface FetchCampusMenuNameRequest {
+  foodCourt: FoodCourt;
+  menuId: number;
+}
 
-export type SetType = (typeof SET)[keyof typeof SET];
+export type FetchCampusMenuNameResponse = CampusMenuName;
 
-export type CampusMenu = {
-  id: number;
-  name: string;
-  nameEn: string;
-  price: number;
-  subRestaurant: SubRestaurant;
-};
+export type FetchTopMenuResponse = CampusTopMenu[];
 
-export type CampusSetMenu = CampusMenu & {
-  baseFoodId: 129;
-  setType: SetType;
-  category: string;
-  categoryKorean: string;
-};
+export interface FetchCategorizedCampusMenuRequest {
+  restaurantId: SubRestaurant;
+  menuKey: string;
+}
 
-export type CampusTopMenu = CampusMenu & {
-  restaurantType: FoodCourt;
-  reviewCount: 3;
-  cuisine: 'KOREAN';
-  foodType: 'RICE_BOWL';
-  detailedMenu: 'RICE_BOWL';
-};
+export type FetchCategorizedCampusMenuResponse = CampusMenu[];
 
-export type CampusMenuWithCategory = CampusMenu & {
-  category: string;
-  categoryKorean: string;
-};
+export interface FetchCampusMenuHasSetRequest {
+  type: FoodCourt;
+  baseFoodId: number;
+}
 
-export type KyongsulCategoryMenuResponse = {
-  [key in SubRestaurant]?: {
-    [category: string]: CampusMenuWithCategory[];
-  };
-};
+export type FetchCampusMenuHasSetResponse = CampusSetMenu[];
 
-export type SimpleCategoryMenuResponse = {
-  [category: string]: CampusMenuWithCategory[];
-};
+export type FetchCampusMenuResponse = Record<SubRestaurant, CampusMenu[]>;
 
-export type CategoryMenuResponse =
-  | KyongsulCategoryMenuResponse
-  | SimpleCategoryMenuResponse;
+export interface FetchCampusMenuDetailRequest {
+  type: FoodCourt;
+  menuId: number;
+}
+
+export type FetchCampusMenuDetailResponse = CampusTopMenu;
+
+export interface FetchCampusMenuByCategoryRequest {
+  foodCourt: FoodCourt;
+  restaurant?: SubRestaurant;
+}
+
+export interface FetchCampusMenuByCategoryResponse {
+  categories: string[];
+  menusByCategory: Record<string, CampusMenuWithCategory[]>;
+}
+
+export interface FetchCampusMenuByFoodCourtRequest {
+  foodCourt: FoodCourt;
+}
+
+export type FetchCampusMenuByFoodCourtResponse = CampusMenu[];
