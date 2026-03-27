@@ -1,18 +1,12 @@
 import { CampusFoodCourtPage, CampusFoodCourtPageProps } from '@/page/campus';
 
-import { FOOD_COURT_ID } from '@/api/config';
-import { CAMPUS_FOOD_COURTS } from '@/constants/campus/restaurant';
-
+import { generateFoodCourtParams } from '@/api/campus/generateStaticParams';
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export function generateStaticParams() {
-  const foodCourtIds = CAMPUS_FOOD_COURTS.map(fc => FOOD_COURT_ID[fc]);
-
-  return foodCourtIds.map(foodCourtId => ({
-    foodCourtId,
-  }));
+  return generateFoodCourtParams();
 }
 
 const Page = async (props: CampusFoodCourtPageProps) => {

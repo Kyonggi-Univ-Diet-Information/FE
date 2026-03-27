@@ -1,67 +1,14 @@
 import { CampusRestaurantPage, CampusFoodCourtPage } from '@/page/campus';
 
-import type { CategoryMenuResponse } from '@/api/campus/api.type';
-import { FOOD_COURT_ID, getFoodCourtById } from '@/api/config';
-import type { BaseResponse } from '@/api/config/api-base-types';
-import { ENDPOINT } from '@/api/config/api-endpoints';
-import { Http } from '@/api/config/api-handlers';
-import {
-  CAMPUS_FOOD_COURTS,
-  FOOD_COURT_RESTAURANTS,
-  RESTAURANT_ID_BY_NAME,
-  hasSubRestaurants,
-} from '@/constants/campus/restaurant';
+import { generateRestaurantParams } from '@/api/campus/generateStaticParams';
+import { getFoodCourtById } from '@/api/config';
+import { hasSubRestaurants } from '@/constants/campus/restaurant';
 
 export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const params: Array<{
-    foodCourtId: string;
-    restaurantId: string;
-  }> = [];
-
-  CAMPUS_FOOD_COURTS.forEach(foodCourt => {
-    const foodCourtId = FOOD_COURT_ID[foodCourt];
-    const restaurants = FOOD_COURT_RESTAURANTS[foodCourt];
-
-    if (restaurants.length > 0) {
-      restaurants.forEach(restaurant => {
-        params.push({
-          foodCourtId,
-          restaurantId: RESTAURANT_ID_BY_NAME[restaurant],
-        });
-      });
-    }
-  });
-
-  for (const foodCourt of CAMPUS_FOOD_COURTS) {
-    if (!hasSubRestaurants(foodCourt)) {
-      const foodCourtId = FOOD_COURT_ID[foodCourt];
-
-      try {
-        const response = await Http.getDirect<
-          BaseResponse<CategoryMenuResponse>
-        >({
-          request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
-          cache: 'force-cache',
-        });
-
-        const categories = Object.keys(response.result);
-
-        categories.forEach(category => {
-          params.push({
-            foodCourtId,
-            restaurantId: category,
-          });
-        });
-      } catch (error) {
-        console.error(`Failed to fetch categories for ${foodCourt}:`, error);
-      }
-    }
-  }
-
-  return params;
+  return await generateRestaurantParams();
 }
 
 const Page = async (props: {
