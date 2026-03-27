@@ -1,11 +1,17 @@
-import { LoginResponse } from './api.model';
+import {
+  LoginResponse,
+  SubmitGoogleLoginRequest,
+  SubmitGoogleLoginResponse,
+} from './api.model';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
-export async function submitGoogleLogin(code: string) {
+export async function submitGoogleLogin(
+  code: string,
+): Promise<SubmitGoogleLoginResponse> {
   try {
-    const response = await Http.post<{ code: string }, LoginResponse>({
+    const response = await Http.post<SubmitGoogleLoginRequest, LoginResponse>({
       request: ENDPOINT.AUTH.GOOGLE_LOGIN,
       data: { code },
     });

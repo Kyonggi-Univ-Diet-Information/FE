@@ -1,12 +1,18 @@
-import { LoginResponse } from './api.model';
+import {
+  LoginResponse,
+  SubmitRefreshRequest,
+  SubmitRefreshResponse,
+} from './api.model';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
-export async function submitRefresh(refreshToken: string) {
+export async function submitRefresh(
+  refreshToken: string,
+): Promise<SubmitRefreshResponse> {
   try {
     const response = await Http.postDirect<
-      { refreshToken: string },
+      SubmitRefreshRequest,
       LoginResponse
     >({
       request: ENDPOINT.AUTH.REFRESH,

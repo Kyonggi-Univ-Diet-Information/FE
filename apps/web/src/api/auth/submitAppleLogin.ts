@@ -1,24 +1,21 @@
-import { LoginResponse } from './api.model';
+import {
+  LoginResponse,
+  SubmitAppleLoginRequest,
+  SubmitAppleLoginResponse,
+  AppleUser,
+} from './api.model';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
-
-interface AppleUser {
-  name?: {
-    firstName?: string;
-    lastName?: string;
-  };
-  email?: string;
-}
 
 export async function submitAppleLogin(
   code: string,
   state: string | null,
   user?: AppleUser | null,
-) {
+): Promise<SubmitAppleLoginResponse> {
   try {
     const response = await Http.postDirect<
-      { code: string; state?: string | null; user?: AppleUser | null },
+      SubmitAppleLoginRequest,
       LoginResponse
     >({
       request: ENDPOINT.AUTH.APPLE_LOGIN,
