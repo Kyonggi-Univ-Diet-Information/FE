@@ -1,8 +1,8 @@
 import {
-  LoginResponse,
   SubmitGoogleLoginRequest,
   SubmitGoogleLoginResponse,
 } from './api.model';
+import type { LoginResponse } from './api.type';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
