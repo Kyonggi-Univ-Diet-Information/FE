@@ -1,11 +1,17 @@
-import { LoginResponse } from './api.model';
+import {
+  LoginResponse,
+  FetchKakaoLoginRequest,
+  FetchKakaoLoginResponse,
+} from './api.model';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
-export async function fetchKakaoLogin(code: string) {
+export async function fetchKakaoLogin(
+  code: string,
+): Promise<FetchKakaoLoginResponse> {
   try {
-    const response = await Http.get<LoginResponse, { code: string }>({
+    const response = await Http.get<LoginResponse, FetchKakaoLoginRequest>({
       request: ENDPOINT.AUTH.KAKAO_LOGIN,
       params: { code },
     });
