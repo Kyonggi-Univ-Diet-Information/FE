@@ -1,0 +1,28 @@
+export type DormDay = 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY';
+
+export type DormTime = 'BREAKFAST' | 'LUNCH' | 'DINNER';
+
+export type DormMenu = {
+  id: number;
+  dietFoodDTO: {
+    id: number;
+    name: string;
+    nameEn: string;
+    type: string | null;
+  };
+};
+
+export type DormTimeMenu = {
+  id: number;
+  date: string;
+  time: DormTime;
+  contents: DormMenu[];
+};
+
+export type DormDayMenu = {
+  [key in DormTime]: DormTimeMenu;
+};
+
+export type DormWeekMenu = {
+  [key in DormDay]: DormDayMenu;
+};
