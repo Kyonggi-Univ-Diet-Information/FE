@@ -1,18 +1,7 @@
-export interface LoginResponse {
-  token: string;
-  email: string;
-}
+import type { AppleUser } from './api.type';
 
 export interface FetchAppleLoginUrlResponse {
   url: string;
-}
-
-export interface AppleUser {
-  name?: {
-    firstName?: string;
-    lastName?: string;
-  };
-  email?: string;
 }
 
 export interface SubmitAppleLoginRequest {

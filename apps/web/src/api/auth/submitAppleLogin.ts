@@ -1,9 +1,8 @@
 import {
-  LoginResponse,
   SubmitAppleLoginRequest,
   SubmitAppleLoginResponse,
-  AppleUser,
 } from './api.model';
+import type { AppleUser, LoginResponse } from './api.type';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
