@@ -7,8 +7,20 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'apps/land/**'
+      - 'apps/web/**'
+      - 'pnpm-lock.yaml'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - 'apps/land/**'
+      - 'apps/web/**'
+      - 'pnpm-lock.yaml'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
