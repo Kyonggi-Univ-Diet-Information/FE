@@ -1,9 +1,9 @@
-import type { SubRestaurant } from '@/entities/campus-menu/model/campusRestaurant';
 
 import type { FoodType, SortingType } from '../model/search';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import type { SubRestaurant } from '@/constants/campus/restaurant';
 
 
 export type SearchResult = {

@@ -3,8 +3,6 @@ import type { CampusSetMenu } from '@/api/campus/api.type';
 import { fetchCampusMenuHasSet } from '@/api/campus/fetchCampusMenuHasSet';
 import { CampusFoodCourt } from '@/api/config';
 
-import { CampusFoodCourt } from '@/api/config';
-
 export default async function CampusMenuSet({
   type,
   baseFoodId,

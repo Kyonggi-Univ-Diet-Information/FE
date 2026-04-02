@@ -3,7 +3,7 @@
 import { AlertCircle, Ban, MoreVertical, Trash2Icon } from 'lucide-react';
 
 import { type FoodCourt } from '@/api/config';
-import { type ReportReason } from '@/api/review/fetchReportReasons';
+import type { ReportReason } from '@/api/review/api.type';
 import {
   Modal,
   Select,

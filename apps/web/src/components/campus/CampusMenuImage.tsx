@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Skeleton } from '@/shared/ui';
-import { cn } from '@/shared/utils';
-
 import { FOOD_COURT, type FoodCourt } from '@/api/config';
+import { Skeleton } from '@/components/common';
+import { cn } from '@/model/common';
+
 
 interface CampusMenuImageProps {
   menuId: number;

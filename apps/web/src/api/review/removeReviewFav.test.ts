@@ -1,13 +1,14 @@
 
 import { removeReviewFav } from './removeReviewFav';
-import { revalidateReviewFavCache } from '../lib/revalidateReviewCache';
+
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+import { revalidateReviewFavCache } from '@/model/review/revalidateReviewCache';
 
 // 모듈 모킹
-jest.mock('@/shared/api/http');
-jest.mock('../lib/revalidateReviewCache');
+jest.mock('@/api/config/api-handlers');
+jest.mock('@/model/review/revalidateReviewCache');
 
 describe('removeReviewFav', () => {
   const mockReviewId = 777;

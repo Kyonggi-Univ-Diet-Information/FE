@@ -3,16 +3,16 @@ import { SWRConfig } from 'swr';
 
 
 import { useReviewAction } from './useReviewAction';
-import { removeReview } from '../api/removeReview';
-import { submitReviewBlock } from '../api/submitReviewBlock';
 
 import { FOOD_COURT } from '@/api/config';
+import { removeReview } from '@/api/review/removeReview';
+import { submitReviewBlock } from '@/api/review/submitReviewBlock';
 
 // API 모듈 모킹
-jest.mock('../api/removeReview');
-jest.mock('../api/submitReviewBlock');
-jest.mock('../api/submitReviewReport');
-jest.mock('../api/fetchReportReasons', () => ({
+jest.mock('@/api/review/removeReview');
+jest.mock('@/api/review/submitReviewBlock');
+jest.mock('@/api/review/submitReviewReport');
+jest.mock('@/api/review/fetchReportReasons', () => ({
   fetchReportReasons: jest.fn(() =>
     Promise.resolve([
       { type: 'SPAM', description: '스팸' },
