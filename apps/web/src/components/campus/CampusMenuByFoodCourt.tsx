@@ -1,16 +1,16 @@
 import Link from 'next/link';
 
-import { cn } from '@/shared/utils';
 
 import CampusMenuCard from './CampusMenuCard';
-import { fetchCampusMenuByCategory } from '../api/fetchCampusMenuByCategory';
+
+import { fetchCampusMenuByCategory } from '@/api/campus/fetchCampusMenuByCategory';
+import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
 import {
   CATEGORY_TO_TEXT,
   type CampusFoodCourt,
   type CampusMenuWithCategory,
-} from '../model/campusMenu';
-
-import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
+} from '@/constants/campus/menu';
+import { cn } from '@/model/common';
 
 interface CampusMenuByFoodCourtProps {
   foodCourt: CampusFoodCourt;

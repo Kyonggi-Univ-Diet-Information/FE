@@ -1,6 +1,5 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-import { memberKeys, menuKeys, reviewKeys } from '@/shared/lib/queryKey';
 
 import {
   revalidateReviewCache,
@@ -8,6 +7,7 @@ import {
 } from './revalidateReviewCache';
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
+import { memberKeys, menuKeys, reviewKeys } from '@/model/common/queryKey';
 
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),

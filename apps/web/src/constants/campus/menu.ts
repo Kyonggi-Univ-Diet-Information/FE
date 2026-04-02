@@ -1,4 +1,4 @@
-import type { SubRestaurant } from './campusRestaurant';
+import type { SubRestaurant } from './restaurant';
 
 import type { FoodCourt } from '@/api/config';
 

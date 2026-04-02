@@ -1,11 +1,12 @@
-import { fetchReportReasons, type ReportReason } from './fetchReportReasons';
+import type { ReportReason } from './api.type';
+import { fetchReportReasons } from './fetchReportReasons';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
 
 // 모듈 모킹
-jest.mock('@/shared/api/http');
+jest.mock('@/api/config/api-handlers');
 
 describe('fetchReportReasons', () => {
   beforeEach(() => {

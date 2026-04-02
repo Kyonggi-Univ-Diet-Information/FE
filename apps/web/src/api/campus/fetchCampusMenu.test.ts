@@ -1,12 +1,13 @@
 
 import { fetchCampusMenu } from './fetchCampusMenu';
-import type { CampusMenu } from '../model/campusMenu';
+
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
+import type { CampusMenu } from '@/constants/campus/menu';
 
 // Http 모듈 모킹
-jest.mock('@/shared/api/http');
+jest.mock('@/api/config/api-handlers');
 
 describe('fetchCampusMenu', () => {
   const mockCampusMenuData: CampusMenu[] = [

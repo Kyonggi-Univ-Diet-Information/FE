@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
-import { fetchCampusMenuName } from '../api/fetchCampusMenuName';
-
+import { fetchCampusMenuName } from '@/api/campus/fetchCampusMenuName';
 import { type FoodCourt } from '@/api/config';
 
 
