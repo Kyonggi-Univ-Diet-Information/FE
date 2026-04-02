@@ -5,14 +5,12 @@ import { motion } from 'motion/react';
 import { useOptimistic, useTransition } from 'react';
 import { useSWRConfig } from 'swr';
 
-import { createMutateMatcher, reviewKeys } from '@/shared/lib/queryKey';
-import { Button } from '@/shared/ui';
-import { cn } from '@/shared/utils';
-
-import { removeReviewFav } from '../api/removeReviewFav';
-import { submitReviewFav } from '../api/submitReviewFav';
-
 import { type FoodCourt } from '@/api/config';
+import { removeReviewFav } from '@/api/review/removeReviewFav';
+import { submitReviewFav } from '@/api/review/submitReviewFav';
+import { Button } from '@/components/common';
+import { cn } from '@/model/common';
+import { createMutateMatcher, reviewKeys } from '@/model/common/queryKey';
 
 interface ReviewLikeButtonProps {
   type: FoodCourt;

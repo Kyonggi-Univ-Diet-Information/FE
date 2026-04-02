@@ -1,10 +1,8 @@
-import { cn } from '@/shared/utils';
-
-import { fetchReviewCount } from '../api/fetchReviewCount';
-import { fetchReviewRating } from '../api/fetchReviewRating';
-import { fetchReviewRatingAverage } from '../api/fetchReviewRatingAverage';
-
 import { type FoodCourt } from '@/api/config';
+import { fetchReviewCount } from '@/api/review/fetchReviewCount';
+import { fetchReviewRating } from '@/api/review/fetchReviewRating';
+import { fetchReviewRatingAverage } from '@/api/review/fetchReviewRatingAverage';
+import { cn } from '@/model/common';
 
 interface ReviewRatingSectionProps {
   type: FoodCourt;
