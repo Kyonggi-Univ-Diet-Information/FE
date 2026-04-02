@@ -5,10 +5,10 @@ import { SWRConfig } from 'swr';
 
 
 import ReviewItem from './ReviewItem';
-import { submitReviewBlock } from '../api/submitReviewBlock';
-import { revalidateReviewCache } from '../lib/revalidateReviewCache';
 
 import { FOOD_COURT, type FoodCourt } from '@/api/config';
+import { submitReviewBlock } from '@/api/review/submitReviewBlock';
+import { revalidateReviewCache } from '@/model/review/revalidateReviewCache';
 
 interface ReviewActionMenuProps {
   type: FoodCourt;
@@ -20,19 +20,21 @@ interface ReviewActionMenuProps {
 type SWRConfigValue = React.ComponentProps<typeof SWRConfig>['value'];
 
 // API 모듈 모킹
-jest.mock('../api/submitReviewBlock', () => ({
+jest.mock('@/api/review/submitReviewBlock', () => ({
   submitReviewBlock: jest.fn(async (reviewId, foodId, type) => {
     // 실제 submitReviewBlock의 동작을 시뮬레이션
-    const { revalidateReviewCache } = require('../lib/revalidateReviewCache');
+    const {
+      revalidateReviewCache,
+    } = require('@/model/review/revalidateReviewCache');
     // 성공 시 revalidateReviewCache 호출
     revalidateReviewCache({ type, foodId });
     return { success: true };
   }),
 }));
-jest.mock('../api/removeReview');
-jest.mock('../api/submitReviewReport');
-jest.mock('../lib/revalidateReviewCache');
-jest.mock('../api/fetchReportReasons', () => ({
+jest.mock('@/api/review/removeReview');
+jest.mock('@/api/review/submitReviewReport');
+jest.mock('@/model/review/revalidateReviewCache');
+jest.mock('@/api/review/fetchReportReasons', () => ({
   fetchReportReasons: jest.fn(() =>
     Promise.resolve([
       { type: 'SPAM', description: '스팸' },
@@ -66,7 +68,7 @@ jest.mock('./ReviewActionMenu', () => {
       type,
       foodId,
     }: ReviewActionMenuProps) => {
-      const { useReviewAction } = require('../model/useReviewAction');
+      const { useReviewAction } = require('@/model/review/useReviewAction');
 
       const { useState } = require('react');
 

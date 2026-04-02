@@ -4,7 +4,7 @@ import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
 // 모듈 모킹
-jest.mock('@/api/config/api-handler.ts');
+jest.mock('@/api/config/api-handlers');
 
 describe('submitReviewReport', () => {
   const reviewId = 123;

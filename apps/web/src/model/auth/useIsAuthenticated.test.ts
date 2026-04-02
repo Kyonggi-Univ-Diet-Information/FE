@@ -2,9 +2,6 @@ import { renderHook } from '@testing-library/react';
 
 import { useAuth } from './useIsAuthenticated';
 
-// action 모듈 모킹
-jest.mock('../action');
-
 // SWR 모킹
 jest.mock('swr', () => ({
   __esModule: true,
@@ -38,7 +35,7 @@ describe('useAuth Hook', () => {
     // Given: 인증된 상태 모킹
     global.__SWR_MOCK__ = {
       data: { isAuthenticated: true },
-      error: undefined,
+      error: null,
       isLoading: false,
       mutate: jest.fn(),
     };

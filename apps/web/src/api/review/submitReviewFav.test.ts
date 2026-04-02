@@ -5,8 +5,8 @@ import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
 // 모듈 모킹
-jest.mock('@/api/config/api-handler.ts');
-jest.mock('../lib/revalidateReviewCache');
+jest.mock('@/api/config/api-handlers');
+jest.mock('@/model/review/revalidateReviewCache');
 
 describe('submitReviewFav', () => {
   const mockReviewId = 888;
