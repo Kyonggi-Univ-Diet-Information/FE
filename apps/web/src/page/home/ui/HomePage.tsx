@@ -1,8 +1,6 @@
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-
-
 import CarouselWrapper from './CarouselWrapper';
 import DormSection from './DormSection';
 
@@ -21,7 +19,7 @@ export default function HomePage() {
     {
       href: `/campus/${FOOD_COURT_ID.E_SQUARE}`,
       title: '이스퀘어',
-      location: '제 1복지관 지하 1층',
+      location: '4강의동 옆',
       time: '07:30 ~ 20:30 (주문마감 19:30)',
     },
     {
