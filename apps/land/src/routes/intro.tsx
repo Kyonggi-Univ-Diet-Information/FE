@@ -41,9 +41,6 @@ export default function Intro() {
             >
               문의하기
             </a>
-            <button class='bg-point rounded-full px-5 py-2 text-sm font-bold text-white shadow-md shadow-orange-100 transition-all hover:scale-105 active:scale-95'>
-              시작하기
-            </button>
           </div>
         </div>
       </nav>
