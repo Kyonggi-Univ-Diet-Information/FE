@@ -3,7 +3,7 @@
 import React from 'react';
 import useSWR from 'swr';
 
-import { fetchDormMenu } from '@/api/dorm/fetchDormMenu';
+import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
 import { AnimatedCard, Section, Card } from '@/components/common';
 import { menuKeys } from '@/model/common/queryKey';
 import {
@@ -19,23 +19,22 @@ interface DormMenuSectionProps {
 }
 
 export default function DormMenuSection({ date }: DormMenuSectionProps) {
-  const { data: dormMenu } = useSWR(menuKeys.dorm(), fetchDormMenu, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const { data: dormMenu } = useSWR(
+    menuKeys.dormByDay(date),
+    () => fetchDormMenuByDay(date),
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  );
 
-  const currentDay = date;
-  const todayDormMenu = dormMenu?.[currentDay];
+  const todayDormMenu = dormMenu?.diet;
 
   const dormMenuByTime = (time: DormTime) => {
     if (!dormMenu) return getFallbackMenu(false);
 
-    if (isWeekend(currentDay)) {
+    if (isWeekend(date)) {
       return getFallbackMenu(true);
-    }
-
-    if (dormMenu[currentDay] === undefined) {
-      return getFallbackMenu(false);
     }
 
     if (!todayDormMenu || todayDormMenu[time] === undefined) {
