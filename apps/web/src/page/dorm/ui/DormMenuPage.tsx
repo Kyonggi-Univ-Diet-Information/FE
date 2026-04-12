@@ -1,5 +1,6 @@
 import { Section, StaticTabNavigation } from '@/components/common';
 import DormMenuByDay from '@/components/dorm/DormMenuByDay';
+
 import { getCampusMainTabs } from '@/model/common/campus';
 import { getWeekDates, getWeekStart } from '@/model/common/date';
 import { DORM_DAY, DORM_DAY_KEY, DORM_DAY_SHORT } from '@/model/dorm/dormDay';

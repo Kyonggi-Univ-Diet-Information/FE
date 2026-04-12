@@ -1,11 +1,13 @@
 import { MessageSquareText } from 'lucide-react';
 import Link from 'next/link';
 
-import CampusMenuImage from './CampusMenuImage';
 
 import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
 import { fetchReviewCount } from '@/api/review/fetchReviewCount';
+
 import type { CampusMenu } from '@/constants/campus/menu';
+
+import CampusMenuImage from './CampusMenuImage';
 
 interface CampusMenuCardProps extends CampusMenu {
   foodCourt: FoodCourt;

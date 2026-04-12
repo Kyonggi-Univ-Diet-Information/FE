@@ -1,12 +1,16 @@
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
+import { AnimatedCard, Section } from '@/components/common';
+
+import { FOOD_COURT_ID } from '@/api/config';
+
+import { RESTAURANT_ID_BY_NAME } from '@/constants/campus/restaurant';
+
 import CarouselWrapper from './CarouselWrapper';
 import DormSection from './DormSection';
 
-import { FOOD_COURT_ID } from '@/api/config';
-import { AnimatedCard, Section } from '@/components/common';
-import { RESTAURANT_ID_BY_NAME } from '@/constants/campus/restaurant';
+
 
 export default function HomePage() {
   const CampusFoodCourts = [

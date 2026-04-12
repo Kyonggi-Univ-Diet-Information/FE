@@ -1,8 +1,10 @@
 
-import { useKakaoLogin } from './useKakaoLogin';
 
 import { fetchAppleLoginUrl } from '@/api/auth/fetchAppleLoginUrl';
+
 import { isAndroid, setLoginState } from '@/model/common';
+
+import { useKakaoLogin } from './useKakaoLogin';
 
 interface SocialLoginParams {
   provider: 'kakao' | 'apple' | 'google';

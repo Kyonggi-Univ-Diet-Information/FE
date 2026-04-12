@@ -1,9 +1,10 @@
 import { cache } from 'react';
 
-import type { FetchCampusMenuByFoodCourtResponse } from './api.model';
 
 import { ENDPOINT, FoodCourt } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
+
+import type { FetchCampusMenuByFoodCourtResponse } from './api.model';
 
 export const fetchCampusMenuByFoodCourt = cache(
   async (foodCourt: FoodCourt): Promise<FetchCampusMenuByFoodCourtResponse> => {

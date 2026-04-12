@@ -1,11 +1,14 @@
-import ReviewAnimatedCard from './ReviewAnimatedCard';
+
+import { CampusMenuName } from '@/components/campus';
+import { Card, Section } from '@/components/common';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME, type FoodCourt } from '@/api/config';
 import type { RecentReview } from '@/api/review/api.type';
 import { fetchRecentReview } from '@/api/review/fetchRecentReview';
-import { CampusMenuName } from '@/components/campus';
-import { Card, Section } from '@/components/common';
+
 import { getRelativeDate, parseReviewDate } from '@/model/common/date';
+
+import ReviewAnimatedCard from './ReviewAnimatedCard';
 
 export default async function RecentReviewView() {
   const recentReviews = await fetchRecentReview();

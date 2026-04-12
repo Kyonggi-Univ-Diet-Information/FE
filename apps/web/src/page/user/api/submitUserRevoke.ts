@@ -1,7 +1,8 @@
-import { UserProvider } from './fetchUserProvider';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
+import { UserProvider } from './fetchUserProvider';
 
 
 interface RevokeResult {

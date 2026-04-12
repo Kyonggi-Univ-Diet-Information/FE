@@ -1,8 +1,9 @@
+import { type CampusFoodCourt, ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 import type { FetchCampusMenuHasSetResponse } from './api.model';
 import type { CampusSetMenu } from './api.type';
 
-import { type CampusFoodCourt, ENDPOINT } from '@/api/config';
-import { Http } from '@/api/config/api-handlers';
 
 export const fetchCampusMenuHasSet = async (
   type: CampusFoodCourt,

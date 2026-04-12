@@ -6,14 +6,17 @@ import { memo, useActionState, useEffect, useState } from 'react';
 import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
 
-import ReviewStarSelector from './ReviewStarSelector';
+
+import { Button } from '@/components/common/Button';
 
 import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
 import type { ReviewPost } from '@/api/review/api.type';
 import { submitReview } from '@/api/review/submitReview';
-import { Button } from '@/components/common/Button';
+
 import { cn } from '@/model/common';
 import { createMutateMatcher, reviewKeys } from '@/model/common/queryKey';
+
+import ReviewStarSelector from './ReviewStarSelector';
 
 interface ReviewTextAreaProps {
   register: UseFormRegisterReturn<'content'>;

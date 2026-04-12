@@ -1,8 +1,9 @@
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 import type { FetchDormMenuByDayResponse } from './api.model';
 import type { DormDay } from './api.type';
 
-import { ENDPOINT } from '@/api/config';
-import { Http } from '@/api/config/api-handlers';
 
 interface FetchDormMenuByDayApiResponse {
   result: FetchDormMenuByDayResponse;

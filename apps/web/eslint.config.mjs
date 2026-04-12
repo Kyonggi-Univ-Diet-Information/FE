@@ -45,22 +45,27 @@ const eslintConfig = [
               position: 'after',
             },
             {
-              pattern: '@/widgets/**',
+              pattern: '@/components/**',
               group: 'external',
               position: 'after',
             },
             {
-              pattern: '@/features/**',
+              pattern: '@/api/**',
               group: 'external',
               position: 'after',
             },
             {
-              pattern: '@/entities/**',
+              pattern: '@/model/**',
               group: 'external',
               position: 'after',
             },
             {
-              pattern: '@/shared/**',
+              pattern: '@/constants/**',
+              group: 'external',
+              position: 'after',
+            },
+            {
+              pattern: '@/types/**',
               group: 'external',
               position: 'after',
             },

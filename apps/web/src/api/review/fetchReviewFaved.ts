@@ -1,10 +1,12 @@
 'use server';
 
-import type { FetchReviewLikedRes } from './api.type';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 import { reviewKeys } from '@/model/common/queryKey';
+
+import type { FetchReviewLikedRes } from './api.type';
 
 export const fetchReviewFaved = async (
   type: FoodCourt,

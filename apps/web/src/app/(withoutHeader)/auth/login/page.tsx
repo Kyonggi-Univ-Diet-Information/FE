@@ -4,9 +4,10 @@ import { ChevronLeftIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Suspense } from 'react';
 
-import { POLICY_URL } from '@/api/config';
 import LoginSection from '@/components/auth/LoginSection';
 import { AuthCard, AuthPageWrapper, ExternalLink } from '@/components/common';
+
+import { POLICY_URL } from '@/api/config';
 
 
 function LoginContent() {

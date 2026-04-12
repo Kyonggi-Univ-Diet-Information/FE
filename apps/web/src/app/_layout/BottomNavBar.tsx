@@ -7,17 +7,21 @@ import { useState, useEffect, useRef } from 'react';
 
 
 
+import { FOOD_COURT_ID } from '@/api/config';
+
+import { cn } from '@/model/common';
+
+import {
+  FOOD_COURT_RESTAURANTS,
+  RESTAURANT_ID_BY_NAME,
+} from '@/constants/campus/restaurant';
+
 import Home from '../../../public/icons/icon-home.svg';
 import Restaurant2 from '../../../public/icons/icon-restaurant2.svg';
 import Review from '../../../public/icons/icon-review.svg';
 import User from '../../../public/icons/icon-user.svg';
 
-import { FOOD_COURT_ID } from '@/api/config';
-import {
-  FOOD_COURT_RESTAURANTS,
-  RESTAURANT_ID_BY_NAME,
-} from '@/constants/campus/restaurant';
-import { cn } from '@/model/common';
+
 
 export default function BottomNavBar() {
   const pathname = usePathname();

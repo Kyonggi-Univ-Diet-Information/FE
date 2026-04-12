@@ -1,3 +1,5 @@
+import type { FoodCourt } from '@/api/config';
+
 import type {
   CampusMenu,
   CampusMenuName,
@@ -7,7 +9,6 @@ import type {
   SubRestaurant,
 } from './api.type';
 
-import type { FoodCourt } from '@/api/config';
 
 export interface FetchCampusMenuByRestaurantRequest {
   restaurantId: SubRestaurant;

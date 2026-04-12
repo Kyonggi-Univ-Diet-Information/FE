@@ -1,10 +1,12 @@
 
-import { removeReview } from './removeReview';
 
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 import { revalidateReviewCache } from '@/model/review/revalidateReviewCache';
+
+import { removeReview } from './removeReview';
 
 // 모듈 모킹
 jest.mock('@/api/config/api-handlers');

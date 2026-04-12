@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 import { AuthCard, AuthPageWrapper, Button, Loader } from '@/components/common';
+
 import { useSocialCode } from '@/model/auth/useSocialCode';
 
 export default function AuthPage() {

@@ -1,5 +1,7 @@
-import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
 import { Section, Card } from '@/components/common';
+
+import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
+
 import {
   getFallbackMenu,
   isWeekend,

@@ -1,7 +1,9 @@
 
+import { AnimatedCard, Card } from '@/components/common';
+
 import { fetchCampusMenu } from '@/api/campus/fetchCampusMenu';
 import { FOOD_COURT_ID } from '@/api/config';
-import { AnimatedCard, Card } from '@/components/common';
+
 import {
   CAMPUS_RESTAURANT,
   CAMPUS_RESTAURANT_NAME,

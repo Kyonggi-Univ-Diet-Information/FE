@@ -1,15 +1,17 @@
-import type { CategoryMenuResponse } from './api.type';
 
 import { FOOD_COURT_ID } from '@/api/config';
 import type { BaseResponse } from '@/api/config/api-base-types';
 import { ENDPOINT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
+
 import {
   CAMPUS_FOOD_COURTS,
   FOOD_COURT_RESTAURANTS,
   RESTAURANT_ID_BY_NAME,
   hasSubRestaurants,
 } from '@/constants/campus/restaurant';
+
+import type { CategoryMenuResponse } from './api.type';
 
 export interface FoodCourtParams {
   foodCourtId: string;

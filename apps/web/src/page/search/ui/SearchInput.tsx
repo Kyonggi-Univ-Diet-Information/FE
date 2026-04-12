@@ -5,10 +5,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 
+import { FoodCourt } from '@/api/config/api-endpoints';
+
 import SearchFilter from './SearchFilter';
 import { SORTING_TYPE, SortingType } from '../model/search';
 
-import { FoodCourt } from '@/api/config/api-endpoints';
 
 interface SearchInputProps {
   showFilter?: boolean;

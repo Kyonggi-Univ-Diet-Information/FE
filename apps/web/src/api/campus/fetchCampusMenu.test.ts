@@ -1,10 +1,12 @@
 
-import { fetchCampusMenu } from './fetchCampusMenu';
 
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
+
 import type { CampusMenu } from '@/constants/campus/menu';
+
+import { fetchCampusMenu } from './fetchCampusMenu';
 
 // Http 모듈 모킹
 jest.mock('@/api/config/api-handlers');

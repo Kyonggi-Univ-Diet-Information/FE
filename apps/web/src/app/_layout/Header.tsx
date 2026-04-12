@@ -5,9 +5,11 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
-import { FOOD_COURT_ID, INQUIRY_URL } from '@/api/config';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { ExternalLink } from '@/components/common';
+
+import { FOOD_COURT_ID, INQUIRY_URL } from '@/api/config';
+
 import {
   FOOD_COURT_RESTAURANTS,
   RESTAURANT_ID_BY_NAME,

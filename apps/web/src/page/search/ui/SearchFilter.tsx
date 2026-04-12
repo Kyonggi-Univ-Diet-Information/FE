@@ -2,13 +2,7 @@ import { RotateCw, SortDescIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 
-import { SORTING_TYPE, SORTING_TYPE_NAME, SortingType } from '../model/search';
 
-import {
-  FOOD_COURT,
-  FOOD_COURT_NAME,
-  type FoodCourt,
-} from '@/api/config/api-endpoints';
 import { Select } from '@/components/common';
 import {
   SelectContent,
@@ -17,6 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/common/SelectComponent';
+
+import {
+  FOOD_COURT,
+  FOOD_COURT_NAME,
+  type FoodCourt,
+} from '@/api/config/api-endpoints';
+
+import { SORTING_TYPE, SORTING_TYPE_NAME, SortingType } from '../model/search';
 
 
 

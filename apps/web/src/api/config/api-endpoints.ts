@@ -1,5 +1,6 @@
-import type { SubRestaurant } from '@/constants/campus/restaurant';
 import { DormDay } from '@/model/dorm';
+
+import type { SubRestaurant } from '@/constants/campus/restaurant';
 
 export const PUBLIC_API_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://api.kiryong.kr/api';

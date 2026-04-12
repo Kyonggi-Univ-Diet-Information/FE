@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { FOOD_COURT, getFoodCourtById } from '@/api/config';
 import {
   CampusMenuName,
   CampusMenuPrice,
@@ -14,6 +13,9 @@ import { Loader, Modal, Button, AnimatedCard } from '@/components/common';
 import ReviewFormSection from '@/components/review/ReviewFormSection';
 import ReviewPagedView from '@/components/review/ReviewPagedView';
 import ReviewRating from '@/components/review/ReviewRating';
+
+import { FOOD_COURT, getFoodCourtById } from '@/api/config';
+
 import { AuthService } from '@/model/common/auth';
 
 

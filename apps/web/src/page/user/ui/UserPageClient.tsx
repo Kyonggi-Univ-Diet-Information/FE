@@ -6,15 +6,19 @@ import { useState } from 'react';
 
 
 
+import { Card, ExternalLink, Section } from '@/components/common';
+
+import { PATCHNOTE_URL, INQUIRY_URL } from '@/api/config';
+
+import { logout } from '@/model/auth/logout';
+import { useAuth } from '@/model/auth/useIsAuthenticated';
+
 import UserRevokeModal from './UserRevokeModal';
 import { fetchUserProvider } from '../api/fetchUserProvider';
 import { submitRevokeReason } from '../api/submitRevokeReason';
 import { submitUserRevoke } from '../api/submitUserRevoke';
 
-import { PATCHNOTE_URL, INQUIRY_URL } from '@/api/config';
-import { Card, ExternalLink, Section } from '@/components/common';
-import { logout } from '@/model/auth/logout';
-import { useAuth } from '@/model/auth/useIsAuthenticated';
+
 
 interface UserPageClientProps {
   userInfo: {

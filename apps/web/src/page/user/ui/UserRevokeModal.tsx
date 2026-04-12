@@ -3,10 +3,12 @@
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useEffect, useState } from 'react';
 
-import { fetchRevokeReason } from '../api/fetchRevokeReason';
 
 import { Button, Modal } from '@/components/common';
+
 import { cn } from '@/model/common/string';
+
+import { fetchRevokeReason } from '../api/fetchRevokeReason';
 
 interface UserRevokeModalProps {
   isOpen: boolean;

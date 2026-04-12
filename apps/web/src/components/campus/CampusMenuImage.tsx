@@ -3,8 +3,10 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { FOOD_COURT, type FoodCourt } from '@/api/config';
 import { Skeleton } from '@/components/common';
+
+import { FOOD_COURT, type FoodCourt } from '@/api/config';
+
 import { cn } from '@/model/common';
 
 

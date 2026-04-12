@@ -1,10 +1,13 @@
 
-import CampusAnimatedCard from './CampusAnimatedCard';
+
+import { Card, Section } from '@/components/common';
 
 import { fetchTopMenu } from '@/api/campus/fetchTopMenu';
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
-import { Card, Section } from '@/components/common';
+
 import type { CampusTopMenu } from '@/constants/campus/menu';
+
+import CampusAnimatedCard from './CampusAnimatedCard';
 
 export default async function CampusTopMenu() {
   const topMenus = await fetchTopMenu();

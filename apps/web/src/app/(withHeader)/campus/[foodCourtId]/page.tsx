@@ -1,6 +1,7 @@
 import { CampusFoodCourtPage, CampusFoodCourtPageProps } from '@/page/campus';
 
 import { FOOD_COURT_ID } from '@/api/config';
+
 import { CAMPUS_FOOD_COURTS } from '@/constants/campus/restaurant';
 
 

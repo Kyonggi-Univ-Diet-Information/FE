@@ -1,7 +1,8 @@
-import type { FetchCampusMenuNameResponse } from './api.model';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
+
+import type { FetchCampusMenuNameResponse } from './api.model';
 
 export const fetchCampusMenuName = async (
   foodCourt: FoodCourt,

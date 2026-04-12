@@ -1,6 +1,7 @@
+import type { FoodCourt } from '@/api/config';
+
 import type { Rating, RecentReview, ReportReason, Review } from './api.type';
 
-import type { FoodCourt } from '@/api/config';
 
 export type FetchRecentReviewResponse = RecentReview[];
 

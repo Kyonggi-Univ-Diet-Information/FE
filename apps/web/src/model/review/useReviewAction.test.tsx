@@ -2,11 +2,12 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 
 
-import { useReviewAction } from './useReviewAction';
 
 import { FOOD_COURT } from '@/api/config';
 import { removeReview } from '@/api/review/removeReview';
 import { submitReviewBlock } from '@/api/review/submitReviewBlock';
+
+import { useReviewAction } from './useReviewAction';
 
 // API 모듈 모킹
 jest.mock('@/api/review/removeReview');

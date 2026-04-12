@@ -1,9 +1,11 @@
 
-import type { FoodType, SortingType } from '../model/search';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 import type { SubRestaurant } from '@/constants/campus/restaurant';
+
+import type { FoodType, SortingType } from '../model/search';
 
 
 export type SearchResult = {

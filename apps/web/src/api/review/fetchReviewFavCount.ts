@@ -1,8 +1,10 @@
-import type { FetchReviewFavCountResponse } from './api.model';
 
 import { ENDPOINT, type FoodCourt } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 import { reviewKeys } from '@/model/common/queryKey';
+
+import type { FetchReviewFavCountResponse } from './api.model';
 
 export const fetchReviewFavCount = async (
   type: FoodCourt,

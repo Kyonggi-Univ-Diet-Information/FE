@@ -3,8 +3,10 @@
 import React from 'react';
 import useSWR from 'swr';
 
-import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
 import { AnimatedCard, Section, Card } from '@/components/common';
+
+import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
+
 import { menuKeys } from '@/model/common/queryKey';
 import {
   DormDay,

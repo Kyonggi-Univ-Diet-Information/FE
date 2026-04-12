@@ -1,10 +1,12 @@
 import Link from 'next/link';
 
 
-import CampusMenuCard from './CampusMenuCard';
 
 import { fetchCampusMenuByCategory } from '@/api/campus/fetchCampusMenuByCategory';
 import { getFoodCourtById } from '@/api/config';
+
+import { cn } from '@/model/common';
+
 import {
   CATEGORY_TO_TEXT,
   type CampusMenuWithCategory,
@@ -13,7 +15,8 @@ import {
   CAMPUS_RESTAURANT_ID,
   hasSubRestaurants,
 } from '@/constants/campus/restaurant';
-import { cn } from '@/model/common';
+
+import CampusMenuCard from './CampusMenuCard';
 
 interface CampusMenuByRestaurantProps {
   foodCourtId: string;

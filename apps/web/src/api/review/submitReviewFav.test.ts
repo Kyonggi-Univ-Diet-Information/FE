@@ -1,10 +1,12 @@
 
-import { submitReviewFav } from './submitReviewFav';
 
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 import { revalidateReviewFavCache } from '@/model/review/revalidateReviewCache';
+
+import { submitReviewFav } from './submitReviewFav';
 
 // 모듈 모킹
 jest.mock('@/api/config/api-handlers');

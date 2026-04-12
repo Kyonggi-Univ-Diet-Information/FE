@@ -1,12 +1,15 @@
 import React, { Suspense } from 'react';
 
-import { fetchUserFavReview } from '../api/fetchUserFavReview';
+
+import { Loader, Title } from '@/components/common';
+import ReviewItem from '@/components/review/ReviewItem';
 
 import { FOOD_COURT } from '@/api/config';
 import { fetchReviewFavCount } from '@/api/review/fetchReviewFavCount';
-import { Loader, Title } from '@/components/common';
-import ReviewItem from '@/components/review/ReviewItem';
+
 import { AuthService } from '@/model/common/auth';
+
+import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
 
 

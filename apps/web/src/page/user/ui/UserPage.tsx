@@ -1,12 +1,13 @@
 import { Suspense } from 'react';
 
 
+import { Loader } from '@/components/common';
+
 import UserPageClient from './UserPageClient';
 import { fetchUserFavReview } from '../api/fetchUserFavReview';
 import { fetchUserInfo } from '../api/fetchUserInfo';
 import { fetchUserReview } from '../api/fetchUserReview';
 
-import { Loader } from '@/components/common';
 
 export default async function UserPage() {
   const [userInfo, userFavReview, userReview] = await Promise.all([

@@ -1,10 +1,12 @@
-import type { FetchRecentReviewResponse } from './api.model';
-import type { RecentReview } from './api.type';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
 import { AuthService } from '@/model/common/auth';
 import { reviewKeys } from '@/model/common/queryKey';
+
+import type { FetchRecentReviewResponse } from './api.model';
+import type { RecentReview } from './api.type';
 
 export const fetchRecentReview = async (): Promise<FetchRecentReviewResponse> => {
   const isAuthenticated = await AuthService.isAuthenticated();

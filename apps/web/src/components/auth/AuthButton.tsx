@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 
-import { logout } from '../../model/auth/logout';
 
 import { Button } from '@/components/common';
+
 import { useAuth } from '@/model/auth/useIsAuthenticated';
+
+import { logout } from '../../model/auth/logout';
 
 export function AuthButton() {
   const { isAuthenticated, isLoading, refresh } = useAuth();

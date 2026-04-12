@@ -2,13 +2,15 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
-import { setAuthCookies } from './setAuthCookies';
 
 import { submitAppleLogin } from '@/api/auth/submitAppleLogin';
 import { submitGoogleLogin } from '@/api/auth/submitGoogleLogin';
 import { submitKakaoLogin } from '@/api/auth/submitKakaoLogin';
+
 import { getLoginState, isAndroid } from '@/model/common';
 import { authKeys } from '@/model/common/queryKey';
+
+import { setAuthCookies } from './setAuthCookies';
 
 function getAppDeepLink(): string {
   if (typeof window === 'undefined') return '';

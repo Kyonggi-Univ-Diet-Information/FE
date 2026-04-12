@@ -1,8 +1,9 @@
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 import type { ReportReason } from './api.type';
 import { fetchReportReasons } from './fetchReportReasons';
 
-import { ENDPOINT } from '@/api/config';
-import { Http } from '@/api/config/api-handlers';
 
 
 // 모듈 모킹

@@ -1,13 +1,15 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 
+
+import { ENDPOINT, FOOD_COURT } from '@/api/config';
+
+import { memberKeys, menuKeys, reviewKeys } from '@/model/common/queryKey';
+
 import {
   revalidateReviewCache,
   revalidateReviewFavCache,
 } from './revalidateReviewCache';
-
-import { ENDPOINT, FOOD_COURT } from '@/api/config';
-import { memberKeys, menuKeys, reviewKeys } from '@/model/common/queryKey';
 
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),

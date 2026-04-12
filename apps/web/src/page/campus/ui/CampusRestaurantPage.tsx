@@ -1,12 +1,16 @@
-import { getFoodCourtById } from '@/api/config';
 import { CampusMenuByRestaurant } from '@/components/campus';
 import { Section, StaticTabNavigation } from '@/components/common';
+
+import { getFoodCourtById } from '@/api/config';
+
+import { getCampusMainTabs } from '@/model/common/campus';
+
 import {
   CAMPUS_RESTAURANT,
   RESTAURANT_ID_BY_NAME,
   getRestaurantsByFoodCourt,
 } from '@/constants/campus/restaurant';
-import { getCampusMainTabs } from '@/model/common/campus';
+
 
 
 export const dynamic = 'force-dynamic';

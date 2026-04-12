@@ -3,13 +3,16 @@ import Link from 'next/link';
 
 
 
-import type { SearchResult } from '../api/fetchSearch';
-import { FOOD_TYPE_NAME } from '../model/search';
+
+import CampusMenuImage from '@/components/campus/CampusMenuImage';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
-import CampusMenuImage from '@/components/campus/CampusMenuImage';
+
 import { CATEGORY_TO_TEXT } from '@/constants/campus/menu';
 import { CAMPUS_RESTAURANT } from '@/constants/campus/restaurant';
+
+import type { SearchResult } from '../api/fetchSearch';
+import { FOOD_TYPE_NAME } from '../model/search';
 
 export default function SearchMenuCard({
   menuId,

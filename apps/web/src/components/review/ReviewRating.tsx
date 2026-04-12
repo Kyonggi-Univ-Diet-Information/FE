@@ -2,6 +2,7 @@ import { type FoodCourt } from '@/api/config';
 import { fetchReviewCount } from '@/api/review/fetchReviewCount';
 import { fetchReviewRating } from '@/api/review/fetchReviewRating';
 import { fetchReviewRatingAverage } from '@/api/review/fetchReviewRatingAverage';
+
 import { cn } from '@/model/common';
 
 interface ReviewRatingSectionProps {

@@ -1,7 +1,8 @@
-import { submitReviewReport } from './submitReviewReport';
 
 import { ENDPOINT, FOOD_COURT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
+import { submitReviewReport } from './submitReviewReport';
 
 
 // 모듈 모킹

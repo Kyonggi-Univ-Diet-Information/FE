@@ -1,16 +1,19 @@
 import Link from 'next/link';
 
 
-import CampusMenuCard from './CampusMenuCard';
 
 import { fetchCampusMenuByCategory } from '@/api/campus/fetchCampusMenuByCategory';
 import { type FoodCourt, FOOD_COURT_ID } from '@/api/config';
+
+import { cn } from '@/model/common';
+
 import {
   CATEGORY_TO_TEXT,
   type CampusFoodCourt,
   type CampusMenuWithCategory,
 } from '@/constants/campus/menu';
-import { cn } from '@/model/common';
+
+import CampusMenuCard from './CampusMenuCard';
 
 interface CampusMenuByFoodCourtProps {
   foodCourt: CampusFoodCourt;

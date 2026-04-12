@@ -1,7 +1,8 @@
-import { LoginResponse } from './api.model';
 
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
+
+import { LoginResponse } from './api.model';
 
 interface AppleUser {
   name?: {

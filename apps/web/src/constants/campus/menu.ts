@@ -1,6 +1,7 @@
+import type { FoodCourt } from '@/api/config';
+
 import type { SubRestaurant } from './restaurant';
 
-import type { FoodCourt } from '@/api/config';
 
 
 export type { CampusFoodCourt } from '@/api/config/api-endpoints';

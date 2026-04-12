@@ -1,4 +1,5 @@
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
+
 import { CAMPUS_FOOD_COURTS } from '@/constants/campus/restaurant';
 
 

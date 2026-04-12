@@ -1,10 +1,11 @@
 import { cache } from 'react';
 
+import { ENDPOINT } from '@/api/config/api-endpoints';
+import { Http } from '@/api/config/api-handlers';
+
 import type { FetchCampusMenuByRestaurantResponse } from './api.model';
 import type { SubRestaurant } from './api.type';
 
-import { ENDPOINT } from '@/api/config/api-endpoints';
-import { Http } from '@/api/config/api-handlers';
 
 export const fetchCampusMenuByRestaurant = cache(
   async (

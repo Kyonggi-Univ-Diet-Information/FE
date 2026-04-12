@@ -1,10 +1,11 @@
 'use server';
 
+import { ENDPOINT } from '@/api/config';
+import { Http } from '@/api/config/api-handlers';
+
 import type { FetchReportReasonsResponse } from './api.model';
 import type { ReportReason } from './api.type';
 
-import { ENDPOINT } from '@/api/config';
-import { Http } from '@/api/config/api-handlers';
 
 interface ReportReasonApiResponse {
   result: ReportReason[];

@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 
+import { FOOD_COURT } from '@/api/config';
+
 import ReviewItem from './ReviewItem';
 
-import { FOOD_COURT } from '@/api/config';
 
 
 // ReviewActionMenu와 관련 모듈 모킹
