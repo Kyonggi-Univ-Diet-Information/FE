@@ -1,0 +1,13 @@
+{
+  "name": "@kiryong/bridge",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
