@@ -4,7 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Linking from 'expo-linking';
 
-import { WebView } from 'react-native-webview';
+import type { WebView as WebViewType } from 'react-native-webview';
 
 import { router, SplashScreen, useLocalSearchParams } from 'expo-router';
 import {
@@ -14,6 +14,8 @@ import {
   isValidWebViewUrl,
   WEB_URL_PARAM_KEY,
 } from '@/lib/webUrl';
+
+import { WebView } from '@/bridge';
 
 export default function Index() {
   // 웹뷰 내부에서 외부 링크 열기
@@ -79,7 +81,7 @@ export default function Index() {
   const isTransparentPath =
     currentUrl.includes('/entry') || currentUrl.includes('/maintenance');
 
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebViewType>(null);
   const params = useLocalSearchParams();
 
   // 딥링크 처리
