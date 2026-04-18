@@ -97,7 +97,7 @@ export class Http {
       finalHeaders['x-require-auth'] = 'true';
     }
 
-    if (typeof window === 'undefined' && !skipCookies) {
+    if (typeof window === 'undefined' && !skipCookies && authorize) {
       try {
         const { cookies } = await import('next/headers');
         const cookieStore = await cookies();

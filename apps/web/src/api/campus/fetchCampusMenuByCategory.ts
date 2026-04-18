@@ -24,7 +24,7 @@ export const fetchCampusMenuByCategory = cache(
     foodCourt: CampusFoodCourt,
     restaurant?: SubRestaurant,
   ): Promise<CategorizedMenuData> => {
-    const response = await Http.get<BaseResponse<CategoryMenuResponse>>({
+    const response = await Http.getDirect<BaseResponse<CategoryMenuResponse>>({
       request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
       cache: 'force-cache',
     });

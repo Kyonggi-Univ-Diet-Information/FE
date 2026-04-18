@@ -13,8 +13,6 @@ import {
 
 
 
-export const dynamic = 'force-dynamic';
-
 export interface CampusRestaurantPageProps {
   params: Promise<{
     foodCourtId: string;

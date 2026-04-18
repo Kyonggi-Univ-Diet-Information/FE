@@ -5,7 +5,6 @@ import { FOOD_COURT_ID } from '@/api/config';
 import { CAMPUS_FOOD_COURTS } from '@/constants/campus/restaurant';
 
 
-export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export function generateStaticParams() {

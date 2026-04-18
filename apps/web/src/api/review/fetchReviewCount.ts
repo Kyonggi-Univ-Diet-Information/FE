@@ -10,7 +10,7 @@ export const fetchReviewCount = async (
   type: FoodCourt,
   foodId: number,
 ): Promise<FetchReviewCountResponse> => {
-  const data = await Http.get<FetchReviewCountResponse>({
+  const data = await Http.getDirect<FetchReviewCountResponse>({
     request: ENDPOINT.REVIEW_R.COUNT(type, foodId),
     cache: 'force-cache',
     next: {
