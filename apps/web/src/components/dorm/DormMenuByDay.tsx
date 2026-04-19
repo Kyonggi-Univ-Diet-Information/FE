@@ -11,12 +11,18 @@ import {
 } from '@/model/dorm';
 
 export default async function DormMenuByDay({ day }: { day: number }) {
-  const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]);
+  const dormMenu = await fetchDormMenuByDay(DORM_DAY_KEY[day]).catch(
+    () => null,
+  );
 
   const todayDormMenu = dormMenu && dormMenu.diet;
 
   const dormMenuByTime = (time: DormTime) => {
     if (!dormMenu) return getFallbackMenu(false);
+
+    if (!todayDormMenu) {
+      return getFallbackMenu(false);
+    }
 
     if (isWeekend(DORM_DAY_KEY[day])) {
       return getFallbackMenu(true);
