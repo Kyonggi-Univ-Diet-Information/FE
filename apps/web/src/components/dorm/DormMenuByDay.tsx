@@ -1,4 +1,5 @@
 import { Section, Card } from '@/components/common';
+import DormNoDataMessage from '@/components/dorm/DormNoDataMessage';
 
 import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
 
@@ -15,28 +16,21 @@ export default async function DormMenuByDay({ day }: { day: number }) {
     () => null,
   );
 
-  const todayDormMenu = dormMenu && dormMenu.diet;
+  const todayDormMenu = dormMenu?.diet;
+  const weekend = isWeekend(DORM_DAY_KEY[day]);
 
   const dormMenuByTime = (time: DormTime) => {
-    if (!dormMenu) return getFallbackMenu(false);
-
-    if (!todayDormMenu) {
-      return getFallbackMenu(false);
+    if (weekend) return getFallbackMenu('weekend');
+    if (!dormMenu || !todayDormMenu || todayDormMenu[time] === undefined) {
+      return null;
     }
-
-    if (isWeekend(DORM_DAY_KEY[day])) {
-      return getFallbackMenu(true);
-    }
-
-    if (dormMenu.diet === undefined) {
-      return getFallbackMenu(false);
-    }
-
-    if (todayDormMenu[time] === undefined) {
-      return getFallbackMenu(false);
-    }
-
     return todayDormMenu[time].contents || [];
+  };
+
+  const renderContent = (time: DormTime) => {
+    const menu = dormMenuByTime(time);
+    if (menu === null) return <DormNoDataMessage day={day} />;
+    return renderMenuItems(menu, 'ko');
   };
 
   return (
@@ -48,25 +42,19 @@ export default async function DormMenuByDay({ day }: { day: number }) {
               <Card.Header>
                 아침 <span className='font-tossFace'>☀️</span>
               </Card.Header>
-              <Card.Content>
-                {renderMenuItems(dormMenuByTime('BREAKFAST'), 'ko')}
-              </Card.Content>
+              <Card.Content>{renderContent('BREAKFAST')}</Card.Content>
             </Card>
             <Card>
               <Card.Header>
                 점심 <span className='font-tossFace'>🍽️</span>
               </Card.Header>
-              <Card.Content>
-                {renderMenuItems(dormMenuByTime('LUNCH'), 'ko')}
-              </Card.Content>
+              <Card.Content>{renderContent('LUNCH')}</Card.Content>
             </Card>
             <Card>
               <Card.Header>
                 저녁 <span className='font-tossFace'>🌙</span>
               </Card.Header>
-              <Card.Content>
-                {renderMenuItems(dormMenuByTime('DINNER'), 'ko')}
-              </Card.Content>
+              <Card.Content>{renderContent('DINNER')}</Card.Content>
             </Card>
           </div>
         </Section.Content>

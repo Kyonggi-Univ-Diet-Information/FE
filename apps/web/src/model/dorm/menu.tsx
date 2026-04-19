@@ -15,6 +15,15 @@ export const MENU_MESSAGES = {
       type: null,
     },
   },
+  COMING_SOON: {
+    id: 0,
+    dietFoodDTO: {
+      id: 0,
+      name: '아직 정보가 없어요!',
+      nameEn: 'Not available yet!',
+      type: null,
+    },
+  },
   WEEKEND_CLOSED: {
     id: 0,
     dietFoodDTO: {
@@ -29,10 +38,17 @@ export const MENU_MESSAGES = {
 /**
  * 메뉴 데이터가 없을 때 적절한 메시지를 반환하는 함수
  */
-export function getFallbackMenu(isWeekend: boolean): DormMenu[] {
-  return isWeekend
-    ? [MENU_MESSAGES.WEEKEND_CLOSED]
-    : [MENU_MESSAGES.NOT_UPDATED];
+export type FallbackStatus = 'weekend' | 'past' | 'future';
+
+export function getFallbackMenu(status: FallbackStatus): DormMenu[] {
+  switch (status) {
+    case 'weekend':
+      return [MENU_MESSAGES.WEEKEND_CLOSED];
+    case 'future':
+      return [MENU_MESSAGES.COMING_SOON];
+    case 'past':
+      return [MENU_MESSAGES.NOT_UPDATED];
+  }
 }
 
 /**

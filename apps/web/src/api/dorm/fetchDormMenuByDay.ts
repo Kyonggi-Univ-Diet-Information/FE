@@ -1,9 +1,10 @@
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
+import { menuKeys } from '@/model/common/queryKey';
+
 import type { FetchDormMenuByDayResponse } from './api.model';
 import type { DormDay } from './api.type';
-
 
 interface FetchDormMenuByDayApiResponse {
   result: FetchDormMenuByDayResponse;
@@ -16,6 +17,7 @@ export const fetchDormMenuByDay = async (
     request: ENDPOINT.DORM.DORM_MENU_BY_DAY(day),
     cache: 'force-cache',
     next: {
+      tags: [menuKeys.dorm.tag()],
       revalidate: 60 * 60 * 2,
     },
   });

@@ -1,4 +1,3 @@
-
 import { ENDPOINT } from '@/api/config';
 import { Http } from '@/api/config/api-handlers';
 
@@ -19,7 +18,7 @@ export const fetchDormMenu = async (): Promise<FetchDormMenuResponse> => {
   const data = await Http.get<FetchDormMenuApiResponse>({
     request: ENDPOINT.DORM.DORM_MENU,
     cache: 'force-cache',
-    next: { tags: [menuKeys.dorm.tag()] },
+    next: { tags: [menuKeys.dorm.tag()], revalidate: 60 * 60 * 2 },
   });
   return data.result;
 };

@@ -4,6 +4,7 @@ import React from 'react';
 import useSWR from 'swr';
 
 import { AnimatedCard, Section, Card } from '@/components/common';
+import DormNoDataMessage from '@/components/dorm/DormNoDataMessage';
 
 import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
 
@@ -33,17 +34,17 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
   const todayDormMenu = dormMenu?.diet;
 
   const dormMenuByTime = (time: DormTime) => {
-    if (!dormMenu) return getFallbackMenu(false);
-
-    if (isWeekend(date)) {
-      return getFallbackMenu(true);
+    if (isWeekend(date)) return getFallbackMenu('weekend');
+    if (!dormMenu || !todayDormMenu || todayDormMenu[time] === undefined) {
+      return null;
     }
-
-    if (!todayDormMenu || todayDormMenu[time] === undefined) {
-      return getFallbackMenu(false);
-    }
-
     return todayDormMenu[time].contents || [];
+  };
+
+  const renderContent = (time: DormTime) => {
+    const menu = dormMenuByTime(time);
+    if (menu === null) return <DormNoDataMessage day={new Date().getDay()} />;
+    return renderMenuItems(menu, 'ko');
   };
 
   return (
@@ -53,9 +54,7 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
           <Card.Header>
             아침 <span className='font-tossFace'>☀️</span>{' '}
           </Card.Header>
-          <Card.Content>
-            {renderMenuItems(dormMenuByTime('BREAKFAST'), 'ko')}
-          </Card.Content>
+          <Card.Content>{renderContent('BREAKFAST')}</Card.Content>
         </Card>
       </AnimatedCard>
       <AnimatedCard index={1}>
@@ -63,9 +62,7 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
           <Card.Header>
             점심 <span className='font-tossFace'>🍽️</span>{' '}
           </Card.Header>
-          <Card.Content>
-            {renderMenuItems(dormMenuByTime('LUNCH'), 'ko')}
-          </Card.Content>
+          <Card.Content>{renderContent('LUNCH')}</Card.Content>
         </Card>
       </AnimatedCard>
       <AnimatedCard index={2}>
@@ -73,9 +70,7 @@ export default function DormMenuSection({ date }: DormMenuSectionProps) {
           <Card.Header>
             저녁 <span className='font-tossFace'>🌙</span>
           </Card.Header>
-          <Card.Content>
-            {renderMenuItems(dormMenuByTime('DINNER'), 'ko')}
-          </Card.Content>
+          <Card.Content>{renderContent('DINNER')}</Card.Content>
         </Card>
       </AnimatedCard>
     </Section.Content>
