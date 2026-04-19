@@ -30,14 +30,14 @@ export default function ReviewLikeButton({
   isDisabled,
 }: ReviewLikeButtonProps) {
   const { mutate } = useSWRConfig();
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const [optimisticState, addOptimistic] = useOptimistic(
     { isLiked: initialIsLiked, likedCount },
     (_, newState: { isLiked: boolean; likedCount: number }) => newState,
   );
 
   const handleLikeToggle = async () => {
-    if (isDisabled) return;
+    if (isDisabled || isPending) return;
 
     const { isLiked, likedCount: currentCount } = optimisticState;
     const nextLiked = !isLiked;
