@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/purge-dorm",
+      "schedule": "0 1 * * 1"
+    }
+  ]
+}

@@ -15,11 +15,7 @@ export const fetchDormMenuByDay = async (
 ): Promise<FetchDormMenuByDayResponse> => {
   const data = await Http.getDirect<FetchDormMenuByDayApiResponse>({
     request: ENDPOINT.DORM.DORM_MENU_BY_DAY(day),
-    cache: 'force-cache',
-    next: {
-      tags: [menuKeys.dorm.tag()],
-      revalidate: 60 * 60 * 2,
-    },
+    next: { tags: [menuKeys.dorm.tag()] },
   });
   return data.result;
 };

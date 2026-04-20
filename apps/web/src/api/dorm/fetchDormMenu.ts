@@ -15,10 +15,9 @@ interface FetchDormMenuApiResponse {
 }
 
 export const fetchDormMenu = async (): Promise<FetchDormMenuResponse> => {
-  const data = await Http.get<FetchDormMenuApiResponse>({
+  const data = await Http.getDirect<FetchDormMenuApiResponse>({
     request: ENDPOINT.DORM.DORM_MENU,
-    cache: 'force-cache',
-    next: { tags: [menuKeys.dorm.tag()], revalidate: 60 * 60 * 2 },
+    next: { tags: [menuKeys.dorm.tag()] },
   });
   return data.result;
 };
