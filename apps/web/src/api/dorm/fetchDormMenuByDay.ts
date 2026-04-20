@@ -13,7 +13,7 @@ interface FetchDormMenuByDayApiResponse {
 export const fetchDormMenuByDay = async (
   day: DormDay,
 ): Promise<FetchDormMenuByDayResponse> => {
-  const data = await Http.get<FetchDormMenuByDayApiResponse>({
+  const data = await Http.getDirect<FetchDormMenuByDayApiResponse>({
     request: ENDPOINT.DORM.DORM_MENU_BY_DAY(day),
     cache: 'force-cache',
     next: {
