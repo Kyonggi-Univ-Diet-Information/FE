@@ -4,15 +4,15 @@ import Link from 'next/link';
 import { AnimatedCard, Section } from '@/components/common';
 
 import { FOOD_COURT_ID } from '@/api/config';
+import { fetchDormMenu } from '@/api/dorm/fetchDormMenu';
 
 import { RESTAURANT_ID_BY_NAME } from '@/constants/campus/restaurant';
 
 import CarouselWrapper from './CarouselWrapper';
 import DormSection from './DormSection';
 
-
-
-export default function HomePage() {
+export default async function HomePage() {
+  const dormMenu = await fetchDormMenu().catch(() => null);
   const CampusFoodCourts = [
     {
       href: `/campus/${FOOD_COURT_ID.KYONGSUL}/${RESTAURANT_ID_BY_NAME.MANKWON}`,
@@ -56,7 +56,7 @@ export default function HomePage() {
           <Section>
             <ReviewLinkButton />
           </Section>
-          <DormSection />
+          <DormSection dormMenu={dormMenu} />
         </div>
       </div>
     </>

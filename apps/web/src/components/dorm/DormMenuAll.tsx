@@ -1,14 +1,12 @@
 'use client';
 
 import React from 'react';
-import useSWR from 'swr';
 
 import { AnimatedCard, Section, Card } from '@/components/common';
 import DormNoDataMessage from '@/components/dorm/DormNoDataMessage';
 
-import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
+import type { DormDayMenu } from '@/api/dorm/api.type';
 
-import { menuKeys } from '@/model/common/queryKey';
 import {
   DormDay,
   DormTime,
@@ -19,26 +17,16 @@ import {
 
 interface DormMenuSectionProps {
   date: DormDay;
+  dayMenu: DormDayMenu | null;
 }
 
-export default function DormMenuSection({ date }: DormMenuSectionProps) {
-  const { data: dormMenu } = useSWR(
-    menuKeys.dormByDay(date),
-    () => fetchDormMenuByDay(date),
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  );
-
-  const todayDormMenu = dormMenu?.diet;
-
+export default function DormMenuSection({ date, dayMenu }: DormMenuSectionProps) {
   const dormMenuByTime = (time: DormTime) => {
     if (isWeekend(date)) return getFallbackMenu('weekend');
-    if (!dormMenu || !todayDormMenu || todayDormMenu[time] === undefined) {
+    if (!dayMenu || dayMenu[time] === undefined) {
       return null;
     }
-    return todayDormMenu[time].contents || [];
+    return dayMenu[time].contents || [];
   };
 
   const renderContent = (time: DormTime) => {

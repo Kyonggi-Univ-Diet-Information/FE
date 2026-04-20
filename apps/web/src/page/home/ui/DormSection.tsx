@@ -3,10 +3,11 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ReactNode, useState } from 'react';
 
-
 import { Section } from '@/components/common';
 import DormMenuAll from '@/components/dorm/DormMenuAll';
 import DormMenuAnimatedWrapper from '@/components/dorm/DormMenuAnimatedWrapper';
+
+import type { FetchDormMenuResponse } from '@/api/dorm/api.model';
 
 import { getCurrentDate } from '@/model/common/date';
 import { getAdjacentDates, isSaturday, isSunday } from '@/model/dorm';
@@ -19,7 +20,7 @@ const getWeekDateString = (date?: DormDay) => {
   return DORM_DAY[date];
 };
 
-export default function DormSection() {
+export default function DormSection({ dormMenu }: { dormMenu: FetchDormMenuResponse | null }) {
   const today = getCurrentDate().getDay();
   const [currentDay, setCurrentDay] = useState<DormDay>(DORM_DAY_KEY[today]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,7 +89,7 @@ export default function DormSection() {
         />
         <Section.Content>
           <DormMenuAnimatedWrapper currentDay={currentDay}>
-            <DormMenuAll date={currentDay} />
+            <DormMenuAll date={currentDay} dayMenu={dormMenu?.[currentDay] ?? null} />
           </DormMenuAnimatedWrapper>
         </Section.Content>
       </Section>
