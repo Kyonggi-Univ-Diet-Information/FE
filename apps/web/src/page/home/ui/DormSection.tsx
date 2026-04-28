@@ -89,7 +89,7 @@ export default function DormSection({ dormMenu }: { dormMenu: FetchDormMenuRespo
         />
         <Section.Content>
           <DormMenuAnimatedWrapper currentDay={currentDay}>
-            <DormMenuAll date={currentDay} dayMenu={dormMenu?.[currentDay] ?? null} />
+            <DormMenuAll dayMenu={dormMenu?.[currentDay] ?? null} />
           </DormMenuAnimatedWrapper>
         </Section.Content>
       </Section>

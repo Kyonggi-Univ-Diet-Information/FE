@@ -4,8 +4,6 @@ import DormNoDataMessage from '@/components/dorm/DormNoDataMessage';
 import { fetchDormMenuByDay } from '@/api/dorm/fetchDormMenuByDay';
 
 import {
-  getFallbackMenu,
-  isWeekend,
   renderMenuItems,
   DORM_DAY_KEY,
   type DormTime,
@@ -17,20 +15,14 @@ export default async function DormMenuByDay({ day }: { day: number }) {
   );
 
   const todayDormMenu = dormMenu?.diet;
-  const weekend = isWeekend(DORM_DAY_KEY[day]);
-
-  const dormMenuByTime = (time: DormTime) => {
-    if (weekend) return getFallbackMenu('weekend');
-    if (!dormMenu || !todayDormMenu || todayDormMenu[time] === undefined) {
-      return null;
-    }
-    return todayDormMenu[time].contents || [];
-  };
 
   const renderContent = (time: DormTime) => {
-    const menu = dormMenuByTime(time);
-    if (menu === null) return <DormNoDataMessage day={day} />;
-    return renderMenuItems(menu, 'ko');
+    if (!dormMenu || !todayDormMenu || todayDormMenu[time] === undefined) {
+      return <DormNoDataMessage status='NO_DATA' />;
+    }
+    const { status, contents } = todayDormMenu[time];
+    if (status !== 'OPEN') return <DormNoDataMessage status={status} />;
+    return renderMenuItems(contents, 'ko');
   };
 
   return (

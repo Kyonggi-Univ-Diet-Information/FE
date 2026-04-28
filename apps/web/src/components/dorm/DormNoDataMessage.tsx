@@ -1,12 +1,8 @@
 'use client';
 
-import { MENU_MESSAGES } from '@/model/dorm/menu';
+import type { DormMenuStatus } from '@/api/dorm/api.type';
 
-export default function DormNoDataMessage({ day }: { day: number }) {
-  const isPast = new Date().getDay() > day;
-  const message = isPast
-    ? MENU_MESSAGES.NOT_UPDATED.dietFoodDTO.name
-    : MENU_MESSAGES.COMING_SOON.dietFoodDTO.name;
-
+export default function DormNoDataMessage({ status }: { status: DormMenuStatus }) {
+  const message = status === 'CLOSED' ? '미운영' : '아직 정보가 없어요!';
   return <p className='text-gray-600'>{message}</p>;
 }

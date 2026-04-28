@@ -8,31 +8,22 @@ import DormNoDataMessage from '@/components/dorm/DormNoDataMessage';
 import type { DormDayMenu } from '@/api/dorm/api.type';
 
 import {
-  DormDay,
   DormTime,
-  getFallbackMenu,
-  isWeekend,
   renderMenuItems,
 } from '@/model/dorm';
 
 interface DormMenuSectionProps {
-  date: DormDay;
   dayMenu: DormDayMenu | null;
 }
 
-export default function DormMenuSection({ date, dayMenu }: DormMenuSectionProps) {
-  const dormMenuByTime = (time: DormTime) => {
-    if (isWeekend(date)) return getFallbackMenu('weekend');
-    if (!dayMenu || dayMenu[time] === undefined) {
-      return null;
-    }
-    return dayMenu[time].contents || [];
-  };
-
+export default function DormMenuSection({ dayMenu }: DormMenuSectionProps) {
   const renderContent = (time: DormTime) => {
-    const menu = dormMenuByTime(time);
-    if (menu === null) return <DormNoDataMessage day={new Date().getDay()} />;
-    return renderMenuItems(menu, 'ko');
+    if (!dayMenu || dayMenu[time] === undefined) {
+      return <DormNoDataMessage status='NO_DATA' />;
+    }
+    const { status, contents } = dayMenu[time];
+    if (status !== 'OPEN') return <DormNoDataMessage status={status} />;
+    return renderMenuItems(contents, 'ko');
   };
 
   return (

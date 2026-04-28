@@ -12,11 +12,14 @@ export type DormMenu = {
   };
 };
 
+export type DormMenuStatus = 'OPEN' | 'NO_DATA' | 'CLOSED';
+
 export type DormTimeMenu = {
   id: number;
   date: string;
   time: DormTime;
   contents: DormMenu[];
+  status: DormMenuStatus;
 };
 
 export type DormDayMenu = {
