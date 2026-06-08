@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react';
 
 import { FoodCourt } from '@/api/config/api-endpoints';
 
+import { SORTING_TYPE, SortingType } from '@/model/search/search';
+
 import SearchFilter from './SearchFilter';
-import { SORTING_TYPE, SortingType } from '../model/search';
 
 
 interface SearchInputProps {

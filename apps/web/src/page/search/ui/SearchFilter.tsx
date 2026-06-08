@@ -18,7 +18,7 @@ import {
   type FoodCourt,
 } from '@/api/config/api-endpoints';
 
-import { SORTING_TYPE, SORTING_TYPE_NAME, SortingType } from '../model/search';
+import { SORTING_TYPE, SORTING_TYPE_NAME, SortingType } from '@/model/search/search';
 
 
 
