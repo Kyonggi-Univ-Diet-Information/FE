@@ -2,7 +2,7 @@
 
 import { StaticTabNavigation } from '@/components/common';
 
-import { getCampusMainTabs } from '@/model/common/campus';
+import { getCampusMainTabs } from '@/model/campus/campus';
 
 export default function DormMainTabs() {
   const mainTabs = getCampusMainTabs('ko', '기숙사', new Date().getDay());

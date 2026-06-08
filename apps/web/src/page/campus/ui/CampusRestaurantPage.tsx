@@ -3,7 +3,7 @@ import { Section, StaticTabNavigation } from '@/components/common';
 
 import { getFoodCourtById } from '@/api/config';
 
-import { getCampusMainTabs } from '@/model/common/campus';
+import { getCampusMainTabs } from '@/model/campus/campus';
 
 import {
   CAMPUS_RESTAURANT,
