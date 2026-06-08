@@ -9,14 +9,14 @@ import { useState } from 'react';
 import { Card, ExternalLink, Section } from '@/components/common';
 
 import { PATCHNOTE_URL, INQUIRY_URL } from '@/api/config';
+import { fetchUserProvider } from '@/api/user/fetchUserProvider';
+import { submitRevokeReason } from '@/api/user/submitRevokeReason';
+import { submitUserRevoke } from '@/api/user/submitUserRevoke';
 
 import { logout } from '@/model/auth/logout';
 import { useAuth } from '@/model/auth/useIsAuthenticated';
 
 import UserRevokeModal from './UserRevokeModal';
-import { fetchUserProvider } from '../api/fetchUserProvider';
-import { submitRevokeReason } from '../api/submitRevokeReason';
-import { submitUserRevoke } from '../api/submitUserRevoke';
 
 
 

@@ -6,9 +6,10 @@ import { useEffect, useState } from 'react';
 
 import { Button, Modal } from '@/components/common';
 
+import { fetchRevokeReason } from '@/api/user/fetchRevokeReason';
+
 import { cn } from '@/model/common/string';
 
-import { fetchRevokeReason } from '../api/fetchRevokeReason';
 
 interface UserRevokeModalProps {
   isOpen: boolean;

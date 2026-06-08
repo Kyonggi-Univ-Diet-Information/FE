@@ -5,10 +5,10 @@ import { CampusMenuName } from '@/components/campus';
 import { Card, Loader, Title } from '@/components/common';
 
 import { FOOD_COURT_ID, FOOD_COURT_NAME } from '@/api/config';
+import { fetchUserReview } from '@/api/user/fetchUserReview';
 
 import { getRelativeDate, parseReviewDate } from '@/model/common/date';
 
-import { fetchUserReview } from '../api/fetchUserReview';
 
 
 

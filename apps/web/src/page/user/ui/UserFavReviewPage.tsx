@@ -6,10 +6,10 @@ import ReviewItem from '@/components/review/ReviewItem';
 
 import { FOOD_COURT } from '@/api/config';
 import { fetchReviewFavCount } from '@/api/review/fetchReviewFavCount';
+import { fetchUserFavReview } from '@/api/user/fetchUserFavReview';
 
 import { AuthService } from '@/model/common/auth';
 
-import { fetchUserFavReview } from '../api/fetchUserFavReview';
 
 
 
