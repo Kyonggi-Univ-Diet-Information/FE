@@ -55,7 +55,7 @@ export default function ReviewActionMenu({
     handleAction,
     handleReport,
     handleCloseReportDialog,
-  } = useReviewAction({ type, foodId, reviewId });
+  } = useReviewAction({ type, foodId, reviewId, isMyReview });
 
   return (
     <>

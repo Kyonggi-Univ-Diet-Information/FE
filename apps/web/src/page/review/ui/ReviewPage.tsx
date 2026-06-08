@@ -1,4 +1,3 @@
-import { PencilIcon } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -18,6 +17,7 @@ import { FOOD_COURT, getFoodCourtById } from '@/api/config';
 
 import { AuthService } from '@/model/common/auth';
 
+import ReviewWriteButton from './ReviewWriteButton';
 
 export interface ReviewPageProps {
   params: Promise<{ foodCourtId: string; foodId: string }>;
@@ -122,18 +122,11 @@ export default async function ReviewPage({
 
       {!isReviewMode && (
         <div className='fixed bottom-12 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-6'>
-          <Link
-            href={`/review/${foodCourtId}/${foodId}?reviewMode=true`}
-            className='flex justify-center'
-          >
-            <Button
-              variant='primary'
-              className='flex h-12 items-center gap-2 rounded-full px-6! shadow-lg shadow-orange-200 transition-all active:scale-95'
-            >
-              <PencilIcon size={18} />
-              <span className='text-base font-semibold'>리뷰 작성하기</span>
-            </Button>
-          </Link>
+          <ReviewWriteButton
+            foodCourtId={foodCourtId}
+            foodId={foodId}
+            isAuthenticated={isAuthenticated}
+          />
         </div>
       )}
     </div>

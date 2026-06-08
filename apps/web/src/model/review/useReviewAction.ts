@@ -8,18 +8,21 @@ import { removeReview } from '@/api/review/removeReview';
 import { submitReviewBlock } from '@/api/review/submitReviewBlock';
 import { submitReviewReport } from '@/api/review/submitReviewReport';
 
+import { trackEvent } from '@/model/common/ga4';
 import { createMutateMatcher, reviewKeys } from '@/model/common/queryKey';
 
 interface UseReviewActionProps {
   type: FoodCourt;
   foodId: number;
   reviewId: number;
+  isMyReview: boolean;
 }
 
 export function useReviewAction({
   type,
   foodId,
   reviewId,
+  isMyReview,
 }: UseReviewActionProps) {
   const { mutate } = useSWRConfig();
   const [pending, setPending] = useState(false);
@@ -45,6 +48,11 @@ export function useReviewAction({
     setPending(true);
     try {
       await removeReview(reviewId, foodId, type);
+      trackEvent('review_action', {
+        action: 'delete',
+        review_id: String(reviewId),
+        is_my_review: isMyReview,
+      });
       // 리뷰 목록 캐시 무효화 (해당 음식점의 모든 페이지)
       mutate(
         createMutateMatcher(
@@ -67,6 +75,11 @@ export function useReviewAction({
     try {
       const result = await submitReviewBlock(reviewId, foodId, type);
       if (result.success) {
+        trackEvent('review_action', {
+          action: 'block',
+          review_id: String(reviewId),
+          is_my_review: isMyReview,
+        });
         // 리뷰 목록 캐시 무효화 (해당 음식점의 모든 페이지)
         // 서버에서 revalidateReviewCache가 호출되지만, 클라이언트 캐시도 무효화 필요
         mutate(
@@ -104,6 +117,11 @@ export function useReviewAction({
     try {
       const result = await submitReviewReport(reviewId, type, selectedReason);
       if (result.success) {
+        trackEvent('review_action', {
+          action: 'report',
+          review_id: String(reviewId),
+          is_my_review: isMyReview,
+        });
         alert('신고가 접수되었습니다.');
         setShowReportDialog(false);
       } else {

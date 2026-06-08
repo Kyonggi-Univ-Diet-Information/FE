@@ -12,11 +12,13 @@ import { removeReviewFav } from '@/api/review/removeReviewFav';
 import { submitReviewFav } from '@/api/review/submitReviewFav';
 
 import { cn } from '@/model/common';
+import { trackEvent } from '@/model/common/ga4';
 import { createMutateMatcher, reviewKeys } from '@/model/common/queryKey';
 
 interface ReviewLikeButtonProps {
   type: FoodCourt;
   reviewId: number;
+  reviewRating: number;
   initialIsLiked: boolean;
   likedCount: number;
   isDisabled: boolean;
@@ -25,6 +27,7 @@ interface ReviewLikeButtonProps {
 export default function ReviewLikeButton({
   type,
   reviewId,
+  reviewRating,
   initialIsLiked,
   likedCount,
   isDisabled,
@@ -51,11 +54,22 @@ export default function ReviewLikeButton({
       try {
         if (isLiked) {
           await removeReviewFav(reviewId, type);
+          trackEvent('review_unlike', {
+            review_id: String(reviewId),
+            review_rating: reviewRating,
+          });
         } else {
           await submitReviewFav(reviewId, type);
+          trackEvent('review_like', {
+            review_id: String(reviewId),
+            review_rating: reviewRating,
+          });
         }
         mutate(createMutateMatcher(reviewKeys.all()));
       } catch (error) {
+        trackEvent('review_like_error', {
+          error_message: '좋아요 등록에 실패했어요',
+        });
         alert(
           '좋아요 등록에 실패했어요! 계속 문제가 발생할 경우 관리자에게 문의해 주세요!',
         );

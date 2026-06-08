@@ -14,6 +14,7 @@ import type { ReviewPost } from '@/api/review/api.type';
 import { submitReview } from '@/api/review/submitReview';
 
 import { cn } from '@/model/common';
+import { trackEvent } from '@/model/common/ga4';
 import { createMutateMatcher, reviewKeys } from '@/model/common/queryKey';
 
 import ReviewStarSelector from './ReviewStarSelector';
@@ -68,8 +69,16 @@ export default function ReviewFormSection({
 
   useEffect(() => {
     if (state?.error) {
+      trackEvent('review_submit_error', { error_message: state.error });
       alert(state.error);
     } else if (state?.success) {
+      trackEvent('review_submit_success', {
+        menu_id: String(foodId),
+        rating: selectedStars,
+        content_length: contentValue.length,
+        language: navigator.language || 'ko',
+      });
+
       reset();
       setSelectedStars(3);
       mutate(
@@ -82,7 +91,7 @@ export default function ReviewFormSection({
       const foodCourtId = FOOD_COURT_ID[foodCourt];
       router.replace(`/review/${foodCourtId}/${foodId}`);
     }
-  }, [state, reset, mutate, router, foodCourt, foodId]);
+  }, [state, reset, mutate, router, foodCourt, foodId, selectedStars, contentValue.length]);
 
   return (
     <form className='flex w-full flex-col gap-4' action={formAction}>
@@ -103,7 +112,14 @@ export default function ReviewFormSection({
         <div className='flex justify-center py-2'>
           <ReviewStarSelector
             selectedStars={selectedStars}
-            setSelectedStars={setSelectedStars}
+            setSelectedStars={(stars: number) => {
+              setSelectedStars(stars);
+              trackEvent('rating_select', {
+                rating: stars,
+                menu_id: String(foodId),
+                language: navigator.language || 'ko',
+              });
+            }}
           />
         </div>
       </div>

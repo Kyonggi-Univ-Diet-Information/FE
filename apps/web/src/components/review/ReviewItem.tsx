@@ -85,6 +85,7 @@ export default function ReviewItem({
         <ReviewFavButton
           type={type}
           reviewId={id}
+          reviewRating={rating}
           initialIsLiked={isLiked}
           likedCount={likedCount}
           isDisabled={!isAuthenticated}
