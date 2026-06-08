@@ -6,6 +6,8 @@ import type { BaseResponse } from '@/api/config/api-base-types';
 import { ENDPOINT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
 
+import { menuKeys } from '@/model/common/queryKey';
+
 import type {
   CampusFoodCourt,
   CategoryMenuResponse,
@@ -26,7 +28,7 @@ export const fetchCampusMenuByCategory = cache(
   ): Promise<CategorizedMenuData> => {
     const response = await Http.getDirect<BaseResponse<CategoryMenuResponse>>({
       request: ENDPOINT.MENU.MENU_BY_CATEGORY(foodCourt),
-      cache: 'force-cache',
+      next: { tags: [menuKeys.campus.tag(foodCourt)], revalidate: 60 * 60 },
     });
 
     const data = response.result;

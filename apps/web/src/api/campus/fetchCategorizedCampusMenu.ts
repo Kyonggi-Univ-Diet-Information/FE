@@ -5,6 +5,8 @@ import { cache } from 'react';
 import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
 
+import { menuKeys } from '@/model/common/queryKey';
+
 import type { CampusMenu } from '@/constants/campus/menu';
 import type { SubRestaurant } from '@/constants/campus/restaurant';
 
@@ -18,7 +20,7 @@ export const fetchCategorizedCampusMenu = cache(
         FOOD_COURT.KYONGSUL,
         restaurantId,
       ),
-      cache: 'force-cache',
+      next: { tags: [menuKeys.campus.tag(FOOD_COURT.KYONGSUL)], revalidate: 60 * 60 },
     });
     const filtered = data
       .filter(menu => menu.name.includes(menuKey))

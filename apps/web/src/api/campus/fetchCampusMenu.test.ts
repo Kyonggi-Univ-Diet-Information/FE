@@ -4,6 +4,8 @@
 import { ENDPOINT, FOOD_COURT } from '@/api/config/api-endpoints';
 import { Http } from '@/api/config/api-handlers';
 
+import { menuKeys } from '@/model/common/queryKey';
+
 import type { CampusMenu } from '@/constants/campus/menu';
 
 import { fetchCampusMenu } from './fetchCampusMenu';
@@ -48,7 +50,7 @@ describe('fetchCampusMenu', () => {
 
     expect(Http.get).toHaveBeenCalledWith({
       request: ENDPOINT.MENU.MENU_ALL(FOOD_COURT.KYONGSUL),
-      cache: 'force-cache',
+      next: { tags: [menuKeys.campus.tag(FOOD_COURT.KYONGSUL)], revalidate: 3600 },
     });
 
     expect(result).toEqual({
