@@ -7,7 +7,7 @@
  * 하나의 팩토리에서 키를 관리하며, 두 캐시 계층 모두에 대응합니다.
  */
 
-import type { FoodCourt } from '@/api/config';
+import type { CampusFoodCourt, FoodCourt } from '@/api/config';
 
 export type QueryKey = readonly unknown[];
 
@@ -106,6 +106,14 @@ export const menuKeys = {
   ),
   campus: createQueryKeyFactory(
     (foodCourt: FoodCourt) => ['menu', 'campus', foodCourt] as const,
+  ),
+  campusDetail: createQueryKeyFactory(
+    (foodCourt: FoodCourt, menuId: number) =>
+      ['menu', 'campus', foodCourt, 'detail', menuId] as const,
+  ),
+  campusSet: createQueryKeyFactory(
+    (foodCourt: CampusFoodCourt, baseFoodId: number) =>
+      ['menu', 'campus', foodCourt, 'set', baseFoodId] as const,
   ),
   top: createQueryKeyFactory(() => ['menu', 'top'] as const),
 } as const;
