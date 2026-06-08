@@ -63,6 +63,50 @@ The web app (`apps/web/src/`) strictly follows **FSD (Feature Sliced Design)**. 
 | `constants/` | `src/constants/` | Static data |
 | `types/` | `src/types/` | TypeScript type definitions |
 
+### Directory Structure
+
+```
+src/
+├── api/
+│   ├── auth/       # OAuth login/refresh
+│   ├── campus/     # Campus menu fetching
+│   ├── config/     # Http client, endpoints, base types
+│   ├── dorm/       # Dormitory menu fetching
+│   ├── review/     # Review fetch + server actions
+│   ├── search/     # Menu search
+│   └── user/       # Member info, revoke
+├── app/
+│   ├── (withHeader)/   # Routes with header+nav (campus, review, search, user)
+│   ├── (withoutHeader)/ # Full-screen routes (auth, entry, maintenance)
+│   ├── _layout/    # Header, BottomNavBar
+│   ├── _providers/ # ErrorProvider, SwrProvider
+│   └── api/        # BFF proxy, auth callbacks, purge-dorm
+├── components/
+│   ├── auth/
+│   ├── campus/
+│   ├── common/
+│   ├── dorm/
+│   └── review/
+├── constants/
+│   └── campus/     # Menu and restaurant static data
+├── model/
+│   ├── auth/       # Auth hooks (useIsAuthenticated, useSocialLogin)
+│   ├── campus/     # Campus tab utilities (getCampusMainTabs)
+│   ├── common/     # Shared infra: queryKey, serverAction, date, auth service
+│   ├── dorm/       # Dorm date/time utilities
+│   ├── review/     # Cache invalidation, review action hooks
+│   └── search/     # Search constants (FOOD_TYPE, SORTING_TYPE)
+├── page/
+│   ├── campus/
+│   ├── dorm/
+│   ├── entry/
+│   ├── home/
+│   ├── review/
+│   ├── search/     # UI components only (api/model moved to src/api, src/model)
+│   └── user/       # UI components only (api moved to src/api/user)
+└── types/
+```
+
 ### Routing
 
 - **`(withHeader)`** layout group — pages rendered with top header + bottom nav (campus, user, search, review)
@@ -72,14 +116,17 @@ The web app (`apps/web/src/`) strictly follows **FSD (Feature Sliced Design)**. 
 
 ### Data Fetching
 
-- **Server components**: `fetch()` with Next.js cache tags for revalidation
+- **Server components**: `fetch()` with Next.js cache tags (`next.tags` + `revalidate`) for ISR
 - **Client components**: SWR for client-side data fetching
 - **HTTP client**: Custom `Http` class in `src/api/config/api-handlers.ts`
-  - Requests go through BFF routes (`/api/bff/*`) or directly to the API
+  - `Http.get/post/del` — goes through BFF route (`/api/bff/*`)
+  - `Http.getDirect/postDirect` — calls external API directly (build-time / auth only)
   - 401 responses trigger auto-redirect to login
-- **Query keys**: `queryKey` factory in `src/model/common/` — shared between SWR and Next.js cache tags
+- **Query keys**: `queryKey` factory in `src/model/common/queryKey.ts` — shared between SWR and Next.js cache tags
   - Tag format: array → colon-joined string (e.g., `['reviews', 'campus', '1']` → `'reviews:campus:1'`)
-- **Cache invalidation**: `revalidateReviewCache()` invalidates both SWR and Next.js caches simultaneously
+  - Domains: `authKeys`, `reviewKeys`, `memberKeys`, `menuKeys`
+- **Cache invalidation**: `revalidateReviewCache()` in `src/model/review/` invalidates both SWR and Next.js caches simultaneously
+- **Server actions**: all in `src/api/review/` — use `runServerAction()` wrapper from `src/model/common/serverAction.ts`
 
 ### State Management
 
