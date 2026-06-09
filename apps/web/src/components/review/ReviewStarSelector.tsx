@@ -1,7 +1,5 @@
 'use client';
 
-import type { Dispatch, SetStateAction } from 'react';
-
 import { cn } from '@/model/common';
 
 export default function StarSelector({
@@ -9,7 +7,7 @@ export default function StarSelector({
   setSelectedStars,
 }: {
   selectedStars: number;
-  setSelectedStars: Dispatch<SetStateAction<number>>;
+  setSelectedStars: (value: number) => void;
 }) {
   const Star = ({ selected, index }: { selected: boolean; index: number }) => (
     <button
